@@ -1,0 +1,4 @@
+
+#to clone github repo
+git clone https://github.com/vladn-ma/vladn-ovs-doc
+
