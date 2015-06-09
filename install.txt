@@ -3,6 +3,9 @@
 # work with git and github
 #-----------------------------------------------------------------------------
 
+#to create fork in github
+#using brouser to to github main project and use menu, give your github account name
+
 #to clone github repo
 git clone https://github.com/vladn-ma/vladn-ovs-doc
 
@@ -29,6 +32,64 @@ git branch vland-dev
 git branch
 git checkout vladn-dev
 git status
+
+#-----------------------------------------------------------------------------
+# OVS
+#-----------------------------------------------------------------------------
+
+#-----------------------------------------------------------------------------
+#OVS build
+
+#update and upgrade system
+sudo apt-get update
+sudo apt-get dist-upgrade
+
+#install dependencies and tools
+sudo apt-get install python-simplejson automake autoconf gcc uml-utilities libtool build-essential git pkg-config linux-headers-$(uname -r)
+
+#bootstrapping
+cd ovs.git
+./boot sh
+
+#configure to bould ovs userspace and kernel modules
+./configure --with-linux=/lib/modules/$(uname -r)/build
+
+#make
+make clean
+make
+
+#chdck if build is successfull
+make check TESTSUITEFLAGS=-j4
+
+#install modules
+sudo make modules_install
+sudo modprobe openvswitch
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
