@@ -1,4 +1,40 @@
 
+#-----------------------------------------------------------------------------
+# work with git and github
+#-----------------------------------------------------------------------------
+
 #to clone github repo
 git clone https://github.com/vladn-ma/vladn-ovs-doc
+
+#to see remotes
+git remote -v
+
+#set remote origin for fork
+git remote set-url origin https://github.com/vladn-ma/ovs
+
+#set remote upstream for the fork
+git remote add upstream https://github.com/openvswitch/ovs.git
+
+#to sinc fork with with upstream (main remote repo)
+git fetch upstream
+git checkout master
+git merge upstream/master
+
+#or
+git pull upstream
+git push origin
+
+#create development branch and verify it
+git branch vland-dev
+git branch
+git checkout vladn-dev
+git status
+
+
+
+
+
+
+
+
 
