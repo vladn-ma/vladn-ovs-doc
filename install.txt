@@ -61,9 +61,128 @@ make
 #chdck if build is successfull
 make check TESTSUITEFLAGS=-j4
 
+#remove modules
+sudo modprobe -r openvswitch
+#or
+rmmod openvswitch
+
 #install modules
 sudo make modules_install
 sudo modprobe openvswitch
+
+#verify modules
+lsmod | grep openvswitch
+
+#-----------------------------------------------------------------------------
+#OVS start
+
+#init config database
+sudo touch /usr/local/etc/ovs-vswitchd.conf
+sudo mkdir -p /usr/local/etc/openvswitch
+sudo ovsdb-tool create /usr/local/etc/openvswitch/conf.db vswitchd/vswitch.ovsschema
+ 
+#start database server
+sudo ovsdb-server \
+--remote=punix:/usr/local/var/run/openvswitch/db.sock \
+--remote=db:Open_vSwitch,Open_vSwitch,manager_options \
+--pidfile \
+--detach \
+--log-file
+
+#init database - just once
+sudo ovs-vsctl --no-wait init
+
+#start ovs demon
+sudo ovs-vswitchd --pidfile --detach
+
+#verify OVS modules
+lsmod | grep br
+
+#-----------------------------------------------------------------------------
+#OVS configure
+
+#find out available eth port
+ifconfig
+
+#add bridge and port
+sudo ovs-vsctl add-br br0
+sudo ovs-vsctl add-port br0 eth1
+
+#delete bridge and port
+sudo ovs-vsctl del-br br0
+sudo ovs-vsctl del-port br0 eth0
+
+#Zero out your eth0 interface and slap it on the bridge interface
+ifconfig eth0 0
+
+#verify
+ifconfig
+
+#OVS get info
+sudo ovs-vsctl show
+sudo ovs-vsctl show br0
+sudo ovs-vsctl list-br
+sudo ovs-vsctl list bridge
+sudo ovs-vsctl list bridge br0
+sudo ovs-vsctl list-ports br0
+sudo ovs-vsctl list port
+sudo ovs-vsctl list port eth0
+sudo cat /usr/local/var/log/openvswitch/ovsdb-server.log
+
+#OVS show linux rauting table
+route -n
+
+#OVS to dump all tables from db
+sudo ovsdb-client dump
+sudo ovsdb-client get-schema --pretty
+
+#-----------------------------------------------------------------------------
+#OVS / OF config
+
+sudo ovs-ofctl dump-tables br0
+sudo ovs-ofctl dump-flows br0
+
+#-----------------------------------------------------------------------------
+# KVM
+#-----------------------------------------------------------------------------
+
+#install KVM
+sudo apt-get install qemu-kvm libvirt-bin bridge-utils virt-manager
+sudo adduser vladimir libvirtd
+
+sudo mkdir /etc/openvswitch
+sudo nano /etc/openvswitch/ovs-ifup
+
+#insert in the file
+#!/bin/sh
+switch='br0'
+/sbin/ifconfig $1 0.0.0.0 up
+ovs-vsctl add-port ${switch} $1
+
+sudo nano /etc/openvswitch/ovs-ifdown
+#insert in the file
+
+#!/bin/sh
+switch='br0'
+/sbin/ifconfig $1 0.0.0.0 down
+ovs-vsctl del-port ${switch} $1
+
+sudo chmod +x /etc/openvswitch/ovs-ifup /etc/openvswitch/ovs-ifdown
+
+#run virtual machine
+sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -cdrom /home/vladimir/Downloads/ubuntu-15.04-server-amd64.iso
+
+
+
+#-----------------------------------------------------------------------------
+
+
+
+
+
+
+
+
 
 
 

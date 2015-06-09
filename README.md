@@ -1,2 +1,3 @@
 # vladn-ovs-doc
-notes for ovs development
+commands, scripts and notes for OVS (/KVM) testing and development
+
