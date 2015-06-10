@@ -49,14 +49,15 @@ sudo apt-get install python-simplejson automake autoconf gcc uml-utilities libto
 
 #bootstrapping
 cd ovs.git
-./boot sh
+./boot.sh
 
 #configure to bould ovs userspace and kernel modules
 ./configure --with-linux=/lib/modules/$(uname -r)/build
 
 #make
 make clean
-make
+make -j4
+sudo make install
 
 #chdck if build is successfull
 make check TESTSUITEFLAGS=-j4
@@ -107,6 +108,7 @@ ifconfig
 #add bridge and port
 sudo ovs-vsctl add-br br0
 sudo ovs-vsctl add-port br0 eth1
+sudo ovs-vsctl add-port br0 br0p1 -- set interface br0p1 type=internal
 
 #delete bridge and port
 sudo ovs-vsctl del-br br0
@@ -120,7 +122,6 @@ ifconfig
 
 #OVS get info
 sudo ovs-vsctl show
-sudo ovs-vsctl show br0
 sudo ovs-vsctl list-br
 sudo ovs-vsctl list bridge
 sudo ovs-vsctl list bridge br0
@@ -135,6 +136,28 @@ route -n
 #OVS to dump all tables from db
 sudo ovsdb-client dump
 sudo ovsdb-client get-schema --pretty
+
+#-----------------------------------------------------------------------------
+#OVS - restart (after the build or reboot)
+#-----------------------------------------------------------------------------
+#load and verify kernel module
+sudo modprobe openvswitch
+lsmod | grep openvswitch
+
+#start ovsdb server
+sudo ovsdb-server \
+--remote=punix:/usr/local/var/run/openvswitch/db.sock \
+--remote=db:Open_vSwitch,Open_vSwitch,manager_options \
+--pidfile \
+--detach \
+--log-file
+
+#start ovs demon
+sudo ovs-vswitchd --pidfile --detach
+
+#verify OVS modules
+lsmod | grep br
+
 
 #-----------------------------------------------------------------------------
 #OVS / OF config
@@ -169,10 +192,57 @@ ovs-vsctl del-port ${switch} $1
 
 sudo chmod +x /etc/openvswitch/ovs-ifup /etc/openvswitch/ovs-ifdown
 
-#run virtual machine
-sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -cdrom /home/vladimir/Downloads/ubuntu-15.04-server-amd64.iso
+#create empty vm image file
+qemu-img create -f qcow2 /home/vladimir/kvm_images/vm01.img 5G
 
+#create virtual machine
+sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -cdrom /home/vladimir/Downloads/ubuntu-15.04-server-amd64.iso -drive file=/home/vladimir/kvm_images/vm01.img
 
+#run virtual machine with image created in previous command
+sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/home/vladimir/kvm_images/vm01.img
+
+#run virtual machine with image created in vm-manager
+sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/var/lib/libvirt/images/vn11.img
+
+#run virtual machine with small linux image from qimu
+sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/home/vladimir/kvm_images/linux-0.2.img
+
+virsh -c qemu:///system list --all
+
+#create vm using virt-install
+sudo virt-install \
+--connect qemu:///system --name vm02 --ram 1000 \
+--disk path=/home/vladimir/kvm_images/vm02.img,size=8 --network network:default \
+--cdrom /home/vladimir/Downloads/ubuntu-15.04-server-amd64.iso \
+--os-type=linux
+
+#create vm using vmbuilder
+    vmbuilder kvm ubuntu \
+    --suite=precise \
+    --flavour=virtual \
+    --arch=amd64 \
+    --mirror=http://de.archive.ubuntu.com/ubuntu \
+    -o \
+    --libvirt=qemu:///system \
+    --ip=192.168.0.101 \
+    --gw=192.168.0.1 \
+    --part=vmbuilder.partition \
+    --templates=mytemplates \
+    --user=administrator \
+    --name=Administrator \
+    --pass=howtoforge \
+    --addpkg=vim-nox \
+    --addpkg=unattended-upgrades \
+    --addpkg=acpid \
+    --firstboot=/var/lib/libvirt/images/vm1/boot.sh \
+    --mem=256 \
+    --hostname=vm1 \
+    --bridge=br0
+
+#config xml of the vm created with libvirt are in
+ls /etc/libvirt/qemu
+#images of the vm created with libvirt are in
+ls /var/lib/libvirt/images
 
 #-----------------------------------------------------------------------------
 
