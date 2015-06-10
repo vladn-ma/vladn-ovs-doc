@@ -6,8 +6,15 @@
 #to create fork in github
 #using brouser to to github main project and use menu, give your github account name
 
+#directory for the local repos
+mkdir ~/git
+cd ~/git
+
 #to clone github repo
 git clone https://github.com/vladn-ma/vladn-ovs-doc
+git clone https://github.com/vladn-ma/ovs ovs.git
+
+cd ovs.git
 
 #to see remotes
 git remote -v
@@ -121,6 +128,7 @@ ifconfig eth0 0
 ifconfig
 
 #OVS get info
+ps -ea | grep ovs
 sudo ovs-vsctl show
 sudo ovs-vsctl list-br
 sudo ovs-vsctl list bridge
