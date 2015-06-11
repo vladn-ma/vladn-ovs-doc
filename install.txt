@@ -11,7 +11,8 @@ mkdir ~/git
 cd ~/git
 
 #to clone github repo
-git clone https://github.com/vladn-ma/vladn-ovs-doc
+git clone https://github.com/vladn-ma/vladn-ovs-doc.git vladn-ovs-doc.git
+git clone https://github.com/vladn-ma/vladn-ovs-util.git vladn-ovs-util.git 
 git clone https://github.com/vladn-ma/ovs ovs.git
 
 cd ovs.git
@@ -115,7 +116,7 @@ ifconfig
 #add bridge and port
 sudo ovs-vsctl add-br br0
 sudo ovs-vsctl add-port br0 eth0
-sudo ovs-vsctl add-port br0 br0p1 -- set interface br0p1 type=internal
+sudo ovs-vsctl add-port br0 br0p1 --set interface br0p1 type=internal
 
 #delete bridge and port
 sudo ovs-vsctl del-br br0
@@ -282,7 +283,7 @@ sudo /etc/init.d/networking restart
 
 #install openflow controller
 sudo apt-get install default-jdk ant python-dev eclipse
-git clone git://github.com/floodlight/floodlight.git floodlight.git
+git clone https://github.com/floodlight/floodlight.git floodlight.git
 cd floodlight.git
 ant
 
@@ -292,7 +293,26 @@ java -jar target/floodlight.jar
 ovs-vsctl set-controller br-int tcp:localhost:6633
 ovs-vsctl show
 
+#------------------------------------------------------------------------------------
+# tap device
+#------------------------------------------------------------------------------------
+#create tap device
+tunctl –t tap0
 
+#remove tap device
+tunctl –d tap0
+
+#add tap device to the ovs bridge
+sudo ovs-vsctl add-port br0 tap0
+
+#another way to add tap interface
+sudo  ip tuntap add mode tap tap11
+
+#activate tap
+sudo ip link set dev tap11 up
+
+
+#------------------------------------------------------------------------------------
 
 
 
