@@ -114,7 +114,7 @@ ifconfig
 
 #add bridge and port
 sudo ovs-vsctl add-br br0
-sudo ovs-vsctl add-port br0 eth1
+sudo ovs-vsctl add-port br0 eth0
 sudo ovs-vsctl add-port br0 br0p1 -- set interface br0p1 type=internal
 
 #delete bridge and port
@@ -181,6 +181,9 @@ sudo ovs-ofctl dump-flows br0
 sudo apt-get install qemu-kvm libvirt-bin bridge-utils virt-manager
 sudo adduser vladimir libvirtd
 
+#---------------------------------------------------------
+#create two files to start and stop ports for kvm guests
+
 sudo mkdir /etc/openvswitch
 sudo nano /etc/openvswitch/ovs-ifup
 
@@ -199,6 +202,7 @@ switch='br0'
 ovs-vsctl del-port ${switch} $1
 
 sudo chmod +x /etc/openvswitch/ovs-ifup /etc/openvswitch/ovs-ifdown
+#---------------------------------------------------------
 
 #create empty vm image file
 qemu-img create -f qcow2 /home/vladimir/kvm_images/vm01.img 5G
@@ -252,14 +256,41 @@ ls /etc/libvirt/qemu
 #images of the vm created with libvirt are in
 ls /var/lib/libvirt/images
 
+#disable virbr0 NAT interface
+
+ifconfig
+virsh net-list
+
+virsh net-destroy default
+virsh net-autostart default --disable
+# virsh net-undefine default
+# service libvirtd restart
+# ifconfig
+
+sudo /etc/init.d/networking restart
+
+#-----------------------------------------------------------------------------
+#http://networkstatic.net/openflow-openvswitch-lab/
 #-----------------------------------------------------------------------------
 
+#Add in your configuration to the file to your physical interface and save the file.
+    nano /etc/network/interfaces
+#Restart networking. If the configuration is off this will cut you off.
+    /etc/init.d/networking restart
+#display your default route if you are having connectivity issues.
+    route -n
 
+#install openflow controller
+sudo apt-get install default-jdk ant python-dev eclipse
+git clone git://github.com/floodlight/floodlight.git floodlight.git
+cd floodlight.git
+ant
 
-
-
-
-
+#run openflow controller and attach it to ovs
+#By default it will binds to port 6633 and all ports e.g. 0.0.0.0/0.0.0.0:6633
+java -jar target/floodlight.jar
+ovs-vsctl set-controller br-int tcp:localhost:6633
+ovs-vsctl show
 
 
 
