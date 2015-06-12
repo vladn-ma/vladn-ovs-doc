@@ -73,7 +73,7 @@ make check TESTSUITEFLAGS=-j4
 #remove modules
 sudo modprobe -r openvswitch
 #or
-rmmod openvswitch
+sudo rmmod openvswitch
 
 #install modules
 sudo make modules_install
@@ -90,6 +90,9 @@ sudo touch /usr/local/etc/ovs-vswitchd.conf
 sudo mkdir -p /usr/local/etc/openvswitch
 sudo ovsdb-tool create /usr/local/etc/openvswitch/conf.db vswitchd/vswitch.ovsschema
  
+#to stop ovsdb_server
+sudo ovs-appctl exit
+
 #start database server
 sudo ovsdb-server \
 --remote=punix:/usr/local/var/run/openvswitch/db.sock \
@@ -299,18 +302,23 @@ ovs-vsctl show
 #create tap device
 tunctl –t tap0
 
+#another way to add tap interface
+sudo  ip tuntap add mode tap tap11
+
 #remove tap device
 tunctl –d tap0
 
 #add tap device to the ovs bridge
 sudo ovs-vsctl add-port br0 tap0
 
-#another way to add tap interface
-sudo  ip tuntap add mode tap tap11
-
 #activate tap
 sudo ip link set dev tap11 up
 
+#set it in promic mode
+sudo ifconfig tap11 promisc up
+
+#set ip addr
+sudo ifconfig tap11 1.1.1.1
 
 #------------------------------------------------------------------------------------
 
