@@ -300,16 +300,15 @@ ovs-vsctl show
 # tap device
 #------------------------------------------------------------------------------------
 #create tap device
-tunctl –t tap0
+tunctl –t tap11
+#remove tap device
+tunctl –d tap11
 
 #another way to add tap interface
 sudo  ip tuntap add mode tap tap11
 
-#remove tap device
-tunctl –d tap0
-
 #add tap device to the ovs bridge
-sudo ovs-vsctl add-port br0 tap0
+sudo ovs-vsctl add-port br0 tap11
 
 #activate tap
 sudo ip link set dev tap11 up
@@ -318,7 +317,10 @@ sudo ip link set dev tap11 up
 sudo ifconfig tap11 promisc up
 
 #set ip addr
-sudo ifconfig tap11 1.1.1.1
+sudo ifconfig tap11 10.10.10.11
+
+#get index of the tap interface
+ip link
 
 #------------------------------------------------------------------------------------
 
