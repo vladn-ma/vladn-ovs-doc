@@ -1,10 +1,5 @@
 #!/bin/sh
 
-#----------------------------------------------------------
-# OVS project
-# run this script after rebooting computer or network
-#----------------------------------------------------------
-
 #load ovs kernel module
 modprobe openvswitch
 

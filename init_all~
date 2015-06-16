@@ -1,0 +1,457 @@
+#!/bin/sh
+
+#-----------------------------------------------------------------------------
+# OVS project
+# this is not intended to run as script, 
+# just holds fragments which can be used manualy or in other scripts
+#-----------------------------------------------------------------------------
+
+#to create fork in github
+#using brouser to to github main project and use menu, give your github account name
+
+#when reinstall os
+	sudo update
+	sudo dist-upgrade
+
+#install git
+	sudo apt-get install git
+	git config --global user.email "you@example.com"
+	git config --global user.name "Your Name"
+
+#install few applicaitons
+	sudo apt-get install gedit
+	sudo apt-get install wireshark
+	sudo apt-get install curl
+
+#add root user and password
+	sudo passwd root
+
+#install ssh 
+	sudo apt-get install openssh-server openssh-client
+	sudo nano /etc/ssh/sshd_config
+#change line 
+	PermitRootLogin without-password
+#into line
+	PermitRootLogin yes
+
+#restart ssh service
+	sudo service ssh restart
+
+
+#directory for the local repos
+	mkdir ~/git
+	cd ~/git
+
+#to clone github repo
+	git clone https://github.com/vladn-ma/vladn-ovs-doc.git 
+	git clone https://github.com/vladn-ma/vladn-ovs-util.git 
+	git clone https://github.com/vladn-ma/ovs.git 
+
+	cd ovs.git
+
+#to see remotes
+	git remote -v
+
+#set remote origin for fork
+	git remote set-url origin https://github.com/vladn-ma/ovs
+
+#set remote upstream for the fork
+	git remote add upstream https://github.com/openvswitch/ovs.git
+
+#to sinc fork with with upstream (main remote repo)
+	git fetch upstream
+	git checkout master
+	git merge upstream/master
+#or
+	git pull upstream
+	git push origin
+
+#create development branch and verify it
+	git branch vland-dev
+	git branch
+	git checkout vladn-dev
+	git status
+
+#optional: to add new repo:
+	mkdir CumulusDoc
+	cd CumulusDoc/
+	git init
+	git remote add origin  /media/vladn/097B-C82A/git/CumulusDoc
+	git remote -v
+	git config --global push.default simple
+	git push --set-upstream origin master
+	history >> install.txt
+	git add .
+	git commit -m "added install.txt"
+
+#-----------------------------------------------------------------------------
+#Linux kernel
+#-----------------------------------------------------------------------------
+#install needed tools
+	sudo apt-get install libncurses5-dev gcc make git exuberant-ctags
+#get kernel repo from github
+	git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+	cd linux-stable
+#find the latest stable kernel
+	git tag -l | less
+#alternatively get latest linux tree
+	cd linux
+
+#-----------------------------------------------------------------------------
+#OVS build
+#-----------------------------------------------------------------------------
+
+#update and upgrade system
+sudo apt-get update
+sudo apt-get dist-upgrade
+
+#install dependencies and tools
+sudo apt-get install python-simplejson automake autoconf gcc uml-utilities libtool build-essential git pkg-config linux-headers-$(uname -r)
+
+#bootstrapping
+cd ovs.git
+./boot.sh
+
+#configure to bould ovs userspace and kernel modules
+./configure --with-linux=/lib/modules/$(uname -r)/build
+
+#make
+make clean
+make -j4
+sudo make install
+
+#chdck if build is successfull
+make check TESTSUITEFLAGS=-j4
+
+#remove modules
+sudo modprobe -r openvswitch
+#or
+sudo rmmod openvswitch
+
+#install modules
+sudo make modules_install
+sudo modprobe openvswitch
+
+#verify modules
+lsmod | grep openvswitch
+
+#-----------------------------------------------------------------------------
+#OVS start
+
+#init config database
+sudo touch /usr/local/etc/ovs-vswitchd.conf
+sudo mkdir -p /usr/local/etc/openvswitch
+sudo ovsdb-tool create /usr/local/etc/openvswitch/conf.db vswitchd/vswitch.ovsschema
+ 
+#to stop ovsdb_server
+sudo ovs-appctl exit
+
+#start database server
+sudo ovsdb-server \
+--remote=punix:/usr/local/var/run/openvswitch/db.sock \
+--remote=db:Open_vSwitch,Open_vSwitch,manager_options \
+--pidfile \
+--detach \
+--log-file
+
+#init database - just once
+sudo ovs-vsctl --no-wait init
+
+#start ovs demon
+sudo ovs-vswitchd --pidfile --detach
+
+#-----------------------------------------------------------------------------
+#OVS configure
+
+#find out available eth port
+ifconfig
+
+#add bridge and port
+sudo ovs-vsctl add-br br1
+
+#add tap device to the ovs bridge
+sudo ovs-vsctl add-port br1 tap11
+
+#add eth interface to the ovs bridge
+sudo ovs-vsctl add-port br1 eth0
+
+#delete bridge and port
+sudo ovs-vsctl del-br br0
+sudo ovs-vsctl del-port br0 eth0
+
+#verify
+ifconfig
+
+#OVS get info
+lsmod | grep br
+ps -ea | grep ovs
+sudo ovs-vsctl show
+sudo ovs-vsctl list-br
+sudo ovs-vsctl list bridge
+sudo ovs-vsctl list bridge br1
+sudo ovs-vsctl list-ports br1
+sudo ovs-vsctl list port
+sudo ovs-vsctl list port tap11
+sudo cat /usr/local/var/log/openvswitch/ovsdb-server.log
+
+#OVS to dump all tables from db
+sudo ovsdb-client dump
+sudo ovsdb-client get-schema --pretty
+sudo ovs-ofctl dump-tables br1
+sudo ovs-ofctl dump-flows br1
+
+#-----------------------------------------------------------------------------
+# KVM
+#-----------------------------------------------------------------------------
+
+#install KVM
+	sudo apt-get install qemu-kvm libvirt-bin bridge-utils virt-manager
+	sudo adduser `id -un` libvirtd
+	sudo adduser `id -un` kvm
+	groups
+
+#---------------------------------------------------------
+#create two files to start and stop ports for kvm guests
+
+sudo mkdir /etc/openvswitch
+sudo nano /etc/openvswitch/ovs-ifup
+
+#insert in the file
+#!/bin/sh
+switch='br0'
+/sbin/ifconfig $1 0.0.0.0 up
+ovs-vsctl add-port ${switch} $1
+
+sudo nano /etc/openvswitch/ovs-ifdown
+#insert in the file
+
+#!/bin/sh
+switch='br0'
+/sbin/ifconfig $1 0.0.0.0 down
+ovs-vsctl del-port ${switch} $1
+
+sudo chmod +x /etc/openvswitch/ovs-ifup /etc/openvswitch/ovs-ifdown
+#---------------------------------------------------------
+
+#create empty vm image file
+qemu-img create -f qcow2 /home/vladimir/kvm_images/vm01.img 5G
+
+#create virtual machine
+sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -cdrom /home/vladimir/Downloads/ubuntu-15.04-server-amd64.iso -drive file=/home/vladimir/kvm_images/vm01.img
+
+#run virtual machine with image created in previous command
+sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/home/vladimir/kvm_images/vm01.img
+
+#run virtual machine with image created in vm-manager
+sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/var/lib/libvirt/images/vn11.img
+
+#run virtual machine with small linux image from qimu
+sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/home/vladimir/kvm_images/linux-0.2.img
+
+#create vm using virt-install
+sudo virt-install \
+--connect qemu:///system --name vm02 --ram 1000 \
+--disk path=/home/vladimir/kvm_images/vm02.img,size=8 --network network:default \
+--cdrom /home/vladimir/Downloads/ubuntu-15.04-server-amd64.iso \
+--os-type=linux
+
+#create vm using vmbuilder
+    vmbuilder kvm ubuntu \
+    --suite=precise \
+    --flavour=virtual \
+    --arch=amd64 \
+    --mirror=http://de.archive.ubuntu.com/ubuntu \
+    -o \
+    --libvirt=qemu:///system \
+    --ip=192.168.0.101 \
+    --gw=192.168.0.1 \
+    --part=vmbuilder.partition \
+    --templates=mytemplates \
+    --user=administrator \
+    --name=Administrator \
+    --pass=howtoforge \
+    --addpkg=vim-nox \
+    --addpkg=unattended-upgrades \
+    --addpkg=acpid \
+    --firstboot=/var/lib/libvirt/images/vm1/boot.sh \
+    --mem=256 \
+    --hostname=vm1 \
+    --bridge=br0
+
+#one more way to create vm
+	sudo virt-install -n vm01 -r 1000 --disk path=/var/lib/libvirt/images/vm01.img,bus=virtio,size=8 -c /home/vladn/Downloads/ubuntu-14.04.2-server-amd64.iso --network network=default,model=virtio 
+
+
+#explanation of some arguments
+#-n NN: the name of the new virtual machine will be vm01 in this example.
+#-r NN: specifies the amount of memory the virtual machine will use in megabytes.
+#--disk path=NN,size=NN: indicates the path to the virtual diskand size in GB.
+#-c NN: file to be used as a virtual CDROM. 
+#--network network=NN,model=NN: details related to the VM's network interface. 
+
+#to start virsh shell
+	virsh --connect=qemu:///system
+#To list running virtual machines:
+	virsh --connect qemu:///system list --all 
+#to clone virtual machine
+	sudo virt-clone --original vm01 --name vm02 --file /var/lib/libvirt/images/vm02.img
+#to destroy virtual machine use one of 
+	virsh -c qemu:///system destroy vm01
+	virsh undefine vm01
+#To start a virtual machine:
+	virsh -c qemu:///system start vm01
+#to start a virtual machine at boot:
+	virsh -c qemu:///system autostart vm01
+#to reboot a virtual machine :
+	virsh -c qemu:///system reboot vm01
+#to save virtual machine on disk
+	virsh -c qemu:///system save vm01 vm01-1504201002.state
+#to restore virtual machine from disk
+	virsh -c qemu:///system restore vm01-1504201002.state
+
+#To shutdown a virtual machine:
+	virsh -c qemu:///system shutdown vm01
+#to connect to the virtual machine's console by using:
+	virt-viewer -c qemu:///system vm01
+#to connect to a remote host using SSH with key authentication, as well:
+	virt-viewer -c qemu+ssh://virtnode1.mydomain.com/system vm01
+#to show virtual interfaces
+	virsh net-list
+#to create default interface use one of
+	virsh net-start default
+	virsh net-autostart default
+#to disable virbr0, enter:
+	virsh net-destroy default
+	virsh net-undefine default
+	service libvirtd restart
+	ifconfig 
+#in order to restore default network default.xml (backup is in doc.git) should be in /etc/libvirt/qemu/networks/
+#config xml of the vm created with libvirt are in
+ls /etc/libvirt/qemu
+#images of the vm created with libvirt are in
+ls /var/lib/libvirt/images
+
+#vm virsh info
+	virsh -c qemu:///system list --all
+
+#disable virbr0 NAT interface
+	ifconfig
+	virsh net-list
+	virsh net-destroy default
+	virsh net-autostart default --disable
+	#virsh net-undefine default
+	service libvirtd restart
+	ifconfig
+
+sudo /etc/init.d/networking restart
+
+#------------------------------------------------------------------------------------
+# tap device
+#------------------------------------------------------------------------------------
+#create tap device
+tunctl –t tap11
+#or
+sudo ip tuntap add mode tap tap11
+
+#delete tap device
+tunctl –d tap11
+#or
+sudo ip tuntap del mode tap tap11
+
+#activate tap
+sudo ip link set dev tap11 up
+
+#set it in promic mode
+sudo ifconfig tap11 promisc up
+
+#set ip addr
+sudo ifconfig tap11 11.10.10.11
+
+#testing...
+ping 11.10.10.11
+ping 11.10.10.12
+
+#------------------------------------------------------------------------------------
+#linux networking
+#------------------------------------------------------------------------------------
+#get indexs of the interfaces
+ip link
+
+#show linux rauting table
+route -n
+
+#stop the network interface
+sudo ifdown eth1
+#or
+sudo ifconfig eth1 down 
+
+#start the network interface
+sudo ifup eth1 
+
+#set network interface in promisc mode and start it
+sudo ifconfig eth1 promisc up
+
+#set ip addr for the network interface
+sudo ifconfig eth1 11.10.10.41
+
+#zero out your eth1 interface
+sudo ifconfig eth1 0
+
+#restart all network servises
+sudo /etc/init.d/networking restart
+#or
+sudo service network-manager restart
+
+#to see your various network interfaces
+/sbin/ifconfig -a
+
+#resolve hostname to the ip addr
+dig +short unix.stackexchange.com
+
+#send curl request from interface to ip address of http server
+curl --interface "11.10.10.11" 104.16.13.13
+
+
+#------------------------------------------------------------------------------------
+#set bridge to interface with ip
+sudo ifconfig eth1 0
+
+#to get ip address on the bridge
+sudo ifconfig br1 10.31.64.55 netmask 255.255.254.0
+#or
+sudo dhclient br1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
