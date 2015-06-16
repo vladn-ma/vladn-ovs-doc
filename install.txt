@@ -7,52 +7,92 @@
 #using brouser to to github main project and use menu, give your github account name
 
 #when reinstall os
-sudo update
-sudo dist-upgrade
+	sudo update
+	sudo dist-upgrade
 
-sudo apt-get install git
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
+#install git
+	sudo apt-get install git
+	git config --global user.email "you@example.com"
+	git config --global user.name "Your Name"
 
+#install few applicaitons
+	sudo apt-get install gedit
+	sudo apt-get install wireshark
+	sudo apt-get install curl
 
-sudo apt-get install gedit
-sudo apt-get install wireshark
-sudo apt-get install curl
+#add root user and password
+	sudo passwd root
+
+#install ssh 
+	sudo apt-get install openssh-server openssh-client
+	sudo nano /etc/ssh/sshd_config
+#change line 
+	PermitRootLogin without-password
+#into line
+	PermitRootLogin yes
+
+#restart ssh service
+	sudo service ssh restart
+
 
 #directory for the local repos
-mkdir ~/git
-cd ~/git
+	mkdir ~/git
+	cd ~/git
 
 #to clone github repo
-git clone https://github.com/vladn-ma/vladn-ovs-doc.git 
-git clone https://github.com/vladn-ma/vladn-ovs-util.git 
-git clone https://github.com/vladn-ma/ovs.git 
+	git clone https://github.com/vladn-ma/vladn-ovs-doc.git 
+	git clone https://github.com/vladn-ma/vladn-ovs-util.git 
+	git clone https://github.com/vladn-ma/ovs.git 
 
-cd ovs.git
+	cd ovs.git
 
 #to see remotes
-git remote -v
+	git remote -v
 
 #set remote origin for fork
-git remote set-url origin https://github.com/vladn-ma/ovs
+	git remote set-url origin https://github.com/vladn-ma/ovs
 
 #set remote upstream for the fork
-git remote add upstream https://github.com/openvswitch/ovs.git
+	git remote add upstream https://github.com/openvswitch/ovs.git
 
 #to sinc fork with with upstream (main remote repo)
-git fetch upstream
-git checkout master
-git merge upstream/master
-
+	git fetch upstream
+	git checkout master
+	git merge upstream/master
 #or
-git pull upstream
-git push origin
+	git pull upstream
+	git push origin
 
 #create development branch and verify it
-git branch vland-dev
-git branch
-git checkout vladn-dev
-git status
+	git branch vland-dev
+	git branch
+	git checkout vladn-dev
+	git status
+
+#optional: to add new repo:
+	mkdir CumulusDoc
+	cd CumulusDoc/
+	git init
+	git remote add origin  /media/vladn/097B-C82A/git/CumulusDoc
+	git remote -v
+	git config --global push.default simple
+	git push --set-upstream origin master
+	history >> install.txt
+	git add .
+	git commit -m "added install.txt"
+
+#-----------------------------------------------------------------------------
+#Linux kernel
+#-----------------------------------------------------------------------------
+#install needed tools
+	sudo apt-get install libncurses5-dev gcc make git exuberant-ctags
+#get kernel repo from github
+	git clone git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
+	cd linux-stable
+#find the latest stable kernel
+	git tag -l | less
+#alternatively get latest linux tree
+	cd linux
 
 #-----------------------------------------------------------------------------
 #OVS build
@@ -162,8 +202,10 @@ sudo ovs-ofctl dump-flows br1
 #-----------------------------------------------------------------------------
 
 #install KVM
-sudo apt-get install qemu-kvm libvirt-bin bridge-utils virt-manager
-sudo adduser vladimir libvirtd
+	sudo apt-get install qemu-kvm libvirt-bin bridge-utils virt-manager
+	sudo adduser `id -un` libvirtd
+	sudo adduser `id -un` kvm
+	groups
 
 #---------------------------------------------------------
 #create two files to start and stop ports for kvm guests
@@ -203,8 +245,6 @@ sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswi
 #run virtual machine with small linux image from qimu
 sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/home/vladimir/kvm_images/linux-0.2.img
 
-virsh -c qemu:///system list --all
-
 #create vm using virt-install
 sudo virt-install \
 --connect qemu:///system --name vm02 --ram 1000 \
@@ -235,21 +275,70 @@ sudo virt-install \
     --hostname=vm1 \
     --bridge=br0
 
+#one more way to create vm
+	sudo virt-install -n vm01 -r 1000 --disk path=/var/lib/libvirt/images/vm01.img,bus=virtio,size=8 -c /home/vladn/Downloads/ubuntu-14.04.2-server-amd64.iso --network network=default,model=virtio 
+
+
+#explanation of some arguments
+#-n NN: the name of the new virtual machine will be vm01 in this example.
+#-r NN: specifies the amount of memory the virtual machine will use in megabytes.
+#--disk path=NN,size=NN: indicates the path to the virtual diskand size in GB.
+#-c NN: file to be used as a virtual CDROM. 
+#--network network=NN,model=NN: details related to the VM's network interface. 
+
+#to start virsh shell
+	virsh --connect=qemu:///system
+#To list running virtual machines:
+	virsh --connect qemu:///system list --all 
+#to clone virtual machine
+	sudo virt-clone --original vm01 --name vm02 --file /var/lib/libvirt/images/vm02.img
+#to destroy virtual machine use one of 
+	virsh -c qemu:///system destroy vm01
+	virsh undefine vm01
+#To start a virtual machine:
+	virsh -c qemu:///system start vm01
+#to start a virtual machine at boot:
+	virsh -c qemu:///system autostart vm01
+#to reboot a virtual machine :
+	virsh -c qemu:///system reboot vm01
+#to save virtual machine on disk
+	virsh -c qemu:///system save vm01 vm01-1504201002.state
+#to restore virtual machine from disk
+	virsh -c qemu:///system restore vm01-1504201002.state
+
+#To shutdown a virtual machine:
+	virsh -c qemu:///system shutdown vm01
+#to connect to the virtual machine's console by using:
+	virt-viewer -c qemu:///system vm01
+#to connect to a remote host using SSH with key authentication, as well:
+	virt-viewer -c qemu+ssh://virtnode1.mydomain.com/system vm01
+#to show virtual interfaces
+	virsh net-list
+#to create default interface use one of
+	virsh net-start default
+	virsh net-autostart default
+#to disable virbr0, enter:
+	virsh net-destroy default
+	virsh net-undefine default
+	service libvirtd restart
+	ifconfig 
+#in order to restore default network default.xml (backup is in doc.git) should be in /etc/libvirt/qemu/networks/
 #config xml of the vm created with libvirt are in
 ls /etc/libvirt/qemu
 #images of the vm created with libvirt are in
 ls /var/lib/libvirt/images
 
+#vm virsh info
+	virsh -c qemu:///system list --all
+
 #disable virbr0 NAT interface
-
-ifconfig
-virsh net-list
-
-virsh net-destroy default
-virsh net-autostart default --disable
-# virsh net-undefine default
-# service libvirtd restart
-# ifconfig
+	ifconfig
+	virsh net-list
+	virsh net-destroy default
+	virsh net-autostart default --disable
+	#virsh net-undefine default
+	service libvirtd restart
+	ifconfig
 
 sudo /etc/init.d/networking restart
 
