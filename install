@@ -347,11 +347,13 @@ sudo /etc/init.d/networking restart
 #------------------------------------------------------------------------------------
 #create tap device
 tunctl –t tap11
-#remove tap device
-tunctl –d tap11
-
-#another way to add tap interface
+#or
 sudo ip tuntap add mode tap tap11
+
+#delete tap device
+tunctl –d tap11
+#or
+sudo ip tuntap del mode tap tap11
 
 #activate tap
 sudo ip link set dev tap11 up
@@ -404,7 +406,7 @@ sudo service network-manager restart
 dig +short unix.stackexchange.com
 
 #send curl request from interface to ip address of http server
-curl --interface "10.31.64.179" 104.16.13.13
+curl --interface "11.10.10.11" 104.16.13.13
 
 
 #------------------------------------------------------------------------------------
