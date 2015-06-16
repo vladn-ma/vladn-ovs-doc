@@ -6,14 +6,27 @@
 #to create fork in github
 #using brouser to to github main project and use menu, give your github account name
 
+#when reinstall os
+sudo update
+sudo dist-upgrade
+
+sudo apt-get install git
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+
+
+sudo apt-get install gedit
+sudo apt-get install wireshark
+sudo apt-get install curl
+
 #directory for the local repos
 mkdir ~/git
 cd ~/git
 
 #to clone github repo
-git clone https://github.com/vladn-ma/vladn-ovs-doc.git vladn-ovs-doc.git
-git clone https://github.com/vladn-ma/vladn-ovs-util.git vladn-ovs-util.git 
-git clone https://github.com/vladn-ma/ovs ovs.git
+git clone https://github.com/vladn-ma/vladn-ovs-doc.git 
+git clone https://github.com/vladn-ma/vladn-ovs-util.git 
+git clone https://github.com/vladn-ma/ovs.git 
 
 cd ovs.git
 
@@ -42,11 +55,8 @@ git checkout vladn-dev
 git status
 
 #-----------------------------------------------------------------------------
-# OVS
-#-----------------------------------------------------------------------------
-
-#-----------------------------------------------------------------------------
 #OVS build
+#-----------------------------------------------------------------------------
 
 #update and upgrade system
 sudo apt-get update
@@ -107,9 +117,6 @@ sudo ovs-vsctl --no-wait init
 #start ovs demon
 sudo ovs-vswitchd --pidfile --detach
 
-#verify OVS modules
-lsmod | grep br
-
 #-----------------------------------------------------------------------------
 #OVS configure
 
@@ -117,65 +124,38 @@ lsmod | grep br
 ifconfig
 
 #add bridge and port
-sudo ovs-vsctl add-br br0
-sudo ovs-vsctl add-port br0 eth0
-sudo ovs-vsctl add-port br0 br0p1 --set interface br0p1 type=internal
+sudo ovs-vsctl add-br br1
+
+#add tap device to the ovs bridge
+sudo ovs-vsctl add-port br1 tap11
+
+#add eth interface to the ovs bridge
+sudo ovs-vsctl add-port br1 eth0
 
 #delete bridge and port
 sudo ovs-vsctl del-br br0
 sudo ovs-vsctl del-port br0 eth0
 
-#Zero out your eth0 interface and slap it on the bridge interface
-ifconfig eth0 0
-
 #verify
 ifconfig
 
 #OVS get info
+lsmod | grep br
 ps -ea | grep ovs
 sudo ovs-vsctl show
 sudo ovs-vsctl list-br
 sudo ovs-vsctl list bridge
-sudo ovs-vsctl list bridge br0
-sudo ovs-vsctl list-ports br0
+sudo ovs-vsctl list bridge br1
+sudo ovs-vsctl list-ports br1
 sudo ovs-vsctl list port
-sudo ovs-vsctl list port eth0
+sudo ovs-vsctl list port tap11
 sudo cat /usr/local/var/log/openvswitch/ovsdb-server.log
-
-#OVS show linux rauting table
-route -n
 
 #OVS to dump all tables from db
 sudo ovsdb-client dump
 sudo ovsdb-client get-schema --pretty
-
-#-----------------------------------------------------------------------------
-#OVS - restart (after the build or reboot)
-#-----------------------------------------------------------------------------
-#load and verify kernel module
-sudo modprobe openvswitch
-lsmod | grep openvswitch
-
-#start ovsdb server
-sudo ovsdb-server \
---remote=punix:/usr/local/var/run/openvswitch/db.sock \
---remote=db:Open_vSwitch,Open_vSwitch,manager_options \
---pidfile \
---detach \
---log-file
-
-#start ovs demon
-sudo ovs-vswitchd --pidfile --detach
-
-#verify OVS modules
-lsmod | grep br
-
-
-#-----------------------------------------------------------------------------
-#OVS / OF config
-
-sudo ovs-ofctl dump-tables br0
-sudo ovs-ofctl dump-flows br0
+sudo ovs-ofctl dump-tables br1
+sudo ovs-ofctl dump-flows br1
 
 #-----------------------------------------------------------------------------
 # KVM
@@ -273,29 +253,6 @@ virsh net-autostart default --disable
 
 sudo /etc/init.d/networking restart
 
-#-----------------------------------------------------------------------------
-#http://networkstatic.net/openflow-openvswitch-lab/
-#-----------------------------------------------------------------------------
-
-#Add in your configuration to the file to your physical interface and save the file.
-    nano /etc/network/interfaces
-#Restart networking. If the configuration is off this will cut you off.
-    /etc/init.d/networking restart
-#display your default route if you are having connectivity issues.
-    route -n
-
-#install openflow controller
-sudo apt-get install default-jdk ant python-dev eclipse
-git clone https://github.com/floodlight/floodlight.git floodlight.git
-cd floodlight.git
-ant
-
-#run openflow controller and attach it to ovs
-#By default it will binds to port 6633 and all ports e.g. 0.0.0.0/0.0.0.0:6633
-java -jar target/floodlight.jar
-ovs-vsctl set-controller br-int tcp:localhost:6633
-ovs-vsctl show
-
 #------------------------------------------------------------------------------------
 # tap device
 #------------------------------------------------------------------------------------
@@ -305,10 +262,7 @@ tunctl –t tap11
 tunctl –d tap11
 
 #another way to add tap interface
-sudo  ip tuntap add mode tap tap11
-
-#add tap device to the ovs bridge
-sudo ovs-vsctl add-port br0 tap11
+sudo ip tuntap add mode tap tap11
 
 #activate tap
 sudo ip link set dev tap11 up
@@ -317,12 +271,62 @@ sudo ip link set dev tap11 up
 sudo ifconfig tap11 promisc up
 
 #set ip addr
-sudo ifconfig tap11 10.10.10.11
+sudo ifconfig tap11 11.10.10.11
 
-#get index of the tap interface
-ip link
+#testing...
+ping 11.10.10.11
+ping 11.10.10.12
 
 #------------------------------------------------------------------------------------
+#linux networking
+#------------------------------------------------------------------------------------
+#get indexs of the interfaces
+ip link
+
+#show linux rauting table
+route -n
+
+#stop the network interface
+sudo ifdown eth1
+#or
+sudo ifconfig eth1 down 
+
+#start the network interface
+sudo ifup eth1 
+
+#set network interface in promisc mode and start it
+sudo ifconfig eth1 promisc up
+
+#set ip addr for the network interface
+sudo ifconfig eth1 11.10.10.41
+
+#zero out your eth1 interface
+sudo ifconfig eth1 0
+
+#restart all network servises
+sudo /etc/init.d/networking restart
+#or
+sudo service network-manager restart
+
+#to see your various network interfaces
+/sbin/ifconfig -a
+
+#resolve hostname to the ip addr
+dig +short unix.stackexchange.com
+
+#send curl request from interface to ip address of http server
+curl --interface "10.31.64.179" 104.16.13.13
+
+
+#------------------------------------------------------------------------------------
+#set bridge to interface with ip
+sudo ifconfig eth1 0
+
+#to get ip address on the bridge
+sudo ifconfig br1 10.31.64.55 netmask 255.255.254.0
+#or
+sudo dhclient br1
+
 
 
 
