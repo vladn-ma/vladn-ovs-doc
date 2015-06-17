@@ -236,14 +236,17 @@ ovs-vsctl del-port ${switch} $1
 #create directory for kvm images not managed by virsh
 	mkdir ~/kvm_images
 
-#create empty vm image file
-	qemu-img create -f qcow2 ~/kvm_images/vm01.img 8G
+#create empty vm image files
+	qemu-img create -f qcow2 ~/kvm_images/vm01.img 16G
+	qemu-img create -f qcow2 ~/kvm_images/vm02.img 16G
 
-#create virtual machine
-	sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -cdrom ~/Downloads/ubuntu-15.04-server-amd64.iso -drive file=~/kvm_images/vm01.img	
+#create virtual machines
+	sudo kvm -m 1024 -net nic,macaddr=00:00:00:00:cc:01 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -cdrom ~/Downloads/ubuntu-15.04-server-amd64.iso -drive file=~/kvm_images/vm01.img	
+	sudo kvm -m 1024 -net nic,macaddr=00:00:00:00:cc:02 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -cdrom ~/Downloads/ubuntu-15.04-server-amd64.iso -drive file=~/kvm_images/vm02.img	
 
 #run virtual machine with image created in previous command
 	sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=~/kvm_images/vm01.img
+	sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:20 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=~/kvm_images/vm02.img
 
 #run virtual machine with image created in vm-manager
 	sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/var/lib/libvirt/images/vn01.img
@@ -280,17 +283,6 @@ p
     --mem=256 \
     --hostname=vm1 \
     --bridge=br0
-
-#one more way to create vm
-	sudo virt-install -n vm01 -r 1000 --disk path=/var/lib/libvirt/images/vm01.img,bus=virtio,size=8 -c /home/vladn/Downloads/ubuntu-14.04.2-server-amd64.iso --network network=default,model=virtio 
-
-
-#explanation of some arguments
-#-n NN: the name of the new virtual machine will be vm01 in this example.
-#-r NN: specifies the amount of memory the virtual machine will use in megabytes.
-#--disk path=NN,size=NN: indicates the path to the virtual diskand size in GB.
-#-c NN: file to be used as a virtual CDROM. 
-#--network network=NN,model=NN: details related to the VM's network interface. 
 
 #to start virsh shell
 	virsh --connect=qemu:///system
@@ -371,7 +363,6 @@ sudo ip tuntap add mode tap tap11
 	ping 11.10.10.11
 	ping 11.10.10.12
 
-
 #add to ovs bridge
 	sudo ovs-vsctl add-port br1 tap11 -- set interface tap11 type=tap
 
@@ -380,27 +371,31 @@ sudo ip tuntap add mode tap tap11
 #------------------------------------------------------------------------------------
 #get indexs of the interfaces
 	ip link
-
-#to show/add/remove interfaces
+#or
+	netstat -nr
+	
+#to show interfaces
 	ip link show
-	ip link add
-	ip link del
-
-
-#to set interface up and down using ip link
-	ip link set eth1 up
-	ip link set eth1 down
 
 #show linux rauting table
 	route -n
+
+#add/delete interface
+	ip link add eth1
+	ip link del eth1
+ 
+#to set interface up and down using ip link
+	ip link set eth1 up
+	ip link set eth1 down
 
 #stop the network interface
 	sudo ifdown eth1
 #or
 	sudo ifconfig eth1 down 
 
-#start the network interface
-	sudo ifup eth1 
+#start / stop the network interface (commands use file /etc/network/interfaces)
+	sudo ifdown eth1 
+	sudo ifup eth1
 
 #set network interface in promisc mode and start it
 	sudo ifconfig eth1 promisc up
@@ -408,7 +403,7 @@ sudo ip tuntap add mode tap tap11
 #set ip addr for the network interface
 	sudo ifconfig eth1 11.10.10.41
 
-#zero out your eth1 interface
+#zero out eth1 interface
 	sudo ifconfig eth1 0
 
 #restart all network servises
@@ -432,6 +427,17 @@ sudo ip tuntap add mode tap tap11
 	sudo ifconfig br1 10.31.64.55 netmask 255.255.254.0
 #or
 	sudo dhclient br1
+
+#list arp entries
+arp -e
+
+#add arp entry
+arp -s 10.31.64.1 00:00:00:00:cc:12 -i eth0
+
+#flash arp entries
+sudo ip -s -s neigh flush all
+
+
 
 
 
