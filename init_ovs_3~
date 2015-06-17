@@ -3,9 +3,13 @@
 #----------------------------------------------------------
 # OVS project
 # run this script after rebooting computer or network
-# it starts and reset ovs, tap interfaces and bridge
-# does not work with kvm yet
 #----------------------------------------------------------
+
+#destroy default virsh interface
+virsh net-destroy default
+
+#remove old ovs kernel module if exists
+modprobe -r openvswitch
 
 #load ovs kernel module
 modprobe openvswitch
@@ -21,9 +25,6 @@ ovsdb-server \
 #start ovs demon
 ovs-vswitchd --pidfile --detach
 
-#destroy default virsh interface
-virsh net-destroy default
-
 #start ovsdb-server
 ovsdb-server \
 --remote=punix:/usr/local/var/run/openvswitch/db.sock \
@@ -33,32 +34,21 @@ ovsdb-server \
 --log-file
 
 #start ovs demon
-sudo ovs-vswitchd --pidfile --detach
-
-#create tap interfaces
-ip tuntap add mode tap tap11
-ip tuntap add mode tap tap12
-
-#activate tap interfaces in promisc mode
-ifconfig tap11 promisc up
-ifconfig tap12 promisc up
-
-#set ip addr for tap interfaces
-ifconfig tap11 11.10.10.11
-ifconfig tap12 11.10.10.12
+ovs-vswitchd --pidfile --detach
 
 #zero out eth1 interface
 ifconfig eth1 0
 
+#delete old bridge
+ovs-vsctl --if-exists del-br br1
+
 #add bridge 
 ovs-vsctl add-br br1
 
-#add tap device to the ovs bridge
-
-ovs-vsctl add-port br1 tap12
-
 #add eth interface to the ovs bridge
 ovs-vsctl add-port br1 eth1
+
+#get ip address for the bridge
 dhclient br1
 
 #print out some results

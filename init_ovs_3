@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#----------------------------------------------------------
+# OVS project
+# run this script after rebuild kernel module
+#----------------------------------------------------------
+
+#remove old ovs kernel module if exists
+modprobe -r openvswitch
+
+#load ovs kernel module
+modprobe openvswitch
+
+
+
+
+
+

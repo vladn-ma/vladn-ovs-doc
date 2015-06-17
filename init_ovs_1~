@@ -3,8 +3,6 @@
 #----------------------------------------------------------
 # OVS project
 # run this script after rebooting computer or network
-# it starts and reset ovs, tap interfaces and bridge
-# does not work with kvm yet
 #----------------------------------------------------------
 
 #load ovs kernel module
