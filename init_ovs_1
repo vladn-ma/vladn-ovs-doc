@@ -24,17 +24,6 @@ ovs-vswitchd --pidfile --detach
 #destroy default virsh interface
 virsh net-destroy default
 
-#start ovsdb-server
-ovsdb-server \
---remote=punix:/usr/local/var/run/openvswitch/db.sock \
---remote=db:Open_vSwitch,Open_vSwitch,manager_options \
---pidfile \
---detach \
---log-file
-
-#start ovs demon
-sudo ovs-vswitchd --pidfile --detach
-
 #create tap interfaces
 ip tuntap add mode tap tap11
 ip tuntap add mode tap tap12
@@ -53,9 +42,9 @@ ifconfig eth1 0
 #add bridge 
 ovs-vsctl add-br br1
 
-#add tap device to the ovs bridge
-
-ovs-vsctl add-port br1 tap12
+#add tap devices to the ovs bridge
+ovs-vsctl add-port br1 tap11 -- set interface tap11 type=tap
+ovs-vsctl add-port br1 tap12 -- set interface tap12 type=tap
 
 #add eth interface to the ovs bridge
 ovs-vsctl add-port br1 eth1

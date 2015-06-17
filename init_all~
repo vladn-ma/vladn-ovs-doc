@@ -160,6 +160,9 @@
 #start ovs demon
 	sudo ovs-vswitchd --pidfile --detach
 
+#utility sctipt for ovs
+/usr/local/share/openvswitch/scripts/ovs-ctl
+
 #-----------------------------------------------------------------------------
 #OVS configure
 
@@ -240,10 +243,10 @@ ovs-vsctl del-port ${switch} $1
 	sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -cdrom ~/Downloads/ubuntu-15.04-server-amd64.iso -drive file=~/kvm_images/vm01.img	
 
 #run virtual machine with image created in previous command
-	sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=~vladn/kvm_images/vm01.img
+	sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=~/kvm_images/vm01.img
 
 #run virtual machine with image created in vm-manager
-	sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/var/lib/libvirt/images/vn11.img
+	sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/var/lib/libvirt/images/vn01.img
 
 #run virtual machine with small linux image from qimu
 	sudo kvm -m 512 -net nic,macaddr=00:00:00:00:cc:10 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=~/kvm_images/linux-0.2.img
@@ -254,7 +257,7 @@ ovs-vsctl del-port ${switch} $1
 	--disk path=/home/vladimir/kvm_images/vm02.img,size=8 --network network:default \
 	--cdrom /home/vladimir/Downloads/ubuntu-15.04-server-amd64.iso \
 	--os-type=linux
-
+p
 #create vm using vmbuilder
     vmbuilder kvm ubuntu \
     --suite=precise \
@@ -355,6 +358,8 @@ sudo ip tuntap add mode tap tap11
 
 #activate tap
 	sudo ip link set dev tap11 up
+#or
+	sudo ip link set dev tap11 up
 
 #set it in promic mode
 	sudo ifconfig tap11 promisc up
@@ -365,6 +370,10 @@ sudo ip tuntap add mode tap tap11
 #testing...
 	ping 11.10.10.11
 	ping 11.10.10.12
+
+
+#add to ovs bridge
+	sudo ovs-vsctl add-port br1 tap11 -- set interface tap11 type=tap
 
 #------------------------------------------------------------------------------------
 #linux networking
