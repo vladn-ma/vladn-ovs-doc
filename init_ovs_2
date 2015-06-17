@@ -33,27 +33,11 @@ ovsdb-server \
 #start ovs demon
 sudo ovs-vswitchd --pidfile --detach
 
-#create tap interfaces
-ip tuntap add mode tap tap11
-ip tuntap add mode tap tap12
-
-#activate tap interfaces in promisc mode
-ifconfig tap11 promisc up
-ifconfig tap12 promisc up
-
-#set ip addr for tap interfaces
-ifconfig tap11 11.10.10.11
-ifconfig tap12 11.10.10.12
-
 #zero out eth1 interface
 ifconfig eth1 0
 
 #add bridge 
 ovs-vsctl add-br br1
-
-#add tap device to the ovs bridge
-
-ovs-vsctl add-port br1 tap12
 
 #add eth interface to the ovs bridge
 ovs-vsctl add-port br1 eth1
