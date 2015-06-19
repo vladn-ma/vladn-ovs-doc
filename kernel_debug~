@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# kernel module debugging
+
+# catch functions
+
+echo 0 > tracing_on
+echo function_graph > current_tracer
+echo dp_init > set_ftrace_filter
+echo 1 > tracing_on
+cat trace_pipe
+
+#leave this shell running and from different shell unload, load and run module:
+sudo modprobe -r openvswitch
+sudo modprobe openvswitch
+
+#to see messages printed by pr_info
+cat /dev/kmsg
+
+#to see ??
+cat /proc/kmsg 
+dmesg
+echo 8 > /proc/sys/kernel/printk
+
+
+
