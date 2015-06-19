@@ -125,6 +125,10 @@ ssh-keygen -t rsa
 	make -j4
 	sudo make install
 
+#?sudo modprobe libcrc32c
+#?sudo modprobe gre
+
+
 #chdck if build is successfull
 	make check TESTSUITEFLAGS=-j4
 
@@ -346,7 +350,7 @@ sudo /etc/init.d/networking restart
 #create tap device
 	tunctl –t tap11
 #or
-sudo ip tuntap add mode tap tap11
+	sudo ip tuntap add mode tap tap11
 
 #delete tap device
 	tunctl –d tap11
@@ -360,6 +364,8 @@ sudo ip tuntap add mode tap tap11
 
 #set it in promic mode
 	sudo ifconfig tap11 promisc up
+#or
+	sudo ip link set dev tap11 up promisc on
 
 #set ip addr
 	sudo ifconfig tap11 11.10.10.11
@@ -370,6 +376,10 @@ sudo ip tuntap add mode tap tap11
 
 #add to ovs bridge
 	sudo ovs-vsctl add-port br1 tap11 -- set interface tap11 type=tap
+
+#in order to be able to capture traffic on tap interface it should be in the 
+# RUNNING state; it can be done by attaching to the bridge by previous command
+
 
 #------------------------------------------------------------------------------------
 #linux networking
