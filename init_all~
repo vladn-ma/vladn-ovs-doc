@@ -497,6 +497,13 @@ echo 2 > /proc/sys/net/ipv4/conf/eth0/arp_announce
 net.ipv4.conf.eth0.arp_ignore = 1
 net.ipv4.conf.eth0.arp_announce = 2
 
+#restart dns client
+sudo /etc/init.d/nscd restart
+#or
+sudo service nscd restart
+#or
+sudo service nscd reload
+
 
 
 
