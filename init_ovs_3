@@ -16,10 +16,10 @@ sudo modprobe -r openvswitch
 sudo /usr/local/share/openvswitch/scripts/ovs-ctl restart
 
 #run vm
-sudo kvm -m 1024 -net nic,macaddr=00:00:00:00:cc:01 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/home/vladn/kvm_images/vm01.img &
+sudo kvm -m 1024 -net nic,macaddr=00:00:00:00:cc:21 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/home/vladn/kvm_images/vm01.img &
 
 #run vm
-sudo kvm -m 1024 -net nic,macaddr=00:00:00:00:cc:01 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/home/vladn/kvm_images/vm02.img &
+sudo kvm -m 1024 -net nic,macaddr=00:00:00:00:cc:22 -net tap,script=/etc/openvswitch/ovs-ifup,downscript=/etc/openvswitch/ovs-ifdown -drive file=/home/vladn/kvm_images/vm02.img &
 
 
 
