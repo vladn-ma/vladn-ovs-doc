@@ -1,3 +1,0 @@
-#!/bin/bash
-
-~/scripts/back $1 ../views/vtest fe2k-tools

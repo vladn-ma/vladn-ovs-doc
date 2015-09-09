@@ -1,1 +1,0 @@
-/home/vladn/emulation/CodeSourcery/Sourcery_G++_Lite/bin:/home/vladn/emulation/qemu/bin/qemu/bin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/bin:/usr/bin

@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# find files $1 ignoring directories and remove them
-find . ! -type d -iname $1 -exec rm -fR {} \;

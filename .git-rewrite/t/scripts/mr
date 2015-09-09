@@ -1,9 +1,0 @@
-# make release related commands
-
-cd to fe2ktools local view / directory
-
-ssh xr1
-which fe2k-asm
-ls /tools/sbx/fe2k-tools
-make release_0.15
-

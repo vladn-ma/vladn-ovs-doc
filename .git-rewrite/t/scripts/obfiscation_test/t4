@@ -1,5 +1,0 @@
-#!/bin/bash
-
-cpp -fpreprocessed FILENAME 
-sed 's/^\n//g' FILENAME
-

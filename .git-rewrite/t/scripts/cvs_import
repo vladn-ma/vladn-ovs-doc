@@ -1,6 +1,0 @@
-#!/bin/bash
-
-#import $1 into cvs directory tree
-#you have to be in the root rirectory to import
-
-cvs import $1 INITIAL start

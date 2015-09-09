@@ -1,8 +1,0 @@
-<map id="/home/vladn/git/ovs/datapath/linux/compat/include/linux/icmpv6.h" name="/home/vladn/git/ovs/datapath/linux/compat/include/linux/icmpv6.h">
-<area shape="rect" id="node2" href="$flow_8c.html" title="/home/vladn/git/ovs\l/datapath/flow.c" alt="" coords="5,117,141,158"/>
-<area shape="rect" id="node3" href="$flow__netlink_8c.html" title="/home/vladn/git/ovs\l/datapath/flow_netlink.c" alt="" coords="165,117,325,158"/>
-<area shape="rect" id="node4" href="$flow__table_8c.html" title="/home/vladn/git/ovs\l/datapath/flow_table.c" alt="" coords="350,117,501,158"/>
-<area shape="rect" id="node5" href="$linux_2flow_8c.html" title="/home/vladn/git/ovs\l/datapath/linux/flow.c" alt="" coords="525,117,672,158"/>
-<area shape="rect" id="node6" href="$linux_2flow__netlink_8c.html" title="/home/vladn/git/ovs\l/datapath/linux/flow\l_netlink.c" alt="" coords="696,109,832,165"/>
-<area shape="rect" id="node7" href="$linux_2flow__table_8c.html" title="/home/vladn/git/ovs\l/datapath/linux/flow\l_table.c" alt="" coords="856,109,992,165"/>
-</map>

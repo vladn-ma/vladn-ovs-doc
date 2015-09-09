@@ -1,9 +1,0 @@
-<map id="flow_table" name="flow_table">
-<area shape="rect" id="node2" href="$structmask__cache__entry.html" title="mask_cache_entry" alt="" coords="5,273,137,300"/>
-<area shape="rect" id="node3" href="$structtable__instance.html" title="table_instance" alt="" coords="162,273,269,300"/>
-<area shape="rect" id="node4" href="$structmask__array.html" title="mask_array" alt="" coords="293,273,383,300"/>
-<area shape="rect" id="node5" href="$structsw__flow__mask.html" title="sw_flow_mask" alt="" coords="283,184,393,211"/>
-<area shape="rect" id="node6" href="$structsw__flow__key__range.html" title="sw_flow_key_range" alt="" coords="217,95,355,121"/>
-<area shape="rect" id="node7" href="$structsw__flow__key.html" title="sw_flow_key" alt="" coords="379,95,478,121"/>
-<area shape="rect" id="node8" href="$structovs__key__ipv4__tunnel.html" title="ovs_key_ipv4_tunnel" alt="" coords="357,5,501,32"/>
-</map>

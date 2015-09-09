@@ -1,6 +1,0 @@
-#!/bin/bash
-
-for a in `seq 10000`
-do
-  echo -n "$a " > "_$a.tmp"
-done  

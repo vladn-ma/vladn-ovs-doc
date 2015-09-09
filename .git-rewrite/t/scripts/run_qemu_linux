@@ -1,3 +1,0 @@
-qemu-system-arm -M vexpress-a9 -kernel /home/vladn/emulation/linux/linux-3.2/arch/arm/boot/zImage -initrd initramfs -display none -serial stdio -net nic -append "console=tty1"
-
-qemu-system-arm -M vexpress-a9 -kernel /home/vladn/emulation/linux/linux-3.2/arch/arm/boot/zImage -initrd rootfs.img.gz -display none -serial stdio -net nic -append "root=/dev/ram rdinit=/sbin/init console=ttyAMA0"

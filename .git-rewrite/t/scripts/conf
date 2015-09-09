@@ -1,1 +1,0 @@
-./configure --prefix=/home/vladn/emulation/qemu/bin/qemu --target-list=arm-softmmu,arm-linux-user --enable-debug

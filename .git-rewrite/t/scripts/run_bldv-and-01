@@ -1,7 +1,0 @@
-#!/bin/bash
-# ssh into the server with configuration for the Eclipse run
-
-ssh -X -o ForwardX11Trusted=yes bldv-and-01
-
-# after ssh to the Eclipse enabled server set eclipse version with that:
-# setenv ECLIPSEVER 3.6.1

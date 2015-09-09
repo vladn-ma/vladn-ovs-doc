@@ -1,6 +1,0 @@
-<map id="sw_flow_match" name="sw_flow_match">
-<area shape="rect" id="node2" href="$structsw__flow__key__range.html" title="sw_flow_key_range" alt="" coords="5,95,143,121"/>
-<area shape="rect" id="node3" href="$structsw__flow__mask.html" title="sw_flow_mask" alt="" coords="117,184,226,211"/>
-<area shape="rect" id="node4" href="$structsw__flow__key.html" title="sw_flow_key" alt="" coords="205,95,303,121"/>
-<area shape="rect" id="node5" href="$structovs__key__ipv4__tunnel.html" title="ovs_key_ipv4_tunnel" alt="" coords="182,5,326,32"/>
-</map>
