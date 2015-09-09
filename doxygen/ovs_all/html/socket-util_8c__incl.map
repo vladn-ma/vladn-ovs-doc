@@ -1,0 +1,35 @@
+<map id="/home/vladn/git/ovs/lib/socket&#45;util.c" name="/home/vladn/git/ovs/lib/socket&#45;util.c">
+<area shape="rect" id="node2" href="$config_8h.html" title="config.h" alt="" coords="5,95,73,121"/>
+<area shape="rect" id="node3" href="$socket-util_8h.html" title="socket&#45;util.h" alt="" coords="1754,95,1847,121"/>
+<area shape="rect" id="node16" href="$include_2windows_2net_2if_8h.html" title="net/if.h" alt="" coords="2056,95,2119,121"/>
+<area shape="rect" id="node18" href="$netdb_8h.html" title="netdb.h" alt="" coords="2143,95,2208,121"/>
+<area shape="rect" id="node19" href="$include_2windows_2netinet_2tcp_8h.html" title="netinet/tcp.h" alt="" coords="2232,95,2327,121"/>
+<area shape="rect" id="node20" href="$poll_8h.html" title="poll.h" alt="" coords="1002,169,1055,196"/>
+<area shape="rect" id="node21" href="$stddef_8h.html" title="stddef.h" alt="" coords="1041,319,1110,345"/>
+<area shape="rect" id="node22" href="$stdio_8h.html" title="stdio.h" alt="" coords="1134,319,1195,345"/>
+<area shape="rect" id="node24" href="$string_8h.html" title="string.h" alt="" coords="231,319,296,345"/>
+<area shape="rect" id="node26" href="$uio_8h.html" title="sys/uio.h" alt="" coords="2455,95,2530,121"/>
+<area shape="rect" id="node28" href="$un_8h.html" title="sys/un.h" alt="" coords="2554,95,2626,121"/>
+<area shape="rect" id="node29" href="$unistd_8h.html" title="unistd.h" alt="" coords="2764,95,2832,121"/>
+<area shape="rect" id="node31" href="$dynamic-string_8h.html" title="dynamic&#45;string.h" alt="" coords="1184,244,1303,271"/>
+<area shape="rect" id="node35" href="$ovs-thread_8h.html" title="ovs&#45;thread.h" alt="" coords="1547,95,1641,121"/>
+<area shape="rect" id="node39" href="$lib_2util_8h.html" title="util.h" alt="" coords="957,244,1007,271"/>
+<area shape="rect" id="node43" href="$packets_8h.html" title="packets.h" alt="" coords="587,95,665,121"/>
+<area shape="rect" id="node48" href="$poll-loop_8h.html" title="poll&#45;loop.h" alt="" coords="923,95,1004,121"/>
+<area shape="rect" id="node49" href="$vlog_8h.html" title="openvswitch/vlog.h" alt="" coords="2447,169,2581,196"/>
+<area shape="rect" id="node7" href="$time_8h.html" title="sys/time.h" alt="" coords="2309,319,2391,345"/>
+<area shape="rect" id="node10" href="$include_2openvswitch_2types_8h.html" title="openvswitch/types.h" alt="" coords="735,319,877,345"/>
+<area shape="rect" id="node12" href="$in__systm_8h.html" title="netinet/in_systm.h" alt="" coords="2009,169,2139,196"/>
+<area shape="rect" id="node13" href="$include_2windows_2netinet_2ip_8h.html" title="netinet/ip.h" alt="" coords="2163,169,2249,196"/>
+<area shape="rect" id="node33" href="$lib_2compiler_8h.html" title="compiler.h" alt="" coords="1277,319,1359,345"/>
+<area shape="rect" id="node34" href="$include_2openvswitch_2compiler_8h.html" title="openvswitch/compiler.h" alt="" coords="1981,393,2140,420"/>
+<area shape="rect" id="node36" href="$pthread_8h.html" title="pthread.h" alt="" coords="1852,319,1928,345"/>
+<area shape="rect" id="node37" href="$ovs-atomic_8h.html" title="ovs&#45;atomic.h" alt="" coords="1545,169,1643,196"/>
+<area shape="rect" id="node42" href="$thread_8h.html" title="openvswitch/thread.h" alt="" coords="2037,244,2183,271"/>
+<area shape="rect" id="node41" href="$include_2openvswitch_2util_8h.html" title="openvswitch/util.h" alt="" coords="1952,319,2079,345"/>
+<area shape="rect" id="node44" href="$lib_2geneve_8h.html" title="geneve.h" alt="" coords="554,244,629,271"/>
+<area shape="rect" id="node45" href="$lib_2random_8h.html" title="random.h" alt="" coords="352,244,428,271"/>
+<area shape="rect" id="node46" href="$hash_8h.html" title="hash.h" alt="" coords="714,169,775,196"/>
+<area shape="rect" id="node47" href="$tun-metadata_8h.html" title="tun&#45;metadata.h" alt="" coords="479,169,589,196"/>
+<area shape="rect" id="node50" href="$include_2openvswitch_2list_8h.html" title="openvswitch/list.h" alt="" coords="2467,244,2593,271"/>
+</map>

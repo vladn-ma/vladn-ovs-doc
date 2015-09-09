@@ -1,0 +1,29 @@
+<map id="/home/vladn/git/ovs/ofproto/ofproto.h" name="/home/vladn/git/ovs/ofproto/ofproto.h">
+<area shape="rect" id="node2" href="$rstp_8c.html" title="/home/vladn/git/ovs\l/lib/rstp.c" alt="" coords="5,102,141,143"/>
+<area shape="rect" id="node3" href="$ofproto-provider_8h.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;provider.h" alt="" coords="1572,102,1743,143"/>
+<area shape="rect" id="node8" href="$bridge_8c.html" title="/home/vladn/git/ovs\l/vswitchd/bridge.c" alt="" coords="7,399,143,441"/>
+<area shape="rect" id="node12" href="$fail-open_8c.html" title="/home/vladn/git/ovs\l/ofproto/fail&#45;open.c" alt="" coords="1929,303,2065,344"/>
+<area shape="rect" id="node14" href="$ofproto-dpif-ipfix_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;ipfix.c" alt="" coords="428,392,564,448"/>
+<area shape="rect" id="node17" href="$ofproto-dpif-xlate_8h.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;xlate.h" alt="" coords="639,392,775,448"/>
+<area shape="rect" id="node20" href="$connmgr_8h.html" title="/home/vladn/git/ovs\l/ofproto/connmgr.h" alt="" coords="2031,206,2167,247"/>
+<area shape="rect" id="node22" href="$ofproto_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto.c" alt="" coords="1981,399,2117,441"/>
+<area shape="rect" id="node23" href="$in-band_8c.html" title="/home/vladn/git/ovs\l/ofproto/in&#45;band.c" alt="" coords="2191,206,2327,247"/>
+<area shape="rect" id="node24" href="$ofproto-dpif-sflow_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;sflow.c" alt="" coords="2351,199,2487,255"/>
+<area shape="rect" id="node25" href="$names_8c.html" title="/home/vladn/git/ovs\l/ofproto/names.c" alt="" coords="2288,102,2424,143"/>
+<area shape="rect" id="node26" href="$netflow_8c.html" title="/home/vladn/git/ovs\l/ofproto/netflow.c" alt="" coords="2448,102,2584,143"/>
+<area shape="rect" id="node27" href="$ofproto-dpif-mirror_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;mirror.c" alt="" coords="2608,95,2744,151"/>
+<area shape="rect" id="node28" href="$ovs-ofctl_8c.html" title="/home/vladn/git/ovs\l/utilities/ovs&#45;ofctl.c" alt="" coords="2768,102,2904,143"/>
+<area shape="rect" id="node4" href="$bond_8h.html" title="/home/vladn/git/ovs\l/ofproto/bond.h" alt="" coords="216,303,352,344"/>
+<area shape="rect" id="node5" href="$bond_8c.html" title="/home/vladn/git/ovs\l/ofproto/bond.c" alt="" coords="268,399,404,441"/>
+<area shape="rect" id="node6" href="$ofproto-dpif-xlate_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;xlate.c" alt="" coords="639,496,775,552"/>
+<area shape="rect" id="node7" href="$ofproto-dpif_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif.c" alt="" coords="1299,503,1445,545"/>
+<area shape="rect" id="node9" href="$fail-open_8h.html" title="/home/vladn/git/ovs\l/ofproto/fail&#45;open.h" alt="" coords="1407,206,1543,247"/>
+<area shape="rect" id="node10" href="$bundles_8c.html" title="/home/vladn/git/ovs\l/ofproto/bundles.c" alt="" coords="1511,399,1647,441"/>
+<area shape="rect" id="node11" href="$connmgr_8c.html" title="/home/vladn/git/ovs\l/ofproto/connmgr.c" alt="" coords="1671,399,1807,441"/>
+<area shape="rect" id="node13" href="$ofproto-dpif_8h.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif.h" alt="" coords="980,303,1127,344"/>
+<area shape="rect" id="node16" href="$ofproto-dpif-rid_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif&#45;rid.c" alt="" coords="799,399,963,441"/>
+<area shape="rect" id="node21" href="$bundles_8h.html" title="/home/vladn/git/ovs\l/ofproto/bundles.h" alt="" coords="1668,303,1804,344"/>
+<area shape="rect" id="node18" href="$ofproto-dpif-upcall_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;upcall.c" alt="" coords="1469,496,1605,552"/>
+<area shape="rect" id="node15" href="$ofproto-dpif-monitor_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;monitor.c" alt="" coords="1199,392,1335,448"/>
+<area shape="rect" id="node19" href="$tunnel_8c.html" title="/home/vladn/git/ovs\l/ofproto/tunnel.c" alt="" coords="1039,399,1175,441"/>
+</map>

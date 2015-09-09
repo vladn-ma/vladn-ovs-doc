@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['memory_5forder',['memory_order',['../ovs-atomic-clang_8h.html#a17c2de5ae768960284c047a320f17d1b',1,'memory_order():&#160;ovs-atomic-clang.h'],['../ovs-atomic-gcc4_09_8h.html#a17c2de5ae768960284c047a320f17d1b',1,'memory_order():&#160;ovs-atomic-gcc4+.h'],['../ovs-atomic-gcc4_87_09_8h.html#a17c2de5ae768960284c047a320f17d1b',1,'memory_order():&#160;ovs-atomic-gcc4.7+.h'],['../ovs-atomic-i586_8h.html#a17c2de5ae768960284c047a320f17d1b',1,'memory_order():&#160;ovs-atomic-i586.h'],['../ovs-atomic-msvc_8h.html#a17c2de5ae768960284c047a320f17d1b',1,'memory_order():&#160;ovs-atomic-msvc.h'],['../ovs-atomic-pthreads_8h.html#a17c2de5ae768960284c047a320f17d1b',1,'memory_order():&#160;ovs-atomic-pthreads.h'],['../ovs-atomic-x86__64_8h.html#a17c2de5ae768960284c047a320f17d1b',1,'memory_order():&#160;ovs-atomic-x86_64.h']]]
+];

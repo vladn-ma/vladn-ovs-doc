@@ -1,0 +1,26 @@
+<map id="/home/vladn/git/ovs/lib/daemon&#45;windows.c" name="/home/vladn/git/ovs/lib/daemon&#45;windows.c">
+<area shape="rect" id="node2" href="$config_8h.html" title="config.h" alt="" coords="366,95,434,121"/>
+<area shape="rect" id="node3" href="$daemon_8h.html" title="daemon.h" alt="" coords="1233,244,1312,271"/>
+<area shape="rect" id="node7" href="$daemon-private_8h.html" title="daemon&#45;private.h" alt="" coords="1983,95,2106,121"/>
+<area shape="rect" id="node8" href="$stdio_8h.html" title="stdio.h" alt="" coords="1212,319,1274,345"/>
+<area shape="rect" id="node10" href="$ovs-thread_8h.html" title="ovs&#45;thread.h" alt="" coords="458,95,553,121"/>
+<area shape="rect" id="node28" href="$poll-loop_8h.html" title="poll&#45;loop.h" alt="" coords="974,95,1056,121"/>
+<area shape="rect" id="node30" href="$vlog_8h.html" title="openvswitch/vlog.h" alt="" coords="1304,169,1438,196"/>
+<area shape="rect" id="node11" href="$pthread_8h.html" title="pthread.h" alt="" coords="193,319,269,345"/>
+<area shape="rect" id="node12" href="$stddef_8h.html" title="stddef.h" alt="" coords="294,319,363,345"/>
+<area shape="rect" id="node13" href="$ovs-atomic_8h.html" title="ovs&#45;atomic.h" alt="" coords="413,169,510,196"/>
+<area shape="rect" id="node17" href="$lib_2util_8h.html" title="util.h" alt="" coords="927,244,978,271"/>
+<area shape="rect" id="node27" href="$thread_8h.html" title="openvswitch/thread.h" alt="" coords="475,244,622,271"/>
+<area shape="rect" id="node15" href="$lib_2compiler_8h.html" title="compiler.h" alt="" coords="806,319,888,345"/>
+<area shape="rect" id="node25" href="$ovs-atomic-pthreads_8h.html" title="ovs&#45;atomic&#45;pthreads.h" alt="" coords="81,244,232,271"/>
+<area shape="rect" id="node16" href="$include_2openvswitch_2compiler_8h.html" title="openvswitch/compiler.h" alt="" coords="1294,393,1453,420"/>
+<area shape="rect" id="node21" href="$string_8h.html" title="string.h" alt="" coords="1016,319,1081,345"/>
+<area shape="rect" id="node22" href="$include_2openvswitch_2types_8h.html" title="openvswitch/types.h" alt="" coords="640,319,782,345"/>
+<area shape="rect" id="node23" href="$include_2openvswitch_2util_8h.html" title="openvswitch/util.h" alt="" coords="489,319,616,345"/>
+<area shape="rect" id="node24" href="$version_8h.html" title="openvswitch/version.h" alt="" coords="476,393,628,420"/>
+<area shape="rect" id="node26" href="$ovs-atomic-locked_8h.html" title="ovs&#45;atomic&#45;locked.h" alt="" coords="30,319,168,345"/>
+<area shape="rect" id="node29" href="$poll_8h.html" title="poll.h" alt="" coords="990,169,1043,196"/>
+<area shape="rect" id="node31" href="$time_8h.html" title="time.h" alt="" coords="1647,244,1706,271"/>
+<area shape="rect" id="node32" href="$include_2openvswitch_2list_8h.html" title="openvswitch/list.h" alt="" coords="1730,244,1857,271"/>
+<area shape="rect" id="node33" href="$token-bucket_8h.html" title="openvswitch/token&#45;bucket.h" alt="" coords="1336,244,1521,271"/>
+</map>

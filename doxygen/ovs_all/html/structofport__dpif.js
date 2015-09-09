@@ -1,0 +1,25 @@
+var structofport__dpif =
+[
+    [ "bfd", "structofport__dpif.html#a0a897b8eee6f9e86549989c2398839ff", null ],
+    [ "bundle", "structofport__dpif.html#a654cd1655007efc81bd1b783a87aa8d1", null ],
+    [ "bundle_node", "structofport__dpif.html#a0ce58ed95924f1c19e731545aec75f27", null ],
+    [ "carrier_seq", "structofport__dpif.html#a93af5a29780fe8685872feb3087f96e3", null ],
+    [ "cfm", "structofport__dpif.html#a6bee40ccda820aff1f560da0f0e1ab0f", null ],
+    [ "is_layer3", "structofport__dpif.html#a81d05d28bc294465a9c488332414ffcf", null ],
+    [ "is_tunnel", "structofport__dpif.html#a1c4a7bf64bb053add251970743d39f44", null ],
+    [ "lldp", "structofport__dpif.html#af5afa8274a15c1378221a38b7f92bf7a", null ],
+    [ "may_enable", "structofport__dpif.html#a1ba479fcfa3b37d2f9d82a937ed20871", null ],
+    [ "n_qdscp", "structofport__dpif.html#aef67181ee857b23883ba3f9dd3ea753d", null ],
+    [ "odp_port", "structofport__dpif.html#a20f2c4b1821965a77a21a82d43354bc4", null ],
+    [ "odp_port_node", "structofport__dpif.html#ae1e838ee14c0a0f3b3a94ce1db5da80c", null ],
+    [ "peer", "structofport__dpif.html#a8ad4c2b3d03981530bb701d97c9ebd2c", null ],
+    [ "qdscp", "structofport__dpif.html#a0a1b0dbbedfa5e55919d53eae32073da", null ],
+    [ "realdev_ofp_port", "structofport__dpif.html#aab6ac318ad39bcdf7647c4345c75fd1c", null ],
+    [ "rstp_port", "structofport__dpif.html#afce7ef40c38226ac2d22a2651b088b80", null ],
+    [ "rstp_state", "structofport__dpif.html#a66f50ca34f4bd45c5986a4471fc1609e", null ],
+    [ "stp_port", "structofport__dpif.html#ad077a77f61602c8f3c2ce24ae129b2ac", null ],
+    [ "stp_state", "structofport__dpif.html#a0322187674c8c56583a650f8312b3bd5", null ],
+    [ "stp_state_entered", "structofport__dpif.html#a94fd1bfee2a995f4310ddffd870937f7", null ],
+    [ "up", "structofport__dpif.html#aecf99a24bef7460399d5a0516fef65ec", null ],
+    [ "vlandev_vid", "structofport__dpif.html#abb9ab24c3342c034d2d7fc4a9586decc", null ]
+];

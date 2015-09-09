@@ -1,0 +1,23 @@
+<map id="/home/vladn/git/ovs/ofproto/ofproto&#45;provider.h" name="/home/vladn/git/ovs/ofproto/ofproto&#45;provider.h">
+<area shape="rect" id="node2" href="$bond_8h.html" title="/home/vladn/git/ovs\l/ofproto/bond.h" alt="" coords="79,199,215,240"/>
+<area shape="rect" id="node3" href="$bond_8c.html" title="/home/vladn/git/ovs\l/ofproto/bond.c" alt="" coords="290,295,426,337"/>
+<area shape="rect" id="node4" href="$ofproto-dpif-xlate_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;xlate.c" alt="" coords="585,392,721,448"/>
+<area shape="rect" id="node5" href="$ofproto-dpif_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif.c" alt="" coords="1270,399,1417,441"/>
+<area shape="rect" id="node7" href="$fail-open_8h.html" title="/home/vladn/git/ovs\l/ofproto/fail&#45;open.h" alt="" coords="1478,102,1614,143"/>
+<area shape="rect" id="node8" href="$bundles_8c.html" title="/home/vladn/git/ovs\l/ofproto/bundles.c" alt="" coords="1685,295,1821,337"/>
+<area shape="rect" id="node9" href="$connmgr_8c.html" title="/home/vladn/git/ovs\l/ofproto/connmgr.c" alt="" coords="1997,295,2133,337"/>
+<area shape="rect" id="node10" href="$fail-open_8c.html" title="/home/vladn/git/ovs\l/ofproto/fail&#45;open.c" alt="" coords="1634,199,1770,240"/>
+<area shape="rect" id="node11" href="$ofproto-dpif_8h.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif.h" alt="" coords="935,199,1082,240"/>
+<area shape="rect" id="node14" href="$ofproto-dpif-rid_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif&#45;rid.c" alt="" coords="451,295,615,337"/>
+<area shape="rect" id="node18" href="$connmgr_8h.html" title="/home/vladn/git/ovs\l/ofproto/connmgr.h" alt="" coords="1869,102,2005,143"/>
+<area shape="rect" id="node19" href="$bundles_8h.html" title="/home/vladn/git/ovs\l/ofproto/bundles.h" alt="" coords="2047,199,2183,240"/>
+<area shape="rect" id="node20" href="$ofproto_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto.c" alt="" coords="2157,295,2293,337"/>
+<area shape="rect" id="node21" href="$in-band_8c.html" title="/home/vladn/git/ovs\l/ofproto/in&#45;band.c" alt="" coords="2359,102,2495,143"/>
+<area shape="rect" id="node22" href="$ofproto-dpif-sflow_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;sflow.c" alt="" coords="2519,95,2655,151"/>
+<area shape="rect" id="node6" href="$bridge_8c.html" title="/home/vladn/git/ovs\l/vswitchd/bridge.c" alt="" coords="29,295,165,337"/>
+<area shape="rect" id="node16" href="$ofproto-dpif-upcall_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;upcall.c" alt="" coords="1441,392,1577,448"/>
+<area shape="rect" id="node12" href="$ofproto-dpif-ipfix_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;ipfix.c" alt="" coords="1010,288,1146,344"/>
+<area shape="rect" id="node13" href="$ofproto-dpif-monitor_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;monitor.c" alt="" coords="1170,288,1306,344"/>
+<area shape="rect" id="node15" href="$ofproto-dpif-xlate_8h.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;xlate.h" alt="" coords="690,288,826,344"/>
+<area shape="rect" id="node17" href="$tunnel_8c.html" title="/home/vladn/git/ovs\l/ofproto/tunnel.c" alt="" coords="850,295,986,337"/>
+</map>

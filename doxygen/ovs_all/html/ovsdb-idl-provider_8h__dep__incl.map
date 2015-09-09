@@ -1,0 +1,34 @@
+<map id="/home/vladn/git/ovs/lib/ovsdb&#45;idl&#45;provider.h" name="/home/vladn/git/ovs/lib/ovsdb&#45;idl&#45;provider.h">
+<area shape="rect" id="node2" href="$db-ctl-base_8c.html" title="/home/vladn/git/ovs\l/lib/db&#45;ctl&#45;base.c" alt="" coords="636,95,772,136"/>
+<area shape="rect" id="node3" href="$ovsdb-idl_8c.html" title="/home/vladn/git/ovs\l/lib/ovsdb&#45;idl.c" alt="" coords="796,95,932,136"/>
+<area shape="rect" id="node4" href="$vswitch-idl_8h.html" title="/home/vladn/git/ovs\l/lib/vswitch&#45;idl.h" alt="" coords="489,191,625,233"/>
+<area shape="rect" id="node15" href="$ovn-nb-idl_8h.html" title="/home/vladn/git/ovs\l/ovn/lib/ovn&#45;nb&#45;idl.h" alt="" coords="1007,95,1143,136"/>
+<area shape="rect" id="node19" href="$ovn-sb-idl_8h.html" title="/home/vladn/git/ovs\l/ovn/lib/ovn&#45;sb&#45;idl.h" alt="" coords="1664,95,1800,136"/>
+<area shape="rect" id="node28" href="$idltest_8h.html" title="/home/vladn/git/ovs\l/tests/idltest.h" alt="" coords="2468,95,2604,136"/>
+<area shape="rect" id="node31" href="$vtep-idl_8h.html" title="/home/vladn/git/ovs\l/vtep/vtep&#45;idl.h" alt="" coords="2308,191,2444,233"/>
+<area shape="rect" id="node5" href="$vswitch-idl_8c.html" title="/home/vladn/git/ovs\l/lib/vswitch&#45;idl.c" alt="" coords="5,295,141,337"/>
+<area shape="rect" id="node6" href="$binding_8c.html" title="/home/vladn/git/ovs\l/ovn/controller/binding.c" alt="" coords="680,295,840,337"/>
+<area shape="rect" id="node7" href="$chassis_8c.html" title="/home/vladn/git/ovs\l/ovn/controller/chassis.c" alt="" coords="865,295,1029,337"/>
+<area shape="rect" id="node8" href="$encaps_8c.html" title="/home/vladn/git/ovs\l/ovn/controller/encaps.c" alt="" coords="1225,295,1386,337"/>
+<area shape="rect" id="node9" href="$ofctrl_8c.html" title="/home/vladn/git/ovs\l/ovn/controller/ofctrl.c" alt="" coords="1053,295,1201,337"/>
+<area shape="rect" id="node10" href="$ovn-controller_8c.html" title="/home/vladn/git/ovs\l/ovn/controller/ovn\l&#45;controller.c" alt="" coords="1411,288,1547,344"/>
+<area shape="rect" id="node11" href="$physical_8c.html" title="/home/vladn/git/ovs\l/ovn/controller/physical.c" alt="" coords="1571,295,1738,337"/>
+<area shape="rect" id="node12" href="$ovs-vsctl_8c.html" title="/home/vladn/git/ovs\l/utilities/ovs&#45;vsctl.c" alt="" coords="165,295,301,337"/>
+<area shape="rect" id="node13" href="$bridge_8c.html" title="/home/vladn/git/ovs\l/vswitchd/bridge.c" alt="" coords="325,295,461,337"/>
+<area shape="rect" id="node14" href="$ovs-vswitchd_8c.html" title="/home/vladn/git/ovs\l/vswitchd/ovs&#45;vswitchd.c" alt="" coords="485,295,656,337"/>
+<area shape="rect" id="node16" href="$ovn-nb-idl_8c.html" title="/home/vladn/git/ovs\l/ovn/lib/ovn&#45;nb&#45;idl.c" alt="" coords="649,191,785,233"/>
+<area shape="rect" id="node17" href="$ovn-northd_8c.html" title="/home/vladn/git/ovs\l/ovn/northd/ovn&#45;northd.c" alt="" coords="993,191,1156,233"/>
+<area shape="rect" id="node18" href="$ovn-nbctl_8c.html" title="/home/vladn/git/ovs\l/ovn/utilities/ovn&#45;nbctl.c" alt="" coords="809,191,969,233"/>
+<area shape="rect" id="node20" href="$ovn-controller_8h.html" title="/home/vladn/git/ovs\l/ovn/controller/ovn\l&#45;controller.h" alt="" coords="1332,184,1468,240"/>
+<area shape="rect" id="node21" href="$lflow_8c.html" title="/home/vladn/git/ovs\l/ovn/controller/lflow.c" alt="" coords="1763,295,1909,337"/>
+<area shape="rect" id="node22" href="$ovn-controller-vtep_8h.html" title="/home/vladn/git/ovs\l/ovn/controller&#45;vtep\l/ovn&#45;controller&#45;vtep.h" alt="" coords="2089,184,2233,240"/>
+<area shape="rect" id="node23" href="$vtep_2binding_8c.html" title="/home/vladn/git/ovs\l/ovn/controller&#45;vtep\l/binding.c" alt="" coords="1933,288,2069,344"/>
+<area shape="rect" id="node24" href="$gateway_8c.html" title="/home/vladn/git/ovs\l/ovn/controller&#45;vtep\l/gateway.c" alt="" coords="2093,288,2229,344"/>
+<area shape="rect" id="node25" href="$ovn-controller-vtep_8c.html" title="/home/vladn/git/ovs\l/ovn/controller&#45;vtep\l/ovn&#45;controller&#45;vtep.c" alt="" coords="2253,288,2397,344"/>
+<area shape="rect" id="node26" href="$ovn-sb-idl_8c.html" title="/home/vladn/git/ovs\l/ovn/lib/ovn&#45;sb&#45;idl.c" alt="" coords="1492,191,1628,233"/>
+<area shape="rect" id="node27" href="$ovn-sbctl_8c.html" title="/home/vladn/git/ovs\l/ovn/utilities/ovn&#45;sbctl.c" alt="" coords="1652,191,1812,233"/>
+<area shape="rect" id="node29" href="$idltest_8c.html" title="/home/vladn/git/ovs\l/tests/idltest.c" alt="" coords="2468,191,2604,233"/>
+<area shape="rect" id="node30" href="$test-ovsdb_8c.html" title="/home/vladn/git/ovs\l/tests/test&#45;ovsdb.c" alt="" coords="2628,191,2764,233"/>
+<area shape="rect" id="node32" href="$vtep-ctl_8c.html" title="/home/vladn/git/ovs\l/vtep/vtep&#45;ctl.c" alt="" coords="2421,295,2557,337"/>
+<area shape="rect" id="node33" href="$vtep-idl_8c.html" title="/home/vladn/git/ovs\l/vtep/vtep&#45;idl.c" alt="" coords="2581,295,2717,337"/>
+</map>

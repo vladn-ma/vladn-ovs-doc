@@ -1,0 +1,5 @@
+var structofputil__table__features_1_1ofputil__table__instruction__features_1_1ofputil__table__action__features =
+[
+    [ "ofpacts", "structofputil__table__features_1_1ofputil__table__instruction__features_1_1ofputil__table__action__features.html#a5f61f7de1644486d7da2e683e36855fa", null ],
+    [ "set_fields", "structofputil__table__features_1_1ofputil__table__instruction__features_1_1ofputil__table__action__features.html#adac3a11c057f1036787fd8dc0d24d0a6", null ]
+];

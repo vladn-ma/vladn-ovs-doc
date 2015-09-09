@@ -1,0 +1,20 @@
+<map id="/home/vladn/git/ovs/vswitchd/xenserver.c" name="/home/vladn/git/ovs/vswitchd/xenserver.c">
+<area shape="rect" id="node2" href="$config_8h.html" title="config.h" alt="" coords="139,95,207,121"/>
+<area shape="rect" id="node3" href="$xenserver_8h.html" title="xenserver.h" alt="" coords="231,95,322,121"/>
+<area shape="rect" id="node6" href="$pthread_8h.html" title="pthread.h" alt="" coords="5,244,81,271"/>
+<area shape="rect" id="node8" href="$string_8h.html" title="string.h" alt="" coords="1207,95,1272,121"/>
+<area shape="rect" id="node9" href="$unistd_8h.html" title="unistd.h" alt="" coords="1296,95,1364,121"/>
+<area shape="rect" id="node11" href="$dynamic-string_8h.html" title="dynamic&#45;string.h" alt="" coords="975,95,1093,121"/>
+<area shape="rect" id="node20" href="$process_8h.html" title="process.h" alt="" coords="73,169,152,196"/>
+<area shape="rect" id="node23" href="$vlog_8h.html" title="openvswitch/vlog.h" alt="" coords="625,95,760,121"/>
+<area shape="rect" id="node14" href="$stddef_8h.html" title="stddef.h" alt="" coords="998,244,1067,271"/>
+<area shape="rect" id="node16" href="$stdio_8h.html" title="stdio.h" alt="" coords="1279,169,1341,196"/>
+<area shape="rect" id="node17" href="$time_8h.html" title="time.h" alt="" coords="1005,169,1063,196"/>
+<area shape="rect" id="node18" href="$lib_2compiler_8h.html" title="compiler.h" alt="" coords="1365,169,1447,196"/>
+<area shape="rect" id="node19" href="$include_2openvswitch_2compiler_8h.html" title="openvswitch/compiler.h" alt="" coords="1241,244,1400,271"/>
+<area shape="rect" id="node25" href="$include_2openvswitch_2list_8h.html" title="openvswitch/list.h" alt="" coords="449,169,576,196"/>
+<area shape="rect" id="node26" href="$thread_8h.html" title="openvswitch/thread.h" alt="" coords="227,169,374,196"/>
+<area shape="rect" id="node27" href="$include_2openvswitch_2util_8h.html" title="util.h" alt="" coords="245,244,295,271"/>
+<area shape="rect" id="node29" href="$token-bucket_8h.html" title="openvswitch/token&#45;bucket.h" alt="" coords="600,169,785,196"/>
+<area shape="rect" id="node28" href="$version_8h.html" title="openvswitch/version.h" alt="" coords="194,319,346,345"/>
+</map>

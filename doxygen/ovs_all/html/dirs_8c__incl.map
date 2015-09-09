@@ -1,0 +1,19 @@
+<map id="/home/vladn/git/ovs/lib/dirs.c" name="/home/vladn/git/ovs/lib/dirs.c">
+<area shape="rect" id="node2" href="$config_8h.html" title="config.h" alt="" coords="5,95,73,121"/>
+<area shape="rect" id="node3" href="$dirs_8h.html" title="dirs.h" alt="" coords="97,95,152,121"/>
+<area shape="rect" id="node5" href="$ovs-thread_8h.html" title="ovs&#45;thread.h" alt="" coords="1428,95,1523,121"/>
+<area shape="rect" id="node15" href="$lib_2util_8h.html" title="util.h" alt="" coords="931,244,982,271"/>
+<area shape="rect" id="node6" href="$pthread_8h.html" title="pthread.h" alt="" coords="1735,319,1811,345"/>
+<area shape="rect" id="node7" href="$stddef_8h.html" title="stddef.h" alt="" coords="1539,319,1609,345"/>
+<area shape="rect" id="node9" href="$ovs-atomic_8h.html" title="ovs&#45;atomic.h" alt="" coords="908,169,1005,196"/>
+<area shape="rect" id="node26" href="$thread_8h.html" title="openvswitch/thread.h" alt="" coords="1563,244,1710,271"/>
+<area shape="rect" id="node13" href="$lib_2compiler_8h.html" title="compiler.h" alt="" coords="347,319,430,345"/>
+<area shape="rect" id="node24" href="$ovs-atomic-pthreads_8h.html" title="ovs&#45;atomic&#45;pthreads.h" alt="" coords="228,244,379,271"/>
+<area shape="rect" id="node14" href="$include_2openvswitch_2compiler_8h.html" title="openvswitch/compiler.h" alt="" coords="309,393,468,420"/>
+<area shape="rect" id="node19" href="$stdio_8h.html" title="stdio.h" alt="" coords="1114,319,1175,345"/>
+<area shape="rect" id="node20" href="$string_8h.html" title="string.h" alt="" coords="1200,319,1265,345"/>
+<area shape="rect" id="node21" href="$include_2openvswitch_2types_8h.html" title="openvswitch/types.h" alt="" coords="644,319,787,345"/>
+<area shape="rect" id="node22" href="$include_2openvswitch_2util_8h.html" title="openvswitch/util.h" alt="" coords="1289,319,1416,345"/>
+<area shape="rect" id="node23" href="$version_8h.html" title="openvswitch/version.h" alt="" coords="1277,393,1429,420"/>
+<area shape="rect" id="node25" href="$ovs-atomic-locked_8h.html" title="ovs&#45;atomic&#45;locked.h" alt="" coords="185,319,323,345"/>
+</map>

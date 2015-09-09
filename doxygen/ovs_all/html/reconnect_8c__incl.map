@@ -1,0 +1,21 @@
+<map id="/home/vladn/git/ovs/lib/reconnect.c" name="/home/vladn/git/ovs/lib/reconnect.c">
+<area shape="rect" id="node2" href="$config_8h.html" title="config.h" alt="" coords="413,95,481,121"/>
+<area shape="rect" id="node3" href="$reconnect_8h.html" title="reconnect.h" alt="" coords="1387,95,1477,121"/>
+<area shape="rect" id="node6" href="$poll-loop_8h.html" title="poll&#45;loop.h" alt="" coords="587,95,669,121"/>
+<area shape="rect" id="node23" href="$vlog_8h.html" title="openvswitch/vlog.h" alt="" coords="1043,95,1178,121"/>
+<area shape="rect" id="node7" href="$poll_8h.html" title="poll.h" alt="" coords="556,169,609,196"/>
+<area shape="rect" id="node8" href="$lib_2util_8h.html" title="util.h" alt="" coords="633,169,684,196"/>
+<area shape="rect" id="node13" href="$stddef_8h.html" title="stddef.h" alt="" coords="897,244,967,271"/>
+<area shape="rect" id="node15" href="$stdio_8h.html" title="stdio.h" alt="" coords="355,244,416,271"/>
+<area shape="rect" id="node16" href="$string_8h.html" title="string.h" alt="" coords="607,244,673,271"/>
+<area shape="rect" id="node17" href="$lib_2compiler_8h.html" title="compiler.h" alt="" coords="697,244,780,271"/>
+<area shape="rect" id="node19" href="$include_2openvswitch_2types_8h.html" title="openvswitch/types.h" alt="" coords="441,244,583,271"/>
+<area shape="rect" id="node21" href="$include_2openvswitch_2util_8h.html" title="openvswitch/util.h" alt="" coords="991,244,1118,271"/>
+<area shape="rect" id="node18" href="$include_2openvswitch_2compiler_8h.html" title="openvswitch/compiler.h" alt="" coords="1343,319,1502,345"/>
+<area shape="rect" id="node22" href="$version_8h.html" title="openvswitch/version.h" alt="" coords="979,319,1131,345"/>
+<area shape="rect" id="node24" href="$time_8h.html" title="time.h" alt="" coords="1464,169,1523,196"/>
+<area shape="rect" id="node25" href="$include_2openvswitch_2list_8h.html" title="openvswitch/list.h" alt="" coords="729,169,855,196"/>
+<area shape="rect" id="node26" href="$thread_8h.html" title="openvswitch/thread.h" alt="" coords="981,169,1128,196"/>
+<area shape="rect" id="node28" href="$token-bucket_8h.html" title="openvswitch/token&#45;bucket.h" alt="" coords="1203,169,1389,196"/>
+<area shape="rect" id="node27" href="$pthread_8h.html" title="pthread.h" alt="" coords="1194,244,1270,271"/>
+</map>

@@ -1,0 +1,28 @@
+<map id="/home/vladn/git/ovs/lib/stream&#45;fd.c" name="/home/vladn/git/ovs/lib/stream&#45;fd.c">
+<area shape="rect" id="node2" href="$config_8h.html" title="config.h" alt="" coords="197,95,265,121"/>
+<area shape="rect" id="node3" href="$stream-fd_8h.html" title="stream&#45;fd.h" alt="" coords="1528,244,1616,271"/>
+<area shape="rect" id="node8" href="$poll_8h.html" title="poll.h" alt="" coords="593,169,647,196"/>
+<area shape="rect" id="node10" href="$string_8h.html" title="string.h" alt="" coords="145,319,210,345"/>
+<area shape="rect" id="node13" href="$unistd_8h.html" title="unistd.h" alt="" coords="750,95,818,121"/>
+<area shape="rect" id="node15" href="$fatal-signal_8h.html" title="fatal&#45;signal.h" alt="" coords="1257,95,1353,121"/>
+<area shape="rect" id="node17" href="$poll-loop_8h.html" title="poll&#45;loop.h" alt="" coords="645,95,726,121"/>
+<area shape="rect" id="node18" href="$lib_2util_8h.html" title="util.h" alt="" coords="595,244,645,271"/>
+<area shape="rect" id="node29" href="$socket-util_8h.html" title="socket&#45;util.h" alt="" coords="1165,244,1259,271"/>
+<area shape="rect" id="node34" href="$stream-provider_8h.html" title="stream&#45;provider.h" alt="" coords="843,95,965,121"/>
+<area shape="rect" id="node35" href="$stream_8h.html" title="stream.h" alt="" coords="966,169,1039,196"/>
+<area shape="rect" id="node36" href="$vlog_8h.html" title="openvswitch/vlog.h" alt="" coords="1905,169,2039,196"/>
+<area shape="rect" id="node5" href="$stddef_8h.html" title="stddef.h" alt="" coords="1793,319,1863,345"/>
+<area shape="rect" id="node23" href="$stdio_8h.html" title="stdio.h" alt="" coords="235,319,296,345"/>
+<area shape="rect" id="node24" href="$lib_2compiler_8h.html" title="compiler.h" alt="" coords="1008,319,1091,345"/>
+<area shape="rect" id="node26" href="$include_2openvswitch_2types_8h.html" title="openvswitch/types.h" alt="" coords="842,319,985,345"/>
+<area shape="rect" id="node27" href="$include_2openvswitch_2util_8h.html" title="openvswitch/util.h" alt="" coords="2326,319,2453,345"/>
+<area shape="rect" id="node25" href="$include_2openvswitch_2compiler_8h.html" title="openvswitch/compiler.h" alt="" coords="1665,393,1823,420"/>
+<area shape="rect" id="node28" href="$version_8h.html" title="openvswitch/version.h" alt="" coords="2313,393,2465,420"/>
+<area shape="rect" id="node30" href="$time_8h.html" title="sys/time.h" alt="" coords="1687,319,1769,345"/>
+<area shape="rect" id="node32" href="$in__systm_8h.html" title="netinet/in_systm.h" alt="" coords="1371,319,1501,345"/>
+<area shape="rect" id="node33" href="$include_2windows_2netinet_2ip_8h.html" title="netinet/ip.h" alt="" coords="1525,319,1611,345"/>
+<area shape="rect" id="node37" href="$include_2openvswitch_2list_8h.html" title="openvswitch/list.h" alt="" coords="1691,244,1818,271"/>
+<area shape="rect" id="node38" href="$thread_8h.html" title="openvswitch/thread.h" alt="" coords="2205,244,2352,271"/>
+<area shape="rect" id="node40" href="$token-bucket_8h.html" title="openvswitch/token&#45;bucket.h" alt="" coords="1945,244,2130,271"/>
+<area shape="rect" id="node39" href="$pthread_8h.html" title="pthread.h" alt="" coords="2226,319,2302,345"/>
+</map>

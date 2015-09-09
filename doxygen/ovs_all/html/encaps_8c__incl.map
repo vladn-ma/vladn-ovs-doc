@@ -1,0 +1,33 @@
+<map id="/home/vladn/git/ovs/ovn/controller/encaps.c" name="/home/vladn/git/ovs/ovn/controller/encaps.c">
+<area shape="rect" id="node2" href="$config_8h.html" title="config.h" alt="" coords="445,95,513,121"/>
+<area shape="rect" id="node3" href="$encaps_8h.html" title="encaps.h" alt="" coords="1087,169,1161,196"/>
+<area shape="rect" id="node5" href="$hash_8h.html" title="lib/hash.h" alt="" coords="1882,468,1961,495"/>
+<area shape="rect" id="node9" href="$lib_2util_8h.html" title="util.h" alt="" coords="1607,543,1657,569"/>
+<area shape="rect" id="node22" href="$sset_8h.html" title="lib/sset.h" alt="" coords="1456,393,1531,420"/>
+<area shape="rect" id="node24" href="$vswitch-idl_8h.html" title="lib/vswitch&#45;idl.h" alt="" coords="1552,169,1664,196"/>
+<area shape="rect" id="node35" href="$vlog_8h.html" title="openvswitch/vlog.h" alt="" coords="457,468,591,495"/>
+<area shape="rect" id="node40" href="$ovn-sb-idl_8h.html" title="ovn/lib/ovn&#45;sb&#45;idl.h" alt="" coords="1728,169,1859,196"/>
+<area shape="rect" id="node41" href="$ovn-controller_8h.html" title="ovn&#45;controller.h" alt="" coords="1714,95,1825,121"/>
+<area shape="rect" id="node6" href="$stddef_8h.html" title="stddef.h" alt="" coords="1993,617,2063,644"/>
+<area shape="rect" id="node8" href="$string_8h.html" title="string.h" alt="" coords="1903,617,1969,644"/>
+<area shape="rect" id="node14" href="$stdio_8h.html" title="stdio.h" alt="" coords="1679,617,1740,644"/>
+<area shape="rect" id="node16" href="$lib_2compiler_8h.html" title="compiler.h" alt="" coords="23,617,105,644"/>
+<area shape="rect" id="node18" href="$include_2openvswitch_2types_8h.html" title="openvswitch/types.h" alt="" coords="1250,617,1393,644"/>
+<area shape="rect" id="node20" href="$include_2openvswitch_2util_8h.html" title="openvswitch/util.h" alt="" coords="330,617,457,644"/>
+<area shape="rect" id="node17" href="$include_2openvswitch_2compiler_8h.html" title="openvswitch/compiler.h" alt="" coords="25,692,183,719"/>
+<area shape="rect" id="node21" href="$version_8h.html" title="openvswitch/version.h" alt="" coords="317,692,469,719"/>
+<area shape="rect" id="node23" href="$hmap_8h.html" title="hmap.h" alt="" coords="1599,468,1665,495"/>
+<area shape="rect" id="node25" href="$ovsdb-data_8h.html" title="ovsdb&#45;data.h" alt="" coords="1627,319,1725,345"/>
+<area shape="rect" id="node28" href="$uuid_8h.html" title="uuid.h" alt="" coords="1801,468,1858,495"/>
+<area shape="rect" id="node30" href="$ovsdb-idl-provider_8h.html" title="ovsdb&#45;idl&#45;provider.h" alt="" coords="1499,244,1634,271"/>
+<area shape="rect" id="node34" href="$smap_8h.html" title="smap.h" alt="" coords="1761,244,1826,271"/>
+<area shape="rect" id="node26" href="$ovsdb-types_8h.html" title="ovsdb&#45;types.h" alt="" coords="1277,393,1381,420"/>
+<area shape="rect" id="node29" href="$shash_8h.html" title="shash.h" alt="" coords="1606,393,1674,420"/>
+<area shape="rect" id="node31" href="$lib_2list_8h.html" title="list.h" alt="" coords="1265,468,1316,495"/>
+<area shape="rect" id="node33" href="$ovsdb-idl_8h.html" title="ovsdb&#45;idl.h" alt="" coords="1117,319,1203,345"/>
+<area shape="rect" id="node32" href="$include_2openvswitch_2list_8h.html" title="openvswitch/list.h" alt="" coords="1151,543,1278,569"/>
+<area shape="rect" id="node36" href="$time_8h.html" title="time.h" alt="" coords="231,543,289,569"/>
+<area shape="rect" id="node37" href="$thread_8h.html" title="openvswitch/thread.h" alt="" coords="313,543,460,569"/>
+<area shape="rect" id="node39" href="$token-bucket_8h.html" title="openvswitch/token&#45;bucket.h" alt="" coords="535,543,721,569"/>
+<area shape="rect" id="node38" href="$pthread_8h.html" title="pthread.h" alt="" coords="230,617,306,644"/>
+</map>

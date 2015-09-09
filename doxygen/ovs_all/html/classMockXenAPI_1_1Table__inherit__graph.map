@@ -1,0 +1,6 @@
+<map id="MockXenAPI.Table" name="MockXenAPI.Table">
+<area shape="rect" id="node3" href="$classMockXenAPI_1_1Network.html" title="MockXenAPI.Network" alt="" coords="5,155,157,181"/>
+<area shape="rect" id="node4" href="$classMockXenAPI_1_1Pool.html" title="MockXenAPI.Pool" alt="" coords="182,155,311,181"/>
+<area shape="rect" id="node5" href="$classMockXenAPI_1_1VIF.html" title="MockXenAPI.VIF" alt="" coords="335,155,459,181"/>
+<area shape="rect" id="node6" href="$classMockXenAPI_1_1VM.html" title="MockXenAPI.VM" alt="" coords="484,155,607,181"/>
+</map>

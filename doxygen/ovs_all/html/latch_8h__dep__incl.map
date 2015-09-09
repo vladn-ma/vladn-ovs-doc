@@ -1,0 +1,9 @@
+<map id="/home/vladn/git/ovs/lib/latch.h" name="/home/vladn/git/ovs/lib/latch.h">
+<area shape="rect" id="node2" href="$dpif-netdev_8c.html" title="/home/vladn/git/ovs\l/lib/dpif&#45;netdev.c" alt="" coords="5,102,141,143"/>
+<area shape="rect" id="node3" href="$latch-unix_8c.html" title="/home/vladn/git/ovs\l/lib/latch&#45;unix.c" alt="" coords="165,102,301,143"/>
+<area shape="rect" id="node4" href="$latch-windows_8c.html" title="/home/vladn/git/ovs\l/lib/latch&#45;windows.c" alt="" coords="326,102,463,143"/>
+<area shape="rect" id="node5" href="$seq_8c.html" title="/home/vladn/git/ovs\l/lib/seq.c" alt="" coords="488,102,624,143"/>
+<area shape="rect" id="node6" href="$ofproto-dpif-monitor_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;monitor.c" alt="" coords="648,95,784,151"/>
+<area shape="rect" id="node7" href="$ofproto-dpif-upcall_8c.html" title="/home/vladn/git/ovs\l/ofproto/ofproto&#45;dpif\l&#45;upcall.c" alt="" coords="808,95,944,151"/>
+<area shape="rect" id="node8" href="$system-stats_8c.html" title="/home/vladn/git/ovs\l/vswitchd/system&#45;stats.c" alt="" coords="969,102,1138,143"/>
+</map>
