@@ -1,0 +1,77 @@
+\hypertarget{jiffies_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/linux/jiffies.h File Reference}
+\label{jiffies_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/linux/jiffies.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/linux/jiffies.\+h}}
+{\ttfamily \#include $<$linux/version.\+h$>$}\\*
+Include dependency graph for jiffies.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{jiffies_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{jiffies_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{jiffies_8h_a248fdc4fc4bced43a66020f26377b79a}{time\+\_\+after64}(a,  b)
+\item 
+\#define \hyperlink{jiffies_8h_a66208a3e87dfb9b2177823a3dcca1faf}{time\+\_\+before64}(a,  b)~\hyperlink{jiffies_8h_a248fdc4fc4bced43a66020f26377b79a}{time\+\_\+after64}(b, a)
+\item 
+\#define \hyperlink{jiffies_8h_aa1a51299a73906d99d9e62cc72664274}{time\+\_\+after\+\_\+eq64}(a,  b)
+\item 
+\#define \hyperlink{jiffies_8h_aa2bf6b95340da2e4f28fee047239c08c}{time\+\_\+before\+\_\+eq64}(a,  b)~\hyperlink{jiffies_8h_aa1a51299a73906d99d9e62cc72664274}{time\+\_\+after\+\_\+eq64}(b, a)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{jiffies_8h_a248fdc4fc4bced43a66020f26377b79a}{}\index{jiffies.\+h@{jiffies.\+h}!time\+\_\+after64@{time\+\_\+after64}}
+\index{time\+\_\+after64@{time\+\_\+after64}!jiffies.\+h@{jiffies.\+h}}
+\subsubsection[{time\+\_\+after64}]{\setlength{\rightskip}{0pt plus 5cm}\#define time\+\_\+after64(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b}
+\end{DoxyParamCaption}
+)}\label{jiffies_8h_a248fdc4fc4bced43a66020f26377b79a}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(typecheck(\_\_u64, a) && \(\backslash\)
+    typecheck(\_\_u64, b) && \(\backslash\)
+    ((\_\_s64)(b) - (\_\_s64)(a) < 0))
+\end{DoxyCode}
+\hypertarget{jiffies_8h_aa1a51299a73906d99d9e62cc72664274}{}\index{jiffies.\+h@{jiffies.\+h}!time\+\_\+after\+\_\+eq64@{time\+\_\+after\+\_\+eq64}}
+\index{time\+\_\+after\+\_\+eq64@{time\+\_\+after\+\_\+eq64}!jiffies.\+h@{jiffies.\+h}}
+\subsubsection[{time\+\_\+after\+\_\+eq64}]{\setlength{\rightskip}{0pt plus 5cm}\#define time\+\_\+after\+\_\+eq64(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b}
+\end{DoxyParamCaption}
+)}\label{jiffies_8h_aa1a51299a73906d99d9e62cc72664274}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(typecheck(\_\_u64, a) && \(\backslash\)
+    typecheck(\_\_u64, b) && \(\backslash\)
+    ((\_\_s64)(a) - (\_\_s64)(b) >= 0))
+\end{DoxyCode}
+\hypertarget{jiffies_8h_a66208a3e87dfb9b2177823a3dcca1faf}{}\index{jiffies.\+h@{jiffies.\+h}!time\+\_\+before64@{time\+\_\+before64}}
+\index{time\+\_\+before64@{time\+\_\+before64}!jiffies.\+h@{jiffies.\+h}}
+\subsubsection[{time\+\_\+before64}]{\setlength{\rightskip}{0pt plus 5cm}\#define time\+\_\+before64(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b}
+\end{DoxyParamCaption}
+)~{\bf time\+\_\+after64}(b, a)}\label{jiffies_8h_a66208a3e87dfb9b2177823a3dcca1faf}
+\hypertarget{jiffies_8h_aa2bf6b95340da2e4f28fee047239c08c}{}\index{jiffies.\+h@{jiffies.\+h}!time\+\_\+before\+\_\+eq64@{time\+\_\+before\+\_\+eq64}}
+\index{time\+\_\+before\+\_\+eq64@{time\+\_\+before\+\_\+eq64}!jiffies.\+h@{jiffies.\+h}}
+\subsubsection[{time\+\_\+before\+\_\+eq64}]{\setlength{\rightskip}{0pt plus 5cm}\#define time\+\_\+before\+\_\+eq64(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b}
+\end{DoxyParamCaption}
+)~{\bf time\+\_\+after\+\_\+eq64}(b, a)}\label{jiffies_8h_aa2bf6b95340da2e4f28fee047239c08c}

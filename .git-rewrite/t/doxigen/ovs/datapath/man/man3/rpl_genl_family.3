@@ -1,0 +1,110 @@
+.TH "rpl_genl_family" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+rpl_genl_family \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <genetlink\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct \fBgenl_family\fP \fBcompat_family\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBid\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBhdrsize\fP"
+.br
+.ti -1c
+.RI "char \fBname\fP [GENL_NAMSIZ]"
+.br
+.ti -1c
+.RI "unsigned int \fBversion\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBmaxattr\fP"
+.br
+.ti -1c
+.RI "\fBbool\fP \fBnetnsok\fP"
+.br
+.ti -1c
+.RI "\fBbool\fP \fBparallel_ops\fP"
+.br
+.ti -1c
+.RI "int(* \fBpre_doit\fP )(const struct genl_ops *\fBops\fP, struct sk_buff *skb, struct genl_info *info)"
+.br
+.ti -1c
+.RI "void(* \fBpost_doit\fP )(const struct genl_ops *\fBops\fP, struct sk_buff *skb, struct genl_info *info)"
+.br
+.ti -1c
+.RI "struct nlattr ** \fBattrbuf\fP"
+.br
+.ti -1c
+.RI "const struct genl_ops * \fBops\fP"
+.br
+.ti -1c
+.RI "const struct genl_multicast_group * \fBmcgrps\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBn_ops\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBn_mcgrps\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBmcgrp_offset\fP"
+.br
+.ti -1c
+.RI "struct list_head \fBfamily_list\fP"
+.br
+.ti -1c
+.RI "struct module * \fBmodule\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "struct nlattr** rpl_genl_family::attrbuf"
+
+.SS "struct \fBgenl_family\fP rpl_genl_family::compat_family"
+
+.SS "struct list_head rpl_genl_family::family_list"
+
+.SS "unsigned int rpl_genl_family::hdrsize"
+
+.SS "unsigned int rpl_genl_family::id"
+
+.SS "unsigned int rpl_genl_family::maxattr"
+
+.SS "unsigned int rpl_genl_family::mcgrp_offset"
+
+.SS "const struct genl_multicast_group* rpl_genl_family::mcgrps"
+
+.SS "struct module* rpl_genl_family::module"
+
+.SS "unsigned int rpl_genl_family::n_mcgrps"
+
+.SS "unsigned int rpl_genl_family::n_ops"
+
+.SS "char rpl_genl_family::name[GENL_NAMSIZ]"
+
+.SS "\fBbool\fP rpl_genl_family::netnsok"
+
+.SS "const struct genl_ops* rpl_genl_family::ops"
+
+.SS "\fBbool\fP rpl_genl_family::parallel_ops"
+
+.SS "void(* rpl_genl_family::post_doit) (const struct genl_ops *\fBops\fP, struct sk_buff *skb, struct genl_info *info)"
+
+.SS "int(* rpl_genl_family::pre_doit) (const struct genl_ops *\fBops\fP, struct sk_buff *skb, struct genl_info *info)"
+
+.SS "unsigned int rpl_genl_family::version"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

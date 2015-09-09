@@ -1,0 +1,555 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="linux_2flow__table_8c">
+    <title>flow_table.c File Reference</title>
+    <programlisting>#include &quot;flow.h&quot;</programlisting>
+    <programlisting>#include &quot;datapath.h&quot;</programlisting>
+    <programlisting>#include &lt;linux/uaccess.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/netdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/etherdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_ether.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_vlan.h&gt;</programlisting>
+    <programlisting>#include &lt;net/llc_pdu.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/jhash.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/jiffies.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/llc.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/in.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rcupdate.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_arp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ipv6.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/sctp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/tcp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/udp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/icmp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/icmpv6.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rculist.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ipv6.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ndisc.h&gt;</programlisting>
+    <programlisting>#include &quot;vlan.h&quot;</programlisting>
+<para>Include dependency diagram for flow_table.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2flow__table_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for flow_table.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2flow__table_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__table_8c_1a84843442d8db7eda5192117e7c6b2997">TBL_MIN_BUCKETS</link> 1024</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__table_8c_1a8240394ae842a0ba76d82f50744ced0a">MASK_ARRAY_SIZE_MIN</link> 16</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__table_8c_1a70a89d7f312fa8c27a8d2423cd512040">REHASH_INTERVAL</link> (10 * 60 * HZ)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__table_8c_1aba54fb364af2c9465bb632f82e4631d7">MC_HASH_SHIFT</link> 8</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__table_8c_1af961440482d56f3b26f232774a37c9c5">MC_HASH_ENTRIES</link> (1u &lt;&lt; MC_HASH_SHIFT)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__table_8c_1ab95179a8dc622b08ce82308fe001d788">MC_HASH_SEGS</link> ((sizeof(uint32_t) * 8) / <link linkend="linux_2flow__table_8c_1aba54fb364af2c9465bb632f82e4631d7">MC_HASH_SHIFT</link>)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Variables</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct kmem_cache * <link linkend="linux_2flow__table_8c_1ab00a8de93e918b8aba331f4872a2c97c">flow_cache</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct kmem_cache *<link linkend="flow__table_8h_1ab305bee215adea2618069cc592f6ee6b">flow_stats_cache</link> <link linkend="linux_2flow__table_8c_1a05eb66f030d0825002eb11cc332e291e">__read_mostly</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static u16 <link linkend="linux_2flow__table_8c_1a1b494e4862736de33cbbd7cd72ee8521">range_n_bytes</link> (
+const struct <link linkend="structsw__flow__key__range">sw_flow_key_range</link> * range)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2flow__table_8c_1a40f76cbd2e168abb1b9744562e24be3b">ovs_flow_mask_key</link> (
+struct <link linkend="structsw__flow__key">sw_flow_key</link> * dst, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * src, const struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structsw__flow">sw_flow</link> * <link linkend="linux_2flow__table_8c_1acce701c647d8e59486574fba1be3e10c">ovs_flow_alloc</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__table_8c_1a8f1f39fd4e1ecafd99321016698a709a">ovs_flow_tbl_count</link> (
+const struct <link linkend="structflow__table">flow_table</link> * table)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct flex_array * <link linkend="linux_2flow__table_8c_1a9ad4dc425c825cafea26f047d94d8880">alloc_buckets</link> (
+unsigned int n_buckets)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1af6a50f2fb2e93732e8d706dd7cf67c9b">flow_free</link> (
+struct <link linkend="structsw__flow">sw_flow</link> * flow)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a38fd2d883e505bba412320f3216dc377">rcu_free_flow_callback</link> (
+struct rcu_head * rcu)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a1431ef6b130c835dd7c86bac4472664b">rcu_free_sw_flow_mask_cb</link> (
+struct rcu_head * rcu)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2flow__table_8c_1a8133cf46e955b2ae38a0bb8afc0a454f">ovs_flow_free</link> (
+struct <link linkend="structsw__flow">sw_flow</link> * flow, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> deferred)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a351711f4f3b2e623bbca105ee2199f52">free_buckets</link> (
+struct flex_array * buckets)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a4699ad0074a999c5f80e77a8ff1b0ebc">__table_instance_destroy</link> (
+struct <link linkend="structtable__instance">table_instance</link> * ti)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structtable__instance">table_instance</link> * <link linkend="linux_2flow__table_8c_1afa79f1c5220d4487a4236884110b9f13">table_instance_alloc</link> (
+int new_size)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a77da2cbea7e181821fc6931d8434bf15">mask_array_rcu_cb</link> (
+struct rcu_head * rcu)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structmask__array">mask_array</link> * <link linkend="linux_2flow__table_8c_1a327b2f9873b81f7b7920e85c366cc96e">tbl_mask_array_alloc</link> (
+int size)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__table_8c_1a1ba0bfff1e2a4377681774b821629e8f">tbl_mask_array_realloc</link> (
+struct <link linkend="structflow__table">flow_table</link> * tbl, int size)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__table_8c_1a0df1c5a76810e541b43248c402d764ff">ovs_flow_tbl_init</link> (
+struct <link linkend="structflow__table">flow_table</link> * table)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a2343a61f4fa3ad010bad594467cbcfc1">flow_tbl_destroy_rcu_cb</link> (
+struct rcu_head * rcu)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a5abf80651b67f4198a34f7a94e116ec6">table_instance_destroy</link> (
+struct <link linkend="structtable__instance">table_instance</link> * ti, struct <link linkend="structtable__instance">table_instance</link> * ufid_ti, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> deferred)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2flow__table_8c_1ad37dcfdb56d17589ed79b5c4dd38bc76">ovs_flow_tbl_destroy</link> (
+struct <link linkend="structflow__table">flow_table</link> * table)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structsw__flow">sw_flow</link> * <link linkend="linux_2flow__table_8c_1ab25c7aae52c39216ebb03d10a6cba0d8">ovs_flow_tbl_dump_next</link> (
+struct <link linkend="structtable__instance">table_instance</link> * ti, u32 * bucket, u32 * last)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct hlist_head * <link linkend="linux_2flow__table_8c_1aed00deae6497143255e822e293592558">find_bucket</link> (
+struct <link linkend="structtable__instance">table_instance</link> * ti, u32 hash)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a81b19a73c026d0c0fa6be862a1ee855b">table_instance_insert</link> (
+struct <link linkend="structtable__instance">table_instance</link> * ti, struct <link linkend="structsw__flow">sw_flow</link> * flow)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a1bf31f9e45e100a65fd166420a7615b4">ufid_table_instance_insert</link> (
+struct <link linkend="structtable__instance">table_instance</link> * ti, struct <link linkend="structsw__flow">sw_flow</link> * flow)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1ab9c9bf751ad9a09eba41b9bbad9925de">flow_table_copy_flows</link> (
+struct <link linkend="structtable__instance">table_instance</link> * old, struct <link linkend="structtable__instance">table_instance</link> * new, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> ufid)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structtable__instance">table_instance</link> * <link linkend="linux_2flow__table_8c_1a2309f644575592a9cfd583b904e33149">table_instance_rehash</link> (
+struct <link linkend="structtable__instance">table_instance</link> * ti, int n_buckets, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> ufid)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__table_8c_1a7e424f978318e8c007b3de68854e8dc2">ovs_flow_tbl_flush</link> (
+struct <link linkend="structflow__table">flow_table</link> * flow_table)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static u32 <link linkend="linux_2flow__table_8c_1ad79946449b7c322a6d9bf13ca010b31b">flow_hash</link> (
+const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const struct <link linkend="structsw__flow__key__range">sw_flow_key_range</link> * range)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__table_8c_1a5342dc2f579189449805c79c106a4595">flow_key_start</link> (
+const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow__table_8c_1a036e05a322b4dc16ff44fc77327846a6">cmp_key</link> (
+const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key1, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key2, int key_start, int key_end)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow__table_8c_1ae52adc695ca936e630f8a4a61753520d">flow_cmp_masked_key</link> (
+const struct <link linkend="structsw__flow">sw_flow</link> * flow, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const struct <link linkend="structsw__flow__key__range">sw_flow_key_range</link> * range)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow__table_8c_1a0dd59a846abd3c41f19357b2223b10a9">ovs_flow_cmp_unmasked_key</link> (
+const struct <link linkend="structsw__flow">sw_flow</link> * flow, const struct <link linkend="structsw__flow__match">sw_flow_match</link> * match)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structsw__flow">sw_flow</link> * <link linkend="linux_2flow__table_8c_1ac32c042a5b0b7a5de7c1e43f7187f92b">masked_flow_lookup</link> (
+struct <link linkend="structtable__instance">table_instance</link> * ti, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * unmasked, const struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * mask, u32 * n_mask_hit)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structsw__flow">sw_flow</link> * <link linkend="linux_2flow__table_8c_1a66b2913ba658b83a167b83e5f5ec465a">flow_lookup</link> (
+struct <link linkend="structflow__table">flow_table</link> * tbl, struct <link linkend="structtable__instance">table_instance</link> * ti, const struct <link linkend="structmask__array">mask_array</link> * ma, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, u32 * n_mask_hit, u32 * index)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structsw__flow">sw_flow</link> * <link linkend="linux_2flow__table_8c_1ac1ff64b403e23c6e8226b0024969556b">ovs_flow_tbl_lookup_stats</link> (
+struct <link linkend="structflow__table">flow_table</link> * tbl, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, u32 skb_hash, u32 * n_mask_hit)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structsw__flow">sw_flow</link> * <link linkend="linux_2flow__table_8c_1a0d208a262dd7b040266e554a447fa099">ovs_flow_tbl_lookup</link> (
+struct <link linkend="structflow__table">flow_table</link> * tbl, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structsw__flow">sw_flow</link> * <link linkend="linux_2flow__table_8c_1ad54c8ee8b511e42f2296bcf5ff8d0fd3">ovs_flow_tbl_lookup_exact</link> (
+struct <link linkend="structflow__table">flow_table</link> * tbl, const struct <link linkend="structsw__flow__match">sw_flow_match</link> * match)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static u32 <link linkend="linux_2flow__table_8c_1aaf879648c325750d8ff234382797f3af">ufid_hash</link> (
+const struct <link linkend="structsw__flow__id">sw_flow_id</link> * sfid)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow__table_8c_1aed32909e9cc5bd5644d1eb39184a5615">ovs_flow_cmp_ufid</link> (
+const struct <link linkend="structsw__flow">sw_flow</link> * flow, const struct <link linkend="structsw__flow__id">sw_flow_id</link> * sfid)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para><link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow__table_8c_1aa91629aca9fd74e235332c7a015d9528">ovs_flow_cmp</link> (
+const struct <link linkend="structsw__flow">sw_flow</link> * flow, const struct <link linkend="structsw__flow__match">sw_flow_match</link> * match)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structsw__flow">sw_flow</link> * <link linkend="linux_2flow__table_8c_1a522dbf2a9a0518ff57eb58c09b69448c">ovs_flow_tbl_lookup_ufid</link> (
+struct <link linkend="structflow__table">flow_table</link> * tbl, const struct <link linkend="structsw__flow__id">sw_flow_id</link> * ufid)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__table_8c_1ab6e18d16217cddd0af756b76b72e6ce6">ovs_flow_tbl_num_masks</link> (
+const struct <link linkend="structflow__table">flow_table</link> * table)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structtable__instance">table_instance</link> * <link linkend="linux_2flow__table_8c_1ae06d563df0cf3fa5d9437e35dafa64cb">table_instance_expand</link> (
+struct <link linkend="structtable__instance">table_instance</link> * ti, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> ufid)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a072572ef64d5ebcc2c99cb48945c8291">tbl_mask_array_delete_mask</link> (
+struct <link linkend="structmask__array">mask_array</link> * ma, struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a67796467285f769eda43c39ae058d997">flow_mask_remove</link> (
+struct <link linkend="structflow__table">flow_table</link> * tbl, struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2flow__table_8c_1aa75b8bc2551f9c1a8d65b942a10df89a">ovs_flow_tbl_remove</link> (
+struct <link linkend="structflow__table">flow_table</link> * table, struct <link linkend="structsw__flow">sw_flow</link> * flow)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * <link linkend="linux_2flow__table_8c_1ac9c253eab445afa7ba77781418a92be7">mask_alloc</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow__table_8c_1a7dd8ab521133d5c26cac895f316213ae">mask_equal</link> (
+const struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * a, const struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * b)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * <link linkend="linux_2flow__table_8c_1ac6253f7b922a021b0f2321be510fac7c">flow_mask_find</link> (
+const struct <link linkend="structflow__table">flow_table</link> * tbl, const struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__table_8c_1a1ceded3a19f98e73b3c10faf2f2532f5">flow_mask_insert</link> (
+struct <link linkend="structflow__table">flow_table</link> * tbl, struct <link linkend="structsw__flow">sw_flow</link> * flow, const struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * new)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a66f2b72d1c755346c4865714e51cfcf4">flow_key_insert</link> (
+struct <link linkend="structflow__table">flow_table</link> * table, struct <link linkend="structsw__flow">sw_flow</link> * flow)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__table_8c_1a36540c6298f41907b7c088b34116346d">flow_ufid_insert</link> (
+struct <link linkend="structflow__table">flow_table</link> * table, struct <link linkend="structsw__flow">sw_flow</link> * flow)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__table_8c_1a72ec4f72961a64b1c006978a32554a4c">ovs_flow_tbl_insert</link> (
+struct <link linkend="structflow__table">flow_table</link> * table, struct <link linkend="structsw__flow">sw_flow</link> * flow, const struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__table_8c_1a07492868e65ba495c86d49df9cf1bc50">ovs_flow_init</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2flow__table_8c_1a96cce30f7a9c3231d5b5afaf967378eb">ovs_flow_exit</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/flow_table.c</para>
+    </simplesect>
+</section>

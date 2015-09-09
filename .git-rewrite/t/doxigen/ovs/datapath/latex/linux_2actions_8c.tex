@@ -1,0 +1,1505 @@
+\hypertarget{linux_2actions_8c}{}\section{/home/vladn/git/ovs/datapath/linux/actions.c File Reference}
+\label{linux_2actions_8c}\index{/home/vladn/git/ovs/datapath/linux/actions.\+c@{/home/vladn/git/ovs/datapath/linux/actions.\+c}}
+{\ttfamily \#include $<$linux/skbuff.\+h$>$}\\*
+{\ttfamily \#include $<$linux/in.\+h$>$}\\*
+{\ttfamily \#include $<$linux/ip.\+h$>$}\\*
+{\ttfamily \#include $<$linux/openvswitch.\+h$>$}\\*
+{\ttfamily \#include $<$linux/sctp.\+h$>$}\\*
+{\ttfamily \#include $<$linux/tcp.\+h$>$}\\*
+{\ttfamily \#include $<$linux/udp.\+h$>$}\\*
+{\ttfamily \#include $<$linux/in6.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+arp.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+vlan.\+h$>$}\\*
+{\ttfamily \#include $<$net/ip.\+h$>$}\\*
+{\ttfamily \#include $<$net/ipv6.\+h$>$}\\*
+{\ttfamily \#include $<$net/checksum.\+h$>$}\\*
+{\ttfamily \#include $<$net/dsfield.\+h$>$}\\*
+{\ttfamily \#include $<$net/mpls.\+h$>$}\\*
+{\ttfamily \#include $<$net/sctp/checksum.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}datapath.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gso.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}vlan.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}vport.\+h\char`\"{}}\\*
+Include dependency graph for actions.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux_2actions_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structdeferred__action}{deferred\+\_\+action}
+\item 
+struct \hyperlink{structaction__fifo}{action\+\_\+fifo}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{linux_2actions_8c_a1f8c165bf4196327bc3abff648276d92}{pr\+\_\+fmt}(fmt)~K\+B\+U\+I\+L\+D\+\_\+\+M\+O\+D\+N\+A\+M\+E \char`\"{}\+: \char`\"{} fmt
+\item 
+\#define \hyperlink{linux_2actions_8c_acb72e0b273dae399e2619f619fd061ed}{D\+E\+F\+E\+R\+R\+E\+D\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+F\+I\+F\+O\+\_\+\+S\+I\+Z\+E}~10
+\item 
+\#define \hyperlink{linux_2actions_8c_aef2488868338b5c1ec4419f0efde93f1}{E\+X\+E\+C\+\_\+\+A\+C\+T\+I\+O\+N\+S\+\_\+\+L\+E\+V\+E\+L\+\_\+\+L\+I\+M\+I\+T}
+\item 
+\#define \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{M\+A\+S\+K\+E\+D}(O\+L\+D,  K\+E\+Y,  M\+A\+S\+K)~((K\+E\+Y) $\vert$ ((O\+L\+D) \& $\sim$(M\+A\+S\+K)))
+\item 
+\#define \hyperlink{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{S\+E\+T\+\_\+\+M\+A\+S\+K\+E\+D}(O\+L\+D,  K\+E\+Y,  M\+A\+S\+K)~((O\+L\+D) = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{M\+A\+S\+K\+E\+D}(O\+L\+D, K\+E\+Y, M\+A\+S\+K))
+\item 
+\#define \hyperlink{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{get\+\_\+mask}(a,  \hyperlink{flow_8h_ab22aaab04f806700def00f32823fcb9e}{type})~((const \hyperlink{flow_8h_ab22aaab04f806700def00f32823fcb9e}{type})nla\+\_\+data(a) + 1)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{linux_2actions_8c_ad41a07588c602d50a247bcf2bf9ae9d5}{do\+\_\+execute\+\_\+actions} (struct \hyperlink{structdatapath}{datapath} $\ast$dp, struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, const struct nlattr $\ast$attr, int len)
+\item 
+static \hyperlink{linux_2actions_8c_aacdc7977b799c6e2275e312793f87dcd}{D\+E\+F\+I\+N\+E\+\_\+\+P\+E\+R\+\_\+\+C\+P\+U} (int, exec\+\_\+actions\+\_\+level)
+\item 
+static void \hyperlink{linux_2actions_8c_a688872dd5196a430f6a0df6e1954d220}{action\+\_\+fifo\+\_\+init} (struct \hyperlink{structaction__fifo}{action\+\_\+fifo} $\ast$fifo)
+\item 
+static \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{linux_2actions_8c_ade23c3824a292e4698cb3c01fefa52a5}{action\+\_\+fifo\+\_\+is\+\_\+empty} (const struct \hyperlink{structaction__fifo}{action\+\_\+fifo} $\ast$fifo)
+\item 
+static struct \hyperlink{structdeferred__action}{deferred\+\_\+action} $\ast$ \hyperlink{linux_2actions_8c_a7512da42cda457a824bb2fc8ff850dd5}{action\+\_\+fifo\+\_\+get} (struct \hyperlink{structaction__fifo}{action\+\_\+fifo} $\ast$fifo)
+\item 
+static struct \hyperlink{structdeferred__action}{deferred\+\_\+action} $\ast$ \hyperlink{linux_2actions_8c_a3c8c974792d662e29d50b97ae044a068}{action\+\_\+fifo\+\_\+put} (struct \hyperlink{structaction__fifo}{action\+\_\+fifo} $\ast$fifo)
+\item 
+static struct \hyperlink{structdeferred__action}{deferred\+\_\+action} $\ast$ \hyperlink{linux_2actions_8c_a3875097b6e35686ddee414782d0e67b1}{add\+\_\+deferred\+\_\+actions} (struct sk\+\_\+buff $\ast$skb, const struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, const struct nlattr $\ast$attr)
+\item 
+static void \hyperlink{linux_2actions_8c_aac28ee49d1019a576306f207afd5f8d6}{invalidate\+\_\+flow\+\_\+key} (struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key)
+\item 
+static \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{linux_2actions_8c_a77e3320f8f43a04aaf952a2c82e6dac1}{is\+\_\+flow\+\_\+key\+\_\+valid} (const struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key)
+\item 
+static int \hyperlink{linux_2actions_8c_affb38ca95e088fb61d6df91cf3fdd606}{push\+\_\+mpls} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, const struct \hyperlink{structovs__action__push__mpls}{ovs\+\_\+action\+\_\+push\+\_\+mpls} $\ast$\hyperlink{flow_8h_aeab2d67b4ec58a9575da76c323ad95ce}{mpls})
+\item 
+static int \hyperlink{linux_2actions_8c_ac372daa8a5c4eb7fb2536fa61653e41b}{pop\+\_\+mpls} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, const \+\_\+\+\_\+be16 ethertype)
+\item 
+static int \hyperlink{linux_2actions_8c_ad66261c51831d2a4a6ff0ea385fbad32}{set\+\_\+mpls} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$flow\+\_\+key, const \+\_\+\+\_\+be32 $\ast$mpls\+\_\+lse, const \+\_\+\+\_\+be32 $\ast$mask)
+\item 
+static int \hyperlink{linux_2actions_8c_aa11b6c74e2206cc8353d00cff409df22}{pop\+\_\+vlan} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key)
+\item 
+static int \hyperlink{linux_2actions_8c_a706c437e9fb3992afaa8f62605c59961}{push\+\_\+vlan} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, const struct \hyperlink{structovs__action__push__vlan}{ovs\+\_\+action\+\_\+push\+\_\+vlan} $\ast$vlan)
+\item 
+static void \hyperlink{linux_2actions_8c_a2d434306a1e37e8bd0572dab35cc68ca}{ether\+\_\+addr\+\_\+copy\+\_\+masked} (u8 $\ast$dst\+\_\+, const u8 $\ast$src\+\_\+, const u8 $\ast$mask\+\_\+)
+\item 
+static int \hyperlink{linux_2actions_8c_a85d6da67a26cfee7c3c894131233f9ca}{set\+\_\+eth\+\_\+addr} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$flow\+\_\+key, const struct \hyperlink{structovs__key__ethernet}{ovs\+\_\+key\+\_\+ethernet} $\ast$key, const struct \hyperlink{structovs__key__ethernet}{ovs\+\_\+key\+\_\+ethernet} $\ast$mask)
+\item 
+static void \hyperlink{linux_2actions_8c_a35283087cadb66ada3c19e7a87cfdcba}{set\+\_\+ip\+\_\+addr} (struct sk\+\_\+buff $\ast$skb, struct iphdr $\ast$nh, \+\_\+\+\_\+be32 $\ast$\hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}, \+\_\+\+\_\+be32 new\+\_\+addr)
+\item 
+static void \hyperlink{linux_2actions_8c_a006120c8695be3960f274e88e24b535a}{update\+\_\+ipv6\+\_\+checksum} (struct sk\+\_\+buff $\ast$skb, u8 l4\+\_\+proto, \+\_\+\+\_\+be32 \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}\mbox{[}4\mbox{]}, const \+\_\+\+\_\+be32 new\+\_\+addr\mbox{[}4\mbox{]})
+\item 
+static void \hyperlink{linux_2actions_8c_affe65b5dd55e3a7c39c5a6705731f01f}{mask\+\_\+ipv6\+\_\+addr} (const \+\_\+\+\_\+be32 old\mbox{[}4\mbox{]}, const \+\_\+\+\_\+be32 \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}\mbox{[}4\mbox{]}, const \+\_\+\+\_\+be32 mask\mbox{[}4\mbox{]}, \+\_\+\+\_\+be32 masked\mbox{[}4\mbox{]})
+\item 
+static void \hyperlink{linux_2actions_8c_aa39edf0f0aa23ee17d2828e1c42b0590}{set\+\_\+ipv6\+\_\+addr} (struct sk\+\_\+buff $\ast$skb, u8 l4\+\_\+proto, \+\_\+\+\_\+be32 \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}\mbox{[}4\mbox{]}, const \+\_\+\+\_\+be32 new\+\_\+addr\mbox{[}4\mbox{]}, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} recalculate\+\_\+csum)
+\item 
+static void \hyperlink{linux_2actions_8c_a105b45d892887e581acec50af165e330}{set\+\_\+ipv6\+\_\+fl} (struct ipv6hdr $\ast$nh, u32 fl, u32 mask)
+\item 
+static void \hyperlink{linux_2actions_8c_a00bc919dc7a6a81f506155c0372eba9b}{set\+\_\+ip\+\_\+ttl} (struct sk\+\_\+buff $\ast$skb, struct iphdr $\ast$nh, u8 new\+\_\+ttl, u8 mask)
+\item 
+static int \hyperlink{linux_2actions_8c_a5b6148caa3654ee968f7173b83b3abf4}{set\+\_\+ipv4} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$flow\+\_\+key, const struct \hyperlink{structovs__key__ipv4}{ovs\+\_\+key\+\_\+ipv4} $\ast$key, const struct \hyperlink{structovs__key__ipv4}{ovs\+\_\+key\+\_\+ipv4} $\ast$mask)
+\item 
+static \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{linux_2actions_8c_a889a29de7d27314b273304eaad6f202e}{is\+\_\+ipv6\+\_\+mask\+\_\+nonzero} (const \+\_\+\+\_\+be32 \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}\mbox{[}4\mbox{]})
+\item 
+static int \hyperlink{linux_2actions_8c_acf538956396fdb59cff22ad4577c10f3}{set\+\_\+ipv6} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$flow\+\_\+key, const struct \hyperlink{structovs__key__ipv6}{ovs\+\_\+key\+\_\+ipv6} $\ast$key, const struct \hyperlink{structovs__key__ipv6}{ovs\+\_\+key\+\_\+ipv6} $\ast$mask)
+\item 
+static void \hyperlink{linux_2actions_8c_a485b30c5af82b861079002c3e8899f7d}{set\+\_\+tp\+\_\+port} (struct sk\+\_\+buff $\ast$skb, \+\_\+\+\_\+be16 $\ast$port, \+\_\+\+\_\+be16 new\+\_\+port, \hyperlink{types_8h_a2fdf5566d289d6941c29db084139bf23}{\+\_\+\+\_\+sum16} $\ast$check)
+\item 
+static int \hyperlink{linux_2actions_8c_ae78d854d13e952f67ca0d0b7bc45be75}{set\+\_\+udp} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$flow\+\_\+key, const struct \hyperlink{structovs__key__udp}{ovs\+\_\+key\+\_\+udp} $\ast$key, const struct \hyperlink{structovs__key__udp}{ovs\+\_\+key\+\_\+udp} $\ast$mask)
+\item 
+static int \hyperlink{linux_2actions_8c_a3f6591203112ded2452b368308b0f36b}{set\+\_\+tcp} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$flow\+\_\+key, const struct \hyperlink{structovs__key__tcp}{ovs\+\_\+key\+\_\+tcp} $\ast$key, const struct \hyperlink{structovs__key__tcp}{ovs\+\_\+key\+\_\+tcp} $\ast$mask)
+\item 
+static int \hyperlink{linux_2actions_8c_a7f2d96d4cc495e0f9f48c61305beea5c}{set\+\_\+sctp} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$flow\+\_\+key, const struct \hyperlink{structovs__key__sctp}{ovs\+\_\+key\+\_\+sctp} $\ast$key, const struct \hyperlink{structovs__key__sctp}{ovs\+\_\+key\+\_\+sctp} $\ast$mask)
+\item 
+static void \hyperlink{linux_2actions_8c_a141467d4c8b6d03b33ca4a36b471fb1e}{do\+\_\+output} (struct \hyperlink{structdatapath}{datapath} $\ast$dp, struct sk\+\_\+buff $\ast$skb, int out\+\_\+port)
+\item 
+static int \hyperlink{linux_2actions_8c_ad0ea13ac8532fe548cd35a2d1086d8f3}{output\+\_\+userspace} (struct \hyperlink{structdatapath}{datapath} $\ast$dp, struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, const struct nlattr $\ast$attr, const struct nlattr $\ast$actions, int actions\+\_\+len)
+\item 
+static int \hyperlink{linux_2actions_8c_a23b7fbefa6429cd4af2c92eb20c03889}{sample} (struct \hyperlink{structdatapath}{datapath} $\ast$dp, struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, const struct nlattr $\ast$attr, const struct nlattr $\ast$actions, int actions\+\_\+len)
+\item 
+static void \hyperlink{linux_2actions_8c_a7f08d769ba6fb4cdd65ef7ced5964dea}{execute\+\_\+hash} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, const struct nlattr $\ast$attr)
+\item 
+static int \hyperlink{linux_2actions_8c_a4a59d75b1d012debb4f8ab42d0672deb}{execute\+\_\+set\+\_\+action} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$flow\+\_\+key, const struct nlattr $\ast$a)
+\item 
+static int \hyperlink{linux_2actions_8c_ae5d851747d2630c868c296b43ad3c2e7}{execute\+\_\+masked\+\_\+set\+\_\+action} (struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$flow\+\_\+key, const struct nlattr $\ast$a)
+\item 
+static int \hyperlink{linux_2actions_8c_ab6b5b3b0684142f0e137bd64d883d52f}{execute\+\_\+recirc} (struct \hyperlink{structdatapath}{datapath} $\ast$dp, struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, const struct nlattr $\ast$a, int rem)
+\item 
+static void \hyperlink{linux_2actions_8c_afa871a96ea915a7ce87b96a0b7b30538}{process\+\_\+deferred\+\_\+actions} (struct \hyperlink{structdatapath}{datapath} $\ast$dp)
+\item 
+int \hyperlink{linux_2actions_8c_a5b34c1980d155574d657a21cac3bcc37}{ovs\+\_\+execute\+\_\+actions} (struct \hyperlink{structdatapath}{datapath} $\ast$dp, struct sk\+\_\+buff $\ast$skb, const struct \hyperlink{structsw__flow__actions}{sw\+\_\+flow\+\_\+actions} $\ast$acts, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key)
+\item 
+int \hyperlink{linux_2actions_8c_a3006f0376c2aecb6525126ad0e9bae25}{action\+\_\+fifos\+\_\+init} (void)
+\item 
+void \hyperlink{linux_2actions_8c_a7dfd1f218e0966ef342251a185866f4d}{action\+\_\+fifos\+\_\+exit} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static struct \hyperlink{structaction__fifo}{action\+\_\+fifo} \hyperlink{compiler_8h_a497f20279760cdb59a5187689f9f5ab1}{\+\_\+\+\_\+percpu} $\ast$ \hyperlink{linux_2actions_8c_a38c6295376dbb80340f4f1b8e488f223}{action\+\_\+fifos}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{linux_2actions_8c_acb72e0b273dae399e2619f619fd061ed}{}\index{linux/actions.\+c@{linux/actions.\+c}!D\+E\+F\+E\+R\+R\+E\+D\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+F\+I\+F\+O\+\_\+\+S\+I\+Z\+E@{D\+E\+F\+E\+R\+R\+E\+D\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+F\+I\+F\+O\+\_\+\+S\+I\+Z\+E}}
+\index{D\+E\+F\+E\+R\+R\+E\+D\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+F\+I\+F\+O\+\_\+\+S\+I\+Z\+E@{D\+E\+F\+E\+R\+R\+E\+D\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+F\+I\+F\+O\+\_\+\+S\+I\+Z\+E}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{D\+E\+F\+E\+R\+R\+E\+D\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+F\+I\+F\+O\+\_\+\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+F\+E\+R\+R\+E\+D\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+F\+I\+F\+O\+\_\+\+S\+I\+Z\+E~10}\label{linux_2actions_8c_acb72e0b273dae399e2619f619fd061ed}
+\hypertarget{linux_2actions_8c_aef2488868338b5c1ec4419f0efde93f1}{}\index{linux/actions.\+c@{linux/actions.\+c}!E\+X\+E\+C\+\_\+\+A\+C\+T\+I\+O\+N\+S\+\_\+\+L\+E\+V\+E\+L\+\_\+\+L\+I\+M\+I\+T@{E\+X\+E\+C\+\_\+\+A\+C\+T\+I\+O\+N\+S\+\_\+\+L\+E\+V\+E\+L\+\_\+\+L\+I\+M\+I\+T}}
+\index{E\+X\+E\+C\+\_\+\+A\+C\+T\+I\+O\+N\+S\+\_\+\+L\+E\+V\+E\+L\+\_\+\+L\+I\+M\+I\+T@{E\+X\+E\+C\+\_\+\+A\+C\+T\+I\+O\+N\+S\+\_\+\+L\+E\+V\+E\+L\+\_\+\+L\+I\+M\+I\+T}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{E\+X\+E\+C\+\_\+\+A\+C\+T\+I\+O\+N\+S\+\_\+\+L\+E\+V\+E\+L\+\_\+\+L\+I\+M\+I\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+E\+C\+\_\+\+A\+C\+T\+I\+O\+N\+S\+\_\+\+L\+E\+V\+E\+L\+\_\+\+L\+I\+M\+I\+T}\label{linux_2actions_8c_aef2488868338b5c1ec4419f0efde93f1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+4   \textcolor{comment}{/* limit used to detect packet}
+\textcolor{comment}{                      * looping by the network stack}
+\textcolor{comment}{                      */}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{}\index{linux/actions.\+c@{linux/actions.\+c}!get\+\_\+mask@{get\+\_\+mask}}
+\index{get\+\_\+mask@{get\+\_\+mask}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{get\+\_\+mask}]{\setlength{\rightskip}{0pt plus 5cm}\#define get\+\_\+mask(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{{\bf type}}
+\end{DoxyParamCaption}
+)~((const {\bf type})nla\+\_\+data(a) + 1)}\label{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}
+\hypertarget{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{}\index{linux/actions.\+c@{linux/actions.\+c}!M\+A\+S\+K\+E\+D@{M\+A\+S\+K\+E\+D}}
+\index{M\+A\+S\+K\+E\+D@{M\+A\+S\+K\+E\+D}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{M\+A\+S\+K\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+S\+K\+E\+D(
+\begin{DoxyParamCaption}
+\item[{}]{O\+L\+D, }
+\item[{}]{K\+E\+Y, }
+\item[{}]{M\+A\+S\+K}
+\end{DoxyParamCaption}
+)~((K\+E\+Y) $\vert$ ((O\+L\+D) \& $\sim$(M\+A\+S\+K)))}\label{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}
+\hypertarget{linux_2actions_8c_a1f8c165bf4196327bc3abff648276d92}{}\index{linux/actions.\+c@{linux/actions.\+c}!pr\+\_\+fmt@{pr\+\_\+fmt}}
+\index{pr\+\_\+fmt@{pr\+\_\+fmt}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{pr\+\_\+fmt}]{\setlength{\rightskip}{0pt plus 5cm}\#define pr\+\_\+fmt(
+\begin{DoxyParamCaption}
+\item[{}]{fmt}
+\end{DoxyParamCaption}
+)~K\+B\+U\+I\+L\+D\+\_\+\+M\+O\+D\+N\+A\+M\+E \char`\"{}\+: \char`\"{} fmt}\label{linux_2actions_8c_a1f8c165bf4196327bc3abff648276d92}
+\hypertarget{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{}\index{linux/actions.\+c@{linux/actions.\+c}!S\+E\+T\+\_\+\+M\+A\+S\+K\+E\+D@{S\+E\+T\+\_\+\+M\+A\+S\+K\+E\+D}}
+\index{S\+E\+T\+\_\+\+M\+A\+S\+K\+E\+D@{S\+E\+T\+\_\+\+M\+A\+S\+K\+E\+D}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{S\+E\+T\+\_\+\+M\+A\+S\+K\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+T\+\_\+\+M\+A\+S\+K\+E\+D(
+\begin{DoxyParamCaption}
+\item[{}]{O\+L\+D, }
+\item[{}]{K\+E\+Y, }
+\item[{}]{M\+A\+S\+K}
+\end{DoxyParamCaption}
+)~((O\+L\+D) = {\bf M\+A\+S\+K\+E\+D}(O\+L\+D, K\+E\+Y, M\+A\+S\+K))}\label{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}
+
+
+\subsection{Function Documentation}
+\hypertarget{linux_2actions_8c_a7512da42cda457a824bb2fc8ff850dd5}{}\index{linux/actions.\+c@{linux/actions.\+c}!action\+\_\+fifo\+\_\+get@{action\+\_\+fifo\+\_\+get}}
+\index{action\+\_\+fifo\+\_\+get@{action\+\_\+fifo\+\_\+get}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{action\+\_\+fifo\+\_\+get}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf deferred\+\_\+action}$\ast$ action\+\_\+fifo\+\_\+get (
+\begin{DoxyParamCaption}
+\item[{struct {\bf action\+\_\+fifo} $\ast$}]{fifo}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a7512da42cda457a824bb2fc8ff850dd5}
+
+\begin{DoxyCode}
+82 \{
+83     \textcolor{keywordflow}{if} (\hyperlink{linux_2actions_8c_ade23c3824a292e4698cb3c01fefa52a5}{action\_fifo\_is\_empty}(fifo))
+84         \textcolor{keywordflow}{return} NULL;
+85 
+86     \textcolor{keywordflow}{return} &fifo->\hyperlink{structaction__fifo_ab25b47c1bc05f5417f0a2073a47b2eb5}{fifo}[fifo->\hyperlink{structaction__fifo_a60805cbdf935d6718f685c7374ae9493}{tail}++];
+87 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a688872dd5196a430f6a0df6e1954d220}{}\index{linux/actions.\+c@{linux/actions.\+c}!action\+\_\+fifo\+\_\+init@{action\+\_\+fifo\+\_\+init}}
+\index{action\+\_\+fifo\+\_\+init@{action\+\_\+fifo\+\_\+init}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{action\+\_\+fifo\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}static void action\+\_\+fifo\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{struct {\bf action\+\_\+fifo} $\ast$}]{fifo}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a688872dd5196a430f6a0df6e1954d220}
+
+\begin{DoxyCode}
+71 \{
+72     fifo->\hyperlink{structaction__fifo_a5376b4a5c9dbfd84303d156a47ed9018}{head} = 0;
+73     fifo->\hyperlink{structaction__fifo_a60805cbdf935d6718f685c7374ae9493}{tail} = 0;
+74 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_ade23c3824a292e4698cb3c01fefa52a5}{}\index{linux/actions.\+c@{linux/actions.\+c}!action\+\_\+fifo\+\_\+is\+\_\+empty@{action\+\_\+fifo\+\_\+is\+\_\+empty}}
+\index{action\+\_\+fifo\+\_\+is\+\_\+empty@{action\+\_\+fifo\+\_\+is\+\_\+empty}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{action\+\_\+fifo\+\_\+is\+\_\+empty}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} action\+\_\+fifo\+\_\+is\+\_\+empty (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf action\+\_\+fifo} $\ast$}]{fifo}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_ade23c3824a292e4698cb3c01fefa52a5}
+
+\begin{DoxyCode}
+77 \{
+78     \textcolor{keywordflow}{return} (fifo->\hyperlink{structaction__fifo_a5376b4a5c9dbfd84303d156a47ed9018}{head} == fifo->\hyperlink{structaction__fifo_a60805cbdf935d6718f685c7374ae9493}{tail});
+79 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a3c8c974792d662e29d50b97ae044a068}{}\index{linux/actions.\+c@{linux/actions.\+c}!action\+\_\+fifo\+\_\+put@{action\+\_\+fifo\+\_\+put}}
+\index{action\+\_\+fifo\+\_\+put@{action\+\_\+fifo\+\_\+put}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{action\+\_\+fifo\+\_\+put}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf deferred\+\_\+action}$\ast$ action\+\_\+fifo\+\_\+put (
+\begin{DoxyParamCaption}
+\item[{struct {\bf action\+\_\+fifo} $\ast$}]{fifo}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a3c8c974792d662e29d50b97ae044a068}
+
+\begin{DoxyCode}
+90 \{
+91     \textcolor{keywordflow}{if} (fifo->\hyperlink{structaction__fifo_a5376b4a5c9dbfd84303d156a47ed9018}{head} >= \hyperlink{linux_2actions_8c_acb72e0b273dae399e2619f619fd061ed}{DEFERRED\_ACTION\_FIFO\_SIZE} - 1)
+92         \textcolor{keywordflow}{return} NULL;
+93 
+94     \textcolor{keywordflow}{return} &fifo->\hyperlink{structaction__fifo_ab25b47c1bc05f5417f0a2073a47b2eb5}{fifo}[fifo->\hyperlink{structaction__fifo_a5376b4a5c9dbfd84303d156a47ed9018}{head}++];
+95 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a7dfd1f218e0966ef342251a185866f4d}{}\index{linux/actions.\+c@{linux/actions.\+c}!action\+\_\+fifos\+\_\+exit@{action\+\_\+fifos\+\_\+exit}}
+\index{action\+\_\+fifos\+\_\+exit@{action\+\_\+fifos\+\_\+exit}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{action\+\_\+fifos\+\_\+exit}]{\setlength{\rightskip}{0pt plus 5cm}void action\+\_\+fifos\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2actions_8c_a7dfd1f218e0966ef342251a185866f4d}
+
+\begin{DoxyCode}
+1016 \{
+1017     free\_percpu(\hyperlink{linux_2actions_8c_a38c6295376dbb80340f4f1b8e488f223}{action\_fifos});
+1018 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a3006f0376c2aecb6525126ad0e9bae25}{}\index{linux/actions.\+c@{linux/actions.\+c}!action\+\_\+fifos\+\_\+init@{action\+\_\+fifos\+\_\+init}}
+\index{action\+\_\+fifos\+\_\+init@{action\+\_\+fifos\+\_\+init}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{action\+\_\+fifos\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}int action\+\_\+fifos\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2actions_8c_a3006f0376c2aecb6525126ad0e9bae25}
+
+\begin{DoxyCode}
+1007 \{
+1008     \hyperlink{linux_2actions_8c_a38c6295376dbb80340f4f1b8e488f223}{action\_fifos} = alloc\_percpu(\textcolor{keyword}{struct} \hyperlink{structaction__fifo}{action\_fifo});
+1009     \textcolor{keywordflow}{if} (!\hyperlink{linux_2actions_8c_a38c6295376dbb80340f4f1b8e488f223}{action\_fifos})
+1010         \textcolor{keywordflow}{return} -ENOMEM;
+1011 
+1012     \textcolor{keywordflow}{return} 0;
+1013 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a3875097b6e35686ddee414782d0e67b1}{}\index{linux/actions.\+c@{linux/actions.\+c}!add\+\_\+deferred\+\_\+actions@{add\+\_\+deferred\+\_\+actions}}
+\index{add\+\_\+deferred\+\_\+actions@{add\+\_\+deferred\+\_\+actions}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{add\+\_\+deferred\+\_\+actions}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf deferred\+\_\+action}$\ast$ add\+\_\+deferred\+\_\+actions (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{const struct nlattr $\ast$}]{attr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a3875097b6e35686ddee414782d0e67b1}
+
+\begin{DoxyCode}
+101 \{
+102     \textcolor{keyword}{struct }\hyperlink{structaction__fifo}{action\_fifo} *\hyperlink{structaction__fifo_ab25b47c1bc05f5417f0a2073a47b2eb5}{fifo};
+103     \textcolor{keyword}{struct }\hyperlink{structdeferred__action}{deferred\_action} *da;
+104 
+105     fifo = \hyperlink{percpu_8h_a1cd55f287dff5c4a79fc11dd38d47c12}{this\_cpu\_ptr}(\hyperlink{linux_2actions_8c_a38c6295376dbb80340f4f1b8e488f223}{action\_fifos});
+106     da = \hyperlink{linux_2actions_8c_a3c8c974792d662e29d50b97ae044a068}{action\_fifo\_put}(fifo);
+107     \textcolor{keywordflow}{if} (da) \{
+108         da->\hyperlink{structdeferred__action_acba4fd12fba3d60b6f4c7f2f3159f316}{skb} = \hyperlink{structdeferred__action_acba4fd12fba3d60b6f4c7f2f3159f316}{skb};
+109         da->\hyperlink{structdeferred__action_a9cb4d3dde378a66035e7b17f017d9f89}{actions} = attr;
+110         da->\hyperlink{structdeferred__action_a4685f782001923a8f8c20510126b4c21}{pkt\_key} = *key;
+111     \}
+112 
+113     \textcolor{keywordflow}{return} da;
+114 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_aacdc7977b799c6e2275e312793f87dcd}{}\index{linux/actions.\+c@{linux/actions.\+c}!D\+E\+F\+I\+N\+E\+\_\+\+P\+E\+R\+\_\+\+C\+P\+U@{D\+E\+F\+I\+N\+E\+\_\+\+P\+E\+R\+\_\+\+C\+P\+U}}
+\index{D\+E\+F\+I\+N\+E\+\_\+\+P\+E\+R\+\_\+\+C\+P\+U@{D\+E\+F\+I\+N\+E\+\_\+\+P\+E\+R\+\_\+\+C\+P\+U}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{D\+E\+F\+I\+N\+E\+\_\+\+P\+E\+R\+\_\+\+C\+P\+U}]{\setlength{\rightskip}{0pt plus 5cm}static D\+E\+F\+I\+N\+E\+\_\+\+P\+E\+R\+\_\+\+C\+P\+U (
+\begin{DoxyParamCaption}
+\item[{int}]{, }
+\item[{exec\+\_\+actions\+\_\+level}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_aacdc7977b799c6e2275e312793f87dcd}
+\hypertarget{linux_2actions_8c_ad41a07588c602d50a247bcf2bf9ae9d5}{}\index{linux/actions.\+c@{linux/actions.\+c}!do\+\_\+execute\+\_\+actions@{do\+\_\+execute\+\_\+actions}}
+\index{do\+\_\+execute\+\_\+actions@{do\+\_\+execute\+\_\+actions}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{do\+\_\+execute\+\_\+actions}]{\setlength{\rightskip}{0pt plus 5cm}static int do\+\_\+execute\+\_\+actions (
+\begin{DoxyParamCaption}
+\item[{struct {\bf datapath} $\ast$}]{dp, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{const struct nlattr $\ast$}]{attr, }
+\item[{int}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_ad41a07588c602d50a247bcf2bf9ae9d5}
+
+\begin{DoxyCode}
+856 \{
+857     \textcolor{comment}{/* Every output action needs a separate clone of 'skb', but the common}
+858 \textcolor{comment}{     * case is just a single output action, so that doing a clone and}
+859 \textcolor{comment}{     * then freeing the original skbuff is wasteful.  So the following code}
+860 \textcolor{comment}{     * is slightly obscure just to avoid that.}
+861 \textcolor{comment}{     */}
+862     \textcolor{keywordtype}{int} prev\_port = -1;
+863     \textcolor{keyword}{const} \textcolor{keyword}{struct }nlattr *a;
+864     \textcolor{keywordtype}{int} rem;
+865 
+866     \textcolor{keywordflow}{for} (a = attr, rem = len; rem > 0;
+867          a = nla\_next(a, &rem)) \{
+868         \textcolor{keywordtype}{int} err = 0;
+869 
+870         \textcolor{keywordflow}{if} (unlikely(prev\_port != -1)) \{
+871             \textcolor{keyword}{struct }sk\_buff *out\_skb = skb\_clone(skb, GFP\_ATOMIC);
+872 
+873             \textcolor{keywordflow}{if} (out\_skb)
+874                 \hyperlink{linux_2actions_8c_a141467d4c8b6d03b33ca4a36b471fb1e}{do\_output}(dp, out\_skb, prev\_port);
+875 
+876             prev\_port = -1;
+877         \}
+878 
+879         \textcolor{keywordflow}{switch} (nla\_type(a)) \{
+880         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26eacad69687bf2bfae5092ea828cf0d4fe2}{OVS\_ACTION\_ATTR\_OUTPUT}:
+881             prev\_port = nla\_get\_u32(a);
+882             \textcolor{keywordflow}{break};
+883 
+884         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26ea17132af22505d8b1bb535a270f83a8bd}{OVS\_ACTION\_ATTR\_USERSPACE}:
+885             \hyperlink{linux_2actions_8c_ad0ea13ac8532fe548cd35a2d1086d8f3}{output\_userspace}(dp, skb, key, a, attr, len);
+886             \textcolor{keywordflow}{break};
+887 
+888         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26eaa783c1e8488baea181d3497e0e9676f9}{OVS\_ACTION\_ATTR\_HASH}:
+889             \hyperlink{linux_2actions_8c_a7f08d769ba6fb4cdd65ef7ced5964dea}{execute\_hash}(skb, key, a);
+890             \textcolor{keywordflow}{break};
+891 
+892         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26eafb68488325a1ab2d6bfb67ea115a5cdb}{OVS\_ACTION\_ATTR\_PUSH\_MPLS}:
+893             err = \hyperlink{linux_2actions_8c_affb38ca95e088fb61d6df91cf3fdd606}{push\_mpls}(skb, key, nla\_data(a));
+894             \textcolor{keywordflow}{break};
+895 
+896         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26eafe4ec9b68459771a3ffd07d20cd628e1}{OVS\_ACTION\_ATTR\_POP\_MPLS}:
+897             err = \hyperlink{linux_2actions_8c_ac372daa8a5c4eb7fb2536fa61653e41b}{pop\_mpls}(skb, key, \hyperlink{net_2netlink_8h_a5a9bc877c8fdbf9b3f2f85536aabcae0}{nla\_get\_be16}(a));
+898             \textcolor{keywordflow}{break};
+899 
+900         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26ea6f41b7751556ff0acc2f4c6f94963ba6}{OVS\_ACTION\_ATTR\_PUSH\_VLAN}:
+901             err = \hyperlink{linux_2actions_8c_a706c437e9fb3992afaa8f62605c59961}{push\_vlan}(skb, key, nla\_data(a));
+902             \textcolor{keywordflow}{break};
+903 
+904         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26ea9cd4ec18560c7c3f81276cba51a96a24}{OVS\_ACTION\_ATTR\_POP\_VLAN}:
+905             err = \hyperlink{linux_2actions_8c_aa11b6c74e2206cc8353d00cff409df22}{pop\_vlan}(skb, key);
+906             \textcolor{keywordflow}{break};
+907 
+908         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26ea2cad0b08a7809d6e7cb1a9e86d73a47c}{OVS\_ACTION\_ATTR\_RECIRC}:
+909             err = \hyperlink{linux_2actions_8c_ab6b5b3b0684142f0e137bd64d883d52f}{execute\_recirc}(dp, skb, key, a, rem);
+910             \textcolor{keywordflow}{if} (\hyperlink{net_2netlink_8h_ad408a3a1db3cc544eb7a552246f3fb57}{nla\_is\_last}(a, rem)) \{
+911                 \textcolor{comment}{/* If this is the last action, the skb has}
+912 \textcolor{comment}{                 * been consumed or freed.}
+913 \textcolor{comment}{                 * Return immediately.}
+914 \textcolor{comment}{                 */}
+915                 \textcolor{keywordflow}{return} err;
+916             \}
+917             \textcolor{keywordflow}{break};
+918 
+919         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26eaff937deb7687d0dd4b073c27aed9c8be}{OVS\_ACTION\_ATTR\_SET}:
+920             err = \hyperlink{linux_2actions_8c_a4a59d75b1d012debb4f8ab42d0672deb}{execute\_set\_action}(skb, key, nla\_data(a));
+921             \textcolor{keywordflow}{break};
+922 
+923         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26ea50a466abca8b11394e9364de28ebe03f}{OVS\_ACTION\_ATTR\_SET\_MASKED}:
+924         \textcolor{keywordflow}{case} OVS\_ACTION\_ATTR\_SET\_TO\_MASKED:
+925             err = \hyperlink{linux_2actions_8c_ae5d851747d2630c868c296b43ad3c2e7}{execute\_masked\_set\_action}(skb, key, nla\_data(a));
+926             \textcolor{keywordflow}{break};
+927 
+928         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26eaddc6f70b9e8501e5bb90548373faf734}{OVS\_ACTION\_ATTR\_SAMPLE}:
+929             err = \hyperlink{linux_2actions_8c_a23b7fbefa6429cd4af2c92eb20c03889}{sample}(dp, skb, key, a, attr, len);
+930             \textcolor{keywordflow}{break};
+931         \}
+932 
+933         \textcolor{keywordflow}{if} (unlikely(err)) \{
+934             kfree\_skb(skb);
+935             \textcolor{keywordflow}{return} err;
+936         \}
+937     \}
+938 
+939     \textcolor{keywordflow}{if} (prev\_port != -1)
+940         \hyperlink{linux_2actions_8c_a141467d4c8b6d03b33ca4a36b471fb1e}{do\_output}(dp, skb, prev\_port);
+941     \textcolor{keywordflow}{else}
+942         \hyperlink{skbuff_8h_adc460a9e6dccf5557d55bbce8c7adb6a}{consume\_skb}(skb);
+943 
+944     \textcolor{keywordflow}{return} 0;
+945 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a141467d4c8b6d03b33ca4a36b471fb1e}{}\index{linux/actions.\+c@{linux/actions.\+c}!do\+\_\+output@{do\+\_\+output}}
+\index{do\+\_\+output@{do\+\_\+output}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{do\+\_\+output}]{\setlength{\rightskip}{0pt plus 5cm}static void do\+\_\+output (
+\begin{DoxyParamCaption}
+\item[{struct {\bf datapath} $\ast$}]{dp, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{int}]{out\+\_\+port}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a141467d4c8b6d03b33ca4a36b471fb1e}
+
+\begin{DoxyCode}
+604 \{
+605     \textcolor{keyword}{struct }\hyperlink{structvport}{vport} *\hyperlink{structvport}{vport} = \hyperlink{datapath_8h_ac6f3c37a7850774112c03c6e88d89dc0}{ovs\_vport\_rcu}(dp, out\_port);
+606 
+607     \textcolor{keywordflow}{if} (likely(vport))
+608         \hyperlink{linux_2vport_8c_abd74f3970bd7dc951b8399d00efe42d8}{ovs\_vport\_send}(vport, skb);
+609     \textcolor{keywordflow}{else}
+610         kfree\_skb(skb);
+611 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a2d434306a1e37e8bd0572dab35cc68ca}{}\index{linux/actions.\+c@{linux/actions.\+c}!ether\+\_\+addr\+\_\+copy\+\_\+masked@{ether\+\_\+addr\+\_\+copy\+\_\+masked}}
+\index{ether\+\_\+addr\+\_\+copy\+\_\+masked@{ether\+\_\+addr\+\_\+copy\+\_\+masked}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{ether\+\_\+addr\+\_\+copy\+\_\+masked}]{\setlength{\rightskip}{0pt plus 5cm}static void ether\+\_\+addr\+\_\+copy\+\_\+masked (
+\begin{DoxyParamCaption}
+\item[{u8 $\ast$}]{dst\+\_\+, }
+\item[{const u8 $\ast$}]{src\+\_\+, }
+\item[{const u8 $\ast$}]{mask\+\_\+}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a2d434306a1e37e8bd0572dab35cc68ca}
+
+\begin{DoxyCode}
+245 \{
+246     u16 *\hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst} = (u16 *)dst\_;
+247     \textcolor{keyword}{const} u16 *\hyperlink{flow_8h_a2e7e37e9dfe6465386d6c500f83ef144}{src} = (\textcolor{keyword}{const} u16 *)src\_;
+248     \textcolor{keyword}{const} u16 *mask = (\textcolor{keyword}{const} u16 *)mask\_;
+249 
+250     \hyperlink{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{SET\_MASKED}(dst[0], src[0], mask[0]);
+251     \hyperlink{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{SET\_MASKED}(dst[1], src[1], mask[1]);
+252     \hyperlink{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{SET\_MASKED}(dst[2], src[2], mask[2]);
+253 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a7f08d769ba6fb4cdd65ef7ced5964dea}{}\index{linux/actions.\+c@{linux/actions.\+c}!execute\+\_\+hash@{execute\+\_\+hash}}
+\index{execute\+\_\+hash@{execute\+\_\+hash}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{execute\+\_\+hash}]{\setlength{\rightskip}{0pt plus 5cm}static void execute\+\_\+hash (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{const struct nlattr $\ast$}]{attr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a7f08d769ba6fb4cdd65ef7ced5964dea}
+
+\begin{DoxyCode}
+720 \{
+721     \textcolor{keyword}{struct }\hyperlink{structovs__action__hash}{ovs\_action\_hash} *hash\_act = nla\_data(attr);
+722     u32 hash = 0;
+723 
+724     \textcolor{comment}{/* OVS\_HASH\_ALG\_L4 is the only possible hash algorithm.  */}
+725     hash = \hyperlink{skbuff_8h_acb236314b209f764af9aae7fbbb04311}{skb\_get\_hash}(skb);
+726     hash = jhash\_1word(hash, hash\_act->\hyperlink{structovs__action__hash_a174855fe08c609dd3542de6e9e8a92ee}{hash\_basis});
+727     \textcolor{keywordflow}{if} (!hash)
+728         hash = 0x1;
+729 
+730     key->\hyperlink{structsw__flow__key_a73dd9402f1f54c321f6d704d9b018d15}{ovs\_flow\_hash} = hash;
+731 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_ae5d851747d2630c868c296b43ad3c2e7}{}\index{linux/actions.\+c@{linux/actions.\+c}!execute\+\_\+masked\+\_\+set\+\_\+action@{execute\+\_\+masked\+\_\+set\+\_\+action}}
+\index{execute\+\_\+masked\+\_\+set\+\_\+action@{execute\+\_\+masked\+\_\+set\+\_\+action}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{execute\+\_\+masked\+\_\+set\+\_\+action}]{\setlength{\rightskip}{0pt plus 5cm}static int execute\+\_\+masked\+\_\+set\+\_\+action (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{flow\+\_\+key, }
+\item[{const struct nlattr $\ast$}]{a}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_ae5d851747d2630c868c296b43ad3c2e7}
+
+\begin{DoxyCode}
+752 \{
+753     \textcolor{keywordtype}{int} err = 0;
+754 
+755     \textcolor{keywordflow}{switch} (nla\_type(a)) \{
+756     \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a3dee91d2ad17f698e34ebb913fcef8bf}{OVS\_KEY\_ATTR\_PRIORITY}:
+757         \hyperlink{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{SET\_MASKED}(skb->priority, nla\_get\_u32(a), *\hyperlink{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{get\_mask}(a, u32 *));
+758         flow\_key->\hyperlink{structsw__flow__key_a57cbddb75a8d4fd859300bd34d98e84a}{phy}.\hyperlink{structsw__flow__key_a9dd898913d9faaec1ec970029e7fbb71}{priority} = skb->priority;
+759         \textcolor{keywordflow}{break};
+760 
+761     \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a32f36d9e41b0fbae0746d67fa34340ad}{OVS\_KEY\_ATTR\_SKB\_MARK}:
+762         \hyperlink{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{SET\_MASKED}(skb->mark, nla\_get\_u32(a), *\hyperlink{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{get\_mask}(a, u32 *));
+763         flow\_key->\hyperlink{structsw__flow__key_a57cbddb75a8d4fd859300bd34d98e84a}{phy}.\hyperlink{structsw__flow__key_ae02571657f29397dcc45de8528f4ed05}{skb\_mark} = skb->mark;
+764         \textcolor{keywordflow}{break};
+765 
+766     \textcolor{keywordflow}{case} OVS\_KEY\_ATTR\_TUNNEL\_INFO:
+767         \textcolor{comment}{/* Masked data not supported for tunnel. */}
+768         err = -EINVAL;
+769         \textcolor{keywordflow}{break};
+770 
+771     \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a75127b87d8a2f36ae2c9aae2cf42cd56}{OVS\_KEY\_ATTR\_ETHERNET}:
+772         err = \hyperlink{linux_2actions_8c_a85d6da67a26cfee7c3c894131233f9ca}{set\_eth\_addr}(skb, flow\_key, nla\_data(a),
+773                    \hyperlink{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{get\_mask}(a, \textcolor{keyword}{struct} \hyperlink{structovs__key__ethernet}{ovs\_key\_ethernet} *));
+774         \textcolor{keywordflow}{break};
+775 
+776     \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a67c672ef69eb0c5db9136812e3cdd92e}{OVS\_KEY\_ATTR\_IPV4}:
+777         err = \hyperlink{linux_2actions_8c_a5b6148caa3654ee968f7173b83b3abf4}{set\_ipv4}(skb, flow\_key, nla\_data(a),
+778                    \hyperlink{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{get\_mask}(a, \textcolor{keyword}{struct} \hyperlink{structovs__key__ipv4}{ovs\_key\_ipv4} *));
+779         \textcolor{keywordflow}{break};
+780 
+781     \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864aff74bae1efeecfd5d6cf28d8987a8bfd}{OVS\_KEY\_ATTR\_IPV6}:
+782         err = \hyperlink{linux_2actions_8c_acf538956396fdb59cff22ad4577c10f3}{set\_ipv6}(skb, flow\_key, nla\_data(a),
+783                    \hyperlink{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{get\_mask}(a, \textcolor{keyword}{struct} \hyperlink{structovs__key__ipv6}{ovs\_key\_ipv6} *));
+784         \textcolor{keywordflow}{break};
+785 
+786     \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a120ca2131b2881b0c52b6fcc8f6cccb5}{OVS\_KEY\_ATTR\_TCP}:
+787         err = \hyperlink{linux_2actions_8c_a3f6591203112ded2452b368308b0f36b}{set\_tcp}(skb, flow\_key, nla\_data(a),
+788                   \hyperlink{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{get\_mask}(a, \textcolor{keyword}{struct} \hyperlink{structovs__key__tcp}{ovs\_key\_tcp} *));
+789         \textcolor{keywordflow}{break};
+790 
+791     \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a4dea7a1acfa9eeffb8f09838bb9f9a7d}{OVS\_KEY\_ATTR\_UDP}:
+792         err = \hyperlink{linux_2actions_8c_ae78d854d13e952f67ca0d0b7bc45be75}{set\_udp}(skb, flow\_key, nla\_data(a),
+793                   \hyperlink{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{get\_mask}(a, \textcolor{keyword}{struct} \hyperlink{structovs__key__udp}{ovs\_key\_udp} *));
+794         \textcolor{keywordflow}{break};
+795 
+796     \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a33b7870d10d17ea1604aa83edf40e452}{OVS\_KEY\_ATTR\_SCTP}:
+797         err = \hyperlink{linux_2actions_8c_a7f2d96d4cc495e0f9f48c61305beea5c}{set\_sctp}(skb, flow\_key, nla\_data(a),
+798                    \hyperlink{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{get\_mask}(a, \textcolor{keyword}{struct} \hyperlink{structovs__key__sctp}{ovs\_key\_sctp} *));
+799         \textcolor{keywordflow}{break};
+800 
+801     \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864ac46f7c8520cb93d091b4247ef8707f7b}{OVS\_KEY\_ATTR\_MPLS}:
+802         err = \hyperlink{linux_2actions_8c_ad66261c51831d2a4a6ff0ea385fbad32}{set\_mpls}(skb, flow\_key, nla\_data(a), \hyperlink{linux_2actions_8c_aa0c451dc85a82947bdf6d8ae3c2385b5}{get\_mask}(a,
+803                                     \_\_be32 *));
+804         \textcolor{keywordflow}{break};
+805     \}
+806 
+807     \textcolor{keywordflow}{return} err;
+808 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_ab6b5b3b0684142f0e137bd64d883d52f}{}\index{linux/actions.\+c@{linux/actions.\+c}!execute\+\_\+recirc@{execute\+\_\+recirc}}
+\index{execute\+\_\+recirc@{execute\+\_\+recirc}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{execute\+\_\+recirc}]{\setlength{\rightskip}{0pt plus 5cm}static int execute\+\_\+recirc (
+\begin{DoxyParamCaption}
+\item[{struct {\bf datapath} $\ast$}]{dp, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{const struct nlattr $\ast$}]{a, }
+\item[{int}]{rem}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_ab6b5b3b0684142f0e137bd64d883d52f}
+
+\begin{DoxyCode}
+813 \{
+814     \textcolor{keyword}{struct }\hyperlink{structdeferred__action}{deferred\_action} *da;
+815 
+816     \textcolor{keywordflow}{if} (!\hyperlink{linux_2actions_8c_a77e3320f8f43a04aaf952a2c82e6dac1}{is\_flow\_key\_valid}(key)) \{
+817         \textcolor{keywordtype}{int} err;
+818 
+819         err = \hyperlink{flow_8c_a7d27b3745046ced4859b9fa615e27543}{ovs\_flow\_key\_update}(\hyperlink{structdeferred__action_acba4fd12fba3d60b6f4c7f2f3159f316}{skb}, key);
+820         \textcolor{keywordflow}{if} (err)
+821             \textcolor{keywordflow}{return} err;
+822     \}
+823     BUG\_ON(!\hyperlink{linux_2actions_8c_a77e3320f8f43a04aaf952a2c82e6dac1}{is\_flow\_key\_valid}(key));
+824 
+825     \textcolor{keywordflow}{if} (!\hyperlink{net_2netlink_8h_ad408a3a1db3cc544eb7a552246f3fb57}{nla\_is\_last}(a, rem)) \{
+826         \textcolor{comment}{/* Recirc action is the not the last action}
+827 \textcolor{comment}{         * of the action list, need to clone the skb.}
+828 \textcolor{comment}{         */}
+829         \hyperlink{structdeferred__action_acba4fd12fba3d60b6f4c7f2f3159f316}{skb} = skb\_clone(\hyperlink{structdeferred__action_acba4fd12fba3d60b6f4c7f2f3159f316}{skb}, GFP\_ATOMIC);
+830 
+831         \textcolor{comment}{/* Skip the recirc action when out of memory, but}
+832 \textcolor{comment}{         * continue on with the rest of the action list.}
+833 \textcolor{comment}{         */}
+834         \textcolor{keywordflow}{if} (!\hyperlink{structdeferred__action_acba4fd12fba3d60b6f4c7f2f3159f316}{skb})
+835             \textcolor{keywordflow}{return} 0;
+836     \}
+837 
+838     da = \hyperlink{linux_2actions_8c_a3875097b6e35686ddee414782d0e67b1}{add\_deferred\_actions}(\hyperlink{structdeferred__action_acba4fd12fba3d60b6f4c7f2f3159f316}{skb}, key, NULL);
+839     \textcolor{keywordflow}{if} (da) \{
+840         da->\hyperlink{structdeferred__action_a4685f782001923a8f8c20510126b4c21}{pkt\_key}.\hyperlink{structsw__flow__key_a7e51857c88ad6b0bf90551d0b6e2607b}{recirc\_id} = nla\_get\_u32(a);
+841     \} \textcolor{keywordflow}{else} \{
+842         kfree\_skb(\hyperlink{structdeferred__action_acba4fd12fba3d60b6f4c7f2f3159f316}{skb});
+843 
+844         \textcolor{keywordflow}{if} (net\_ratelimit())
+845             pr\_warn(\textcolor{stringliteral}{"%s: deferred action limit reached, drop recirc action\(\backslash\)n"},
+846                 \hyperlink{datapath_8c_a6a23196916bb5de4994f901bdf1aba2d}{ovs\_dp\_name}(dp));
+847     \}
+848 
+849     \textcolor{keywordflow}{return} 0;
+850 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a4a59d75b1d012debb4f8ab42d0672deb}{}\index{linux/actions.\+c@{linux/actions.\+c}!execute\+\_\+set\+\_\+action@{execute\+\_\+set\+\_\+action}}
+\index{execute\+\_\+set\+\_\+action@{execute\+\_\+set\+\_\+action}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{execute\+\_\+set\+\_\+action}]{\setlength{\rightskip}{0pt plus 5cm}static int execute\+\_\+set\+\_\+action (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{flow\+\_\+key, }
+\item[{const struct nlattr $\ast$}]{a}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a4a59d75b1d012debb4f8ab42d0672deb}
+
+\begin{DoxyCode}
+736 \{
+737     \textcolor{comment}{/* Only tunnel set execution is supported without a mask. */}
+738     \textcolor{keywordflow}{if} (nla\_type(a) == OVS\_KEY\_ATTR\_TUNNEL\_INFO) \{
+739         \hyperlink{datapath_8h_ac337c4d4ddca29916ce8e900038ddd78}{OVS\_CB}(\hyperlink{structdeferred__action_acba4fd12fba3d60b6f4c7f2f3159f316}{skb})->egress\_tun\_info = nla\_data(a);
+740         \textcolor{keywordflow}{return} 0;
+741     \}
+742 
+743     \textcolor{keywordflow}{return} -EINVAL;
+744 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_aac28ee49d1019a576306f207afd5f8d6}{}\index{linux/actions.\+c@{linux/actions.\+c}!invalidate\+\_\+flow\+\_\+key@{invalidate\+\_\+flow\+\_\+key}}
+\index{invalidate\+\_\+flow\+\_\+key@{invalidate\+\_\+flow\+\_\+key}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{invalidate\+\_\+flow\+\_\+key}]{\setlength{\rightskip}{0pt plus 5cm}static void invalidate\+\_\+flow\+\_\+key (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_aac28ee49d1019a576306f207afd5f8d6}
+
+\begin{DoxyCode}
+117 \{
+118     key->\hyperlink{structsw__flow__key_af3e10c978a3a2bf303b7d953ac6ff361}{eth}.\hyperlink{structsw__flow__key_af30defbb2a81c997e8747594e1d937a0}{type} = htons(0);
+119 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a77e3320f8f43a04aaf952a2c82e6dac1}{}\index{linux/actions.\+c@{linux/actions.\+c}!is\+\_\+flow\+\_\+key\+\_\+valid@{is\+\_\+flow\+\_\+key\+\_\+valid}}
+\index{is\+\_\+flow\+\_\+key\+\_\+valid@{is\+\_\+flow\+\_\+key\+\_\+valid}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{is\+\_\+flow\+\_\+key\+\_\+valid}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} is\+\_\+flow\+\_\+key\+\_\+valid (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a77e3320f8f43a04aaf952a2c82e6dac1}
+
+\begin{DoxyCode}
+122 \{
+123     \textcolor{keywordflow}{return} !!key->\hyperlink{structsw__flow__key_af3e10c978a3a2bf303b7d953ac6ff361}{eth}.\hyperlink{structsw__flow__key_af30defbb2a81c997e8747594e1d937a0}{type};
+124 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a889a29de7d27314b273304eaad6f202e}{}\index{linux/actions.\+c@{linux/actions.\+c}!is\+\_\+ipv6\+\_\+mask\+\_\+nonzero@{is\+\_\+ipv6\+\_\+mask\+\_\+nonzero}}
+\index{is\+\_\+ipv6\+\_\+mask\+\_\+nonzero@{is\+\_\+ipv6\+\_\+mask\+\_\+nonzero}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{is\+\_\+ipv6\+\_\+mask\+\_\+nonzero}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} is\+\_\+ipv6\+\_\+mask\+\_\+nonzero (
+\begin{DoxyParamCaption}
+\item[{const \+\_\+\+\_\+be32}]{addr\mbox{[}4\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a889a29de7d27314b273304eaad6f202e}
+
+\begin{DoxyCode}
+418 \{
+419     \textcolor{keywordflow}{return} !!(\hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}[0] | \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}[1] | \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}[2] | \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}[3]);
+420 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_affe65b5dd55e3a7c39c5a6705731f01f}{}\index{linux/actions.\+c@{linux/actions.\+c}!mask\+\_\+ipv6\+\_\+addr@{mask\+\_\+ipv6\+\_\+addr}}
+\index{mask\+\_\+ipv6\+\_\+addr@{mask\+\_\+ipv6\+\_\+addr}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{mask\+\_\+ipv6\+\_\+addr}]{\setlength{\rightskip}{0pt plus 5cm}static void mask\+\_\+ipv6\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{const \+\_\+\+\_\+be32}]{old\mbox{[}4\mbox{]}, }
+\item[{const \+\_\+\+\_\+be32}]{addr\mbox{[}4\mbox{]}, }
+\item[{const \+\_\+\+\_\+be32}]{mask\mbox{[}4\mbox{]}, }
+\item[{\+\_\+\+\_\+be32}]{masked\mbox{[}4\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_affe65b5dd55e3a7c39c5a6705731f01f}
+
+\begin{DoxyCode}
+335 \{
+336     masked[0] = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(old[0], \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}[0], mask[0]);
+337     masked[1] = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(old[1], \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}[1], mask[1]);
+338     masked[2] = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(old[2], \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}[2], mask[2]);
+339     masked[3] = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(old[3], \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}[3], mask[3]);
+340 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_ad0ea13ac8532fe548cd35a2d1086d8f3}{}\index{linux/actions.\+c@{linux/actions.\+c}!output\+\_\+userspace@{output\+\_\+userspace}}
+\index{output\+\_\+userspace@{output\+\_\+userspace}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{output\+\_\+userspace}]{\setlength{\rightskip}{0pt plus 5cm}static int output\+\_\+userspace (
+\begin{DoxyParamCaption}
+\item[{struct {\bf datapath} $\ast$}]{dp, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{const struct nlattr $\ast$}]{attr, }
+\item[{const struct nlattr $\ast$}]{actions, }
+\item[{int}]{actions\+\_\+len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_ad0ea13ac8532fe548cd35a2d1086d8f3}
+
+\begin{DoxyCode}
+616 \{
+617     \textcolor{keyword}{struct }\hyperlink{structovs__tunnel__info}{ovs\_tunnel\_info} info;
+618     \textcolor{keyword}{struct }\hyperlink{structdp__upcall__info}{dp\_upcall\_info} upcall;
+619     \textcolor{keyword}{const} \textcolor{keyword}{struct }nlattr *a;
+620     \textcolor{keywordtype}{int} rem;
+621 
+622     memset(&upcall, 0, \textcolor{keyword}{sizeof}(upcall));
+623     upcall.cmd = \hyperlink{openvswitch_8h_a162a763c571debd951c9d2727b0f9bc3a2af7ee4788fccebcf92e5a24c98261a2}{OVS\_PACKET\_CMD\_ACTION};
+624 
+625     \textcolor{keywordflow}{for} (a = nla\_data(attr), rem = nla\_len(attr); rem > 0;
+626          a = nla\_next(a, &rem)) \{
+627         \textcolor{keywordflow}{switch} (nla\_type(a)) \{
+628         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a0a23de2e1fb14024871505b857be9552ab137427ad093e922d4bc781a67aa3a7d}{OVS\_USERSPACE\_ATTR\_USERDATA}:
+629             upcall.userdata = a;
+630             \textcolor{keywordflow}{break};
+631 
+632         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a0a23de2e1fb14024871505b857be9552a584c9f592b15980433c447e8ad68e8fb}{OVS\_USERSPACE\_ATTR\_PID}:
+633             upcall.portid = nla\_get\_u32(a);
+634             \textcolor{keywordflow}{break};
+635 
+636         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a0a23de2e1fb14024871505b857be9552ac4708d2460d2517eea521efe780354ff}{OVS\_USERSPACE\_ATTR\_EGRESS\_TUN\_PORT}: \{
+637             \textcolor{comment}{/* Get out tunnel info. */}
+638             \textcolor{keyword}{struct }\hyperlink{structvport}{vport} *\hyperlink{structvport}{vport};
+639 
+640             vport = \hyperlink{datapath_8h_ac6f3c37a7850774112c03c6e88d89dc0}{ovs\_vport\_rcu}(dp, nla\_get\_u32(a));
+641             \textcolor{keywordflow}{if} (vport) \{
+642                 \textcolor{keywordtype}{int} err;
+643 
+644                 err = \hyperlink{linux_2vport_8c_a92b973cf9ddb07398a3d1c0492b0c422}{ovs\_vport\_get\_egress\_tun\_info}(vport, skb,
+645                                     &info);
+646                 \textcolor{keywordflow}{if} (!err)
+647                     upcall.egress\_tun\_info = &info;
+648             \}
+649             \textcolor{keywordflow}{break};
+650         \}
+651 
+652         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a0a23de2e1fb14024871505b857be9552aa71985c2371051a12e04a654971b53db}{OVS\_USERSPACE\_ATTR\_ACTIONS}: \{
+653             \textcolor{comment}{/* Include actions. */}
+654             upcall.actions = actions;
+655             upcall.actions\_len = actions\_len;
+656             \textcolor{keywordflow}{break};
+657         \}
+658 
+659         \} \textcolor{comment}{/* End of switch. */}
+660     \}
+661 
+662     \textcolor{keywordflow}{return} \hyperlink{datapath_8c_a229b5c7d0158ebc24a90f44de0df0040}{ovs\_dp\_upcall}(dp, skb, key, &upcall);
+663 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a5b34c1980d155574d657a21cac3bcc37}{}\index{linux/actions.\+c@{linux/actions.\+c}!ovs\+\_\+execute\+\_\+actions@{ovs\+\_\+execute\+\_\+actions}}
+\index{ovs\+\_\+execute\+\_\+actions@{ovs\+\_\+execute\+\_\+actions}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{ovs\+\_\+execute\+\_\+actions}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+execute\+\_\+actions (
+\begin{DoxyParamCaption}
+\item[{struct {\bf datapath} $\ast$}]{dp, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+actions} $\ast$}]{acts, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key}
+\end{DoxyParamCaption}
+)}\label{linux_2actions_8c_a5b34c1980d155574d657a21cac3bcc37}
+
+\begin{DoxyCode}
+977 \{
+978     \textcolor{keywordtype}{int} level = \hyperlink{percpu_8h_a15341bef54ee4dd9fcc2d811bb11d39d}{this\_cpu\_read}(exec\_actions\_level);
+979     \textcolor{keywordtype}{int} err;
+980 
+981     \textcolor{keywordflow}{if} (unlikely(level >= \hyperlink{linux_2actions_8c_aef2488868338b5c1ec4419f0efde93f1}{EXEC\_ACTIONS\_LEVEL\_LIMIT})) \{
+982         \textcolor{keywordflow}{if} (net\_ratelimit())
+983             pr\_warn(\textcolor{stringliteral}{"%s: packet loop detected, dropping.\(\backslash\)n"},
+984                 \hyperlink{datapath_8c_a6a23196916bb5de4994f901bdf1aba2d}{ovs\_dp\_name}(dp));
+985 
+986         kfree\_skb(skb);
+987         \textcolor{keywordflow}{return} -ELOOP;
+988     \}
+989 
+990     \hyperlink{percpu_8h_a8999ff6f1c86c39d81e8b2388d8056ac}{this\_cpu\_inc}(exec\_actions\_level);
+991     err = \hyperlink{linux_2actions_8c_ad41a07588c602d50a247bcf2bf9ae9d5}{do\_execute\_actions}(dp, skb, key,
+992                  acts->\hyperlink{structsw__flow__actions_ae091e053b6fbc25174a28e97282cbe36}{actions}, acts->\hyperlink{structsw__flow__actions_ad18c83862d211746fc0542eabff148a5}{actions\_len});
+993 
+994     \textcolor{keywordflow}{if} (!level)
+995         \hyperlink{linux_2actions_8c_afa871a96ea915a7ce87b96a0b7b30538}{process\_deferred\_actions}(dp);
+996 
+997     \hyperlink{percpu_8h_a3949346d789a1c87ab4bc81744bc3fad}{this\_cpu\_dec}(exec\_actions\_level);
+998 
+999     \textcolor{comment}{/* This return status currently does not reflect the errors}
+1000 \textcolor{comment}{     * encounted during deferred actions execution. Probably needs to}
+1001 \textcolor{comment}{     * be fixed in the future.}
+1002 \textcolor{comment}{     */}
+1003     \textcolor{keywordflow}{return} err;
+1004 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_ac372daa8a5c4eb7fb2536fa61653e41b}{}\index{linux/actions.\+c@{linux/actions.\+c}!pop\+\_\+mpls@{pop\+\_\+mpls}}
+\index{pop\+\_\+mpls@{pop\+\_\+mpls}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{pop\+\_\+mpls}]{\setlength{\rightskip}{0pt plus 5cm}static int pop\+\_\+mpls (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{const \+\_\+\+\_\+be16}]{ethertype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_ac372daa8a5c4eb7fb2536fa61653e41b}
+
+\begin{DoxyCode}
+163 \{
+164     \textcolor{keyword}{struct }ethhdr *hdr;
+165     \textcolor{keywordtype}{int} err;
+166 
+167     err = \hyperlink{skbuff_8h_adb2ee822c4cb80b0d9c272133feedb72}{skb\_ensure\_writable}(skb, skb->mac\_len + \hyperlink{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{MPLS\_HLEN});
+168     \textcolor{keywordflow}{if} (unlikely(err))
+169         \textcolor{keywordflow}{return} err;
+170 
+171     skb\_postpull\_rcsum(skb, \hyperlink{net_2mpls_8h_a9301d39e19665451cfce4562ca26fa0f}{skb\_mpls\_header}(skb), \hyperlink{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{MPLS\_HLEN});
+172 
+173     memmove(\hyperlink{skbuff_8h_a292027671dfcf3aa23f9551f48713e24}{skb\_mac\_header}(skb) + \hyperlink{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{MPLS\_HLEN}, 
+      \hyperlink{skbuff_8h_a292027671dfcf3aa23f9551f48713e24}{skb\_mac\_header}(skb),
+174         skb->mac\_len);
+175 
+176     \_\_skb\_pull(skb, \hyperlink{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{MPLS\_HLEN});
+177     \hyperlink{skbuff_8h_aaf81c26756757ac1e1d7e6933f61bdaf}{skb\_reset\_mac\_header}(skb);
+178 
+179     \textcolor{comment}{/* skb\_mpls\_header() is used to locate the ethertype}
+180 \textcolor{comment}{     * field correctly in the presence of VLAN tags.}
+181 \textcolor{comment}{     */}
+182     hdr = (\textcolor{keyword}{struct }ethhdr *)(\hyperlink{net_2mpls_8h_a9301d39e19665451cfce4562ca26fa0f}{skb\_mpls\_header}(skb) - ETH\_HLEN);
+183     hdr->h\_proto = ethertype;
+184     \textcolor{keywordflow}{if} (\hyperlink{net_2mpls_8h_aab48ab242fbafafc869b3e98df4ace8f}{eth\_p\_mpls}(skb->protocol))
+185         skb->protocol = ethertype;
+186 
+187     \hyperlink{linux_2actions_8c_aac28ee49d1019a576306f207afd5f8d6}{invalidate\_flow\_key}(key);
+188     \textcolor{keywordflow}{return} 0;
+189 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_aa11b6c74e2206cc8353d00cff409df22}{}\index{linux/actions.\+c@{linux/actions.\+c}!pop\+\_\+vlan@{pop\+\_\+vlan}}
+\index{pop\+\_\+vlan@{pop\+\_\+vlan}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{pop\+\_\+vlan}]{\setlength{\rightskip}{0pt plus 5cm}static int pop\+\_\+vlan (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_aa11b6c74e2206cc8353d00cff409df22}
+
+\begin{DoxyCode}
+221 \{
+222     \textcolor{keywordtype}{int} err;
+223 
+224     err = \hyperlink{skbuff_8h_aa4efc0310575260b396ee19c694316bd}{skb\_vlan\_pop}(skb);
+225     \textcolor{keywordflow}{if} (\hyperlink{if__vlan_8h_a0bdf3e26944669a4265c7e717e846215}{skb\_vlan\_tag\_present}(skb))
+226         \hyperlink{linux_2actions_8c_aac28ee49d1019a576306f207afd5f8d6}{invalidate\_flow\_key}(key);
+227     \textcolor{keywordflow}{else}
+228         key->\hyperlink{structsw__flow__key_af3e10c978a3a2bf303b7d953ac6ff361}{eth}.\hyperlink{structsw__flow__key_a56b27b9b9eafa8f79acd544eba98c7b0}{tci} = 0;
+229     \textcolor{keywordflow}{return} err;
+230 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_afa871a96ea915a7ce87b96a0b7b30538}{}\index{linux/actions.\+c@{linux/actions.\+c}!process\+\_\+deferred\+\_\+actions@{process\+\_\+deferred\+\_\+actions}}
+\index{process\+\_\+deferred\+\_\+actions@{process\+\_\+deferred\+\_\+actions}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{process\+\_\+deferred\+\_\+actions}]{\setlength{\rightskip}{0pt plus 5cm}static void process\+\_\+deferred\+\_\+actions (
+\begin{DoxyParamCaption}
+\item[{struct {\bf datapath} $\ast$}]{dp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_afa871a96ea915a7ce87b96a0b7b30538}
+
+\begin{DoxyCode}
+948 \{
+949     \textcolor{keyword}{struct }\hyperlink{structaction__fifo}{action\_fifo} *\hyperlink{structaction__fifo_ab25b47c1bc05f5417f0a2073a47b2eb5}{fifo} = \hyperlink{percpu_8h_a1cd55f287dff5c4a79fc11dd38d47c12}{this\_cpu\_ptr}(
+      \hyperlink{linux_2actions_8c_a38c6295376dbb80340f4f1b8e488f223}{action\_fifos});
+950 
+951     \textcolor{comment}{/* Do not touch the FIFO in case there is no deferred actions. */}
+952     \textcolor{keywordflow}{if} (\hyperlink{linux_2actions_8c_ade23c3824a292e4698cb3c01fefa52a5}{action\_fifo\_is\_empty}(fifo))
+953         \textcolor{keywordflow}{return};
+954 
+955     \textcolor{comment}{/* Finishing executing all deferred actions. */}
+956     \textcolor{keywordflow}{do} \{
+957         \textcolor{keyword}{struct }\hyperlink{structdeferred__action}{deferred\_action} *da = \hyperlink{linux_2actions_8c_a7512da42cda457a824bb2fc8ff850dd5}{action\_fifo\_get}(fifo);
+958         \textcolor{keyword}{struct }sk\_buff *skb = da->\hyperlink{structdeferred__action_acba4fd12fba3d60b6f4c7f2f3159f316}{skb};
+959         \textcolor{keyword}{struct }\hyperlink{structsw__flow__key}{sw\_flow\_key} *key = &da->\hyperlink{structdeferred__action_a4685f782001923a8f8c20510126b4c21}{pkt\_key};
+960         \textcolor{keyword}{const} \textcolor{keyword}{struct }nlattr *actions = da->\hyperlink{structdeferred__action_a9cb4d3dde378a66035e7b17f017d9f89}{actions};
+961 
+962         \textcolor{keywordflow}{if} (actions)
+963             \hyperlink{linux_2actions_8c_ad41a07588c602d50a247bcf2bf9ae9d5}{do\_execute\_actions}(dp, skb, key, actions,
+964                        nla\_len(actions));
+965         \textcolor{keywordflow}{else}
+966             \hyperlink{datapath_8c_aa52cbaf8a4e68129287bfc8ddcde0711}{ovs\_dp\_process\_packet}(skb, key);
+967     \} \textcolor{keywordflow}{while} (!\hyperlink{linux_2actions_8c_ade23c3824a292e4698cb3c01fefa52a5}{action\_fifo\_is\_empty}(fifo));
+968 
+969     \textcolor{comment}{/* Reset FIFO for the next packet.  */}
+970     \hyperlink{linux_2actions_8c_a688872dd5196a430f6a0df6e1954d220}{action\_fifo\_init}(fifo);
+971 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_affb38ca95e088fb61d6df91cf3fdd606}{}\index{linux/actions.\+c@{linux/actions.\+c}!push\+\_\+mpls@{push\+\_\+mpls}}
+\index{push\+\_\+mpls@{push\+\_\+mpls}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{push\+\_\+mpls}]{\setlength{\rightskip}{0pt plus 5cm}static int push\+\_\+mpls (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{const struct {\bf ovs\+\_\+action\+\_\+push\+\_\+mpls} $\ast$}]{mpls}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_affb38ca95e088fb61d6df91cf3fdd606}
+
+\begin{DoxyCode}
+128 \{
+129     \_\_be32 *new\_mpls\_lse;
+130     \textcolor{keyword}{struct }ethhdr *hdr;
+131 
+132     \textcolor{comment}{/* Networking stack do not allow simultaneous Tunnel and MPLS GSO. */}
+133     \textcolor{keywordflow}{if} (\hyperlink{compat_8h_ab25b015544a779ccc1c15baf48b7a45d}{skb\_encapsulation}(skb))
+134         \textcolor{keywordflow}{return} -ENOTSUPP;
+135 
+136     \textcolor{keywordflow}{if} (\hyperlink{skbuff_8h_af94d3f18640790df84539d4c0575a880}{skb\_cow\_head}(skb, \hyperlink{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{MPLS\_HLEN}) < 0)
+137         \textcolor{keywordflow}{return} -ENOMEM;
+138 
+139     skb\_push(skb, \hyperlink{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{MPLS\_HLEN});
+140     memmove(\hyperlink{skbuff_8h_a292027671dfcf3aa23f9551f48713e24}{skb\_mac\_header}(skb) - \hyperlink{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{MPLS\_HLEN}, 
+      \hyperlink{skbuff_8h_a292027671dfcf3aa23f9551f48713e24}{skb\_mac\_header}(skb),
+141         skb->mac\_len);
+142     \hyperlink{skbuff_8h_aaf81c26756757ac1e1d7e6933f61bdaf}{skb\_reset\_mac\_header}(skb);
+143 
+144     new\_mpls\_lse = (\_\_be32 *)\hyperlink{net_2mpls_8h_a9301d39e19665451cfce4562ca26fa0f}{skb\_mpls\_header}(skb);
+145     *new\_mpls\_lse = mpls->\hyperlink{structovs__action__push__mpls_a58c09de1a14973c13197f7748beb3803}{mpls\_lse};
+146 
+147     \textcolor{keywordflow}{if} (skb->ip\_summed == \hyperlink{skbuff_8h_a207f4c225f70b6bc82d1519bb10245f7}{CHECKSUM\_COMPLETE})
+148         skb->csum = csum\_add(skb->csum, csum\_partial(new\_mpls\_lse,
+149                                  \hyperlink{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{MPLS\_HLEN}, 0));
+150 
+151     hdr = eth\_hdr(skb);
+152     hdr->h\_proto = mpls->\hyperlink{structovs__action__push__mpls_adea8de7c1e924d0665c4eb62901ce521}{mpls\_ethertype};
+153     \textcolor{keywordflow}{if} (!\hyperlink{gso_8h_a10a6979f8790e1c22258b1c00a28e02c}{ovs\_skb\_get\_inner\_protocol}(skb))
+154         \hyperlink{gso_8h_afa56bd287d4a10d09bf25d8219f574b5}{ovs\_skb\_set\_inner\_protocol}(skb, skb->protocol);
+155     skb->protocol = mpls->\hyperlink{structovs__action__push__mpls_adea8de7c1e924d0665c4eb62901ce521}{mpls\_ethertype};
+156 
+157     \hyperlink{linux_2actions_8c_aac28ee49d1019a576306f207afd5f8d6}{invalidate\_flow\_key}(key);
+158     \textcolor{keywordflow}{return} 0;
+159 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a706c437e9fb3992afaa8f62605c59961}{}\index{linux/actions.\+c@{linux/actions.\+c}!push\+\_\+vlan@{push\+\_\+vlan}}
+\index{push\+\_\+vlan@{push\+\_\+vlan}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{push\+\_\+vlan}]{\setlength{\rightskip}{0pt plus 5cm}static int push\+\_\+vlan (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{const struct {\bf ovs\+\_\+action\+\_\+push\+\_\+vlan} $\ast$}]{vlan}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a706c437e9fb3992afaa8f62605c59961}
+
+\begin{DoxyCode}
+234 \{
+235     \textcolor{keywordflow}{if} (\hyperlink{if__vlan_8h_a0bdf3e26944669a4265c7e717e846215}{skb\_vlan\_tag\_present}(skb))
+236         \hyperlink{linux_2actions_8c_aac28ee49d1019a576306f207afd5f8d6}{invalidate\_flow\_key}(key);
+237     \textcolor{keywordflow}{else}
+238         key->\hyperlink{structsw__flow__key_af3e10c978a3a2bf303b7d953ac6ff361}{eth}.\hyperlink{structsw__flow__key_a56b27b9b9eafa8f79acd544eba98c7b0}{tci} = vlan->\hyperlink{structovs__action__push__vlan_ab17c8db02bffc32a072bd23687dd712c}{vlan\_tci};
+239     \textcolor{keywordflow}{return} \hyperlink{skbuff_8h_a342fa8b4c4941fff76c6cddb212c54d4}{skb\_vlan\_push}(skb, vlan->\hyperlink{structovs__action__push__vlan_af2e36cd70149cf03ebf29586fc765722}{vlan\_tpid},
+240                  ntohs(vlan->\hyperlink{structovs__action__push__vlan_ab17c8db02bffc32a072bd23687dd712c}{vlan\_tci}) & ~\hyperlink{if__vlan_8h_ac8bf15be3fd1a3a63a2452fa05a83217}{VLAN\_TAG\_PRESENT});
+241 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a23b7fbefa6429cd4af2c92eb20c03889}{}\index{linux/actions.\+c@{linux/actions.\+c}!sample@{sample}}
+\index{sample@{sample}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{sample}]{\setlength{\rightskip}{0pt plus 5cm}static int sample (
+\begin{DoxyParamCaption}
+\item[{struct {\bf datapath} $\ast$}]{dp, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{const struct nlattr $\ast$}]{attr, }
+\item[{const struct nlattr $\ast$}]{actions, }
+\item[{int}]{actions\+\_\+len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a23b7fbefa6429cd4af2c92eb20c03889}
+
+\begin{DoxyCode}
+668 \{
+669     \textcolor{keyword}{const} \textcolor{keyword}{struct }nlattr *acts\_list = NULL;
+670     \textcolor{keyword}{const} \textcolor{keyword}{struct }nlattr *a;
+671     \textcolor{keywordtype}{int} rem;
+672 
+673     \textcolor{keywordflow}{for} (a = nla\_data(attr), rem = nla\_len(attr); rem > 0;
+674          a = nla\_next(a, &rem)) \{
+675         \textcolor{keywordflow}{switch} (nla\_type(a)) \{
+676         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a5e170c4233862ef6223a7d26ffa980d6af761759afff1c7ca1663aab6fed71ebc}{OVS\_SAMPLE\_ATTR\_PROBABILITY}:
+677             \textcolor{keywordflow}{if} (\hyperlink{random_8h_a0f598b5b1bf5cf5a15c1a2114162860c}{prandom\_u32}() >= nla\_get\_u32(a))
+678                 \textcolor{keywordflow}{return} 0;
+679             \textcolor{keywordflow}{break};
+680 
+681         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_a5e170c4233862ef6223a7d26ffa980d6af557ec8d2fb56cf036384aab53211327}{OVS\_SAMPLE\_ATTR\_ACTIONS}:
+682             acts\_list = a;
+683             \textcolor{keywordflow}{break};
+684         \}
+685     \}
+686 
+687     rem = nla\_len(acts\_list);
+688     a = nla\_data(acts\_list);
+689 
+690     \textcolor{comment}{/* Actions list is empty, do nothing */}
+691     \textcolor{keywordflow}{if} (unlikely(!rem))
+692         \textcolor{keywordflow}{return} 0;
+693 
+694     \textcolor{comment}{/* The only known usage of sample action is having a single user-space}
+695 \textcolor{comment}{     * action. Treat this usage as a special case.}
+696 \textcolor{comment}{     * The output\_userspace() should clone the skb to be sent to the}
+697 \textcolor{comment}{     * user space. This skb will be consumed by its caller.}
+698 \textcolor{comment}{     */}
+699     \textcolor{keywordflow}{if} (likely(nla\_type(a) == \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26ea17132af22505d8b1bb535a270f83a8bd}{OVS\_ACTION\_ATTR\_USERSPACE} &&
+700            \hyperlink{net_2netlink_8h_ad408a3a1db3cc544eb7a552246f3fb57}{nla\_is\_last}(a, rem)))
+701         \textcolor{keywordflow}{return} \hyperlink{linux_2actions_8c_ad0ea13ac8532fe548cd35a2d1086d8f3}{output\_userspace}(dp, skb, key, a, actions, actions\_len);
+702 
+703     skb = skb\_clone(skb, GFP\_ATOMIC);
+704     \textcolor{keywordflow}{if} (!skb)
+705         \textcolor{comment}{/* Skip the sample action when out of memory. */}
+706         \textcolor{keywordflow}{return} 0;
+707 
+708     \textcolor{keywordflow}{if} (!\hyperlink{linux_2actions_8c_a3875097b6e35686ddee414782d0e67b1}{add\_deferred\_actions}(skb, key, a)) \{
+709         \textcolor{keywordflow}{if} (net\_ratelimit())
+710             pr\_warn(\textcolor{stringliteral}{"%s: deferred actions limit reached, dropping sample action\(\backslash\)n"},
+711                 \hyperlink{datapath_8c_a6a23196916bb5de4994f901bdf1aba2d}{ovs\_dp\_name}(dp));
+712 
+713         kfree\_skb(skb);
+714     \}
+715     \textcolor{keywordflow}{return} 0;
+716 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a85d6da67a26cfee7c3c894131233f9ca}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+eth\+\_\+addr@{set\+\_\+eth\+\_\+addr}}
+\index{set\+\_\+eth\+\_\+addr@{set\+\_\+eth\+\_\+addr}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+eth\+\_\+addr}]{\setlength{\rightskip}{0pt plus 5cm}static int set\+\_\+eth\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{flow\+\_\+key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+ethernet} $\ast$}]{key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+ethernet} $\ast$}]{mask}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a85d6da67a26cfee7c3c894131233f9ca}
+
+\begin{DoxyCode}
+258 \{
+259     \textcolor{keywordtype}{int} err;
+260 
+261     err = \hyperlink{skbuff_8h_adb2ee822c4cb80b0d9c272133feedb72}{skb\_ensure\_writable}(skb, ETH\_HLEN);
+262     \textcolor{keywordflow}{if} (unlikely(err))
+263         \textcolor{keywordflow}{return} err;
+264 
+265     skb\_postpull\_rcsum(skb, eth\_hdr(skb), ETH\_ALEN * 2);
+266 
+267     \hyperlink{linux_2actions_8c_a2d434306a1e37e8bd0572dab35cc68ca}{ether\_addr\_copy\_masked}(eth\_hdr(skb)->h\_source, key->
+      \hyperlink{structovs__key__ethernet_adc19d64e3aa45c9383f332981780b79b}{eth\_src},
+268                    mask->\hyperlink{structovs__key__ethernet_adc19d64e3aa45c9383f332981780b79b}{eth\_src});
+269     \hyperlink{linux_2actions_8c_a2d434306a1e37e8bd0572dab35cc68ca}{ether\_addr\_copy\_masked}(eth\_hdr(skb)->h\_dest, key->
+      \hyperlink{structovs__key__ethernet_a12fa99b386c86f65221f6d2394a9d7c9}{eth\_dst},
+270                    mask->\hyperlink{structovs__key__ethernet_a12fa99b386c86f65221f6d2394a9d7c9}{eth\_dst});
+271 
+272     \hyperlink{vport_8h_ac7bba7ae75dd07feea88dde580c3569b}{ovs\_skb\_postpush\_rcsum}(skb, eth\_hdr(skb), ETH\_ALEN * 2);
+273 
+274     \hyperlink{etherdevice_8h_a564a2ea461aa6add2fa94a6864ee494d}{ether\_addr\_copy}(flow\_key->\hyperlink{structsw__flow__key_af3e10c978a3a2bf303b7d953ac6ff361}{eth}.\hyperlink{structsw__flow__key_a2fbd4aa7a500630627eff0630f864117}{src}, eth\_hdr(skb)->h\_source);
+275     \hyperlink{etherdevice_8h_a564a2ea461aa6add2fa94a6864ee494d}{ether\_addr\_copy}(flow\_key->\hyperlink{structsw__flow__key_af3e10c978a3a2bf303b7d953ac6ff361}{eth}.\hyperlink{structsw__flow__key_a44a0cdfe7471df8bb73762085da4cda9}{dst}, eth\_hdr(skb)->h\_dest);
+276     \textcolor{keywordflow}{return} 0;
+277 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a35283087cadb66ada3c19e7a87cfdcba}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+ip\+\_\+addr@{set\+\_\+ip\+\_\+addr}}
+\index{set\+\_\+ip\+\_\+addr@{set\+\_\+ip\+\_\+addr}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+ip\+\_\+addr}]{\setlength{\rightskip}{0pt plus 5cm}static void set\+\_\+ip\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct iphdr $\ast$}]{nh, }
+\item[{\+\_\+\+\_\+be32 $\ast$}]{addr, }
+\item[{\+\_\+\+\_\+be32}]{new\+\_\+addr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a35283087cadb66ada3c19e7a87cfdcba}
+
+\begin{DoxyCode}
+281 \{
+282     \textcolor{keywordtype}{int} transport\_len = skb->len - \hyperlink{skbuff_8h_ac8d86ecdcd808a5839009d4a8f85f6c8}{skb\_transport\_offset}(skb);
+283 
+284     \textcolor{keywordflow}{if} (nh->protocol == IPPROTO\_TCP) \{
+285         \textcolor{keywordflow}{if} (likely(transport\_len >= \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} tcphdr)))
+286             inet\_proto\_csum\_replace4(&\hyperlink{tcp_8h_a9ac4e94949ea9142c45cf46683be5ef7}{tcp\_hdr}(skb)->check, skb,
+287                          *\hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}, new\_addr, 1);
+288     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nh->protocol == IPPROTO\_UDP) \{
+289         \textcolor{keywordflow}{if} (likely(transport\_len >= \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} udphdr))) \{
+290             \textcolor{keyword}{struct }udphdr *uh = \hyperlink{linux_2udp_8h_a7b8908e197538768cf4ff9ec577bd86b}{udp\_hdr}(skb);
+291 
+292             \textcolor{keywordflow}{if} (uh->check || skb->ip\_summed == \hyperlink{skbuff_8h_a627906a22e9d4cb31c7674b86eb25ef3}{CHECKSUM\_PARTIAL}) \{
+293                 inet\_proto\_csum\_replace4(&uh->check, skb,
+294                              *\hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}, new\_addr, 1);
+295                 \textcolor{keywordflow}{if} (!uh->check)
+296                     uh->check = \hyperlink{checksum_8h_a444eeba1f6868a156bcc975cd9963d63}{CSUM\_MANGLED\_0};
+297             \}
+298         \}
+299     \}
+300 
+301     \hyperlink{checksum_8h_a8e4c2c7fc508ab5d920ccf1a98fdc994}{csum\_replace4}(&nh->check, *\hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}, new\_addr);
+302     \hyperlink{skbuff_8h_aafa2bc07e41e10df94be99968b935d2e}{skb\_clear\_hash}(skb);
+303     *\hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr} = new\_addr;
+304 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a00bc919dc7a6a81f506155c0372eba9b}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+ip\+\_\+ttl@{set\+\_\+ip\+\_\+ttl}}
+\index{set\+\_\+ip\+\_\+ttl@{set\+\_\+ip\+\_\+ttl}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+ip\+\_\+ttl}]{\setlength{\rightskip}{0pt plus 5cm}static void set\+\_\+ip\+\_\+ttl (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct iphdr $\ast$}]{nh, }
+\item[{u8}]{new\+\_\+ttl, }
+\item[{u8}]{mask}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a00bc919dc7a6a81f506155c0372eba9b}
+
+\begin{DoxyCode}
+363 \{
+364     new\_ttl = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(nh->ttl, new\_ttl, mask);
+365 
+366     \hyperlink{checksum_8h_a6b7d0090986216d5d63445f71c93df7f}{csum\_replace2}(&nh->check, htons(nh->ttl << 8), htons(new\_ttl << 8));
+367     nh->ttl = new\_ttl;
+368 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a5b6148caa3654ee968f7173b83b3abf4}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+ipv4@{set\+\_\+ipv4}}
+\index{set\+\_\+ipv4@{set\+\_\+ipv4}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+ipv4}]{\setlength{\rightskip}{0pt plus 5cm}static int set\+\_\+ipv4 (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{flow\+\_\+key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+ipv4} $\ast$}]{key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+ipv4} $\ast$}]{mask}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a5b6148caa3654ee968f7173b83b3abf4}
+
+\begin{DoxyCode}
+373 \{
+374     \textcolor{keyword}{struct }iphdr *nh;
+375     \_\_be32 new\_addr;
+376     \textcolor{keywordtype}{int} err;
+377 
+378     err = \hyperlink{skbuff_8h_adb2ee822c4cb80b0d9c272133feedb72}{skb\_ensure\_writable}(skb, \hyperlink{skbuff_8h_aabe75b44039b11c1b7c6e2f246e7146e}{skb\_network\_offset}(skb) +
+379                   \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} iphdr));
+380     \textcolor{keywordflow}{if} (unlikely(err))
+381         \textcolor{keywordflow}{return} err;
+382 
+383     nh = \hyperlink{linux_2ip_8h_a06ad68dbeebbe718758ba2d5ebb6335c}{ip\_hdr}(skb);
+384 
+385     \textcolor{comment}{/* Setting an IP addresses is typically only a side effect of}
+386 \textcolor{comment}{     * matching on them in the current userspace implementation, so it}
+387 \textcolor{comment}{     * makes sense to check if the value actually changed.}
+388 \textcolor{comment}{     */}
+389     \textcolor{keywordflow}{if} (mask->\hyperlink{structovs__key__ipv4_a3577eccaa5f978ba303d2424e3e31a13}{ipv4\_src}) \{
+390         new\_addr = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(nh->saddr, key->\hyperlink{structovs__key__ipv4_a3577eccaa5f978ba303d2424e3e31a13}{ipv4\_src}, mask->\hyperlink{structovs__key__ipv4_a3577eccaa5f978ba303d2424e3e31a13}{ipv4\_src});
+391 
+392         \textcolor{keywordflow}{if} (unlikely(new\_addr != nh->saddr)) \{
+393             \hyperlink{linux_2actions_8c_a35283087cadb66ada3c19e7a87cfdcba}{set\_ip\_addr}(skb, nh, &nh->saddr, new\_addr);
+394             flow\_key->\hyperlink{structsw__flow__key_aeb4295bcb2fb4efea5c30337b871a423}{ipv4}.addr.src = new\_addr;
+395         \}
+396     \}
+397     \textcolor{keywordflow}{if} (mask->\hyperlink{structovs__key__ipv4_aa15aabd69c2881215e666585cea50064}{ipv4\_dst}) \{
+398         new\_addr = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(nh->daddr, key->\hyperlink{structovs__key__ipv4_aa15aabd69c2881215e666585cea50064}{ipv4\_dst}, mask->\hyperlink{structovs__key__ipv4_aa15aabd69c2881215e666585cea50064}{ipv4\_dst});
+399 
+400         \textcolor{keywordflow}{if} (unlikely(new\_addr != nh->daddr)) \{
+401             \hyperlink{linux_2actions_8c_a35283087cadb66ada3c19e7a87cfdcba}{set\_ip\_addr}(skb, nh, &nh->daddr, new\_addr);
+402             flow\_key->\hyperlink{structsw__flow__key_aeb4295bcb2fb4efea5c30337b871a423}{ipv4}.addr.dst = new\_addr;
+403         \}
+404     \}
+405     \textcolor{keywordflow}{if} (mask->\hyperlink{structovs__key__ipv4_a0097feb04c0db1cc6621a58f74ac0e33}{ipv4\_tos}) \{
+406         ipv4\_change\_dsfield(nh, ~mask->\hyperlink{structovs__key__ipv4_a0097feb04c0db1cc6621a58f74ac0e33}{ipv4\_tos}, key->\hyperlink{structovs__key__ipv4_a0097feb04c0db1cc6621a58f74ac0e33}{ipv4\_tos});
+407         flow\_key->\hyperlink{structsw__flow__key_ae8d48c419eaff6a9fda97c7446bdec0e}{ip}.tos = nh->tos;
+408     \}
+409     \textcolor{keywordflow}{if} (mask->\hyperlink{structovs__key__ipv4_ac2142e7329a6e522b3a0d504bec22678}{ipv4\_ttl}) \{
+410         \hyperlink{linux_2actions_8c_a00bc919dc7a6a81f506155c0372eba9b}{set\_ip\_ttl}(skb, nh, key->\hyperlink{structovs__key__ipv4_ac2142e7329a6e522b3a0d504bec22678}{ipv4\_ttl}, mask->\hyperlink{structovs__key__ipv4_ac2142e7329a6e522b3a0d504bec22678}{ipv4\_ttl});
+411         flow\_key->\hyperlink{structsw__flow__key_ae8d48c419eaff6a9fda97c7446bdec0e}{ip}.ttl = nh->ttl;
+412     \}
+413 
+414     \textcolor{keywordflow}{return} 0;
+415 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_acf538956396fdb59cff22ad4577c10f3}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+ipv6@{set\+\_\+ipv6}}
+\index{set\+\_\+ipv6@{set\+\_\+ipv6}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+ipv6}]{\setlength{\rightskip}{0pt plus 5cm}static int set\+\_\+ipv6 (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{flow\+\_\+key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+ipv6} $\ast$}]{key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+ipv6} $\ast$}]{mask}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_acf538956396fdb59cff22ad4577c10f3}
+
+\begin{DoxyCode}
+425 \{
+426     \textcolor{keyword}{struct }ipv6hdr *nh;
+427     \textcolor{keywordtype}{int} err;
+428 
+429     err = \hyperlink{skbuff_8h_adb2ee822c4cb80b0d9c272133feedb72}{skb\_ensure\_writable}(skb, \hyperlink{skbuff_8h_aabe75b44039b11c1b7c6e2f246e7146e}{skb\_network\_offset}(skb) +
+430                   \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} ipv6hdr));
+431     \textcolor{keywordflow}{if} (unlikely(err))
+432         \textcolor{keywordflow}{return} err;
+433 
+434     nh = \hyperlink{linux_2ipv6_8h_ab31aa2f5ade9dadb3cede168a0761bb3}{ipv6\_hdr}(skb);
+435 
+436     \textcolor{comment}{/* Setting an IP addresses is typically only a side effect of}
+437 \textcolor{comment}{     * matching on them in the current userspace implementation, so it}
+438 \textcolor{comment}{     * makes sense to check if the value actually changed.}
+439 \textcolor{comment}{     */}
+440     \textcolor{keywordflow}{if} (\hyperlink{linux_2actions_8c_a889a29de7d27314b273304eaad6f202e}{is\_ipv6\_mask\_nonzero}(mask->\hyperlink{structovs__key__ipv6_ac1ff8dfd6a3b86196c2267b64077517e}{ipv6\_src})) \{
+441         \_\_be32 *saddr = (\_\_be32 *)&nh->saddr;
+442         \_\_be32 masked[4];
+443 
+444         \hyperlink{linux_2actions_8c_affe65b5dd55e3a7c39c5a6705731f01f}{mask\_ipv6\_addr}(saddr, key->\hyperlink{structovs__key__ipv6_ac1ff8dfd6a3b86196c2267b64077517e}{ipv6\_src}, mask->
+      \hyperlink{structovs__key__ipv6_ac1ff8dfd6a3b86196c2267b64077517e}{ipv6\_src}, masked);
+445 
+446         \textcolor{keywordflow}{if} (unlikely(memcmp(saddr, masked, \textcolor{keyword}{sizeof}(masked)))) \{
+447             \hyperlink{linux_2actions_8c_aa39edf0f0aa23ee17d2828e1c42b0590}{set\_ipv6\_addr}(skb, key->\hyperlink{structovs__key__ipv6_a194ad047677db5a081bdd730b20f8007}{ipv6\_proto}, saddr, masked,
+448                       \textcolor{keyword}{true});
+449             memcpy(&flow\_key->\hyperlink{structsw__flow__key_a6b13e14d62eb632b05378784a2d61f87}{ipv6}.addr.src, masked,
+450                    \textcolor{keyword}{sizeof}(flow\_key->\hyperlink{structsw__flow__key_a6b13e14d62eb632b05378784a2d61f87}{ipv6}.addr.src));
+451         \}
+452     \}
+453     \textcolor{keywordflow}{if} (\hyperlink{linux_2actions_8c_a889a29de7d27314b273304eaad6f202e}{is\_ipv6\_mask\_nonzero}(mask->\hyperlink{structovs__key__ipv6_a32109125c4fc7b02b01ac84e9af8e447}{ipv6\_dst})) \{
+454         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} offset = 0;
+455         \textcolor{keywordtype}{int} \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags} = \hyperlink{net_2ipv6_8h_ab48899087cc647f0f791ed0c459adc53ae061c21caac2cca8aed854ed6fb1fa61}{IP6\_FH\_F\_SKIP\_RH};
+456         \textcolor{keywordtype}{bool} recalc\_csum = \textcolor{keyword}{true};
+457         \_\_be32 *daddr = (\_\_be32 *)&nh->daddr;
+458         \_\_be32 masked[4];
+459 
+460         \hyperlink{linux_2actions_8c_affe65b5dd55e3a7c39c5a6705731f01f}{mask\_ipv6\_addr}(daddr, key->\hyperlink{structovs__key__ipv6_a32109125c4fc7b02b01ac84e9af8e447}{ipv6\_dst}, mask->
+      \hyperlink{structovs__key__ipv6_a32109125c4fc7b02b01ac84e9af8e447}{ipv6\_dst}, masked);
+461 
+462         \textcolor{keywordflow}{if} (unlikely(memcmp(daddr, masked, \textcolor{keyword}{sizeof}(masked)))) \{
+463             \textcolor{keywordflow}{if} (ipv6\_ext\_hdr(nh->nexthdr))
+464                 recalc\_csum = (\hyperlink{net_2ipv6_8h_a19e9ca56f1d4e55fcab51b3e6892a6ab}{ipv6\_find\_hdr}(skb, &offset,
+465                                  NEXTHDR\_ROUTING,
+466                                  NULL, &flags)
+467                            != NEXTHDR\_ROUTING);
+468 
+469             \hyperlink{linux_2actions_8c_aa39edf0f0aa23ee17d2828e1c42b0590}{set\_ipv6\_addr}(skb, key->\hyperlink{structovs__key__ipv6_a194ad047677db5a081bdd730b20f8007}{ipv6\_proto}, daddr, masked,
+470                       recalc\_csum);
+471             memcpy(&flow\_key->\hyperlink{structsw__flow__key_a6b13e14d62eb632b05378784a2d61f87}{ipv6}.addr.dst, masked,
+472                    \textcolor{keyword}{sizeof}(flow\_key->\hyperlink{structsw__flow__key_a6b13e14d62eb632b05378784a2d61f87}{ipv6}.addr.dst));
+473         \}
+474     \}
+475     \textcolor{keywordflow}{if} (mask->\hyperlink{structovs__key__ipv6_a391295d87ca76a365cc78fd92c4e4615}{ipv6\_tclass}) \{
+476         ipv6\_change\_dsfield(nh, ~mask->\hyperlink{structovs__key__ipv6_a391295d87ca76a365cc78fd92c4e4615}{ipv6\_tclass}, key->\hyperlink{structovs__key__ipv6_a391295d87ca76a365cc78fd92c4e4615}{ipv6\_tclass});
+477         flow\_key->\hyperlink{structsw__flow__key_ae8d48c419eaff6a9fda97c7446bdec0e}{ip}.tos = ipv6\_get\_dsfield(nh);
+478     \}
+479     \textcolor{keywordflow}{if} (mask->\hyperlink{structovs__key__ipv6_a723a1a03d115ebe2a9fdada09e63bd0c}{ipv6\_label}) \{
+480         \hyperlink{linux_2actions_8c_a105b45d892887e581acec50af165e330}{set\_ipv6\_fl}(nh, ntohl(key->\hyperlink{structovs__key__ipv6_a723a1a03d115ebe2a9fdada09e63bd0c}{ipv6\_label}),
+481                 ntohl(mask->\hyperlink{structovs__key__ipv6_a723a1a03d115ebe2a9fdada09e63bd0c}{ipv6\_label}));
+482         flow\_key->\hyperlink{structsw__flow__key_a6b13e14d62eb632b05378784a2d61f87}{ipv6}.label =
+483             *(\_\_be32 *)nh & htonl(IPV6\_FLOWINFO\_FLOWLABEL);
+484     \}
+485     \textcolor{keywordflow}{if} (mask->\hyperlink{structovs__key__ipv6_a5273b4aa4bba11f547cfa0687acaaeae}{ipv6\_hlimit}) \{
+486         \hyperlink{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{SET\_MASKED}(nh->hop\_limit, key->\hyperlink{structovs__key__ipv6_a5273b4aa4bba11f547cfa0687acaaeae}{ipv6\_hlimit}, mask->
+      \hyperlink{structovs__key__ipv6_a5273b4aa4bba11f547cfa0687acaaeae}{ipv6\_hlimit});
+487         flow\_key->\hyperlink{structsw__flow__key_ae8d48c419eaff6a9fda97c7446bdec0e}{ip}.ttl = nh->hop\_limit;
+488     \}
+489     \textcolor{keywordflow}{return} 0;
+490 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_aa39edf0f0aa23ee17d2828e1c42b0590}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+ipv6\+\_\+addr@{set\+\_\+ipv6\+\_\+addr}}
+\index{set\+\_\+ipv6\+\_\+addr@{set\+\_\+ipv6\+\_\+addr}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+ipv6\+\_\+addr}]{\setlength{\rightskip}{0pt plus 5cm}static void set\+\_\+ipv6\+\_\+addr (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{u8}]{l4\+\_\+proto, }
+\item[{\+\_\+\+\_\+be32}]{addr\mbox{[}4\mbox{]}, }
+\item[{const \+\_\+\+\_\+be32}]{new\+\_\+addr\mbox{[}4\mbox{]}, }
+\item[{{\bf bool}}]{recalculate\+\_\+csum}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_aa39edf0f0aa23ee17d2828e1c42b0590}
+
+\begin{DoxyCode}
+345 \{
+346     \textcolor{keywordflow}{if} (likely(recalculate\_csum))
+347         \hyperlink{linux_2actions_8c_a006120c8695be3960f274e88e24b535a}{update\_ipv6\_checksum}(skb, l4\_proto, \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}, new\_addr);
+348 
+349     \hyperlink{skbuff_8h_aafa2bc07e41e10df94be99968b935d2e}{skb\_clear\_hash}(skb);
+350     memcpy(\hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}, new\_addr, \textcolor{keyword}{sizeof}(\_\_be32[4]));
+351 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a105b45d892887e581acec50af165e330}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+ipv6\+\_\+fl@{set\+\_\+ipv6\+\_\+fl}}
+\index{set\+\_\+ipv6\+\_\+fl@{set\+\_\+ipv6\+\_\+fl}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+ipv6\+\_\+fl}]{\setlength{\rightskip}{0pt plus 5cm}static void set\+\_\+ipv6\+\_\+fl (
+\begin{DoxyParamCaption}
+\item[{struct ipv6hdr $\ast$}]{nh, }
+\item[{u32}]{fl, }
+\item[{u32}]{mask}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a105b45d892887e581acec50af165e330}
+
+\begin{DoxyCode}
+354 \{
+355     \textcolor{comment}{/* Bits 21-24 are always unmasked, so this retains their values. */}
+356     \hyperlink{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{SET\_MASKED}(nh->flow\_lbl[0], (u8)(fl >> 16), (u8)(mask >> 16));
+357     \hyperlink{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{SET\_MASKED}(nh->flow\_lbl[1], (u8)(fl >> 8), (u8)(mask >> 8));
+358     \hyperlink{linux_2actions_8c_a6a812b08a711cd6258c60e9bd0c931e3}{SET\_MASKED}(nh->flow\_lbl[2], (u8)fl, (u8)mask);
+359 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_ad66261c51831d2a4a6ff0ea385fbad32}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+mpls@{set\+\_\+mpls}}
+\index{set\+\_\+mpls@{set\+\_\+mpls}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+mpls}]{\setlength{\rightskip}{0pt plus 5cm}static int set\+\_\+mpls (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{flow\+\_\+key, }
+\item[{const \+\_\+\+\_\+be32 $\ast$}]{mpls\+\_\+lse, }
+\item[{const \+\_\+\+\_\+be32 $\ast$}]{mask}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_ad66261c51831d2a4a6ff0ea385fbad32}
+
+\begin{DoxyCode}
+197 \{
+198     \_\_be32 *stack;
+199     \_\_be32 lse;
+200     \textcolor{keywordtype}{int} err;
+201 
+202     err = \hyperlink{skbuff_8h_adb2ee822c4cb80b0d9c272133feedb72}{skb\_ensure\_writable}(skb, skb->mac\_len + \hyperlink{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{MPLS\_HLEN});
+203     \textcolor{keywordflow}{if} (unlikely(err))
+204         \textcolor{keywordflow}{return} err;
+205 
+206     stack = (\_\_be32 *)\hyperlink{net_2mpls_8h_a9301d39e19665451cfce4562ca26fa0f}{skb\_mpls\_header}(skb);
+207     lse = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(*stack, *mpls\_lse, *mask);
+208     \textcolor{keywordflow}{if} (skb->ip\_summed == \hyperlink{skbuff_8h_a207f4c225f70b6bc82d1519bb10245f7}{CHECKSUM\_COMPLETE}) \{
+209         \_\_be32 diff[] = \{ ~(*stack), lse \};
+210 
+211         skb->csum = ~csum\_partial((\textcolor{keywordtype}{char} *)diff, \textcolor{keyword}{sizeof}(diff),
+212                       ~skb->csum);
+213     \}
+214 
+215     *stack = lse;
+216     flow\_key->\hyperlink{structsw__flow__key_a005840d04ee5b462be3c8e21809dc9aa}{mpls}.top\_lse = lse;
+217     \textcolor{keywordflow}{return} 0;
+218 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a7f2d96d4cc495e0f9f48c61305beea5c}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+sctp@{set\+\_\+sctp}}
+\index{set\+\_\+sctp@{set\+\_\+sctp}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+sctp}]{\setlength{\rightskip}{0pt plus 5cm}static int set\+\_\+sctp (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{flow\+\_\+key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+sctp} $\ast$}]{key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+sctp} $\ast$}]{mask}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a7f2d96d4cc495e0f9f48c61305beea5c}
+
+\begin{DoxyCode}
+574 \{
+575     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} sctphoff = \hyperlink{skbuff_8h_ac8d86ecdcd808a5839009d4a8f85f6c8}{skb\_transport\_offset}(skb);
+576     \textcolor{keyword}{struct }sctphdr *sh;
+577     \_\_le32 old\_correct\_csum, new\_csum, old\_csum;
+578     \textcolor{keywordtype}{int} err;
+579 
+580     err = \hyperlink{skbuff_8h_adb2ee822c4cb80b0d9c272133feedb72}{skb\_ensure\_writable}(skb, sctphoff + \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} sctphdr));
+581     \textcolor{keywordflow}{if} (unlikely(err))
+582         \textcolor{keywordflow}{return} err;
+583 
+584     sh = \hyperlink{sctp_8h_a6f9abfbe98294e40a3f32db7ad723998}{sctp\_hdr}(skb);
+585     old\_csum = sh->checksum;
+586     old\_correct\_csum = \hyperlink{sctp_2checksum_8h_a37c2469f1cafc0c708d543defa2babf0}{sctp\_compute\_cksum}(skb, sctphoff);
+587 
+588     sh->source = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(sh->source, key->\hyperlink{structovs__key__sctp_af10ce527eb1894b4080bd8024e82a1cc}{sctp\_src}, mask->\hyperlink{structovs__key__sctp_af10ce527eb1894b4080bd8024e82a1cc}{sctp\_src});
+589     sh->dest = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(sh->dest, key->\hyperlink{structovs__key__sctp_a1fa757d8e013ccfc5672df04cfa3aa7d}{sctp\_dst}, mask->\hyperlink{structovs__key__sctp_a1fa757d8e013ccfc5672df04cfa3aa7d}{sctp\_dst});
+590 
+591     new\_csum = \hyperlink{sctp_2checksum_8h_a37c2469f1cafc0c708d543defa2babf0}{sctp\_compute\_cksum}(skb, sctphoff);
+592 
+593     \textcolor{comment}{/* Carry any checksum errors through. */}
+594     sh->checksum = old\_csum ^ old\_correct\_csum ^ new\_csum;
+595 
+596     \hyperlink{skbuff_8h_aafa2bc07e41e10df94be99968b935d2e}{skb\_clear\_hash}(skb);
+597     flow\_key->\hyperlink{structsw__flow__key_a9c1944a39db1bf91141048df6d85ce8b}{tp}.\hyperlink{structsw__flow__key_a2fbd4aa7a500630627eff0630f864117}{src} = sh->source;
+598     flow\_key->\hyperlink{structsw__flow__key_a9c1944a39db1bf91141048df6d85ce8b}{tp}.\hyperlink{structsw__flow__key_a44a0cdfe7471df8bb73762085da4cda9}{dst} = sh->dest;
+599 
+600     \textcolor{keywordflow}{return} 0;
+601 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a3f6591203112ded2452b368308b0f36b}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+tcp@{set\+\_\+tcp}}
+\index{set\+\_\+tcp@{set\+\_\+tcp}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+tcp}]{\setlength{\rightskip}{0pt plus 5cm}static int set\+\_\+tcp (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{flow\+\_\+key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+tcp} $\ast$}]{key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+tcp} $\ast$}]{mask}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a3f6591203112ded2452b368308b0f36b}
+
+\begin{DoxyCode}
+545 \{
+546     \textcolor{keyword}{struct }tcphdr *th;
+547     \_\_be16 \hyperlink{flow_8h_a2e7e37e9dfe6465386d6c500f83ef144}{src}, \hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst};
+548     \textcolor{keywordtype}{int} err;
+549 
+550     err = \hyperlink{skbuff_8h_adb2ee822c4cb80b0d9c272133feedb72}{skb\_ensure\_writable}(skb, \hyperlink{skbuff_8h_ac8d86ecdcd808a5839009d4a8f85f6c8}{skb\_transport\_offset}(skb) +
+551                   \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} tcphdr));
+552     \textcolor{keywordflow}{if} (unlikely(err))
+553         \textcolor{keywordflow}{return} err;
+554 
+555     th = \hyperlink{tcp_8h_a9ac4e94949ea9142c45cf46683be5ef7}{tcp\_hdr}(skb);
+556     src = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(th->source, key->\hyperlink{structovs__key__tcp_a6ce4cb2971be0b952a5a7cde1eefc28e}{tcp\_src}, mask->\hyperlink{structovs__key__tcp_a6ce4cb2971be0b952a5a7cde1eefc28e}{tcp\_src});
+557     \textcolor{keywordflow}{if} (likely(src != th->source)) \{
+558         \hyperlink{linux_2actions_8c_a485b30c5af82b861079002c3e8899f7d}{set\_tp\_port}(skb, &th->source, src, &th->check);
+559         flow\_key->\hyperlink{structsw__flow__key_a9c1944a39db1bf91141048df6d85ce8b}{tp}.\hyperlink{structsw__flow__key_a2fbd4aa7a500630627eff0630f864117}{src} = \hyperlink{flow_8h_a2e7e37e9dfe6465386d6c500f83ef144}{src};
+560     \}
+561     dst = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(th->dest, key->\hyperlink{structovs__key__tcp_a37a5793e8ba3701ac70693073a24668a}{tcp\_dst}, mask->\hyperlink{structovs__key__tcp_a37a5793e8ba3701ac70693073a24668a}{tcp\_dst});
+562     \textcolor{keywordflow}{if} (likely(dst != th->dest)) \{
+563         \hyperlink{linux_2actions_8c_a485b30c5af82b861079002c3e8899f7d}{set\_tp\_port}(skb, &th->dest, dst, &th->check);
+564         flow\_key->\hyperlink{structsw__flow__key_a9c1944a39db1bf91141048df6d85ce8b}{tp}.\hyperlink{structsw__flow__key_a44a0cdfe7471df8bb73762085da4cda9}{dst} = \hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst};
+565     \}
+566     \hyperlink{skbuff_8h_aafa2bc07e41e10df94be99968b935d2e}{skb\_clear\_hash}(skb);
+567 
+568     \textcolor{keywordflow}{return} 0;
+569 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a485b30c5af82b861079002c3e8899f7d}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+tp\+\_\+port@{set\+\_\+tp\+\_\+port}}
+\index{set\+\_\+tp\+\_\+port@{set\+\_\+tp\+\_\+port}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+tp\+\_\+port}]{\setlength{\rightskip}{0pt plus 5cm}static void set\+\_\+tp\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{\+\_\+\+\_\+be16 $\ast$}]{port, }
+\item[{\+\_\+\+\_\+be16}]{new\+\_\+port, }
+\item[{{\bf \+\_\+\+\_\+sum16} $\ast$}]{check}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a485b30c5af82b861079002c3e8899f7d}
+
+\begin{DoxyCode}
+495 \{
+496     inet\_proto\_csum\_replace2(check, skb, *port, new\_port, 0);
+497     *port = new\_port;
+498 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_ae78d854d13e952f67ca0d0b7bc45be75}{}\index{linux/actions.\+c@{linux/actions.\+c}!set\+\_\+udp@{set\+\_\+udp}}
+\index{set\+\_\+udp@{set\+\_\+udp}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{set\+\_\+udp}]{\setlength{\rightskip}{0pt plus 5cm}static int set\+\_\+udp (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{flow\+\_\+key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+udp} $\ast$}]{key, }
+\item[{const struct {\bf ovs\+\_\+key\+\_\+udp} $\ast$}]{mask}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_ae78d854d13e952f67ca0d0b7bc45be75}
+
+\begin{DoxyCode}
+503 \{
+504     \textcolor{keyword}{struct }udphdr *uh;
+505     \_\_be16 \hyperlink{flow_8h_a2e7e37e9dfe6465386d6c500f83ef144}{src}, \hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst};
+506     \textcolor{keywordtype}{int} err;
+507 
+508     err = \hyperlink{skbuff_8h_adb2ee822c4cb80b0d9c272133feedb72}{skb\_ensure\_writable}(skb, \hyperlink{skbuff_8h_ac8d86ecdcd808a5839009d4a8f85f6c8}{skb\_transport\_offset}(skb) +
+509                   \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} udphdr));
+510     \textcolor{keywordflow}{if} (unlikely(err))
+511         \textcolor{keywordflow}{return} err;
+512 
+513     uh = \hyperlink{linux_2udp_8h_a7b8908e197538768cf4ff9ec577bd86b}{udp\_hdr}(skb);
+514     \textcolor{comment}{/* Either of the masks is non-zero, so do not bother checking them. */}
+515     src = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(uh->source, key->\hyperlink{structovs__key__udp_a771fb692264276a6e170a01d54295b61}{udp\_src}, mask->\hyperlink{structovs__key__udp_a771fb692264276a6e170a01d54295b61}{udp\_src});
+516     dst = \hyperlink{linux_2actions_8c_a7e29e4ea7eef8e6a17ec80459c178a14}{MASKED}(uh->dest, key->\hyperlink{structovs__key__udp_ab9a32a0e306acdbf2b5468710836a4d8}{udp\_dst}, mask->\hyperlink{structovs__key__udp_ab9a32a0e306acdbf2b5468710836a4d8}{udp\_dst});
+517 
+518     \textcolor{keywordflow}{if} (uh->check && skb->ip\_summed != \hyperlink{skbuff_8h_a627906a22e9d4cb31c7674b86eb25ef3}{CHECKSUM\_PARTIAL}) \{
+519         \textcolor{keywordflow}{if} (likely(src != uh->source)) \{
+520             \hyperlink{linux_2actions_8c_a485b30c5af82b861079002c3e8899f7d}{set\_tp\_port}(skb, &uh->source, src, &uh->check);
+521             flow\_key->\hyperlink{structsw__flow__key_a9c1944a39db1bf91141048df6d85ce8b}{tp}.\hyperlink{structsw__flow__key_a2fbd4aa7a500630627eff0630f864117}{src} = \hyperlink{flow_8h_a2e7e37e9dfe6465386d6c500f83ef144}{src};
+522         \}
+523         \textcolor{keywordflow}{if} (likely(dst != uh->dest)) \{
+524             \hyperlink{linux_2actions_8c_a485b30c5af82b861079002c3e8899f7d}{set\_tp\_port}(skb, &uh->dest, dst, &uh->check);
+525             flow\_key->\hyperlink{structsw__flow__key_a9c1944a39db1bf91141048df6d85ce8b}{tp}.\hyperlink{structsw__flow__key_a44a0cdfe7471df8bb73762085da4cda9}{dst} = \hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst};
+526         \}
+527 
+528         \textcolor{keywordflow}{if} (unlikely(!uh->check))
+529             uh->check = \hyperlink{checksum_8h_a444eeba1f6868a156bcc975cd9963d63}{CSUM\_MANGLED\_0};
+530     \} \textcolor{keywordflow}{else} \{
+531         uh->source = \hyperlink{flow_8h_a2e7e37e9dfe6465386d6c500f83ef144}{src};
+532         uh->dest = \hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst};
+533         flow\_key->\hyperlink{structsw__flow__key_a9c1944a39db1bf91141048df6d85ce8b}{tp}.\hyperlink{structsw__flow__key_a2fbd4aa7a500630627eff0630f864117}{src} = \hyperlink{flow_8h_a2e7e37e9dfe6465386d6c500f83ef144}{src};
+534         flow\_key->\hyperlink{structsw__flow__key_a9c1944a39db1bf91141048df6d85ce8b}{tp}.\hyperlink{structsw__flow__key_a44a0cdfe7471df8bb73762085da4cda9}{dst} = \hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst};
+535     \}
+536 
+537     \hyperlink{skbuff_8h_aafa2bc07e41e10df94be99968b935d2e}{skb\_clear\_hash}(skb);
+538 
+539     \textcolor{keywordflow}{return} 0;
+540 \}
+\end{DoxyCode}
+\hypertarget{linux_2actions_8c_a006120c8695be3960f274e88e24b535a}{}\index{linux/actions.\+c@{linux/actions.\+c}!update\+\_\+ipv6\+\_\+checksum@{update\+\_\+ipv6\+\_\+checksum}}
+\index{update\+\_\+ipv6\+\_\+checksum@{update\+\_\+ipv6\+\_\+checksum}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{update\+\_\+ipv6\+\_\+checksum}]{\setlength{\rightskip}{0pt plus 5cm}static void update\+\_\+ipv6\+\_\+checksum (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{u8}]{l4\+\_\+proto, }
+\item[{\+\_\+\+\_\+be32}]{addr\mbox{[}4\mbox{]}, }
+\item[{const \+\_\+\+\_\+be32}]{new\+\_\+addr\mbox{[}4\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a006120c8695be3960f274e88e24b535a}
+
+\begin{DoxyCode}
+308 \{
+309     \textcolor{keywordtype}{int} transport\_len = skb->len - \hyperlink{skbuff_8h_ac8d86ecdcd808a5839009d4a8f85f6c8}{skb\_transport\_offset}(skb);
+310 
+311     \textcolor{keywordflow}{if} (l4\_proto == NEXTHDR\_TCP) \{
+312         \textcolor{keywordflow}{if} (likely(transport\_len >= \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} tcphdr)))
+313             inet\_proto\_csum\_replace16(&\hyperlink{tcp_8h_a9ac4e94949ea9142c45cf46683be5ef7}{tcp\_hdr}(skb)->check, skb,
+314                           \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}, new\_addr, 1);
+315     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (l4\_proto == NEXTHDR\_UDP) \{
+316         \textcolor{keywordflow}{if} (likely(transport\_len >= \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} udphdr))) \{
+317             \textcolor{keyword}{struct }udphdr *uh = \hyperlink{linux_2udp_8h_a7b8908e197538768cf4ff9ec577bd86b}{udp\_hdr}(skb);
+318 
+319             \textcolor{keywordflow}{if} (uh->check || skb->ip\_summed == \hyperlink{skbuff_8h_a627906a22e9d4cb31c7674b86eb25ef3}{CHECKSUM\_PARTIAL}) \{
+320                 inet\_proto\_csum\_replace16(&uh->check, skb,
+321                               \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}, new\_addr, 1);
+322                 \textcolor{keywordflow}{if} (!uh->check)
+323                     uh->check = \hyperlink{checksum_8h_a444eeba1f6868a156bcc975cd9963d63}{CSUM\_MANGLED\_0};
+324             \}
+325         \}
+326     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (l4\_proto == NEXTHDR\_ICMP) \{
+327         \textcolor{keywordflow}{if} (likely(transport\_len >= \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} icmp6hdr)))
+328             inet\_proto\_csum\_replace16(&\hyperlink{icmpv6_8h_a82bcc0d06b83b4deb3670393075dee13}{icmp6\_hdr}(skb)->icmp6\_cksum,
+329                           skb, \hyperlink{flow_8h_a535ce925c585c41d434f7481f342c976}{addr}, new\_addr, 1);
+330     \}
+331 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{linux_2actions_8c_a38c6295376dbb80340f4f1b8e488f223}{}\index{linux/actions.\+c@{linux/actions.\+c}!action\+\_\+fifos@{action\+\_\+fifos}}
+\index{action\+\_\+fifos@{action\+\_\+fifos}!linux/actions.\+c@{linux/actions.\+c}}
+\subsubsection[{action\+\_\+fifos}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf action\+\_\+fifo} {\bf \+\_\+\+\_\+percpu}$\ast$ action\+\_\+fifos\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2actions_8c_a38c6295376dbb80340f4f1b8e488f223}

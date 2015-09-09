@@ -1,0 +1,31 @@
+\hypertarget{icmpv6_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/linux/icmpv6.h File Reference}
+\label{icmpv6_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/linux/icmpv6.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/linux/icmpv6.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{icmpv6_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static struct icmp6hdr $\ast$ \hyperlink{icmpv6_8h_a82bcc0d06b83b4deb3670393075dee13}{icmp6\+\_\+hdr} (const struct sk\+\_\+buff $\ast$skb)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{icmpv6_8h_a82bcc0d06b83b4deb3670393075dee13}{}\index{icmpv6.\+h@{icmpv6.\+h}!icmp6\+\_\+hdr@{icmp6\+\_\+hdr}}
+\index{icmp6\+\_\+hdr@{icmp6\+\_\+hdr}!icmpv6.\+h@{icmpv6.\+h}}
+\subsubsection[{icmp6\+\_\+hdr}]{\setlength{\rightskip}{0pt plus 5cm}static struct icmp6hdr$\ast$ icmp6\+\_\+hdr (
+\begin{DoxyParamCaption}
+\item[{const struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{icmpv6_8h_a82bcc0d06b83b4deb3670393075dee13}
+
+\begin{DoxyCode}
+8 \{
+9     \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} icmp6hdr *)\hyperlink{skbuff_8h_ad4a95a26793695e82fca60888688450f}{skb\_transport\_header}(skb);
+10 \}
+\end{DoxyCode}

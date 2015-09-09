@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# de
+# display difference for the tests
+
+#tkdiff $1 $1-expected
+
+tkdiff $1 $1.expected
+

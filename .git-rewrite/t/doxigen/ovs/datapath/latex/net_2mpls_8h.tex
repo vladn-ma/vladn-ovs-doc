@@ -1,0 +1,68 @@
+\hypertarget{net_2mpls_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/net/mpls.h File Reference}
+\label{net_2mpls_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/net/mpls.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/net/mpls.\+h}}
+{\ttfamily \#include $<$linux/if\+\_\+ether.\+h$>$}\\*
+{\ttfamily \#include $<$linux/netdevice.\+h$>$}\\*
+Include dependency graph for mpls.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{net_2mpls_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{net_2mpls_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{M\+P\+L\+S\+\_\+\+H\+L\+E\+N}~4
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{net_2mpls_8h_aab48ab242fbafafc869b3e98df4ace8f}{eth\+\_\+p\+\_\+mpls} (\+\_\+\+\_\+be16 eth\+\_\+type)
+\item 
+static unsigned char $\ast$ \hyperlink{net_2mpls_8h_a9301d39e19665451cfce4562ca26fa0f}{skb\+\_\+mpls\+\_\+header} (struct sk\+\_\+buff $\ast$skb)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}{}\index{net/mpls.\+h@{net/mpls.\+h}!M\+P\+L\+S\+\_\+\+H\+L\+E\+N@{M\+P\+L\+S\+\_\+\+H\+L\+E\+N}}
+\index{M\+P\+L\+S\+\_\+\+H\+L\+E\+N@{M\+P\+L\+S\+\_\+\+H\+L\+E\+N}!net/mpls.\+h@{net/mpls.\+h}}
+\subsubsection[{M\+P\+L\+S\+\_\+\+H\+L\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+P\+L\+S\+\_\+\+H\+L\+E\+N~4}\label{net_2mpls_8h_a9a0b8d7adb48a79ca82a00b2663823ee}
+
+
+\subsection{Function Documentation}
+\hypertarget{net_2mpls_8h_aab48ab242fbafafc869b3e98df4ace8f}{}\index{net/mpls.\+h@{net/mpls.\+h}!eth\+\_\+p\+\_\+mpls@{eth\+\_\+p\+\_\+mpls}}
+\index{eth\+\_\+p\+\_\+mpls@{eth\+\_\+p\+\_\+mpls}!net/mpls.\+h@{net/mpls.\+h}}
+\subsubsection[{eth\+\_\+p\+\_\+mpls}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} eth\+\_\+p\+\_\+mpls (
+\begin{DoxyParamCaption}
+\item[{\+\_\+\+\_\+be16}]{eth\+\_\+type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{net_2mpls_8h_aab48ab242fbafafc869b3e98df4ace8f}
+
+\begin{DoxyCode}
+23 \{
+24     \textcolor{keywordflow}{return} eth\_type == htons(ETH\_P\_MPLS\_UC) ||
+25         eth\_type == htons(ETH\_P\_MPLS\_MC);
+26 \}
+\end{DoxyCode}
+\hypertarget{net_2mpls_8h_a9301d39e19665451cfce4562ca26fa0f}{}\index{net/mpls.\+h@{net/mpls.\+h}!skb\+\_\+mpls\+\_\+header@{skb\+\_\+mpls\+\_\+header}}
+\index{skb\+\_\+mpls\+\_\+header@{skb\+\_\+mpls\+\_\+header}!net/mpls.\+h@{net/mpls.\+h}}
+\subsubsection[{skb\+\_\+mpls\+\_\+header}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned char$\ast$ skb\+\_\+mpls\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{net_2mpls_8h_a9301d39e19665451cfce4562ca26fa0f}
+
+\begin{DoxyCode}
+36 \{
+37     \textcolor{keywordflow}{return} \hyperlink{skbuff_8h_a292027671dfcf3aa23f9551f48713e24}{skb\_mac\_header}(skb) + skb->mac\_len;
+38 \}
+\end{DoxyCode}

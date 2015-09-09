@@ -1,0 +1,33 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/net/dst.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/net/dst.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/version\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBskb_dst_drop\fP (struct sk_buff *skb)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "static void skb_dst_drop (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+17 {
+18     if (skb->dst)
+19         dst_release(skb_dst(skb));
+20     skb->dst = NULL;
+21 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

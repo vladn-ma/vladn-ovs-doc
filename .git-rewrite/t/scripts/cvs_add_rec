@@ -1,0 +1,5 @@
+#!/bin/bash
+#adds files and directories to cvs recursively
+find . -type d -print | grep -v CVS | xargs cvs add
+find . -type f -print | grep -v CVS | xargs cvs add
+

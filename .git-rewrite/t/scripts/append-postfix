@@ -1,0 +1,26 @@
+#!/bin/bash
+
+############################
+#this scripts find files given by pattern 
+#default is "*.asm2-pkg" 
+#and copy them to the files with the name appended by second argument
+#default is ".expected" 
+############################
+
+fnum=0
+
+pattern=$1
+if [ -z "$pattern" ]; then pattern="*.asm2-pkg"
+fi
+
+extention=$2
+if [ -z "$extention" ]; then extention=".expected"
+fi
+
+for file in $(find . -iname "$pattern" )
+do
+let "fnum += 1"
+cp -f $file $file$extention
+done
+
+echo "processed files : " $fnum

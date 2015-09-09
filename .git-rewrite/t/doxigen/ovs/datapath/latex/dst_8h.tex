@@ -1,0 +1,42 @@
+\hypertarget{dst_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/net/dst.h File Reference}
+\label{dst_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/net/dst.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/net/dst.\+h}}
+{\ttfamily \#include $<$linux/version.\+h$>$}\\*
+Include dependency graph for dst.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{dst_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dst_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{dst_8h_ac4d561da6ab8dcb2f4a3c8fdbc50bb83}{skb\+\_\+dst\+\_\+drop} (struct sk\+\_\+buff $\ast$skb)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{dst_8h_ac4d561da6ab8dcb2f4a3c8fdbc50bb83}{}\index{dst.\+h@{dst.\+h}!skb\+\_\+dst\+\_\+drop@{skb\+\_\+dst\+\_\+drop}}
+\index{skb\+\_\+dst\+\_\+drop@{skb\+\_\+dst\+\_\+drop}!dst.\+h@{dst.\+h}}
+\subsubsection[{skb\+\_\+dst\+\_\+drop}]{\setlength{\rightskip}{0pt plus 5cm}static void skb\+\_\+dst\+\_\+drop (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{dst_8h_ac4d561da6ab8dcb2f4a3c8fdbc50bb83}
+
+\begin{DoxyCode}
+17 \{
+18     \textcolor{keywordflow}{if} (skb->dst)
+19         dst\_release(\hyperlink{skbuff_8h_abad96939496a915ab2a3e7c3b6d4498f}{skb\_dst}(skb));
+20     skb->dst = NULL;
+21 \}
+\end{DoxyCode}

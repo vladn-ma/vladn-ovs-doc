@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="reciprocal__div_8h">
+    <title>reciprocal_div.h File Reference</title>
+    <programlisting>#include &lt;linux/types.h&gt;</programlisting>
+<para>Include dependency diagram for reciprocal_div.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="reciprocal__div_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for reciprocal_div.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="reciprocal__div_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title> Data Structures </title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structreciprocal__value">reciprocal_value</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="reciprocal__div_8h_1a78adc7b97028a17a134f8a0cd82c5c82">reciprocal_value</link> <link linkend="reciprocal__div_8c_1a9521bfcfc19dc38ffcc0ce9221e5a91d">rpl_reciprocal_value</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="reciprocal__div_8h_1a1aeee1ba3d23d8252d3df41c25c1fb68">reciprocal_divide</link> <link linkend="reciprocal__div_8h_1a3cd12ce78a02bde65d6a4f99f474ee30">rpl_reciprocal_divide</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structreciprocal__value">reciprocal_value</link> <link linkend="reciprocal__div_8h_1a9521bfcfc19dc38ffcc0ce9221e5a91d">rpl_reciprocal_value</link> (
+u32 d)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static u32 <link linkend="reciprocal__div_8h_1a3cd12ce78a02bde65d6a4f99f474ee30">rpl_reciprocal_divide</link> (
+u32 a, struct <link linkend="structreciprocal__value">reciprocal_value</link> R)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/include/linux/reciprocal_div.h</para>
+    </simplesect>
+</section>

@@ -1,0 +1,50 @@
+.TH "vport_parms" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+vport_parms \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <vport\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBname\fP"
+.br
+.ti -1c
+.RI "enum \fBovs_vport_type\fP \fBtype\fP"
+.br
+.ti -1c
+.RI "struct nlattr * \fBoptions\fP"
+.br
+.ti -1c
+.RI "struct \fBdatapath\fP * \fBdp\fP"
+.br
+.ti -1c
+.RI "u16 \fBport_no\fP"
+.br
+.ti -1c
+.RI "struct nlattr * \fBupcall_portids\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBdatapath\fP* vport_parms::dp"
+
+.SS "const char* vport_parms::name"
+
+.SS "struct nlattr* vport_parms::options"
+
+.SS "u16 vport_parms::port_no"
+
+.SS "enum \fBovs_vport_type\fP vport_parms::type"
+
+.SS "struct nlattr* vport_parms::upcall_portids"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

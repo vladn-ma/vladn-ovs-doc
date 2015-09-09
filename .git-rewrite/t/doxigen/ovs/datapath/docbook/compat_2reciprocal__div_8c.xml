@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="compat_2reciprocal__div_8c">
+    <title>reciprocal_div.c File Reference</title>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;asm/div64.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/reciprocal_div.h&gt;</programlisting>
+<para>Include dependency diagram for reciprocal_div.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="compat_2reciprocal__div_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for reciprocal_div.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="compat_2reciprocal__div_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structreciprocal__value">reciprocal_value</link> <link linkend="compat_2reciprocal__div_8c_1a9521bfcfc19dc38ffcc0ce9221e5a91d">rpl_reciprocal_value</link> (
+u32 d)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="compat_2reciprocal__div_8c_1adf75876fb45434147be2d127b4dd29b1">EXPORT_SYMBOL_GPL</link> (
+<link linkend="reciprocal__div_8c_1a9521bfcfc19dc38ffcc0ce9221e5a91d">rpl_reciprocal_value</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/reciprocal_div.c</para>
+    </simplesect>
+</section>

@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="vport-netdev_8c">
+    <title>vport-netdev.c File Reference</title>
+    <programlisting>#include &lt;linux/if_arp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_bridge.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_vlan.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/llc.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rtnetlink.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/skbuff.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/openvswitch.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/netdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;net/llc.h&gt;</programlisting>
+    <programlisting>#include &quot;datapath.h&quot;</programlisting>
+    <programlisting>#include &quot;vlan.h&quot;</programlisting>
+    <programlisting>#include &quot;vport-internal_dev.h&quot;</programlisting>
+    <programlisting>#include &quot;vport-netdev.h&quot;</programlisting>
+<para>Include dependency diagram for vport-netdev.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="vport-netdev_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for vport-netdev.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="vport-netdev_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="vport-netdev_8c_1a1f8c165bf4196327bc3abff648276d92">pr_fmt</link> KBUILD_MODNAME &quot;: &quot; fmt</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Variables</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structvport__ops">vport_ops</link> <link linkend="vport-netdev_8c_1a881cb730847416574c9c4b3b7c4c3003">ovs_netdev_vport_ops</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="vport-netdev_8c_1a203ef31e44d24cc73b6fd99ff15973ae">netdev_port_receive</link> (
+struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static rx_handler_result_t <link linkend="vport-netdev_8c_1a4c69c350d93bf290fea2ff1e9759311d">netdev_frame_hook</link> (
+struct sk_buff ** pskb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct net_device * <link linkend="vport-netdev_8c_1ae407cdb3541e622199306fa8e2e6cd92">get_dpdev</link> (
+const struct <link linkend="structdatapath">datapath</link> * dp)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structvport">vport</link> * <link linkend="vport-netdev_8c_1ae347c95fee1fc936f726d57cce0541f4">netdev_create</link> (
+const struct <link linkend="structvport__parms">vport_parms</link> * parms)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="vport-netdev_8c_1a3b01c780c7673ecd1fcb517bb4fef97f">free_port_rcu</link> (
+struct rcu_head * rcu)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="vport-netdev_8c_1ac03887d6d37218f96766a4fe8a29a7f6">ovs_netdev_detach_dev</link> (
+struct <link linkend="structvport">vport</link> * vport)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="vport-netdev_8c_1a159283a11e7da94bc5e76ca2a2f6ceaa">netdev_destroy</link> (
+struct <link linkend="structvport">vport</link> * vport)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>const char * <link linkend="vport-netdev_8c_1a63439e8a15ca15f649e7cd4c26a79437">ovs_netdev_get_name</link> (
+const struct <link linkend="structvport">vport</link> * vport)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static unsigned int <link linkend="vport-netdev_8c_1a9f2be5b32b1c210d157335d49a1c958b">packet_length</link> (
+const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="vport-netdev_8c_1a8fde99ce838cbc4e5b5f7c4ccaf07104">netdev_send</link> (
+struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structvport">vport</link> * <link linkend="vport-netdev_8c_1adf074c6126d43c3f7ea008ac19d33112">ovs_netdev_get_vport</link> (
+struct net_device * dev)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int __init <link linkend="vport-netdev_8c_1a70dd93833f5d471ed3951dd80f54a914">ovs_netdev_init</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="vport-netdev_8c_1ada5333ba6a30c7b472582687565e316c">ovs_netdev_exit</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/vport-netdev.c</para>
+    </simplesect>
+</section>

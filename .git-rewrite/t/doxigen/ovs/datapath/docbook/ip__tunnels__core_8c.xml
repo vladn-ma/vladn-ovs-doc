@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="ip__tunnels__core_8c">
+    <title>ip_tunnels_core.c File Reference</title>
+    <programlisting>#include &lt;linux/in.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/in_route.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/inetdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/jhash.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/list.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/workqueue.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rculist.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ip_tunnels.h&gt;</programlisting>
+    <programlisting>#include &lt;net/route.h&gt;</programlisting>
+    <programlisting>#include &lt;net/xfrm.h&gt;</programlisting>
+    <programlisting>#include &quot;compat.h&quot;</programlisting>
+    <programlisting>#include &quot;gso.h&quot;</programlisting>
+<para>Include dependency diagram for ip_tunnels_core.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="ip__tunnels__core_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for ip_tunnels_core.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="ip__tunnels__core_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="ip__tunnels__core_8c_1a1f8c165bf4196327bc3abff648276d92">pr_fmt</link> KBUILD_MODNAME &quot;: &quot; fmt</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para><link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="ip__tunnels__core_8c_1af85bf32723d235730cebb18e2dd718ab">ovs_skb_is_encapsulated</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="ip__tunnels__core_8c_1afd7d1733464e4aa8ce9b9459b788e0b6">EXPORT_SYMBOL_GPL</link> (
+<link linkend="ip__tunnels__core_8c_1af85bf32723d235730cebb18e2dd718ab">ovs_skb_is_encapsulated</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/ip_tunnels_core.c</para>
+    </simplesect>
+</section>

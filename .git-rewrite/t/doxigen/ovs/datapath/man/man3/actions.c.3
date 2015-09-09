@@ -1,0 +1,1258 @@
+.TH "/home/vladn/git/ovs/datapath/linux/actions.c" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/actions.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/skbuff\&.h>\fP
+.br
+\fC#include <linux/in\&.h>\fP
+.br
+\fC#include <linux/ip\&.h>\fP
+.br
+\fC#include <linux/openvswitch\&.h>\fP
+.br
+\fC#include <linux/sctp\&.h>\fP
+.br
+\fC#include <linux/tcp\&.h>\fP
+.br
+\fC#include <linux/udp\&.h>\fP
+.br
+\fC#include <linux/in6\&.h>\fP
+.br
+\fC#include <linux/if_arp\&.h>\fP
+.br
+\fC#include <linux/if_vlan\&.h>\fP
+.br
+\fC#include <net/ip\&.h>\fP
+.br
+\fC#include <net/ipv6\&.h>\fP
+.br
+\fC#include <net/checksum\&.h>\fP
+.br
+\fC#include <net/dsfield\&.h>\fP
+.br
+\fC#include <net/mpls\&.h>\fP
+.br
+\fC#include <net/sctp/checksum\&.h>\fP
+.br
+\fC#include 'datapath\&.h'\fP
+.br
+\fC#include 'gso\&.h'\fP
+.br
+\fC#include 'vlan\&.h'\fP
+.br
+\fC#include 'vport\&.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBdeferred_action\fP"
+.br
+.ti -1c
+.RI "struct \fBaction_fifo\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBpr_fmt\fP(fmt)   KBUILD_MODNAME ': ' fmt"
+.br
+.ti -1c
+.RI "#define \fBDEFERRED_ACTION_FIFO_SIZE\fP   10"
+.br
+.ti -1c
+.RI "#define \fBEXEC_ACTIONS_LEVEL_LIMIT\fP"
+.br
+.ti -1c
+.RI "#define \fBMASKED\fP(OLD,  KEY,  MASK)   ((KEY) | ((OLD) & ~(MASK)))"
+.br
+.ti -1c
+.RI "#define \fBSET_MASKED\fP(OLD,  KEY,  MASK)   ((OLD) = \fBMASKED\fP(OLD, KEY, MASK))"
+.br
+.ti -1c
+.RI "#define \fBget_mask\fP(a,  \fBtype\fP)   ((const \fBtype\fP)nla_data(a) + 1)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static int \fBdo_execute_actions\fP (struct \fBdatapath\fP *dp, struct sk_buff *skb, struct \fBsw_flow_key\fP *key, const struct nlattr *attr, int len)"
+.br
+.ti -1c
+.RI "static \fBDEFINE_PER_CPU\fP (int, exec_actions_level)"
+.br
+.ti -1c
+.RI "static void \fBaction_fifo_init\fP (struct \fBaction_fifo\fP *fifo)"
+.br
+.ti -1c
+.RI "static \fBbool\fP \fBaction_fifo_is_empty\fP (const struct \fBaction_fifo\fP *fifo)"
+.br
+.ti -1c
+.RI "static struct \fBdeferred_action\fP * \fBaction_fifo_get\fP (struct \fBaction_fifo\fP *fifo)"
+.br
+.ti -1c
+.RI "static struct \fBdeferred_action\fP * \fBaction_fifo_put\fP (struct \fBaction_fifo\fP *fifo)"
+.br
+.ti -1c
+.RI "static struct \fBdeferred_action\fP * \fBadd_deferred_actions\fP (struct sk_buff *skb, const struct \fBsw_flow_key\fP *key, const struct nlattr *attr)"
+.br
+.ti -1c
+.RI "static void \fBinvalidate_flow_key\fP (struct \fBsw_flow_key\fP *key)"
+.br
+.ti -1c
+.RI "static \fBbool\fP \fBis_flow_key_valid\fP (const struct \fBsw_flow_key\fP *key)"
+.br
+.ti -1c
+.RI "static int \fBpush_mpls\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *key, const struct \fBovs_action_push_mpls\fP *\fBmpls\fP)"
+.br
+.ti -1c
+.RI "static int \fBpop_mpls\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *key, const __be16 ethertype)"
+.br
+.ti -1c
+.RI "static int \fBset_mpls\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *flow_key, const __be32 *mpls_lse, const __be32 *mask)"
+.br
+.ti -1c
+.RI "static int \fBpop_vlan\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *key)"
+.br
+.ti -1c
+.RI "static int \fBpush_vlan\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *key, const struct \fBovs_action_push_vlan\fP *vlan)"
+.br
+.ti -1c
+.RI "static void \fBether_addr_copy_masked\fP (u8 *dst_, const u8 *src_, const u8 *mask_)"
+.br
+.ti -1c
+.RI "static int \fBset_eth_addr\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *flow_key, const struct \fBovs_key_ethernet\fP *key, const struct \fBovs_key_ethernet\fP *mask)"
+.br
+.ti -1c
+.RI "static void \fBset_ip_addr\fP (struct sk_buff *skb, struct iphdr *nh, __be32 *\fBaddr\fP, __be32 new_addr)"
+.br
+.ti -1c
+.RI "static void \fBupdate_ipv6_checksum\fP (struct sk_buff *skb, u8 l4_proto, __be32 \fBaddr\fP[4], const __be32 new_addr[4])"
+.br
+.ti -1c
+.RI "static void \fBmask_ipv6_addr\fP (const __be32 old[4], const __be32 \fBaddr\fP[4], const __be32 mask[4], __be32 masked[4])"
+.br
+.ti -1c
+.RI "static void \fBset_ipv6_addr\fP (struct sk_buff *skb, u8 l4_proto, __be32 \fBaddr\fP[4], const __be32 new_addr[4], \fBbool\fP recalculate_csum)"
+.br
+.ti -1c
+.RI "static void \fBset_ipv6_fl\fP (struct ipv6hdr *nh, u32 fl, u32 mask)"
+.br
+.ti -1c
+.RI "static void \fBset_ip_ttl\fP (struct sk_buff *skb, struct iphdr *nh, u8 new_ttl, u8 mask)"
+.br
+.ti -1c
+.RI "static int \fBset_ipv4\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *flow_key, const struct \fBovs_key_ipv4\fP *key, const struct \fBovs_key_ipv4\fP *mask)"
+.br
+.ti -1c
+.RI "static \fBbool\fP \fBis_ipv6_mask_nonzero\fP (const __be32 \fBaddr\fP[4])"
+.br
+.ti -1c
+.RI "static int \fBset_ipv6\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *flow_key, const struct \fBovs_key_ipv6\fP *key, const struct \fBovs_key_ipv6\fP *mask)"
+.br
+.ti -1c
+.RI "static void \fBset_tp_port\fP (struct sk_buff *skb, __be16 *port, __be16 new_port, \fB__sum16\fP *check)"
+.br
+.ti -1c
+.RI "static int \fBset_udp\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *flow_key, const struct \fBovs_key_udp\fP *key, const struct \fBovs_key_udp\fP *mask)"
+.br
+.ti -1c
+.RI "static int \fBset_tcp\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *flow_key, const struct \fBovs_key_tcp\fP *key, const struct \fBovs_key_tcp\fP *mask)"
+.br
+.ti -1c
+.RI "static int \fBset_sctp\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *flow_key, const struct \fBovs_key_sctp\fP *key, const struct \fBovs_key_sctp\fP *mask)"
+.br
+.ti -1c
+.RI "static void \fBdo_output\fP (struct \fBdatapath\fP *dp, struct sk_buff *skb, int out_port)"
+.br
+.ti -1c
+.RI "static int \fBoutput_userspace\fP (struct \fBdatapath\fP *dp, struct sk_buff *skb, struct \fBsw_flow_key\fP *key, const struct nlattr *attr, const struct nlattr *actions, int actions_len)"
+.br
+.ti -1c
+.RI "static int \fBsample\fP (struct \fBdatapath\fP *dp, struct sk_buff *skb, struct \fBsw_flow_key\fP *key, const struct nlattr *attr, const struct nlattr *actions, int actions_len)"
+.br
+.ti -1c
+.RI "static void \fBexecute_hash\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *key, const struct nlattr *attr)"
+.br
+.ti -1c
+.RI "static int \fBexecute_set_action\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *flow_key, const struct nlattr *a)"
+.br
+.ti -1c
+.RI "static int \fBexecute_masked_set_action\fP (struct sk_buff *skb, struct \fBsw_flow_key\fP *flow_key, const struct nlattr *a)"
+.br
+.ti -1c
+.RI "static int \fBexecute_recirc\fP (struct \fBdatapath\fP *dp, struct sk_buff *skb, struct \fBsw_flow_key\fP *key, const struct nlattr *a, int rem)"
+.br
+.ti -1c
+.RI "static void \fBprocess_deferred_actions\fP (struct \fBdatapath\fP *dp)"
+.br
+.ti -1c
+.RI "int \fBovs_execute_actions\fP (struct \fBdatapath\fP *dp, struct sk_buff *skb, const struct \fBsw_flow_actions\fP *acts, struct \fBsw_flow_key\fP *key)"
+.br
+.ti -1c
+.RI "int \fBaction_fifos_init\fP (void)"
+.br
+.ti -1c
+.RI "void \fBaction_fifos_exit\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static struct \fBaction_fifo\fP \fB__percpu\fP * \fBaction_fifos\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define DEFERRED_ACTION_FIFO_SIZE   10"
+
+.SS "#define EXEC_ACTIONS_LEVEL_LIMIT"
+\fBValue:\fP
+.PP
+.nf
+4   /* limit used to detect packet
+                      * looping by the network stack
+                      */
+.fi
+.SS "#define get_mask(a, \fBtype\fP)   ((const \fBtype\fP)nla_data(a) + 1)"
+
+.SS "#define MASKED(OLD, KEY, MASK)   ((KEY) | ((OLD) & ~(MASK)))"
+
+.SS "#define pr_fmt(fmt)   KBUILD_MODNAME ': ' fmt"
+
+.SS "#define SET_MASKED(OLD, KEY, MASK)   ((OLD) = \fBMASKED\fP(OLD, KEY, MASK))"
+
+.SH "Function Documentation"
+.PP 
+.SS "static struct \fBdeferred_action\fP* action_fifo_get (struct \fBaction_fifo\fP * fifo)\fC [static]\fP"
+
+.PP
+.nf
+82 {
+83     if (action_fifo_is_empty(fifo))
+84         return NULL;
+85 
+86     return &fifo->fifo[fifo->tail++];
+87 }
+.fi
+.SS "static void action_fifo_init (struct \fBaction_fifo\fP * fifo)\fC [static]\fP"
+
+.PP
+.nf
+71 {
+72     fifo->head = 0;
+73     fifo->tail = 0;
+74 }
+.fi
+.SS "static \fBbool\fP action_fifo_is_empty (const struct \fBaction_fifo\fP * fifo)\fC [static]\fP"
+
+.PP
+.nf
+77 {
+78     return (fifo->head == fifo->tail);
+79 }
+.fi
+.SS "static struct \fBdeferred_action\fP* action_fifo_put (struct \fBaction_fifo\fP * fifo)\fC [static]\fP"
+
+.PP
+.nf
+90 {
+91     if (fifo->head >= DEFERRED_ACTION_FIFO_SIZE - 1)
+92         return NULL;
+93 
+94     return &fifo->fifo[fifo->head++];
+95 }
+.fi
+.SS "void action_fifos_exit (void)"
+
+.PP
+.nf
+1016 {
+1017     free_percpu(action_fifos);
+1018 }
+.fi
+.SS "int action_fifos_init (void)"
+
+.PP
+.nf
+1007 {
+1008     action_fifos = alloc_percpu(struct action_fifo);
+1009     if (!action_fifos)
+1010         return -ENOMEM;
+1011 
+1012     return 0;
+1013 }
+.fi
+.SS "static struct \fBdeferred_action\fP* add_deferred_actions (struct sk_buff * skb, const struct \fBsw_flow_key\fP * key, const struct nlattr * attr)\fC [static]\fP"
+
+.PP
+.nf
+101 {
+102     struct action_fifo *fifo;
+103     struct deferred_action *da;
+104 
+105     fifo = this_cpu_ptr(action_fifos);
+106     da = action_fifo_put(fifo);
+107     if (da) {
+108         da->skb = skb;
+109         da->actions = attr;
+110         da->pkt_key = *key;
+111     }
+112 
+113     return da;
+114 }
+.fi
+.SS "static DEFINE_PER_CPU (int, exec_actions_level)\fC [static]\fP"
+
+.SS "static int do_execute_actions (struct \fBdatapath\fP * dp, struct sk_buff * skb, struct \fBsw_flow_key\fP * key, const struct nlattr * attr, int len)\fC [static]\fP"
+
+.PP
+.nf
+856 {
+857     /* Every output action needs a separate clone of 'skb', but the common
+858      * case is just a single output action, so that doing a clone and
+859      * then freeing the original skbuff is wasteful\&.  So the following code
+860      * is slightly obscure just to avoid that\&.
+861      */
+862     int prev_port = -1;
+863     const struct nlattr *a;
+864     int rem;
+865 
+866     for (a = attr, rem = len; rem > 0;
+867          a = nla_next(a, &rem)) {
+868         int err = 0;
+869 
+870         if (unlikely(prev_port != -1)) {
+871             struct sk_buff *out_skb = skb_clone(skb, GFP_ATOMIC);
+872 
+873             if (out_skb)
+874                 do_output(dp, out_skb, prev_port);
+875 
+876             prev_port = -1;
+877         }
+878 
+879         switch (nla_type(a)) {
+880         case OVS_ACTION_ATTR_OUTPUT:
+881             prev_port = nla_get_u32(a);
+882             break;
+883 
+884         case OVS_ACTION_ATTR_USERSPACE:
+885             output_userspace(dp, skb, key, a, attr, len);
+886             break;
+887 
+888         case OVS_ACTION_ATTR_HASH:
+889             execute_hash(skb, key, a);
+890             break;
+891 
+892         case OVS_ACTION_ATTR_PUSH_MPLS:
+893             err = push_mpls(skb, key, nla_data(a));
+894             break;
+895 
+896         case OVS_ACTION_ATTR_POP_MPLS:
+897             err = pop_mpls(skb, key, nla_get_be16(a));
+898             break;
+899 
+900         case OVS_ACTION_ATTR_PUSH_VLAN:
+901             err = push_vlan(skb, key, nla_data(a));
+902             break;
+903 
+904         case OVS_ACTION_ATTR_POP_VLAN:
+905             err = pop_vlan(skb, key);
+906             break;
+907 
+908         case OVS_ACTION_ATTR_RECIRC:
+909             err = execute_recirc(dp, skb, key, a, rem);
+910             if (nla_is_last(a, rem)) {
+911                 /* If this is the last action, the skb has
+912                  * been consumed or freed\&.
+913                  * Return immediately\&.
+914                  */
+915                 return err;
+916             }
+917             break;
+918 
+919         case OVS_ACTION_ATTR_SET:
+920             err = execute_set_action(skb, key, nla_data(a));
+921             break;
+922 
+923         case OVS_ACTION_ATTR_SET_MASKED:
+924         case OVS_ACTION_ATTR_SET_TO_MASKED:
+925             err = execute_masked_set_action(skb, key, nla_data(a));
+926             break;
+927 
+928         case OVS_ACTION_ATTR_SAMPLE:
+929             err = sample(dp, skb, key, a, attr, len);
+930             break;
+931         }
+932 
+933         if (unlikely(err)) {
+934             kfree_skb(skb);
+935             return err;
+936         }
+937     }
+938 
+939     if (prev_port != -1)
+940         do_output(dp, skb, prev_port);
+941     else
+942         consume_skb(skb);
+943 
+944     return 0;
+945 }
+.fi
+.SS "static void do_output (struct \fBdatapath\fP * dp, struct sk_buff * skb, int out_port)\fC [static]\fP"
+
+.PP
+.nf
+604 {
+605     struct vport *vport = ovs_vport_rcu(dp, out_port);
+606 
+607     if (likely(vport))
+608         ovs_vport_send(vport, skb);
+609     else
+610         kfree_skb(skb);
+611 }
+.fi
+.SS "static void ether_addr_copy_masked (u8 * dst_, const u8 * src_, const u8 * mask_)\fC [static]\fP"
+
+.PP
+.nf
+245 {
+246     u16 *dst = (u16 *)dst_;
+247     const u16 *src = (const u16 *)src_;
+248     const u16 *mask = (const u16 *)mask_;
+249 
+250     SET_MASKED(dst[0], src[0], mask[0]);
+251     SET_MASKED(dst[1], src[1], mask[1]);
+252     SET_MASKED(dst[2], src[2], mask[2]);
+253 }
+.fi
+.SS "static void execute_hash (struct sk_buff * skb, struct \fBsw_flow_key\fP * key, const struct nlattr * attr)\fC [static]\fP"
+
+.PP
+.nf
+720 {
+721     struct ovs_action_hash *hash_act = nla_data(attr);
+722     u32 hash = 0;
+723 
+724     /* OVS_HASH_ALG_L4 is the only possible hash algorithm\&.  */
+725     hash = skb_get_hash(skb);
+726     hash = jhash_1word(hash, hash_act->hash_basis);
+727     if (!hash)
+728         hash = 0x1;
+729 
+730     key->ovs_flow_hash = hash;
+731 }
+.fi
+.SS "static int execute_masked_set_action (struct sk_buff * skb, struct \fBsw_flow_key\fP * flow_key, const struct nlattr * a)\fC [static]\fP"
+
+.PP
+.nf
+752 {
+753     int err = 0;
+754 
+755     switch (nla_type(a)) {
+756     case OVS_KEY_ATTR_PRIORITY:
+757         SET_MASKED(skb->priority, nla_get_u32(a), *get_mask(a, u32 *));
+758         flow_key->phy\&.priority = skb->priority;
+759         break;
+760 
+761     case OVS_KEY_ATTR_SKB_MARK:
+762         SET_MASKED(skb->mark, nla_get_u32(a), *get_mask(a, u32 *));
+763         flow_key->phy\&.skb_mark = skb->mark;
+764         break;
+765 
+766     case OVS_KEY_ATTR_TUNNEL_INFO:
+767         /* Masked data not supported for tunnel\&. */
+768         err = -EINVAL;
+769         break;
+770 
+771     case OVS_KEY_ATTR_ETHERNET:
+772         err = set_eth_addr(skb, flow_key, nla_data(a),
+773                    get_mask(a, struct ovs_key_ethernet *));
+774         break;
+775 
+776     case OVS_KEY_ATTR_IPV4:
+777         err = set_ipv4(skb, flow_key, nla_data(a),
+778                    get_mask(a, struct ovs_key_ipv4 *));
+779         break;
+780 
+781     case OVS_KEY_ATTR_IPV6:
+782         err = set_ipv6(skb, flow_key, nla_data(a),
+783                    get_mask(a, struct ovs_key_ipv6 *));
+784         break;
+785 
+786     case OVS_KEY_ATTR_TCP:
+787         err = set_tcp(skb, flow_key, nla_data(a),
+788                   get_mask(a, struct ovs_key_tcp *));
+789         break;
+790 
+791     case OVS_KEY_ATTR_UDP:
+792         err = set_udp(skb, flow_key, nla_data(a),
+793                   get_mask(a, struct ovs_key_udp *));
+794         break;
+795 
+796     case OVS_KEY_ATTR_SCTP:
+797         err = set_sctp(skb, flow_key, nla_data(a),
+798                    get_mask(a, struct ovs_key_sctp *));
+799         break;
+800 
+801     case OVS_KEY_ATTR_MPLS:
+802         err = set_mpls(skb, flow_key, nla_data(a), get_mask(a,
+803                                     __be32 *));
+804         break;
+805     }
+806 
+807     return err;
+808 }
+.fi
+.SS "static int execute_recirc (struct \fBdatapath\fP * dp, struct sk_buff * skb, struct \fBsw_flow_key\fP * key, const struct nlattr * a, int rem)\fC [static]\fP"
+
+.PP
+.nf
+813 {
+814     struct deferred_action *da;
+815 
+816     if (!is_flow_key_valid(key)) {
+817         int err;
+818 
+819         err = ovs_flow_key_update(skb, key);
+820         if (err)
+821             return err;
+822     }
+823     BUG_ON(!is_flow_key_valid(key));
+824 
+825     if (!nla_is_last(a, rem)) {
+826         /* Recirc action is the not the last action
+827          * of the action list, need to clone the skb\&.
+828          */
+829         skb = skb_clone(skb, GFP_ATOMIC);
+830 
+831         /* Skip the recirc action when out of memory, but
+832          * continue on with the rest of the action list\&.
+833          */
+834         if (!skb)
+835             return 0;
+836     }
+837 
+838     da = add_deferred_actions(skb, key, NULL);
+839     if (da) {
+840         da->pkt_key\&.recirc_id = nla_get_u32(a);
+841     } else {
+842         kfree_skb(skb);
+843 
+844         if (net_ratelimit())
+845             pr_warn("%s: deferred action limit reached, drop recirc action\n",
+846                 ovs_dp_name(dp));
+847     }
+848 
+849     return 0;
+850 }
+.fi
+.SS "static int execute_set_action (struct sk_buff * skb, struct \fBsw_flow_key\fP * flow_key, const struct nlattr * a)\fC [static]\fP"
+
+.PP
+.nf
+736 {
+737     /* Only tunnel set execution is supported without a mask\&. */
+738     if (nla_type(a) == OVS_KEY_ATTR_TUNNEL_INFO) {
+739         OVS_CB(skb)->egress_tun_info = nla_data(a);
+740         return 0;
+741     }
+742 
+743     return -EINVAL;
+744 }
+.fi
+.SS "static void invalidate_flow_key (struct \fBsw_flow_key\fP * key)\fC [static]\fP"
+
+.PP
+.nf
+117 {
+118     key->eth\&.type = htons(0);
+119 }
+.fi
+.SS "static \fBbool\fP is_flow_key_valid (const struct \fBsw_flow_key\fP * key)\fC [static]\fP"
+
+.PP
+.nf
+122 {
+123     return !!key->eth\&.type;
+124 }
+.fi
+.SS "static \fBbool\fP is_ipv6_mask_nonzero (const __be32 addr[4])\fC [static]\fP"
+
+.PP
+.nf
+418 {
+419     return !!(addr[0] | addr[1] | addr[2] | addr[3]);
+420 }
+.fi
+.SS "static void mask_ipv6_addr (const __be32 old[4], const __be32 addr[4], const __be32 mask[4], __be32 masked[4])\fC [static]\fP"
+
+.PP
+.nf
+335 {
+336     masked[0] = MASKED(old[0], addr[0], mask[0]);
+337     masked[1] = MASKED(old[1], addr[1], mask[1]);
+338     masked[2] = MASKED(old[2], addr[2], mask[2]);
+339     masked[3] = MASKED(old[3], addr[3], mask[3]);
+340 }
+.fi
+.SS "static int output_userspace (struct \fBdatapath\fP * dp, struct sk_buff * skb, struct \fBsw_flow_key\fP * key, const struct nlattr * attr, const struct nlattr * actions, int actions_len)\fC [static]\fP"
+
+.PP
+.nf
+616 {
+617     struct ovs_tunnel_info info;
+618     struct dp_upcall_info upcall;
+619     const struct nlattr *a;
+620     int rem;
+621 
+622     memset(&upcall, 0, sizeof(upcall));
+623     upcall\&.cmd = OVS_PACKET_CMD_ACTION;
+624 
+625     for (a = nla_data(attr), rem = nla_len(attr); rem > 0;
+626          a = nla_next(a, &rem)) {
+627         switch (nla_type(a)) {
+628         case OVS_USERSPACE_ATTR_USERDATA:
+629             upcall\&.userdata = a;
+630             break;
+631 
+632         case OVS_USERSPACE_ATTR_PID:
+633             upcall\&.portid = nla_get_u32(a);
+634             break;
+635 
+636         case OVS_USERSPACE_ATTR_EGRESS_TUN_PORT: {
+637             /* Get out tunnel info\&. */
+638             struct vport *vport;
+639 
+640             vport = ovs_vport_rcu(dp, nla_get_u32(a));
+641             if (vport) {
+642                 int err;
+643 
+644                 err = ovs_vport_get_egress_tun_info(vport, skb,
+645                                     &info);
+646                 if (!err)
+647                     upcall\&.egress_tun_info = &info;
+648             }
+649             break;
+650         }
+651 
+652         case OVS_USERSPACE_ATTR_ACTIONS: {
+653             /* Include actions\&. */
+654             upcall\&.actions = actions;
+655             upcall\&.actions_len = actions_len;
+656             break;
+657         }
+658 
+659         } /* End of switch\&. */
+660     }
+661 
+662     return ovs_dp_upcall(dp, skb, key, &upcall);
+663 }
+.fi
+.SS "int ovs_execute_actions (struct \fBdatapath\fP * dp, struct sk_buff * skb, const struct \fBsw_flow_actions\fP * acts, struct \fBsw_flow_key\fP * key)"
+
+.PP
+.nf
+977 {
+978     int level = this_cpu_read(exec_actions_level);
+979     int err;
+980 
+981     if (unlikely(level >= EXEC_ACTIONS_LEVEL_LIMIT)) {
+982         if (net_ratelimit())
+983             pr_warn("%s: packet loop detected, dropping\&.\n",
+984                 ovs_dp_name(dp));
+985 
+986         kfree_skb(skb);
+987         return -ELOOP;
+988     }
+989 
+990     this_cpu_inc(exec_actions_level);
+991     err = do_execute_actions(dp, skb, key,
+992                  acts->actions, acts->actions_len);
+993 
+994     if (!level)
+995         process_deferred_actions(dp);
+996 
+997     this_cpu_dec(exec_actions_level);
+998 
+999     /* This return status currently does not reflect the errors
+1000      * encounted during deferred actions execution\&. Probably needs to
+1001      * be fixed in the future\&.
+1002      */
+1003     return err;
+1004 }
+.fi
+.SS "static int pop_mpls (struct sk_buff * skb, struct \fBsw_flow_key\fP * key, const __be16 ethertype)\fC [static]\fP"
+
+.PP
+.nf
+163 {
+164     struct ethhdr *hdr;
+165     int err;
+166 
+167     err = skb_ensure_writable(skb, skb->mac_len + MPLS_HLEN);
+168     if (unlikely(err))
+169         return err;
+170 
+171     skb_postpull_rcsum(skb, skb_mpls_header(skb), MPLS_HLEN);
+172 
+173     memmove(skb_mac_header(skb) + MPLS_HLEN, skb_mac_header(skb),
+174         skb->mac_len);
+175 
+176     __skb_pull(skb, MPLS_HLEN);
+177     skb_reset_mac_header(skb);
+178 
+179     /* skb_mpls_header() is used to locate the ethertype
+180      * field correctly in the presence of VLAN tags\&.
+181      */
+182     hdr = (struct ethhdr *)(skb_mpls_header(skb) - ETH_HLEN);
+183     hdr->h_proto = ethertype;
+184     if (eth_p_mpls(skb->protocol))
+185         skb->protocol = ethertype;
+186 
+187     invalidate_flow_key(key);
+188     return 0;
+189 }
+.fi
+.SS "static int pop_vlan (struct sk_buff * skb, struct \fBsw_flow_key\fP * key)\fC [static]\fP"
+
+.PP
+.nf
+221 {
+222     int err;
+223 
+224     err = skb_vlan_pop(skb);
+225     if (skb_vlan_tag_present(skb))
+226         invalidate_flow_key(key);
+227     else
+228         key->eth\&.tci = 0;
+229     return err;
+230 }
+.fi
+.SS "static void process_deferred_actions (struct \fBdatapath\fP * dp)\fC [static]\fP"
+
+.PP
+.nf
+948 {
+949     struct action_fifo *fifo = this_cpu_ptr(action_fifos);
+950 
+951     /* Do not touch the FIFO in case there is no deferred actions\&. */
+952     if (action_fifo_is_empty(fifo))
+953         return;
+954 
+955     /* Finishing executing all deferred actions\&. */
+956     do {
+957         struct deferred_action *da = action_fifo_get(fifo);
+958         struct sk_buff *skb = da->skb;
+959         struct sw_flow_key *key = &da->pkt_key;
+960         const struct nlattr *actions = da->actions;
+961 
+962         if (actions)
+963             do_execute_actions(dp, skb, key, actions,
+964                        nla_len(actions));
+965         else
+966             ovs_dp_process_packet(skb, key);
+967     } while (!action_fifo_is_empty(fifo));
+968 
+969     /* Reset FIFO for the next packet\&.  */
+970     action_fifo_init(fifo);
+971 }
+.fi
+.SS "static int push_mpls (struct sk_buff * skb, struct \fBsw_flow_key\fP * key, const struct \fBovs_action_push_mpls\fP * mpls)\fC [static]\fP"
+
+.PP
+.nf
+128 {
+129     __be32 *new_mpls_lse;
+130     struct ethhdr *hdr;
+131 
+132     /* Networking stack do not allow simultaneous Tunnel and MPLS GSO\&. */
+133     if (skb_encapsulation(skb))
+134         return -ENOTSUPP;
+135 
+136     if (skb_cow_head(skb, MPLS_HLEN) < 0)
+137         return -ENOMEM;
+138 
+139     skb_push(skb, MPLS_HLEN);
+140     memmove(skb_mac_header(skb) - MPLS_HLEN, skb_mac_header(skb),
+141         skb->mac_len);
+142     skb_reset_mac_header(skb);
+143 
+144     new_mpls_lse = (__be32 *)skb_mpls_header(skb);
+145     *new_mpls_lse = mpls->mpls_lse;
+146 
+147     if (skb->ip_summed == CHECKSUM_COMPLETE)
+148         skb->csum = csum_add(skb->csum, csum_partial(new_mpls_lse,
+149                                  MPLS_HLEN, 0));
+150 
+151     hdr = eth_hdr(skb);
+152     hdr->h_proto = mpls->mpls_ethertype;
+153     if (!ovs_skb_get_inner_protocol(skb))
+154         ovs_skb_set_inner_protocol(skb, skb->protocol);
+155     skb->protocol = mpls->mpls_ethertype;
+156 
+157     invalidate_flow_key(key);
+158     return 0;
+159 }
+.fi
+.SS "static int push_vlan (struct sk_buff * skb, struct \fBsw_flow_key\fP * key, const struct \fBovs_action_push_vlan\fP * vlan)\fC [static]\fP"
+
+.PP
+.nf
+234 {
+235     if (skb_vlan_tag_present(skb))
+236         invalidate_flow_key(key);
+237     else
+238         key->eth\&.tci = vlan->vlan_tci;
+239     return skb_vlan_push(skb, vlan->vlan_tpid,
+240                  ntohs(vlan->vlan_tci) & ~VLAN_TAG_PRESENT);
+241 }
+.fi
+.SS "static int sample (struct \fBdatapath\fP * dp, struct sk_buff * skb, struct \fBsw_flow_key\fP * key, const struct nlattr * attr, const struct nlattr * actions, int actions_len)\fC [static]\fP"
+
+.PP
+.nf
+668 {
+669     const struct nlattr *acts_list = NULL;
+670     const struct nlattr *a;
+671     int rem;
+672 
+673     for (a = nla_data(attr), rem = nla_len(attr); rem > 0;
+674          a = nla_next(a, &rem)) {
+675         switch (nla_type(a)) {
+676         case OVS_SAMPLE_ATTR_PROBABILITY:
+677             if (prandom_u32() >= nla_get_u32(a))
+678                 return 0;
+679             break;
+680 
+681         case OVS_SAMPLE_ATTR_ACTIONS:
+682             acts_list = a;
+683             break;
+684         }
+685     }
+686 
+687     rem = nla_len(acts_list);
+688     a = nla_data(acts_list);
+689 
+690     /* Actions list is empty, do nothing */
+691     if (unlikely(!rem))
+692         return 0;
+693 
+694     /* The only known usage of sample action is having a single user-space
+695      * action\&. Treat this usage as a special case\&.
+696      * The output_userspace() should clone the skb to be sent to the
+697      * user space\&. This skb will be consumed by its caller\&.
+698      */
+699     if (likely(nla_type(a) == OVS_ACTION_ATTR_USERSPACE &&
+700            nla_is_last(a, rem)))
+701         return output_userspace(dp, skb, key, a, actions, actions_len);
+702 
+703     skb = skb_clone(skb, GFP_ATOMIC);
+704     if (!skb)
+705         /* Skip the sample action when out of memory\&. */
+706         return 0;
+707 
+708     if (!add_deferred_actions(skb, key, a)) {
+709         if (net_ratelimit())
+710             pr_warn("%s: deferred actions limit reached, dropping sample action\n",
+711                 ovs_dp_name(dp));
+712 
+713         kfree_skb(skb);
+714     }
+715     return 0;
+716 }
+.fi
+.SS "static int set_eth_addr (struct sk_buff * skb, struct \fBsw_flow_key\fP * flow_key, const struct \fBovs_key_ethernet\fP * key, const struct \fBovs_key_ethernet\fP * mask)\fC [static]\fP"
+
+.PP
+.nf
+258 {
+259     int err;
+260 
+261     err = skb_ensure_writable(skb, ETH_HLEN);
+262     if (unlikely(err))
+263         return err;
+264 
+265     skb_postpull_rcsum(skb, eth_hdr(skb), ETH_ALEN * 2);
+266 
+267     ether_addr_copy_masked(eth_hdr(skb)->h_source, key->eth_src,
+268                    mask->eth_src);
+269     ether_addr_copy_masked(eth_hdr(skb)->h_dest, key->eth_dst,
+270                    mask->eth_dst);
+271 
+272     ovs_skb_postpush_rcsum(skb, eth_hdr(skb), ETH_ALEN * 2);
+273 
+274     ether_addr_copy(flow_key->eth\&.src, eth_hdr(skb)->h_source);
+275     ether_addr_copy(flow_key->eth\&.dst, eth_hdr(skb)->h_dest);
+276     return 0;
+277 }
+.fi
+.SS "static void set_ip_addr (struct sk_buff * skb, struct iphdr * nh, __be32 * addr, __be32 new_addr)\fC [static]\fP"
+
+.PP
+.nf
+281 {
+282     int transport_len = skb->len - skb_transport_offset(skb);
+283 
+284     if (nh->protocol == IPPROTO_TCP) {
+285         if (likely(transport_len >= sizeof(struct tcphdr)))
+286             inet_proto_csum_replace4(&tcp_hdr(skb)->check, skb,
+287                          *addr, new_addr, 1);
+288     } else if (nh->protocol == IPPROTO_UDP) {
+289         if (likely(transport_len >= sizeof(struct udphdr))) {
+290             struct udphdr *uh = udp_hdr(skb);
+291 
+292             if (uh->check || skb->ip_summed == CHECKSUM_PARTIAL) {
+293                 inet_proto_csum_replace4(&uh->check, skb,
+294                              *addr, new_addr, 1);
+295                 if (!uh->check)
+296                     uh->check = CSUM_MANGLED_0;
+297             }
+298         }
+299     }
+300 
+301     csum_replace4(&nh->check, *addr, new_addr);
+302     skb_clear_hash(skb);
+303     *addr = new_addr;
+304 }
+.fi
+.SS "static void set_ip_ttl (struct sk_buff * skb, struct iphdr * nh, u8 new_ttl, u8 mask)\fC [static]\fP"
+
+.PP
+.nf
+363 {
+364     new_ttl = MASKED(nh->ttl, new_ttl, mask);
+365 
+366     csum_replace2(&nh->check, htons(nh->ttl << 8), htons(new_ttl << 8));
+367     nh->ttl = new_ttl;
+368 }
+.fi
+.SS "static int set_ipv4 (struct sk_buff * skb, struct \fBsw_flow_key\fP * flow_key, const struct \fBovs_key_ipv4\fP * key, const struct \fBovs_key_ipv4\fP * mask)\fC [static]\fP"
+
+.PP
+.nf
+373 {
+374     struct iphdr *nh;
+375     __be32 new_addr;
+376     int err;
+377 
+378     err = skb_ensure_writable(skb, skb_network_offset(skb) +
+379                   sizeof(struct iphdr));
+380     if (unlikely(err))
+381         return err;
+382 
+383     nh = ip_hdr(skb);
+384 
+385     /* Setting an IP addresses is typically only a side effect of
+386      * matching on them in the current userspace implementation, so it
+387      * makes sense to check if the value actually changed\&.
+388      */
+389     if (mask->ipv4_src) {
+390         new_addr = MASKED(nh->saddr, key->ipv4_src, mask->ipv4_src);
+391 
+392         if (unlikely(new_addr != nh->saddr)) {
+393             set_ip_addr(skb, nh, &nh->saddr, new_addr);
+394             flow_key->ipv4\&.addr\&.src = new_addr;
+395         }
+396     }
+397     if (mask->ipv4_dst) {
+398         new_addr = MASKED(nh->daddr, key->ipv4_dst, mask->ipv4_dst);
+399 
+400         if (unlikely(new_addr != nh->daddr)) {
+401             set_ip_addr(skb, nh, &nh->daddr, new_addr);
+402             flow_key->ipv4\&.addr\&.dst = new_addr;
+403         }
+404     }
+405     if (mask->ipv4_tos) {
+406         ipv4_change_dsfield(nh, ~mask->ipv4_tos, key->ipv4_tos);
+407         flow_key->ip\&.tos = nh->tos;
+408     }
+409     if (mask->ipv4_ttl) {
+410         set_ip_ttl(skb, nh, key->ipv4_ttl, mask->ipv4_ttl);
+411         flow_key->ip\&.ttl = nh->ttl;
+412     }
+413 
+414     return 0;
+415 }
+.fi
+.SS "static int set_ipv6 (struct sk_buff * skb, struct \fBsw_flow_key\fP * flow_key, const struct \fBovs_key_ipv6\fP * key, const struct \fBovs_key_ipv6\fP * mask)\fC [static]\fP"
+
+.PP
+.nf
+425 {
+426     struct ipv6hdr *nh;
+427     int err;
+428 
+429     err = skb_ensure_writable(skb, skb_network_offset(skb) +
+430                   sizeof(struct ipv6hdr));
+431     if (unlikely(err))
+432         return err;
+433 
+434     nh = ipv6_hdr(skb);
+435 
+436     /* Setting an IP addresses is typically only a side effect of
+437      * matching on them in the current userspace implementation, so it
+438      * makes sense to check if the value actually changed\&.
+439      */
+440     if (is_ipv6_mask_nonzero(mask->ipv6_src)) {
+441         __be32 *saddr = (__be32 *)&nh->saddr;
+442         __be32 masked[4];
+443 
+444         mask_ipv6_addr(saddr, key->ipv6_src, mask->ipv6_src, masked);
+445 
+446         if (unlikely(memcmp(saddr, masked, sizeof(masked)))) {
+447             set_ipv6_addr(skb, key->ipv6_proto, saddr, masked,
+448                       true);
+449             memcpy(&flow_key->ipv6\&.addr\&.src, masked,
+450                    sizeof(flow_key->ipv6\&.addr\&.src));
+451         }
+452     }
+453     if (is_ipv6_mask_nonzero(mask->ipv6_dst)) {
+454         unsigned int offset = 0;
+455         int flags = IP6_FH_F_SKIP_RH;
+456         bool recalc_csum = true;
+457         __be32 *daddr = (__be32 *)&nh->daddr;
+458         __be32 masked[4];
+459 
+460         mask_ipv6_addr(daddr, key->ipv6_dst, mask->ipv6_dst, masked);
+461 
+462         if (unlikely(memcmp(daddr, masked, sizeof(masked)))) {
+463             if (ipv6_ext_hdr(nh->nexthdr))
+464                 recalc_csum = (ipv6_find_hdr(skb, &offset,
+465                                  NEXTHDR_ROUTING,
+466                                  NULL, &flags)
+467                            != NEXTHDR_ROUTING);
+468 
+469             set_ipv6_addr(skb, key->ipv6_proto, daddr, masked,
+470                       recalc_csum);
+471             memcpy(&flow_key->ipv6\&.addr\&.dst, masked,
+472                    sizeof(flow_key->ipv6\&.addr\&.dst));
+473         }
+474     }
+475     if (mask->ipv6_tclass) {
+476         ipv6_change_dsfield(nh, ~mask->ipv6_tclass, key->ipv6_tclass);
+477         flow_key->ip\&.tos = ipv6_get_dsfield(nh);
+478     }
+479     if (mask->ipv6_label) {
+480         set_ipv6_fl(nh, ntohl(key->ipv6_label),
+481                 ntohl(mask->ipv6_label));
+482         flow_key->ipv6\&.label =
+483             *(__be32 *)nh & htonl(IPV6_FLOWINFO_FLOWLABEL);
+484     }
+485     if (mask->ipv6_hlimit) {
+486         SET_MASKED(nh->hop_limit, key->ipv6_hlimit, mask->ipv6_hlimit);
+487         flow_key->ip\&.ttl = nh->hop_limit;
+488     }
+489     return 0;
+490 }
+.fi
+.SS "static void set_ipv6_addr (struct sk_buff * skb, u8 l4_proto, __be32 addr[4], const __be32 new_addr[4], \fBbool\fP recalculate_csum)\fC [static]\fP"
+
+.PP
+.nf
+345 {
+346     if (likely(recalculate_csum))
+347         update_ipv6_checksum(skb, l4_proto, addr, new_addr);
+348 
+349     skb_clear_hash(skb);
+350     memcpy(addr, new_addr, sizeof(__be32[4]));
+351 }
+.fi
+.SS "static void set_ipv6_fl (struct ipv6hdr * nh, u32 fl, u32 mask)\fC [static]\fP"
+
+.PP
+.nf
+354 {
+355     /* Bits 21-24 are always unmasked, so this retains their values\&. */
+356     SET_MASKED(nh->flow_lbl[0], (u8)(fl >> 16), (u8)(mask >> 16));
+357     SET_MASKED(nh->flow_lbl[1], (u8)(fl >> 8), (u8)(mask >> 8));
+358     SET_MASKED(nh->flow_lbl[2], (u8)fl, (u8)mask);
+359 }
+.fi
+.SS "static int set_mpls (struct sk_buff * skb, struct \fBsw_flow_key\fP * flow_key, const __be32 * mpls_lse, const __be32 * mask)\fC [static]\fP"
+
+.PP
+.nf
+197 {
+198     __be32 *stack;
+199     __be32 lse;
+200     int err;
+201 
+202     err = skb_ensure_writable(skb, skb->mac_len + MPLS_HLEN);
+203     if (unlikely(err))
+204         return err;
+205 
+206     stack = (__be32 *)skb_mpls_header(skb);
+207     lse = MASKED(*stack, *mpls_lse, *mask);
+208     if (skb->ip_summed == CHECKSUM_COMPLETE) {
+209         __be32 diff[] = { ~(*stack), lse };
+210 
+211         skb->csum = ~csum_partial((char *)diff, sizeof(diff),
+212                       ~skb->csum);
+213     }
+214 
+215     *stack = lse;
+216     flow_key->mpls\&.top_lse = lse;
+217     return 0;
+218 }
+.fi
+.SS "static int set_sctp (struct sk_buff * skb, struct \fBsw_flow_key\fP * flow_key, const struct \fBovs_key_sctp\fP * key, const struct \fBovs_key_sctp\fP * mask)\fC [static]\fP"
+
+.PP
+.nf
+574 {
+575     unsigned int sctphoff = skb_transport_offset(skb);
+576     struct sctphdr *sh;
+577     __le32 old_correct_csum, new_csum, old_csum;
+578     int err;
+579 
+580     err = skb_ensure_writable(skb, sctphoff + sizeof(struct sctphdr));
+581     if (unlikely(err))
+582         return err;
+583 
+584     sh = sctp_hdr(skb);
+585     old_csum = sh->checksum;
+586     old_correct_csum = sctp_compute_cksum(skb, sctphoff);
+587 
+588     sh->source = MASKED(sh->source, key->sctp_src, mask->sctp_src);
+589     sh->dest = MASKED(sh->dest, key->sctp_dst, mask->sctp_dst);
+590 
+591     new_csum = sctp_compute_cksum(skb, sctphoff);
+592 
+593     /* Carry any checksum errors through\&. */
+594     sh->checksum = old_csum ^ old_correct_csum ^ new_csum;
+595 
+596     skb_clear_hash(skb);
+597     flow_key->tp\&.src = sh->source;
+598     flow_key->tp\&.dst = sh->dest;
+599 
+600     return 0;
+601 }
+.fi
+.SS "static int set_tcp (struct sk_buff * skb, struct \fBsw_flow_key\fP * flow_key, const struct \fBovs_key_tcp\fP * key, const struct \fBovs_key_tcp\fP * mask)\fC [static]\fP"
+
+.PP
+.nf
+545 {
+546     struct tcphdr *th;
+547     __be16 src, dst;
+548     int err;
+549 
+550     err = skb_ensure_writable(skb, skb_transport_offset(skb) +
+551                   sizeof(struct tcphdr));
+552     if (unlikely(err))
+553         return err;
+554 
+555     th = tcp_hdr(skb);
+556     src = MASKED(th->source, key->tcp_src, mask->tcp_src);
+557     if (likely(src != th->source)) {
+558         set_tp_port(skb, &th->source, src, &th->check);
+559         flow_key->tp\&.src = src;
+560     }
+561     dst = MASKED(th->dest, key->tcp_dst, mask->tcp_dst);
+562     if (likely(dst != th->dest)) {
+563         set_tp_port(skb, &th->dest, dst, &th->check);
+564         flow_key->tp\&.dst = dst;
+565     }
+566     skb_clear_hash(skb);
+567 
+568     return 0;
+569 }
+.fi
+.SS "static void set_tp_port (struct sk_buff * skb, __be16 * port, __be16 new_port, \fB__sum16\fP * check)\fC [static]\fP"
+
+.PP
+.nf
+495 {
+496     inet_proto_csum_replace2(check, skb, *port, new_port, 0);
+497     *port = new_port;
+498 }
+.fi
+.SS "static int set_udp (struct sk_buff * skb, struct \fBsw_flow_key\fP * flow_key, const struct \fBovs_key_udp\fP * key, const struct \fBovs_key_udp\fP * mask)\fC [static]\fP"
+
+.PP
+.nf
+503 {
+504     struct udphdr *uh;
+505     __be16 src, dst;
+506     int err;
+507 
+508     err = skb_ensure_writable(skb, skb_transport_offset(skb) +
+509                   sizeof(struct udphdr));
+510     if (unlikely(err))
+511         return err;
+512 
+513     uh = udp_hdr(skb);
+514     /* Either of the masks is non-zero, so do not bother checking them\&. */
+515     src = MASKED(uh->source, key->udp_src, mask->udp_src);
+516     dst = MASKED(uh->dest, key->udp_dst, mask->udp_dst);
+517 
+518     if (uh->check && skb->ip_summed != CHECKSUM_PARTIAL) {
+519         if (likely(src != uh->source)) {
+520             set_tp_port(skb, &uh->source, src, &uh->check);
+521             flow_key->tp\&.src = src;
+522         }
+523         if (likely(dst != uh->dest)) {
+524             set_tp_port(skb, &uh->dest, dst, &uh->check);
+525             flow_key->tp\&.dst = dst;
+526         }
+527 
+528         if (unlikely(!uh->check))
+529             uh->check = CSUM_MANGLED_0;
+530     } else {
+531         uh->source = src;
+532         uh->dest = dst;
+533         flow_key->tp\&.src = src;
+534         flow_key->tp\&.dst = dst;
+535     }
+536 
+537     skb_clear_hash(skb);
+538 
+539     return 0;
+540 }
+.fi
+.SS "static void update_ipv6_checksum (struct sk_buff * skb, u8 l4_proto, __be32 addr[4], const __be32 new_addr[4])\fC [static]\fP"
+
+.PP
+.nf
+308 {
+309     int transport_len = skb->len - skb_transport_offset(skb);
+310 
+311     if (l4_proto == NEXTHDR_TCP) {
+312         if (likely(transport_len >= sizeof(struct tcphdr)))
+313             inet_proto_csum_replace16(&tcp_hdr(skb)->check, skb,
+314                           addr, new_addr, 1);
+315     } else if (l4_proto == NEXTHDR_UDP) {
+316         if (likely(transport_len >= sizeof(struct udphdr))) {
+317             struct udphdr *uh = udp_hdr(skb);
+318 
+319             if (uh->check || skb->ip_summed == CHECKSUM_PARTIAL) {
+320                 inet_proto_csum_replace16(&uh->check, skb,
+321                               addr, new_addr, 1);
+322                 if (!uh->check)
+323                     uh->check = CSUM_MANGLED_0;
+324             }
+325         }
+326     } else if (l4_proto == NEXTHDR_ICMP) {
+327         if (likely(transport_len >= sizeof(struct icmp6hdr)))
+328             inet_proto_csum_replace16(&icmp6_hdr(skb)->icmp6_cksum,
+329                           skb, addr, new_addr, 1);
+330     }
+331 }
+.fi
+.SH "Variable Documentation"
+.PP 
+.SS "struct \fBaction_fifo\fP \fB__percpu\fP* action_fifos\fC [static]\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

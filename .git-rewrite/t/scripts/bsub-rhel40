@@ -1,0 +1,3 @@
+#!/bin/bash
+/tools/bin/bsub -q mht-rhel40 -R rhel40 xterm
+

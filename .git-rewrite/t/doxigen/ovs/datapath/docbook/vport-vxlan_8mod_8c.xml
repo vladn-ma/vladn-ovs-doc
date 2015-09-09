@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="vport-vxlan_8mod_8c">
+    <title>vport-vxlan.mod.c File Reference</title>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/vermagic.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/compiler.h&gt;</programlisting>
+<para>Include dependency diagram for vport-vxlan.mod.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="vport-vxlan_8mod_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for vport-vxlan.mod.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="vport-vxlan_8mod_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="vport-vxlan_8mod_8c_1a59ae061e50f755cbc9dbde3c6688273a">MODULE_INFO</link> (
+vermagic , VERMAGIC_STRING )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>__visible struct module __this_module <link linkend="vport-vxlan_8mod_8c_1acc22bca8fb9ed0433181b5c98efdb5a4">__attribute__</link> (
+(section(&quot;.gnu.linkonce.this_module&quot;)) )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static const struct modversion_info ____versions[] __used <link linkend="vport-vxlan_8mod_8c_1a3457b560a580904370cd8cbaddb0c902">__attribute__</link> (
+(section(&quot;__versions&quot;)) )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static const char __module_depends[] __used <link linkend="vport-vxlan_8mod_8c_1aebedc6dfadccd01faf3f462d4fa936f7">__attribute__</link> (
+(section(&quot;.modinfo&quot;)) )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="vport-vxlan_8mod_8c_1a2415e014fa1ed2bd1fe7776eb2feb536">MODULE_INFO</link> (
+srcversion , &quot;6E49FC69118A97855434D3D&quot; )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/vport-vxlan.mod.c</para>
+    </simplesect>
+</section>

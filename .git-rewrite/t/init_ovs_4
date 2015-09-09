@@ -1,0 +1,21 @@
+#!/bin/sh
+
+#----------------------------------------------------------
+# OVS project
+# run this script after reboot
+#----------------------------------------------------------
+
+#load kernel module
+	sudo modprobe openvswitch
+	lsmod | grep openvswitch
+#start database server
+	sudo ovsdb-server \
+	--remote=punix:/usr/local/var/run/openvswitch/db.sock \
+	--remote=db:Open_vSwitch,Open_vSwitch,manager_options \
+	--pidfile \
+	--detach \
+	--log-file
+#start ovs demon
+	sudo ovs-vswitchd --pidfile --detach --log-file
+	sudo ovs-vsctl show
+

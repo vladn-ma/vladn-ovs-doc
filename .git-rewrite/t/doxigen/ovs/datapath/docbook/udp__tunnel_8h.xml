@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="udp__tunnel_8h">
+    <title>udp_tunnel.h File Reference</title>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kconfig.h&gt;</programlisting>
+<para>Include dependency diagram for udp_tunnel.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="udp__tunnel_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for udp_tunnel.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="udp__tunnel_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="udp__tunnel_8h_1a2c093a62e766646df5cf62f8ea3aba91">udp_tunnel_handle_offloads</link> <link linkend="udp__tunnel_8h_1a045c84a9076b4d14ae827e4e6dfd1dd5">rpl_udp_tunnel_handle_offloads</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct sk_buff * <link linkend="udp__tunnel_8h_1a045c84a9076b4d14ae827e4e6dfd1dd5">rpl_udp_tunnel_handle_offloads</link> (
+struct sk_buff * skb, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> udp_csum, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> is_vxlan)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/include/net/udp_tunnel.h</para>
+    </simplesect>
+</section>

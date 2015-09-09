@@ -1,0 +1,773 @@
+.TH "/home/vladn/git/ovs/datapath/vport.c" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/vport.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/etherdevice\&.h>\fP
+.br
+\fC#include <linux/if\&.h>\fP
+.br
+\fC#include <linux/if_vlan\&.h>\fP
+.br
+\fC#include <linux/jhash\&.h>\fP
+.br
+\fC#include <linux/kconfig\&.h>\fP
+.br
+\fC#include <linux/kernel\&.h>\fP
+.br
+\fC#include <linux/list\&.h>\fP
+.br
+\fC#include <linux/module\&.h>\fP
+.br
+\fC#include <linux/mutex\&.h>\fP
+.br
+\fC#include <linux/percpu\&.h>\fP
+.br
+\fC#include <linux/rcupdate\&.h>\fP
+.br
+\fC#include <linux/rtnetlink\&.h>\fP
+.br
+\fC#include <linux/compat\&.h>\fP
+.br
+\fC#include <linux/version\&.h>\fP
+.br
+\fC#include <net/net_namespace\&.h>\fP
+.br
+\fC#include 'datapath\&.h'\fP
+.br
+\fC#include 'gso\&.h'\fP
+.br
+\fC#include 'vport\&.h'\fP
+.br
+\fC#include 'vport-internal_dev\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBVPORT_HASH_BUCKETS\fP   1024"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBLIST_HEAD\fP (vport_ops_list)"
+.br
+.ti -1c
+.RI "int \fBovs_vport_init\fP (void)"
+.br
+.ti -1c
+.RI "void \fBovs_vport_exit\fP (void)"
+.br
+.ti -1c
+.RI "static struct hlist_head * \fBhash_bucket\fP (const struct net *net, const char *name)"
+.br
+.ti -1c
+.RI "int \fBovs_vport_ops_register\fP (struct \fBvport_ops\fP *ops)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBovs_vport_ops_register\fP)"
+.br
+.ti -1c
+.RI "void \fBovs_vport_ops_unregister\fP (struct \fBvport_ops\fP *ops)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBovs_vport_ops_unregister\fP)"
+.br
+.in -1c
+.PP
+.RI "\fB: name of port to find\fP"
+.br
+ovs_vport_locate - find a port that has already been created
+.PP
+Must be called with ovs or RCU read lock\&. 
+.PP
+.in +1c
+.in +1c
+.ti -1c
+.RI "static void \fBovs_vport_record_error\fP (struct \fBvport\fP *, enum \fBvport_err_type\fP err_type)"
+.br
+.ti -1c
+.RI "struct \fBvport\fP * \fBovs_vport_locate\fP (const struct net *net, const char *name)"
+.br
+.ti -1c
+.RI "struct \fBvport\fP * \fBovs_vport_alloc\fP (int priv_size, const struct \fBvport_ops\fP *ops, const struct \fBvport_parms\fP *parms)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBovs_vport_alloc\fP)"
+.br
+.ti -1c
+.RI "static struct \fBvport_ops\fP * \fBovs_vport_lookup\fP (const struct \fBvport_parms\fP *parms)"
+.br
+.ti -1c
+.RI "void \fBovs_vport_free\fP (struct \fBvport\fP *\fBvport\fP)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBovs_vport_free\fP)"
+.br
+.ti -1c
+.RI "struct \fBvport\fP * \fBovs_vport_add\fP (const struct \fBvport_parms\fP *parms)"
+.br
+.ti -1c
+.RI "int \fBovs_vport_set_options\fP (struct \fBvport\fP *\fBvport\fP, struct nlattr *options)"
+.br
+.ti -1c
+.RI "void \fBovs_vport_del\fP (struct \fBvport\fP *\fBvport\fP)"
+.br
+.ti -1c
+.RI "void \fBovs_vport_get_stats\fP (struct \fBvport\fP *\fBvport\fP, struct \fBovs_vport_stats\fP *stats)"
+.br
+.ti -1c
+.RI "int \fBovs_vport_get_options\fP (const struct \fBvport\fP *\fBvport\fP, struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBvport_portids_destroy_rcu_cb\fP (struct rcu_head *rcu)"
+.br
+.ti -1c
+.RI "int \fBovs_vport_set_upcall_portids\fP (struct \fBvport\fP *\fBvport\fP, const struct nlattr *ids)"
+.br
+.ti -1c
+.RI "int \fBovs_vport_get_upcall_portids\fP (const struct \fBvport\fP *\fBvport\fP, struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "u32 \fBovs_vport_find_upcall_portid\fP (const struct \fBvport\fP *\fBvport\fP, struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "void \fBovs_vport_receive\fP (struct \fBvport\fP *\fBvport\fP, struct sk_buff *skb, const struct \fBovs_tunnel_info\fP *tun_info)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBovs_vport_receive\fP)"
+.br
+.ti -1c
+.RI "int \fBovs_vport_send\fP (struct \fBvport\fP *\fBvport\fP, struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBfree_vport_rcu\fP (struct rcu_head *rcu)"
+.br
+.ti -1c
+.RI "void \fBovs_vport_deferred_free\fP (struct \fBvport\fP *\fBvport\fP)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBovs_vport_deferred_free\fP)"
+.br
+.ti -1c
+.RI "int \fBovs_tunnel_get_egress_info\fP (struct \fBovs_tunnel_info\fP *egress_tun_info, struct net *net, const struct \fBovs_tunnel_info\fP *tun_info, u8 ipproto, u32 \fBskb_mark\fP, __be16 \fBtp_src\fP, __be16 \fBtp_dst\fP)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBovs_tunnel_get_egress_info\fP)"
+.br
+.ti -1c
+.RI "int \fBovs_vport_get_egress_tun_info\fP (struct \fBvport\fP *\fBvport\fP, struct sk_buff *skb, struct \fBovs_tunnel_info\fP *info)"
+.br
+.in -1c
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static struct hlist_head * \fBdev_table\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define VPORT_HASH_BUCKETS   1024"
+
+.SH "Function Documentation"
+.PP 
+.SS "EXPORT_SYMBOL_GPL (\fBovs_vport_ops_register\fP)"
+
+.SS "EXPORT_SYMBOL_GPL (\fBovs_vport_ops_unregister\fP)"
+
+.SS "EXPORT_SYMBOL_GPL (\fBovs_vport_alloc\fP)"
+
+.SS "EXPORT_SYMBOL_GPL (\fBovs_vport_free\fP)"
+
+.SS "EXPORT_SYMBOL_GPL (\fBovs_vport_receive\fP)"
+
+.SS "EXPORT_SYMBOL_GPL (\fBovs_vport_deferred_free\fP)"
+
+.SS "EXPORT_SYMBOL_GPL (\fBovs_tunnel_get_egress_info\fP)"
+
+.SS "static void free_vport_rcu (struct rcu_head * rcu)\fC [static]\fP"
+
+.PP
+.nf
+571 {
+572     struct vport *vport = container_of(rcu, struct vport, rcu);
+573 
+574     ovs_vport_free(vport);
+575 }
+.fi
+.SS "static struct hlist_head* hash_bucket (const struct net * net, const char * name)\fC [static]\fP"
+
+.PP
+.nf
+75 {
+76     unsigned int hash = jhash(name, strlen(name), (unsigned long) net);
+77     return &dev_table[hash & (VPORT_HASH_BUCKETS - 1)];
+78 }
+.fi
+.SS "static LIST_HEAD (vport_ops_list)\fC [static]\fP"
+
+.SS "int ovs_tunnel_get_egress_info (struct \fBovs_tunnel_info\fP * egress_tun_info, struct net * net, const struct \fBovs_tunnel_info\fP * tun_info, u8 ipproto, u32 skb_mark, __be16 tp_src, __be16 tp_dst)"
+
+.PP
+.nf
+593 {
+594     const struct ovs_key_ipv4_tunnel *tun_key;
+595     struct rtable *rt;
+596     __be32 saddr;
+597 
+598     if (unlikely(!tun_info))
+599         return -EINVAL;
+600 
+601     tun_key = &tun_info->tunnel;
+602     saddr = tun_key->ipv4_src;
+603     /* Route lookup to get srouce IP address: saddr\&.
+604      * The process may need to be changed if the corresponding process
+605      * in vports ops changed\&.
+606      */
+607     rt = find_route(net,
+608             &saddr,
+609             tun_key->ipv4_dst,
+610             ipproto,
+611             tun_key->ipv4_tos,
+612             skb_mark);
+613     if (IS_ERR(rt))
+614         return PTR_ERR(rt);
+615 
+616     ip_rt_put(rt);
+617 
+618     /* Generate egress_tun_info based on tun_info,
+619      * saddr, tp_src and tp_dst
+620      */
+621     __ovs_flow_tun_info_init(egress_tun_info,
+622                  saddr, tun_key->ipv4_dst,
+623                  tun_key->ipv4_tos,
+624                  tun_key->ipv4_ttl,
+625                  tp_src, tp_dst,
+626                  tun_key->tun_id,
+627                  tun_key->tun_flags,
+628                  tun_info->options,
+629                  tun_info->options_len);
+630 
+631     return 0;
+632 }
+.fi
+.SS "struct \fBvport\fP* ovs_vport_add (const struct \fBvport_parms\fP * parms)"
+ovs_vport_add - add vport device (for kernel callers)
+.PP
+: Information about new vport\&.
+.PP
+Creates a new vport with the specified configuration (which is dependent on device type)\&. ovs_mutex must be held\&. 
+.PP
+.nf
+211 {
+212     struct vport_ops *ops;
+213     struct vport *vport;
+214 
+215     ops = ovs_vport_lookup(parms);
+216     if (ops) {
+217         struct hlist_head *bucket;
+218 
+219         if (!try_module_get(ops->owner))
+220             return ERR_PTR(-EAFNOSUPPORT);
+221 
+222         vport = ops->create(parms);
+223         if (IS_ERR(vport)) {
+224             module_put(ops->owner);
+225             return vport;
+226         }
+227 
+228         bucket = hash_bucket(ovs_dp_get_net(vport->dp),
+229                      vport->ops->get_name(vport));
+230         hlist_add_head_rcu(&vport->hash_node, bucket);
+231         return vport;
+232     }
+233 
+234     /* Unlock to attempt module load and return -EAGAIN if load
+235      * was successful as we need to restart the port addition
+236      * workflow\&.
+237      */
+238     ovs_unlock();
+239     request_module("vport-type-%d", parms->type);
+240     ovs_lock();
+241 
+242     if (!ovs_vport_lookup(parms))
+243         return ERR_PTR(-EAFNOSUPPORT);
+244     else
+245         return ERR_PTR(-EAGAIN);
+246 }
+.fi
+.SS "struct \fBvport\fP* ovs_vport_alloc (int priv_size, const struct \fBvport_ops\fP * ops, const struct \fBvport_parms\fP * parms)"
+ovs_vport_alloc - allocate and initialize new vport
+.PP
+: Size of private data area to allocate\&. : vport device ops
+.PP
+Allocate and initialize a new vport defined by \&. The vport will contain a private data area of size  that can be accessed using \fBvport_priv()\fP\&. vports that are no longer needed should be released with \fBovs_vport_free()\fP\&. 
+.PP
+.nf
+139 {
+140     struct vport *vport;
+141     size_t alloc_size;
+142 
+143     alloc_size = sizeof(struct vport);
+144     if (priv_size) {
+145         alloc_size = ALIGN(alloc_size, VPORT_ALIGN);
+146         alloc_size += priv_size;
+147     }
+148 
+149     vport = kzalloc(alloc_size, GFP_KERNEL);
+150     if (!vport)
+151         return ERR_PTR(-ENOMEM);
+152 
+153     vport->dp = parms->dp;
+154     vport->port_no = parms->port_no;
+155     vport->ops = ops;
+156     INIT_HLIST_NODE(&vport->dp_hash_node);
+157 
+158     if (ovs_vport_set_upcall_portids(vport, parms->upcall_portids)) {
+159         kfree(vport);
+160         return ERR_PTR(-EINVAL);
+161     }
+162 
+163     vport->percpu_stats = netdev_alloc_pcpu_stats(struct pcpu_sw_netstats);
+164     if (!vport->percpu_stats) {
+165         kfree(vport);
+166         return ERR_PTR(-ENOMEM);
+167     }
+168 
+169     return vport;
+170 }
+.fi
+.SS "void ovs_vport_deferred_free (struct \fBvport\fP * vport)"
+
+.PP
+.nf
+578 {
+579     if (!vport)
+580         return;
+581 
+582     call_rcu(&vport->rcu, free_vport_rcu);
+583 }
+.fi
+.SS "void ovs_vport_del (struct \fBvport\fP * vport)"
+ovs_vport_del - delete existing vport device
+.PP
+: vport to delete\&.
+.PP
+Detaches  from its datapath and destroys it\&. It is possible to fail for reasons such as lack of memory\&. ovs_mutex must be held\&. 
+.PP
+.nf
+273 {
+274     ASSERT_OVSL();
+275 
+276     hlist_del_rcu(&vport->hash_node);
+277     module_put(vport->ops->owner);
+278     vport->ops->destroy(vport);
+279 }
+.fi
+.SS "void ovs_vport_exit (void)"
+ovs_vport_exit - shutdown vport subsystem
+.PP
+Called at module exit time to shutdown the vport subsystem\&. 
+.PP
+.nf
+70 {
+71     kfree(dev_table);
+72 }
+.fi
+.SS "u32 ovs_vport_find_upcall_portid (const struct \fBvport\fP * vport, struct sk_buff * skb)"
+ovs_vport_find_upcall_portid - find the upcall portid to send upcall\&.
+.PP
+: vport from which the missed packet is received\&. : skb that the missed packet was received\&.
+.PP
+Uses the \fBskb_get_hash()\fP to select the upcall portid to send the upcall\&.
+.PP
+Returns the portid of the target socket\&. Must be called with rcu_read_lock\&. 
+.PP
+.nf
+459 {
+460     struct vport_portids *ids;
+461     u32 hash;
+462 
+463     ids = rcu_dereference(vport->upcall_portids);
+464 
+465     if (ids->n_ids == 1 && ids->ids[0] == 0)
+466         return 0;
+467 
+468     hash = skb_get_hash(skb);
+469     return ids->ids[hash - ids->n_ids * reciprocal_divide(hash, ids->rn_ids)];
+470 }
+.fi
+.SS "void ovs_vport_free (struct \fBvport\fP * vport)"
+ovs_vport_free - uninitialize and free vport
+.PP
+: vport to free
+.PP
+Frees a vport allocated with \fBovs_vport_alloc()\fP when it is no longer needed\&.
+.PP
+The caller must ensure that an RCU grace period has passed since the last time  was in a datapath\&. 
+.PP
+.nf
+195 {
+196     kfree(rcu_dereference_raw(vport->upcall_portids));
+197     free_percpu(vport->percpu_stats);
+198     kfree(vport);
+199 }
+.fi
+.SS "int ovs_vport_get_egress_tun_info (struct \fBvport\fP * vport, struct sk_buff * skb, struct \fBovs_tunnel_info\fP * info)"
+
+.PP
+.nf
+637 {
+638     /* get_egress_tun_info() is only implemented on tunnel ports\&. */
+639     if (unlikely(!vport->ops->get_egress_tun_info))
+640         return -EINVAL;
+641 
+642     return vport->ops->get_egress_tun_info(vport, skb, info);
+643 }
+.fi
+.SS "int ovs_vport_get_options (const struct \fBvport\fP * vport, struct sk_buff * skb)"
+ovs_vport_get_options - retrieve device options
+.PP
+: vport from which to retrieve the options\&. : sk_buff where options should be appended\&.
+.PP
+Retrieves the configuration of the given device, appending an OVS_VPORT_ATTR_OPTIONS attribute that in turn contains nested vport-specific attributes to \&.
+.PP
+Returns 0 if successful, -EMSGSIZE if  has insufficient room, or another negative error code if a real error occurred\&. If an error occurs,  is left unmodified\&.
+.PP
+Must be called with ovs_mutex or rcu_read_lock\&. 
+.PP
+.nf
+351 {
+352     struct nlattr *nla;
+353     int err;
+354 
+355     if (!vport->ops->get_options)
+356         return 0;
+357 
+358     nla = nla_nest_start(skb, OVS_VPORT_ATTR_OPTIONS);
+359     if (!nla)
+360         return -EMSGSIZE;
+361 
+362     err = vport->ops->get_options(vport, skb);
+363     if (err) {
+364         nla_nest_cancel(skb, nla);
+365         return err;
+366     }
+367 
+368     nla_nest_end(skb, nla);
+369     return 0;
+370 }
+.fi
+.SS "void ovs_vport_get_stats (struct \fBvport\fP * vport, struct \fBovs_vport_stats\fP * stats)"
+ovs_vport_get_stats - retrieve device stats
+.PP
+: vport from which to retrieve the stats : location to store stats
+.PP
+Retrieves transmit, receive, and error stats for the given device\&.
+.PP
+Must be called with ovs_mutex or rcu_read_lock\&. 
+.PP
+.nf
+292 {
+293     int i;
+294 
+295     /* We potentially have two surces of stats that need to be
+296      * combined: those we have collected (split into err_stats and
+297      * percpu_stats), and device error stats from netdev->get_stats()
+298      * (for errors that happen downstream and therefore aren't
+299      * reported through our vport_record_error() function)\&.
+300      * Stats from first source are reported by ovs over
+301      * OVS_VPORT_ATTR_STATS\&.
+302      * netdev-stats can be directly read over netlink-ioctl\&.
+303      */
+304 
+305     stats->rx_errors  = atomic_long_read(&vport->err_stats\&.rx_errors);
+306     stats->tx_errors  = atomic_long_read(&vport->err_stats\&.tx_errors);
+307     stats->tx_dropped = atomic_long_read(&vport->err_stats\&.tx_dropped);
+308     stats->rx_dropped = atomic_long_read(&vport->err_stats\&.rx_dropped);
+309 
+310     stats->rx_bytes     = 0;
+311     stats->rx_packets   = 0;
+312     stats->tx_bytes     = 0;
+313     stats->tx_packets   = 0;
+314 
+315     for_each_possible_cpu(i) {
+316         const struct pcpu_sw_netstats *percpu_stats;
+317         struct pcpu_sw_netstats local_stats;
+318         unsigned int start;
+319 
+320         percpu_stats = per_cpu_ptr(vport->percpu_stats, i);
+321 
+322         do {
+323             start = u64_stats_fetch_begin_irq(&percpu_stats->syncp);
+324             local_stats = *percpu_stats;
+325         } while (u64_stats_fetch_retry_irq(&percpu_stats->syncp, start));
+326 
+327         stats->rx_bytes     += local_stats\&.rx_bytes;
+328         stats->rx_packets   += local_stats\&.rx_packets;
+329         stats->tx_bytes     += local_stats\&.tx_bytes;
+330         stats->tx_packets   += local_stats\&.tx_packets;
+331     }
+332 }
+.fi
+.SS "int ovs_vport_get_upcall_portids (const struct \fBvport\fP * vport, struct sk_buff * skb)"
+ovs_vport_get_upcall_portids - get the upcall_portids of \&.
+.PP
+: vport from which to retrieve the portids\&. : sk_buff where portids should be appended\&.
+.PP
+Retrieves the configuration of the given vport, appending the OVS_VPORT_ATTR_UPCALL_PID attribute which is the array of upcall portids to \&.
+.PP
+Returns 0 if successful, -EMSGSIZE if  has insufficient room\&. If an error occurs,  is left unmodified\&. Must be called with ovs_mutex or rcu_read_lock\&. 
+.PP
+.nf
+435 {
+436     struct vport_portids *ids;
+437 
+438     ids = rcu_dereference_ovsl(vport->upcall_portids);
+439 
+440     if (vport->dp->user_features & OVS_DP_F_VPORT_PIDS)
+441         return nla_put(skb, OVS_VPORT_ATTR_UPCALL_PID,
+442                    ids->n_ids * sizeof(u32), (void *) ids->ids);
+443     else
+444         return nla_put_u32(skb, OVS_VPORT_ATTR_UPCALL_PID, ids->ids[0]);
+445 }
+.fi
+.SS "int ovs_vport_init (void)"
+ovs_vport_init - initialize vport subsystem
+.PP
+Called at module load time to initialize the vport subsystem\&. 
+.PP
+.nf
+55 {
+56     dev_table = kzalloc(VPORT_HASH_BUCKETS * sizeof(struct hlist_head),
+57                 GFP_KERNEL);
+58     if (!dev_table)
+59         return -ENOMEM;
+60 
+61     return 0;
+62 }
+.fi
+.SS "struct \fBvport\fP* ovs_vport_locate (const struct net * net, const char * name)"
+
+.PP
+.nf
+114 {
+115     struct hlist_head *bucket = hash_bucket(net, name);
+116     struct vport *vport;
+117 
+118     hlist_for_each_entry_rcu(vport, bucket, hash_node)
+119         if (!strcmp(name, vport->ops->get_name(vport)) &&
+120             net_eq(ovs_dp_get_net(vport->dp), net))
+121             return vport;
+122 
+123     return NULL;
+124 }
+.fi
+.SS "static struct \fBvport_ops\fP* ovs_vport_lookup (const struct \fBvport_parms\fP * parms)\fC [static]\fP"
+
+.PP
+.nf
+174 {
+175     struct vport_ops *ops;
+176 
+177     list_for_each_entry(ops, &vport_ops_list, list)
+178         if (ops->type == parms->type)
+179             return ops;
+180 
+181     return NULL;
+182 }
+.fi
+.SS "int ovs_vport_ops_register (struct \fBvport_ops\fP * ops)"
+
+.PP
+.nf
+81 {
+82     int err = -EEXIST;
+83     struct vport_ops *o;
+84 
+85     ovs_lock();
+86     list_for_each_entry(o, &vport_ops_list, list)
+87     if (ops->type == o->type)
+88         goto errout;
+89 
+90     list_add_tail(&ops->list, &vport_ops_list);
+91     err = 0;
+92 errout:
+93     ovs_unlock();
+94     return err;
+95 }
+.fi
+.SS "void ovs_vport_ops_unregister (struct \fBvport_ops\fP * ops)"
+
+.PP
+.nf
+99 {
+100     ovs_lock();
+101     list_del(&ops->list);
+102     ovs_unlock();
+103 }
+.fi
+.SS "void ovs_vport_receive (struct \fBvport\fP * vport, struct sk_buff * skb, const struct \fBovs_tunnel_info\fP * tun_info)"
+ovs_vport_receive - pass up received packet to the datapath for processing
+.PP
+: vport that received the packet : skb that was received : tunnel (if any) that carried packet
+.PP
+Must be called with rcu_read_lock\&. The packet cannot be shared and skb->data should point to the Ethernet header\&. The caller must have already called compute_ip_summed() to initialize the checksumming fields\&. 
+.PP
+.nf
+485 {
+486     struct pcpu_sw_netstats *stats;
+487     struct sw_flow_key key;
+488     int error;
+489 
+490     stats = this_cpu_ptr(vport->percpu_stats);
+491     u64_stats_update_begin(&stats->syncp);
+492     stats->rx_packets++;
+493     stats->rx_bytes += skb->len + (skb_vlan_tag_present(skb) ? VLAN_HLEN : 0);
+494     u64_stats_update_end(&stats->syncp);
+495 
+496     ovs_skb_init_inner_protocol(skb);
+497     OVS_CB(skb)->input_vport = vport;
+498     OVS_CB(skb)->egress_tun_info = NULL;
+499     error = ovs_flow_key_extract(tun_info, skb, &key);
+500     if (unlikely(error)) {
+501         kfree_skb(skb);
+502         return;
+503     }
+504     ovs_dp_process_packet(skb, &key);
+505 }
+.fi
+.SS "static void ovs_vport_record_error (struct \fBvport\fP * vport, enum \fBvport_err_type\fP err_type)\fC [static]\fP"
+ovs_vport_record_error - indicate device error to generic stats layer
+.PP
+: vport that encountered the error : one of enum vport_err_type types to indicate the error type
+.PP
+If using the vport generic stats layer indicate that an error of the given type has occurred\&. 
+.PP
+.nf
+549 {
+550     switch (err_type) {
+551     case VPORT_E_RX_DROPPED:
+552         atomic_long_inc(&vport->err_stats\&.rx_dropped);
+553         break;
+554 
+555     case VPORT_E_RX_ERROR:
+556         atomic_long_inc(&vport->err_stats\&.rx_errors);
+557         break;
+558 
+559     case VPORT_E_TX_DROPPED:
+560         atomic_long_inc(&vport->err_stats\&.tx_dropped);
+561         break;
+562 
+563     case VPORT_E_TX_ERROR:
+564         atomic_long_inc(&vport->err_stats\&.tx_errors);
+565         break;
+566     }
+567 
+568 }
+.fi
+.SS "int ovs_vport_send (struct \fBvport\fP * vport, struct sk_buff * skb)"
+ovs_vport_send - send a packet on a device
+.PP
+: vport on which to send the packet : skb to send
+.PP
+Sends the given packet and returns the length of data sent\&. Either ovs lock or rcu_read_lock must be held\&. 
+.PP
+.nf
+518 {
+519     int sent = vport->ops->send(vport, skb);
+520 
+521     if (likely(sent > 0)) {
+522         struct pcpu_sw_netstats *stats;
+523 
+524         stats = this_cpu_ptr(vport->percpu_stats);
+525 
+526         u64_stats_update_begin(&stats->syncp);
+527         stats->tx_packets++;
+528         stats->tx_bytes += sent;
+529         u64_stats_update_end(&stats->syncp);
+530     } else if (sent < 0) {
+531         ovs_vport_record_error(vport, VPORT_E_TX_ERROR);
+532     } else {
+533         ovs_vport_record_error(vport, VPORT_E_TX_DROPPED);
+534     }
+535     return sent;
+536 }
+.fi
+.SS "int ovs_vport_set_options (struct \fBvport\fP * vport, struct nlattr * options)"
+ovs_vport_set_options - modify existing vport device (for kernel callers)
+.PP
+: vport to modify\&. : New configuration\&.
+.PP
+Modifies an existing device with the specified configuration (which is dependent on device type)\&. ovs_mutex must be held\&. 
+.PP
+.nf
+258 {
+259     if (!vport->ops->set_options)
+260         return -EOPNOTSUPP;
+261     return vport->ops->set_options(vport, options);
+262 }
+.fi
+.SS "int ovs_vport_set_upcall_portids (struct \fBvport\fP * vport, const struct nlattr * ids)"
+ovs_vport_set_upcall_portids - set upcall portids of \&.
+.PP
+: vport to modify\&. : new configuration, an array of port ids\&.
+.PP
+Sets the vport's upcall_portids to \&.
+.PP
+Returns 0 if successful, -EINVAL if  is zero length or cannot be parsed as an array of U32\&.
+.PP
+Must be called with ovs_mutex\&. 
+.PP
+.nf
+394 {
+395     struct vport_portids *old, *vport_portids;
+396 
+397     if (!nla_len(ids) || nla_len(ids) % sizeof(u32))
+398         return -EINVAL;
+399 
+400     old = ovsl_dereference(vport->upcall_portids);
+401 
+402     vport_portids = kmalloc(sizeof *vport_portids + nla_len(ids),
+403                 GFP_KERNEL);
+404     if (!vport_portids)
+405         return -ENOMEM;
+406 
+407     vport_portids->n_ids = nla_len(ids) / sizeof(u32);
+408     vport_portids->rn_ids = reciprocal_value(vport_portids->n_ids);
+409     nla_memcpy(vport_portids->ids, ids, nla_len(ids));
+410 
+411     rcu_assign_pointer(vport->upcall_portids, vport_portids);
+412 
+413     if (old)
+414         call_rcu(&old->rcu, vport_portids_destroy_rcu_cb);
+415 
+416     return 0;
+417 }
+.fi
+.SS "static void vport_portids_destroy_rcu_cb (struct rcu_head * rcu)\fC [static]\fP"
+
+.PP
+.nf
+373 {
+374     struct vport_portids *ids = container_of(rcu, struct vport_portids,
+375                          rcu);
+376 
+377     kfree(ids);
+378 }
+.fi
+.SH "Variable Documentation"
+.PP 
+.SS "struct hlist_head* dev_table\fC [static]\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

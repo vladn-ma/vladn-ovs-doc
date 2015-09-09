@@ -1,0 +1,70 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/linux/rcupdate.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/linux/rcupdate.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBrcu_dereference_check\fP(p,  c)   rcu_dereference(p)"
+.br
+.ti -1c
+.RI "#define \fBrcu_dereference_protected\fP(p,  c)   (p)"
+.br
+.ti -1c
+.RI "#define \fBrcu_dereference_raw\fP(p)   \fBrcu_dereference_check\fP(p, 1)"
+.br
+.ti -1c
+.RI "#define \fBrcu_access_pointer\fP(p)   rcu_dereference(p)"
+.br
+.ti -1c
+.RI "#define \fBRCU_INITIALIZER\fP(v)   (typeof(*(v)) __force \fB__rcu\fP *)(v)"
+.br
+.ti -1c
+.RI "#define \fBRCU_INIT_POINTER\fP(p,  v)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static int \fBrcu_read_lock_held\fP (void)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define rcu_access_pointer(p)   rcu_dereference(p)"
+
+.SS "#define rcu_dereference_check(p, c)   rcu_dereference(p)"
+
+.SS "#define rcu_dereference_protected(p, c)   (p)"
+
+.SS "#define rcu_dereference_raw(p)   \fBrcu_dereference_check\fP(p, 1)"
+
+.SS "#define RCU_INIT_POINTER(p, v)"
+\fBValue:\fP
+.PP
+.nf
+do { \
+                p = RCU_INITIALIZER(v); \
+        } while (0)
+.fi
+.SS "#define RCU_INITIALIZER(v)   (typeof(*(v)) __force \fB__rcu\fP *)(v)"
+
+.SH "Function Documentation"
+.PP 
+.SS "static int rcu_read_lock_held (void)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+24 {
+25     return 1;
+26 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

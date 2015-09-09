@@ -1,0 +1,119 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/net/udp.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/net/udp.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/version\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBudp_flow_src_port\fP   \fBrpl_udp_flow_src_port\fP"
+.br
+.ti -1c
+.RI "#define \fBudp_set_csum\fP   \fBrpl_udp_set_csum\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static __be16 \fBrpl_udp_flow_src_port\fP (struct net *net, struct sk_buff *skb, int min, int max, \fBbool\fP use_eth)"
+.br
+.ti -1c
+.RI "static \fB__sum16\fP \fBudp_v4_check\fP (int len, __be32 saddr, __be32 daddr, \fB__wsum\fP base)"
+.br
+.ti -1c
+.RI "void \fBrpl_udp_set_csum\fP (\fBbool\fP nocheck, struct sk_buff *skb, __be32 saddr, __be32 daddr, int len)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define udp_flow_src_port   \fBrpl_udp_flow_src_port\fP"
+
+.SS "#define udp_set_csum   \fBrpl_udp_set_csum\fP"
+
+.SH "Function Documentation"
+.PP 
+.SS "static __be16 rpl_udp_flow_src_port (struct net * net, struct sk_buff * skb, int min, int max, \fBbool\fP use_eth)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+19 {
+20     u32 hash;
+21 
+22     if (min >= max) {
+23         /* Use default range */
+24         inet_get_local_port_range(net, &min, &max);
+25     }
+26 
+27     hash = skb_get_hash(skb);
+28     if (unlikely(!hash) && use_eth) {
+29         /* Can't find a normal hash, caller has indicated an Ethernet
+30          * packet so use that to compute a hash\&.
+31          */
+32         hash = jhash(skb->data, 2 * ETH_ALEN,
+33                  (__force u32) skb->protocol);
+34     }
+35 
+36     /* Since this is being sent on the wire obfuscate hash a bit
+37      * to minimize possbility that any useful information to an
+38      * attacker is leaked\&. Only upper 16 bits are relevant in the
+39      * computation for 16 bit port value\&.
+40      */
+41     hash ^= hash << 16;
+42 
+43     return htons((((u64) hash * (max - min)) >> 32) + min);
+44 }
+.fi
+.SS "void rpl_udp_set_csum (\fBbool\fP nocheck, struct sk_buff * skb, __be32 saddr, __be32 daddr, int len)"
+
+.PP
+.nf
+12 {
+13     struct udphdr *uh = udp_hdr(skb);
+14 
+15     if (nocheck)
+16         uh->check = 0;
+17     else if (skb_is_gso(skb))
+18         uh->check = ~udp_v4_check(len, saddr, daddr, 0);
+19     else if (skb_dst(skb) && skb_dst(skb)->dev &&
+20          (skb_dst(skb)->dev->features & NETIF_F_V4_CSUM)) {
+21 
+22         BUG_ON(skb->ip_summed == CHECKSUM_PARTIAL);
+23 
+24         skb->ip_summed = CHECKSUM_PARTIAL;
+25         skb->csum_start = skb_transport_header(skb) - skb->head;
+26         skb->csum_offset = offsetof(struct udphdr, check);
+27         uh->check = ~udp_v4_check(len, saddr, daddr, 0);
+28     } else {
+29         __wsum csum;
+30 
+31         BUG_ON(skb->ip_summed == CHECKSUM_PARTIAL);
+32 
+33         uh->check = 0;
+34         csum = skb_checksum(skb, 0, len, 0);
+35         uh->check = udp_v4_check(len, saddr, daddr, csum);
+36         if (uh->check == 0)
+37             uh->check = CSUM_MANGLED_0;
+38 
+39         skb->ip_summed = CHECKSUM_UNNECESSARY;
+40     }
+41 }
+.fi
+.SS "static \fB__sum16\fP udp_v4_check (int len, __be32 saddr, __be32 daddr, \fB__wsum\fP base)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+52 {
+53     return csum_tcpudp_magic(saddr, daddr, len, IPPROTO_UDP, base);
+54 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

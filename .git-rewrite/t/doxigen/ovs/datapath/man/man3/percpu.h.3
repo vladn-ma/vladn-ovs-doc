@@ -1,0 +1,37 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/linux/percpu.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/linux/percpu.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBthis_cpu_ptr\fP(ptr)   per_cpu_ptr(ptr, smp_processor_id())"
+.br
+.ti -1c
+.RI "#define \fBthis_cpu_read\fP(ptr)   percpu_read(ptr)"
+.br
+.ti -1c
+.RI "#define \fBthis_cpu_inc\fP(ptr)   percpu_add(ptr, 1)"
+.br
+.ti -1c
+.RI "#define \fBthis_cpu_dec\fP(ptr)   percpu_sub(ptr, 1)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define this_cpu_dec(ptr)   percpu_sub(ptr, 1)"
+
+.SS "#define this_cpu_inc(ptr)   percpu_add(ptr, 1)"
+
+.SS "#define this_cpu_ptr(ptr)   per_cpu_ptr(ptr, smp_processor_id())"
+
+.SS "#define this_cpu_read(ptr)   percpu_read(ptr)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

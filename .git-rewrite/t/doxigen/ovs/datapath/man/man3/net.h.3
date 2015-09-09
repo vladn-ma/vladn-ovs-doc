@@ -1,0 +1,113 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/linux/net.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/linux/net.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/types\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBnet_ratelimited_function\fP(function, \&.\&.\&.)"
+.br
+.ti -1c
+.RI "#define \fBnet_emerg_ratelimited\fP(fmt, \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_emerg, fmt, ##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBnet_alert_ratelimited\fP(fmt, \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_alert, fmt, ##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBnet_crit_ratelimited\fP(fmt, \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_crit, fmt, ##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBnet_err_ratelimited\fP(fmt, \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_err, fmt, ##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBnet_notice_ratelimited\fP(fmt, \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_notice, fmt, ##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBnet_warn_ratelimited\fP(fmt, \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_warn, fmt, ##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBnet_info_ratelimited\fP(fmt, \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_info, fmt, ##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBnet_dbg_ratelimited\fP(fmt, \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_debug, fmt, ##__VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fB__net_get_random_once\fP   \fBrpl___net_get_random_once\fP"
+.br
+.ti -1c
+.RI "#define \fB___NET_RANDOM_STATIC_KEY_INIT\fP   ATOMIC_INIT(0)"
+.br
+.ti -1c
+.RI "#define \fBnet_get_random_once\fP(buf,  nbytes)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBbool\fP \fBrpl___net_get_random_once\fP (void *buf, int nbytes, \fBbool\fP *done, atomic_t *done_key)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define ___NET_RANDOM_STATIC_KEY_INIT   ATOMIC_INIT(0)"
+
+.SS "#define __net_get_random_once   \fBrpl___net_get_random_once\fP"
+
+.SS "#define net_alert_ratelimited(fmt,  \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_alert, fmt, ##__VA_ARGS__)"
+
+.SS "#define net_crit_ratelimited(fmt,  \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_crit, fmt, ##__VA_ARGS__)"
+
+.SS "#define net_dbg_ratelimited(fmt,  \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_debug, fmt, ##__VA_ARGS__)"
+
+.SS "#define net_emerg_ratelimited(fmt,  \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_emerg, fmt, ##__VA_ARGS__)"
+
+.SS "#define net_err_ratelimited(fmt,  \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_err, fmt, ##__VA_ARGS__)"
+
+.SS "#define net_get_random_once(buf, nbytes)"
+\fBValue:\fP
+.PP
+.nf
+({                             \\
+	bool ___ret = false;                   \
+    static bool ___done = false;                \
+    static atomic_t ___done_key =               \\
+			___NET_RANDOM_STATIC_KEY_INIT;       \
+    if (!atomic_read(&___done_key))             \
+            ___ret = __net_get_random_once(buf,     \
+                           nbytes,      \
+                           &___done,    \
+                           &___done_key);   \
+    ___ret;                         \
+})
+.fi
+.SS "#define net_info_ratelimited(fmt,  \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_info, fmt, ##__VA_ARGS__)"
+
+.SS "#define net_notice_ratelimited(fmt,  \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_notice, fmt, ##__VA_ARGS__)"
+
+.SS "#define net_ratelimited_function(function,  \&.\&.\&.)"
+\fBValue:\fP
+.PP
+.nf
+do {                             \
+    if (net_ratelimit())                    \
+        function(__VA_ARGS__);              \
+} while (0)
+.fi
+.SS "#define net_warn_ratelimited(fmt,  \&.\&.\&.)   \fBnet_ratelimited_function\fP(pr_warn, fmt, ##__VA_ARGS__)"
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBbool\fP rpl___net_get_random_once (void * buf, int nbytes, \fBbool\fP * done, atomic_t * done_key)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

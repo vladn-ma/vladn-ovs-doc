@@ -1,0 +1,112 @@
+#!/bin/bash
+
+# mode of the program work
+MODE=$1
+
+# name of the path to the directory where source directory or file riside
+SRC_PATH=..
+
+# name of the directory or file to archive ( to make backup )
+SRC=workspace
+
+# print to stdout values of global variables
+function debug_msg
+{
+	echo "debug_msg"
+	echo " MODE:     $MODE"
+	echo " SRC_PATH: $SRC_PATH"
+	echo " SRC:      $SRC"
+	echo " TARGET:   $TARGET"
+}
+
+# print to stdout help message
+function help_msg
+{
+	echo " script for the back up of work files and directories, version vn-060723-0951"
+	echo " script must be in the backup directory"
+	echo " usage: "
+	echo " $0 mode [SRC_PATH [SRC]]"
+	echo " SRC_PATH : path to the directory where source file or directory reside"
+	echo "            default value = $SRC_PATH"
+	echo " SRC      : name of the file or directory to backup"
+	echo "            default value = $SRC"
+	echo " modes"
+	echo "     1 : tgz archive prefixed with date"
+	echo "     2 : daily tar update archive prefixed with update_backup"
+	echo "     3 : weekly gz archive prifixed with date"
+}
+
+# print to stdout mode value
+function mode_msg
+{
+	if [ -z "$MODE" ]; then echo "mode: HELP"
+	else echo "mode: $MODE"
+	fi
+}
+
+# print to stdout prefixed with the "data_and_time" name received as argument 1
+function prefix_src_date 
+{
+	echo $(date +%y%m%d_%H%M)-$1
+}
+
+# print to stdout prefixed with the "update_backup" name received as argument 1
+function prefix_src_update
+{
+	echo update_backup-$1
+}
+
+# print to stdout command and then run it
+function run_cmd
+{
+	echo "cmd: $1"
+	$1
+}
+
+
+#################################################################
+# start of the program flow
+
+# give mode information medssage
+mode_msg
+
+# process command line parameters
+if [ -n "$2" ]; then SRC_PATH=$2
+fi
+
+if [ -n "$3" ]; then SRC=$3
+fi
+
+# copy this script to the directory for the backup
+#if [ -n "$1" ]; then run_cmd "cp -f $0 $SRC_PATH/$SRC"
+#fi
+
+# execute commands given by mode
+case "$MODE" in
+"") 	# print help message
+	help_msg
+	;;
+"1")	# create tgz archive prefixed with date
+	TGZ_TARGET=$(prefix_src_date $SRC)
+	run_cmd "tar --exclude='*~' --exclude='*.o' -cZf $TGZ_TARGET.tgz -C $SRC_PATH $SRC"
+	;;
+"2")	# create daily tar archive with update option prefixed with update_backup
+	TAR_TARGET=$(prefix_src_update $SRC)
+	run_cmd "tar --exclude='*~' --exclude='*.o' -uf $TAR_TARGET.tar -C $SRC_PATH $SRC"
+	;;
+"3")	# create daily update tar archive and 
+	# gzip it into the date prefixed weekly gz archive
+	# remove daily tar
+	TAR_TARGET=$(prefix_src_update $SRC)
+	run_cmd "tar --exclude='*~' --exclude='*.o' -uf $TAR_TARGET.tar -C $SRC_PATH $SRC"
+	TGZ_TARGET=$(prefix_src_date $SRC)
+	run_cmd "mv -f $TAR_TARGET.tar $TGZ_TARGET"
+	run_cmd "gzip -f -S .tgz $TGZ_TARGET"
+	run_cmd "rm -f $TGZ_TARGET"
+	;;
+esac
+
+#####################################################################
+# end of the script
+#debug_msg $SRC
+#####################################################################

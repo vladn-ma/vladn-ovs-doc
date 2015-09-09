@@ -1,0 +1,223 @@
+\hypertarget{skbuff-openvswitch_8c}{}\section{/home/vladn/git/ovs/datapath/linux/skbuff-\/openvswitch.c File Reference}
+\label{skbuff-openvswitch_8c}\index{/home/vladn/git/ovs/datapath/linux/skbuff-\/openvswitch.\+c@{/home/vladn/git/ovs/datapath/linux/skbuff-\/openvswitch.\+c}}
+{\ttfamily \#include $<$linux/module.\+h$>$}\\*
+{\ttfamily \#include $<$linux/netdevice.\+h$>$}\\*
+{\ttfamily \#include $<$linux/skbuff.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+vlan.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}gso.\+h\char`\"{}}\\*
+Include dependency graph for skbuff-\/openvswitch.c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{skbuff-openvswitch_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{skbuff-openvswitch_8c_a15c9dad54898a1483b0c61101836ae4b}{rpl\+\_\+skb\+\_\+ensure\+\_\+writable} (struct sk\+\_\+buff $\ast$skb, int write\+\_\+len)
+\item 
+\hyperlink{skbuff-openvswitch_8c_a7ff7437b21b29dfb4e9dc4c4a2c1a5ea}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{skbuff-openvswitch_8c_a15c9dad54898a1483b0c61101836ae4b}{rpl\+\_\+skb\+\_\+ensure\+\_\+writable})
+\item 
+static int \hyperlink{skbuff-openvswitch_8c_a0f57a812e220d03f4a3a57604edfd079}{\+\_\+\+\_\+skb\+\_\+vlan\+\_\+pop} (struct sk\+\_\+buff $\ast$skb, u16 $\ast$vlan\+\_\+tci)
+\item 
+int \hyperlink{skbuff-openvswitch_8c_a797322c61b7d5999237ffdd59972751e}{rpl\+\_\+skb\+\_\+vlan\+\_\+pop} (struct sk\+\_\+buff $\ast$skb)
+\item 
+\hyperlink{skbuff-openvswitch_8c_aa16324b61c50ddbb2615a482ccd2cfc8}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{skbuff-openvswitch_8c_a797322c61b7d5999237ffdd59972751e}{rpl\+\_\+skb\+\_\+vlan\+\_\+pop})
+\item 
+int \hyperlink{skbuff-openvswitch_8c_ad4f8c18bdd22cdd3623de896458c404e}{rpl\+\_\+skb\+\_\+vlan\+\_\+push} (struct sk\+\_\+buff $\ast$skb, \+\_\+\+\_\+be16 vlan\+\_\+proto, u16 vlan\+\_\+tci)
+\item 
+\hyperlink{skbuff-openvswitch_8c_a0139a89a512cfd5b8aa405c2d49f0e85}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{skbuff-openvswitch_8c_ad4f8c18bdd22cdd3623de896458c404e}{rpl\+\_\+skb\+\_\+vlan\+\_\+push})
+\item 
+void \hyperlink{skbuff-openvswitch_8c_a23942601601684adfd86854f195244f3}{rpl\+\_\+kfree\+\_\+skb\+\_\+list} (struct sk\+\_\+buff $\ast$segs)
+\item 
+\hyperlink{skbuff-openvswitch_8c_ac2d4948230ea7306d2789e0e783241e7}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L} (\hyperlink{skbuff-openvswitch_8c_a23942601601684adfd86854f195244f3}{rpl\+\_\+kfree\+\_\+skb\+\_\+list})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{skbuff-openvswitch_8c_a0f57a812e220d03f4a3a57604edfd079}{}\index{skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}!\+\_\+\+\_\+skb\+\_\+vlan\+\_\+pop@{\+\_\+\+\_\+skb\+\_\+vlan\+\_\+pop}}
+\index{\+\_\+\+\_\+skb\+\_\+vlan\+\_\+pop@{\+\_\+\+\_\+skb\+\_\+vlan\+\_\+pop}!skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}}
+\subsubsection[{\+\_\+\+\_\+skb\+\_\+vlan\+\_\+pop}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+\+\_\+skb\+\_\+vlan\+\_\+pop (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{u16 $\ast$}]{vlan\+\_\+tci}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{skbuff-openvswitch_8c_a0f57a812e220d03f4a3a57604edfd079}
+
+\begin{DoxyCode}
+150 \{
+151     \textcolor{keyword}{struct }vlan\_hdr *vhdr;
+152     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} offset = skb->data - \hyperlink{skbuff_8h_a292027671dfcf3aa23f9551f48713e24}{skb\_mac\_header}(skb);
+153     \textcolor{keywordtype}{int} err;
+154 
+155     \_\_skb\_push(skb, offset);
+156     err = \hyperlink{skbuff_8h_adb2ee822c4cb80b0d9c272133feedb72}{skb\_ensure\_writable}(skb, VLAN\_ETH\_HLEN);
+157     \textcolor{keywordflow}{if} (unlikely(err))
+158         \textcolor{keywordflow}{goto} pull;
+159 
+160     skb\_postpull\_rcsum(skb, skb->data + (2 * ETH\_ALEN), VLAN\_HLEN);
+161 
+162     vhdr = (\textcolor{keyword}{struct }vlan\_hdr *)(skb->data + ETH\_HLEN);
+163     *vlan\_tci = ntohs(vhdr->h\_vlan\_TCI);
+164 
+165     memmove(skb->data + VLAN\_HLEN, skb->data, 2 * ETH\_ALEN);
+166     \_\_skb\_pull(skb, VLAN\_HLEN);
+167 
+168     \hyperlink{if__vlan_8h_a5c4cef422095e8594dac7c32fe582d65}{vlan\_set\_encap\_proto}(skb, vhdr);
+169     skb->mac\_header += VLAN\_HLEN;
+170 
+171     \textcolor{keywordflow}{if} (\hyperlink{skbuff_8h_aabe75b44039b11c1b7c6e2f246e7146e}{skb\_network\_offset}(skb) < ETH\_HLEN)
+172         \hyperlink{skbuff_8h_a2aa771daf8e324a50f60e4934839dc2c}{skb\_set\_network\_header}(skb, ETH\_HLEN);
+173 
+174     \hyperlink{skbuff_8h_ae4be7dfedacf0e75fd904f0f54c9c731}{skb\_reset\_mac\_len}(skb);
+175 pull:
+176     \_\_skb\_pull(skb, offset);
+177 
+178     \textcolor{keywordflow}{return} err;
+179 \}
+\end{DoxyCode}
+\hypertarget{skbuff-openvswitch_8c_ac2d4948230ea7306d2789e0e783241e7}{}\index{skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L}!skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf rpl\+\_\+kfree\+\_\+skb\+\_\+list}}]{}
+\end{DoxyParamCaption}
+)}\label{skbuff-openvswitch_8c_ac2d4948230ea7306d2789e0e783241e7}
+\hypertarget{skbuff-openvswitch_8c_a7ff7437b21b29dfb4e9dc4c4a2c1a5ea}{}\index{skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf rpl\+\_\+skb\+\_\+ensure\+\_\+writable}}]{}
+\end{DoxyParamCaption}
+)}\label{skbuff-openvswitch_8c_a7ff7437b21b29dfb4e9dc4c4a2c1a5ea}
+\hypertarget{skbuff-openvswitch_8c_aa16324b61c50ddbb2615a482ccd2cfc8}{}\index{skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf rpl\+\_\+skb\+\_\+vlan\+\_\+pop}}]{}
+\end{DoxyParamCaption}
+)}\label{skbuff-openvswitch_8c_aa16324b61c50ddbb2615a482ccd2cfc8}
+\hypertarget{skbuff-openvswitch_8c_a0139a89a512cfd5b8aa405c2d49f0e85}{}\index{skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf rpl\+\_\+skb\+\_\+vlan\+\_\+push}}]{}
+\end{DoxyParamCaption}
+)}\label{skbuff-openvswitch_8c_a0139a89a512cfd5b8aa405c2d49f0e85}
+\hypertarget{skbuff-openvswitch_8c_a23942601601684adfd86854f195244f3}{}\index{skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}!rpl\+\_\+kfree\+\_\+skb\+\_\+list@{rpl\+\_\+kfree\+\_\+skb\+\_\+list}}
+\index{rpl\+\_\+kfree\+\_\+skb\+\_\+list@{rpl\+\_\+kfree\+\_\+skb\+\_\+list}!skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}}
+\subsubsection[{rpl\+\_\+kfree\+\_\+skb\+\_\+list}]{\setlength{\rightskip}{0pt plus 5cm}void rpl\+\_\+kfree\+\_\+skb\+\_\+list (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{segs}
+\end{DoxyParamCaption}
+)}\label{skbuff-openvswitch_8c_a23942601601684adfd86854f195244f3}
+
+\begin{DoxyCode}
+273 \{
+274     \textcolor{keywordflow}{while} (segs) \{
+275         \textcolor{keyword}{struct }sk\_buff *next = segs->next;
+276 
+277         kfree\_skb(segs);
+278         segs = next;
+279     \}
+280 \}
+\end{DoxyCode}
+\hypertarget{skbuff-openvswitch_8c_a15c9dad54898a1483b0c61101836ae4b}{}\index{skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}!rpl\+\_\+skb\+\_\+ensure\+\_\+writable@{rpl\+\_\+skb\+\_\+ensure\+\_\+writable}}
+\index{rpl\+\_\+skb\+\_\+ensure\+\_\+writable@{rpl\+\_\+skb\+\_\+ensure\+\_\+writable}!skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}}
+\subsubsection[{rpl\+\_\+skb\+\_\+ensure\+\_\+writable}]{\setlength{\rightskip}{0pt plus 5cm}int rpl\+\_\+skb\+\_\+ensure\+\_\+writable (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{int}]{write\+\_\+len}
+\end{DoxyParamCaption}
+)}\label{skbuff-openvswitch_8c_a15c9dad54898a1483b0c61101836ae4b}
+
+\begin{DoxyCode}
+135 \{
+136     \textcolor{keywordflow}{if} (!pskb\_may\_pull(skb, write\_len))
+137         \textcolor{keywordflow}{return} -ENOMEM;
+138 
+139     \textcolor{keywordflow}{if} (!skb\_cloned(skb) || skb\_clone\_writable(skb, write\_len))
+140         \textcolor{keywordflow}{return} 0;
+141 
+142     \textcolor{keywordflow}{return} pskb\_expand\_head(skb, 0, 0, GFP\_ATOMIC);
+143 \}
+\end{DoxyCode}
+\hypertarget{skbuff-openvswitch_8c_a797322c61b7d5999237ffdd59972751e}{}\index{skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}!rpl\+\_\+skb\+\_\+vlan\+\_\+pop@{rpl\+\_\+skb\+\_\+vlan\+\_\+pop}}
+\index{rpl\+\_\+skb\+\_\+vlan\+\_\+pop@{rpl\+\_\+skb\+\_\+vlan\+\_\+pop}!skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}}
+\subsubsection[{rpl\+\_\+skb\+\_\+vlan\+\_\+pop}]{\setlength{\rightskip}{0pt plus 5cm}int rpl\+\_\+skb\+\_\+vlan\+\_\+pop (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)}\label{skbuff-openvswitch_8c_a797322c61b7d5999237ffdd59972751e}
+
+\begin{DoxyCode}
+182 \{
+183     u16 vlan\_tci;
+184     \_\_be16 vlan\_proto;
+185     \textcolor{keywordtype}{int} err;
+186 
+187     \textcolor{keywordflow}{if} (likely(\hyperlink{if__vlan_8h_a0bdf3e26944669a4265c7e717e846215}{skb\_vlan\_tag\_present}(skb))) \{
+188         skb->vlan\_tci = 0;
+189     \} \textcolor{keywordflow}{else} \{
+190         \textcolor{keywordflow}{if} (unlikely((skb->protocol != htons(ETH\_P\_8021Q) &&
+191                   skb->protocol != htons(\hyperlink{if__ether_8h_aab8026e599b9952e93dc1916604488e1}{ETH\_P\_8021AD})) ||
+192                  skb->len < VLAN\_ETH\_HLEN))
+193             \textcolor{keywordflow}{return} 0;
+194 
+195         err = \hyperlink{skbuff-openvswitch_8c_a0f57a812e220d03f4a3a57604edfd079}{\_\_skb\_vlan\_pop}(skb, &vlan\_tci);
+196         \textcolor{keywordflow}{if} (err)
+197             \textcolor{keywordflow}{return} err;
+198     \}
+199     \textcolor{comment}{/* move next vlan tag to hw accel tag */}
+200     \textcolor{keywordflow}{if} (likely((skb->protocol != htons(ETH\_P\_8021Q) &&
+201             skb->protocol != htons(\hyperlink{if__ether_8h_aab8026e599b9952e93dc1916604488e1}{ETH\_P\_8021AD})) ||
+202            skb->len < VLAN\_ETH\_HLEN))
+203         \textcolor{keywordflow}{return} 0;
+204 
+205     vlan\_proto = htons(ETH\_P\_8021Q);
+206     err = \hyperlink{skbuff-openvswitch_8c_a0f57a812e220d03f4a3a57604edfd079}{\_\_skb\_vlan\_pop}(skb, &vlan\_tci);
+207     \textcolor{keywordflow}{if} (unlikely(err))
+208         \textcolor{keywordflow}{return} err;
+209 
+210     \_\_vlan\_hwaccel\_put\_tag(skb, vlan\_proto, vlan\_tci);
+211     \textcolor{keywordflow}{return} 0;
+212 \}
+\end{DoxyCode}
+\hypertarget{skbuff-openvswitch_8c_ad4f8c18bdd22cdd3623de896458c404e}{}\index{skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}!rpl\+\_\+skb\+\_\+vlan\+\_\+push@{rpl\+\_\+skb\+\_\+vlan\+\_\+push}}
+\index{rpl\+\_\+skb\+\_\+vlan\+\_\+push@{rpl\+\_\+skb\+\_\+vlan\+\_\+push}!skbuff-\/openvswitch.\+c@{skbuff-\/openvswitch.\+c}}
+\subsubsection[{rpl\+\_\+skb\+\_\+vlan\+\_\+push}]{\setlength{\rightskip}{0pt plus 5cm}int rpl\+\_\+skb\+\_\+vlan\+\_\+push (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{\+\_\+\+\_\+be16}]{vlan\+\_\+proto, }
+\item[{u16}]{vlan\+\_\+tci}
+\end{DoxyParamCaption}
+)}\label{skbuff-openvswitch_8c_ad4f8c18bdd22cdd3623de896458c404e}
+
+\begin{DoxyCode}
+218 \{
+219     \textcolor{keywordflow}{if} (\hyperlink{if__vlan_8h_a0bdf3e26944669a4265c7e717e846215}{skb\_vlan\_tag\_present}(skb)) \{
+220         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} offset = skb->data - \hyperlink{skbuff_8h_a292027671dfcf3aa23f9551f48713e24}{skb\_mac\_header}(skb);
+221         \textcolor{keywordtype}{int} err;
+222 
+223         \textcolor{comment}{/* \_\_vlan\_insert\_tag expect skb->data pointing to mac header.}
+224 \textcolor{comment}{         * So change skb->data before calling it and change back to}
+225 \textcolor{comment}{         * original position later}
+226 \textcolor{comment}{         */}
+227         \_\_skb\_push(skb, offset);
+228         err = \hyperlink{if__vlan_8h_aec003868f531858e684c2ff8edc3ef72}{\_\_vlan\_insert\_tag}(skb, skb->vlan\_proto,
+229                     \hyperlink{if__vlan_8h_a0fa23322859cba87d3f5e4526aafd80f}{skb\_vlan\_tag\_get}(skb));
+230         \textcolor{keywordflow}{if} (err)
+231             \textcolor{keywordflow}{return} err;
+232         skb->mac\_len += VLAN\_HLEN;
+233         \_\_skb\_pull(skb, offset);
+234 
+235         \textcolor{keywordflow}{if} (skb->ip\_summed == \hyperlink{skbuff_8h_a207f4c225f70b6bc82d1519bb10245f7}{CHECKSUM\_COMPLETE})
+236             skb->csum = csum\_add(skb->csum, csum\_partial(skb->data
+237                     + (2 * ETH\_ALEN), VLAN\_HLEN, 0));
+238     \}
+239     \_\_vlan\_hwaccel\_put\_tag(skb, vlan\_proto, vlan\_tci);
+240     \textcolor{keywordflow}{return} 0;
+241 \}
+\end{DoxyCode}

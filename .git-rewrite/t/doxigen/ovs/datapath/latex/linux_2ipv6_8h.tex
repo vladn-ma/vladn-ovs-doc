@@ -1,0 +1,31 @@
+\hypertarget{linux_2ipv6_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/linux/ipv6.h File Reference}
+\label{linux_2ipv6_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/linux/ipv6.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/linux/ipv6.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux_2ipv6_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static struct ipv6hdr $\ast$ \hyperlink{linux_2ipv6_8h_ab31aa2f5ade9dadb3cede168a0761bb3}{ipv6\+\_\+hdr} (const struct sk\+\_\+buff $\ast$skb)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{linux_2ipv6_8h_ab31aa2f5ade9dadb3cede168a0761bb3}{}\index{linux/ipv6.\+h@{linux/ipv6.\+h}!ipv6\+\_\+hdr@{ipv6\+\_\+hdr}}
+\index{ipv6\+\_\+hdr@{ipv6\+\_\+hdr}!linux/ipv6.\+h@{linux/ipv6.\+h}}
+\subsubsection[{ipv6\+\_\+hdr}]{\setlength{\rightskip}{0pt plus 5cm}static struct ipv6hdr$\ast$ ipv6\+\_\+hdr (
+\begin{DoxyParamCaption}
+\item[{const struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2ipv6_8h_ab31aa2f5ade9dadb3cede168a0761bb3}
+
+\begin{DoxyCode}
+8 \{
+9     \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} ipv6hdr *)\hyperlink{skbuff_8h_aa9e0f2aeb3abecde73023d35145bc4a0}{skb\_network\_header}(skb);
+10 \}
+\end{DoxyCode}

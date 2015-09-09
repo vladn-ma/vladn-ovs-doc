@@ -1,0 +1,274 @@
+.TH "sw_flow_key" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sw_flow_key \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <flow\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "u8 \fBtun_opts\fP [255]"
+.br
+.ti -1c
+.RI "u8 \fBtun_opts_len\fP"
+.br
+.ti -1c
+.RI "struct \fBovs_key_ipv4_tunnel\fP \fBtun_key\fP"
+.br
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   u32 \fBpriority\fP"
+.br
+.ti -1c
+.RI "   u32 \fBskb_mark\fP"
+.br
+.ti -1c
+.RI "   u16 \fBin_port\fP"
+.br
+.ti -1c
+.RI "} \fBphy\fP"
+.br
+.ti -1c
+.RI "u32 \fBovs_flow_hash\fP"
+.br
+.ti -1c
+.RI "u32 \fBrecirc_id\fP"
+.br
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   u8 \fBsrc\fP [ETH_ALEN]"
+.br
+.ti -1c
+.RI "   u8 \fBdst\fP [ETH_ALEN]"
+.br
+.ti -1c
+.RI "   __be16 \fBtci\fP"
+.br
+.ti -1c
+.RI "   __be16 \fBtype\fP"
+.br
+.ti -1c
+.RI "} \fBeth\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      __be32 \fBtop_lse\fP"
+.br
+.ti -1c
+.RI "   } \fBmpls\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      u8 \fBproto\fP"
+.br
+.ti -1c
+.RI "      u8 \fBtos\fP"
+.br
+.ti -1c
+.RI "      u8 \fBttl\fP"
+.br
+.ti -1c
+.RI "      u8 \fBfrag\fP"
+.br
+.ti -1c
+.RI "   } \fBip\fP"
+.br
+.ti -1c
+.RI "}; "
+.br
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   __be16 \fBsrc\fP"
+.br
+.ti -1c
+.RI "   __be16 \fBdst\fP"
+.br
+.ti -1c
+.RI "   __be16 \fBflags\fP"
+.br
+.ti -1c
+.RI "} \fBtp\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      struct {"
+.br
+.ti -1c
+.RI "         __be32 \fBsrc\fP"
+.br
+.ti -1c
+.RI "         __be32 \fBdst\fP"
+.br
+.ti -1c
+.RI "      } \fBaddr\fP"
+.br
+.ti -1c
+.RI "      struct {"
+.br
+.ti -1c
+.RI "         u8 \fBsha\fP [ETH_ALEN]"
+.br
+.ti -1c
+.RI "         u8 \fBtha\fP [ETH_ALEN]"
+.br
+.ti -1c
+.RI "      } \fBarp\fP"
+.br
+.ti -1c
+.RI "   } \fBipv4\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      struct {"
+.br
+.ti -1c
+.RI "         struct in6_addr \fBsrc\fP"
+.br
+.ti -1c
+.RI "         struct in6_addr \fBdst\fP"
+.br
+.ti -1c
+.RI "      } \fBaddr\fP"
+.br
+.ti -1c
+.RI "      __be32 \fBlabel\fP"
+.br
+.ti -1c
+.RI "      struct {"
+.br
+.ti -1c
+.RI "         struct in6_addr \fBtarget\fP"
+.br
+.ti -1c
+.RI "         u8 \fBsll\fP [ETH_ALEN]"
+.br
+.ti -1c
+.RI "         u8 \fBtll\fP [ETH_ALEN]"
+.br
+.ti -1c
+.RI "      } \fBnd\fP"
+.br
+.ti -1c
+.RI "   } \fBipv6\fP"
+.br
+.ti -1c
+.RI "}; "
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "union { \&.\&.\&. } "
+
+.SS "union { \&.\&.\&. } "
+
+.SS "struct { \&.\&.\&. }   sw_flow_key::addr"
+
+.SS "struct { \&.\&.\&. }   sw_flow_key::addr"
+
+.SS "struct { \&.\&.\&. }   sw_flow_key::arp"
+
+.SS "u8 sw_flow_key::dst[ETH_ALEN]"
+
+.SS "__be16 sw_flow_key::dst"
+
+.SS "__be32 sw_flow_key::dst"
+
+.SS "struct in6_addr sw_flow_key::dst"
+
+.SS "struct { \&.\&.\&. }   sw_flow_key::eth"
+
+.SS "__be16 sw_flow_key::flags"
+
+.SS "u8 sw_flow_key::frag"
+
+.SS "u16 sw_flow_key::in_port"
+
+.SS "struct { \&.\&.\&. }   sw_flow_key::ip"
+
+.SS "struct { \&.\&.\&. }   sw_flow_key::ipv4"
+
+.SS "struct { \&.\&.\&. }   sw_flow_key::ipv6"
+
+.SS "__be32 sw_flow_key::label"
+
+.SS "struct { \&.\&.\&. }   sw_flow_key::mpls"
+
+.SS "struct { \&.\&.\&. }   sw_flow_key::nd"
+
+.SS "u32 sw_flow_key::ovs_flow_hash"
+
+.SS "struct { \&.\&.\&. }  sw_flow_key::phy"
+
+.SS "u32 sw_flow_key::priority"
+
+.SS "u8 sw_flow_key::proto"
+
+.SS "u32 sw_flow_key::recirc_id"
+
+.SS "u8 sw_flow_key::sha[ETH_ALEN]"
+
+.SS "u32 sw_flow_key::skb_mark"
+
+.SS "u8 sw_flow_key::sll[ETH_ALEN]"
+
+.SS "u8 sw_flow_key::src[ETH_ALEN]"
+
+.SS "__be16 sw_flow_key::src"
+
+.SS "__be32 sw_flow_key::src"
+
+.SS "struct in6_addr sw_flow_key::src"
+
+.SS "struct in6_addr sw_flow_key::target"
+
+.SS "__be16 sw_flow_key::tci"
+
+.SS "u8 sw_flow_key::tha[ETH_ALEN]"
+
+.SS "u8 sw_flow_key::tll[ETH_ALEN]"
+
+.SS "__be32 sw_flow_key::top_lse"
+
+.SS "u8 sw_flow_key::tos"
+
+.SS "struct { \&.\&.\&. }   sw_flow_key::tp"
+
+.SS "u8 sw_flow_key::ttl"
+
+.SS "struct \fBovs_key_ipv4_tunnel\fP sw_flow_key::tun_key"
+
+.SS "u8 sw_flow_key::tun_opts[255]"
+
+.SS "u8 sw_flow_key::tun_opts_len"
+
+.SS "__be16 sw_flow_key::type"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

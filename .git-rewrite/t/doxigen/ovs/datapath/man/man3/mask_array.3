@@ -1,0 +1,40 @@
+.TH "mask_array" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+mask_array \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <flow_table\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct rcu_head \fBrcu\fP"
+.br
+.ti -1c
+.RI "int \fBcount\fP"
+.br
+.ti -1c
+.RI "int \fBmax\fP"
+.br
+.ti -1c
+.RI "struct \fBsw_flow_mask\fP \fB__rcu\fP * \fBmasks\fP []"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "int mask_array::count"
+
+.SS "struct \fBsw_flow_mask\fP \fB__rcu\fP* mask_array::masks[]"
+
+.SS "int mask_array::max"
+
+.SS "struct rcu_head mask_array::rcu"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

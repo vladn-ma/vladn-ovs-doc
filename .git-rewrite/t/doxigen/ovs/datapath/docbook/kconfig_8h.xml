@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="kconfig_8h">
+    <title>kconfig.h File Reference</title>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+<para>Include dependency diagram for kconfig.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="kconfig_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for kconfig.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="kconfig_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="kconfig_8h_1a9d9f9ac6e60dfd0b6396b83969ba8f38">__ARG_PLACEHOLDER_1</link> 0,</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="kconfig_8h_1a4ef5e3b250ca40bef05f9b05084a5011">config_enabled</link> <link linkend="kconfig_8h_1a9e4f8ef4d4a57c971759d96e19ce4685">_config_enabled</link>(cfg)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="kconfig_8h_1a9e4f8ef4d4a57c971759d96e19ce4685">_config_enabled</link> <link linkend="kconfig_8h_1a1ab4aa6ab0dd4de144241ef7524d2c89">__config_enabled</link>(__ARG_PLACEHOLDER_##value)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="kconfig_8h_1a1ab4aa6ab0dd4de144241ef7524d2c89">__config_enabled</link> <link linkend="kconfig_8h_1aaf258f318f4aa54c0ca10b569d15696a">___config_enabled</link>(arg1_or_junk 1, 0)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="kconfig_8h_1aaf258f318f4aa54c0ca10b569d15696a">___config_enabled</link> val</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="kconfig_8h_1a2e3f1f46acb8ff1339122bf2bc09d30c">IS_ENABLED</link> (<link linkend="kconfig_8h_1a4ef5e3b250ca40bef05f9b05084a5011">config_enabled</link>(option) || <link linkend="kconfig_8h_1a4ef5e3b250ca40bef05f9b05084a5011">config_enabled</link>(option##_MODULE))</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="kconfig_8h_1a43b9d76488f716ceeab1dd36fb631587">IS_BUILTIN</link> <link linkend="kconfig_8h_1a4ef5e3b250ca40bef05f9b05084a5011">config_enabled</link>(option)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="kconfig_8h_1a2ba4e9c7473b52be573e3a3b2383d7cf">IS_MODULE</link> <link linkend="kconfig_8h_1a4ef5e3b250ca40bef05f9b05084a5011">config_enabled</link>(option##_MODULE)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/include/linux/kconfig.h</para>
+    </simplesect>
+</section>

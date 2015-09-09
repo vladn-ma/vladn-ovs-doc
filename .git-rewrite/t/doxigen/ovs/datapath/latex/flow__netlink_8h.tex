@@ -1,0 +1,581 @@
+\hypertarget{flow__netlink_8h}{}\section{/home/vladn/git/ovs/datapath/flow\+\_\+netlink.h File Reference}
+\label{flow__netlink_8h}\index{/home/vladn/git/ovs/datapath/flow\+\_\+netlink.\+h@{/home/vladn/git/ovs/datapath/flow\+\_\+netlink.\+h}}
+{\ttfamily \#include $<$linux/kernel.\+h$>$}\\*
+{\ttfamily \#include $<$linux/netlink.\+h$>$}\\*
+{\ttfamily \#include $<$linux/openvswitch.\+h$>$}\\*
+{\ttfamily \#include $<$linux/spinlock.\+h$>$}\\*
+{\ttfamily \#include $<$linux/types.\+h$>$}\\*
+{\ttfamily \#include $<$linux/rcupdate.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+ether.\+h$>$}\\*
+{\ttfamily \#include $<$linux/in6.\+h$>$}\\*
+{\ttfamily \#include $<$linux/jiffies.\+h$>$}\\*
+{\ttfamily \#include $<$linux/time.\+h$>$}\\*
+{\ttfamily \#include $<$linux/flex\+\_\+array.\+h$>$}\\*
+{\ttfamily \#include $<$net/inet\+\_\+ecn.\+h$>$}\\*
+{\ttfamily \#include $<$net/ip\+\_\+tunnels.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}flow.\+h\char`\"{}}\\*
+Include dependency graph for flow\+\_\+netlink.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{flow__netlink_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{flow__netlink_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \hyperlink{flow__netlink_8h_ac920825ffe4fa75e7ca3c5e76ad4ec2a}{ovs\+\_\+tun\+\_\+key\+\_\+attr\+\_\+size} (void)
+\item 
+size\+\_\+t \hyperlink{flow__netlink_8h_a4ea1ec7f3650fd324fc1538c97e795d0}{ovs\+\_\+key\+\_\+attr\+\_\+size} (void)
+\item 
+void \hyperlink{flow__netlink_8h_a1a09e9d38844c59332975789573e994c}{ovs\+\_\+match\+\_\+init} (struct \hyperlink{structsw__flow__match}{sw\+\_\+flow\+\_\+match} $\ast$match, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, struct \hyperlink{structsw__flow__mask}{sw\+\_\+flow\+\_\+mask} $\ast$mask)
+\item 
+int \hyperlink{flow__netlink_8h_ab52f962a5af3e769831e94b28a56171f}{ovs\+\_\+nla\+\_\+put\+\_\+key} (const struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$, const struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$, int attr, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} is\+\_\+mask, struct sk\+\_\+buff $\ast$)
+\item 
+int \hyperlink{flow__netlink_8h_a4927521e590b588f48062031450e415d}{ovs\+\_\+nla\+\_\+get\+\_\+flow\+\_\+metadata} (const struct nlattr $\ast$, struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} log)
+\item 
+int \hyperlink{flow__netlink_8h_a636f7d3cbe8656ceda87373110a4abc4}{ovs\+\_\+nla\+\_\+put\+\_\+identifier} (const struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$flow, struct sk\+\_\+buff $\ast$skb)
+\item 
+int \hyperlink{flow__netlink_8h_a2f6c3ab02b8e5d6296278dc9214500eb}{ovs\+\_\+nla\+\_\+put\+\_\+masked\+\_\+key} (const struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$flow, struct sk\+\_\+buff $\ast$skb)
+\item 
+int \hyperlink{flow__netlink_8h_af5ab12e938f8564945464a9e110eace3}{ovs\+\_\+nla\+\_\+put\+\_\+mask} (const struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$flow, struct sk\+\_\+buff $\ast$skb)
+\item 
+int \hyperlink{flow__netlink_8h_a18f9d1fe8fdf314eace9559ea4a51d9b}{ovs\+\_\+nla\+\_\+get\+\_\+match} (struct \hyperlink{structsw__flow__match}{sw\+\_\+flow\+\_\+match} $\ast$, const struct nlattr $\ast$key, const struct nlattr $\ast$mask, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} log)
+\item 
+int \hyperlink{flow__netlink_8h_a3ee4389059beab6dfbf2ce436b0e5483}{ovs\+\_\+nla\+\_\+put\+\_\+egress\+\_\+tunnel\+\_\+key} (struct sk\+\_\+buff $\ast$, const struct \hyperlink{structovs__tunnel__info}{ovs\+\_\+tunnel\+\_\+info} $\ast$)
+\item 
+\hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{flow__netlink_8h_a97ac3692b5df3f22593f37746fe5f428}{ovs\+\_\+nla\+\_\+get\+\_\+ufid} (struct \hyperlink{structsw__flow__id}{sw\+\_\+flow\+\_\+id} $\ast$, const struct nlattr $\ast$, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} log)
+\item 
+int \hyperlink{flow__netlink_8h_aa416ab3b06ce40eee0be66306129c8d5}{ovs\+\_\+nla\+\_\+get\+\_\+identifier} (struct \hyperlink{structsw__flow__id}{sw\+\_\+flow\+\_\+id} $\ast$sfid, const struct nlattr $\ast$ufid, const struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} log)
+\item 
+u32 \hyperlink{flow__netlink_8h_a415cb727697a02d62b8ff40795337d40}{ovs\+\_\+nla\+\_\+get\+\_\+ufid\+\_\+flags} (const struct nlattr $\ast$attr)
+\item 
+int \hyperlink{flow__netlink_8h_a10dc93f8c379eae7a557d54d9b387dd6}{ovs\+\_\+nla\+\_\+copy\+\_\+actions} (const struct nlattr $\ast$attr, const struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$key, struct \hyperlink{structsw__flow__actions}{sw\+\_\+flow\+\_\+actions} $\ast$$\ast$sfa, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} log)
+\item 
+int \hyperlink{flow__netlink_8h_a923304ee69be1cfa52197b0f73c29e49}{ovs\+\_\+nla\+\_\+put\+\_\+actions} (const struct nlattr $\ast$attr, int len, struct sk\+\_\+buff $\ast$skb)
+\item 
+void \hyperlink{flow__netlink_8h_a6ead33c974a98707a46ff69758389258}{ovs\+\_\+nla\+\_\+free\+\_\+flow\+\_\+actions} (struct \hyperlink{structsw__flow__actions}{sw\+\_\+flow\+\_\+actions} $\ast$)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{flow__netlink_8h_a4ea1ec7f3650fd324fc1538c97e795d0}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+key\+\_\+attr\+\_\+size@{ovs\+\_\+key\+\_\+attr\+\_\+size}}
+\index{ovs\+\_\+key\+\_\+attr\+\_\+size@{ovs\+\_\+key\+\_\+attr\+\_\+size}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+key\+\_\+attr\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t ovs\+\_\+key\+\_\+attr\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a4ea1ec7f3650fd324fc1538c97e795d0}
+
+\begin{DoxyCode}
+280 \{
+281     \textcolor{comment}{/* Whenever adding new OVS\_KEY\_ FIELDS, we should consider}
+282 \textcolor{comment}{     * updating this function.}
+283 \textcolor{comment}{     */}
+284     BUILD\_BUG\_ON(OVS\_KEY\_ATTR\_TUNNEL\_INFO != 22);
+285 
+286     \textcolor{keywordflow}{return}    nla\_total\_size(4)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_PRIORITY */}
+287         + nla\_total\_size(0)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_TUNNEL */}
+288           + \hyperlink{flow__netlink_8c_ac920825ffe4fa75e7ca3c5e76ad4ec2a}{ovs\_tun\_key\_attr\_size}()
+289         + nla\_total\_size(4)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_IN\_PORT */}
+290         + nla\_total\_size(4)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_SKB\_MARK */}
+291         + nla\_total\_size(4)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_DP\_HASH */}
+292         + nla\_total\_size(4)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_RECIRC\_ID */}
+293         + nla\_total\_size(12)  \textcolor{comment}{/* OVS\_KEY\_ATTR\_ETHERNET */}
+294         + nla\_total\_size(2)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_ETHERTYPE */}
+295         + nla\_total\_size(4)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_VLAN */}
+296         + nla\_total\_size(0)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_ENCAP */}
+297         + nla\_total\_size(2)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_ETHERTYPE */}
+298         + nla\_total\_size(40)  \textcolor{comment}{/* OVS\_KEY\_ATTR\_IPV6 */}
+299         + nla\_total\_size(2)   \textcolor{comment}{/* OVS\_KEY\_ATTR\_ICMPV6 */}
+300         + nla\_total\_size(28); \textcolor{comment}{/* OVS\_KEY\_ATTR\_ND */}
+301 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a1a09e9d38844c59332975789573e994c}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+match\+\_\+init@{ovs\+\_\+match\+\_\+init}}
+\index{ovs\+\_\+match\+\_\+init@{ovs\+\_\+match\+\_\+init}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+match\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+match\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sw\+\_\+flow\+\_\+match} $\ast$}]{match, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+mask} $\ast$}]{mask}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a1a09e9d38844c59332975789573e994c}
+
+\begin{DoxyCode}
+1714 \{
+1715     memset(match, 0, \textcolor{keyword}{sizeof}(*match));
+1716     match->\hyperlink{structsw__flow__match_a4030aac38105b63798ea11f43f506372}{key} = key;
+1717     match->\hyperlink{structsw__flow__match_a4536aff731528d6def7d386435c203d1}{mask} = mask;
+1718 
+1719     memset(key, 0, \textcolor{keyword}{sizeof}(*key));
+1720 
+1721     \textcolor{keywordflow}{if} (mask) \{
+1722         memset(&mask->\hyperlink{structsw__flow__mask_a52db0284fdd4579a5f30dee0837a7485}{key}, 0, \textcolor{keyword}{sizeof}(mask->\hyperlink{structsw__flow__mask_a52db0284fdd4579a5f30dee0837a7485}{key}));
+1723         mask->\hyperlink{structsw__flow__mask_aa6062c0e580d516ff2d9ce8f9611432b}{range}.\hyperlink{structsw__flow__key__range_a3139158cea80b4e5af36967f3748e846}{start} = mask->\hyperlink{structsw__flow__mask_aa6062c0e580d516ff2d9ce8f9611432b}{range}.\hyperlink{structsw__flow__key__range_ab9c9d06e6ed2b9600d295dfdd94cc05a}{end} = 0;
+1724     \}
+1725 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a10dc93f8c379eae7a557d54d9b387dd6}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+copy\+\_\+actions@{ovs\+\_\+nla\+\_\+copy\+\_\+actions}}
+\index{ovs\+\_\+nla\+\_\+copy\+\_\+actions@{ovs\+\_\+nla\+\_\+copy\+\_\+actions}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+copy\+\_\+actions}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+nla\+\_\+copy\+\_\+actions (
+\begin{DoxyParamCaption}
+\item[{const struct nlattr $\ast$}]{attr, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+actions} $\ast$$\ast$}]{sfa, }
+\item[{{\bf bool}}]{log}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a10dc93f8c379eae7a557d54d9b387dd6}
+
+\begin{DoxyCode}
+2182 \{
+2183     \textcolor{keywordtype}{int} err;
+2184 
+2185     *sfa = \hyperlink{flow__netlink_8c_acf3273c812551499c4b4d48651548286}{nla\_alloc\_flow\_actions}(nla\_len(attr), log);
+2186     \textcolor{keywordflow}{if} (IS\_ERR(*sfa))
+2187         \textcolor{keywordflow}{return} PTR\_ERR(*sfa);
+2188 
+2189     err = \hyperlink{flow__netlink_8c_ae5c58b498948d3c5564b7916505d8455}{\_\_ovs\_nla\_copy\_actions}(attr, key, 0, sfa, key->
+      \hyperlink{structsw__flow__key_af3e10c978a3a2bf303b7d953ac6ff361}{eth}.\hyperlink{structsw__flow__key_af30defbb2a81c997e8747594e1d937a0}{type},
+2190                      key->\hyperlink{structsw__flow__key_af3e10c978a3a2bf303b7d953ac6ff361}{eth}.\hyperlink{structsw__flow__key_a56b27b9b9eafa8f79acd544eba98c7b0}{tci}, log);
+2191     \textcolor{keywordflow}{if} (err)
+2192         kfree(*sfa);
+2193 
+2194     \textcolor{keywordflow}{return} err;
+2195 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a6ead33c974a98707a46ff69758389258}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+free\+\_\+flow\+\_\+actions@{ovs\+\_\+nla\+\_\+free\+\_\+flow\+\_\+actions}}
+\index{ovs\+\_\+nla\+\_\+free\+\_\+flow\+\_\+actions@{ovs\+\_\+nla\+\_\+free\+\_\+flow\+\_\+actions}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+free\+\_\+flow\+\_\+actions}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+nla\+\_\+free\+\_\+flow\+\_\+actions (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sw\+\_\+flow\+\_\+actions} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a6ead33c974a98707a46ff69758389258}
+
+\begin{DoxyCode}
+1563 \{
+1564     call\_rcu(&sf\_acts->rcu, \hyperlink{flow__netlink_8c_a386dd5cb0c8be8ce91e59761cbf820b4}{rcu\_free\_acts\_callback});
+1565 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a4927521e590b588f48062031450e415d}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+get\+\_\+flow\+\_\+metadata@{ovs\+\_\+nla\+\_\+get\+\_\+flow\+\_\+metadata}}
+\index{ovs\+\_\+nla\+\_\+get\+\_\+flow\+\_\+metadata@{ovs\+\_\+nla\+\_\+get\+\_\+flow\+\_\+metadata}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+get\+\_\+flow\+\_\+metadata}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+nla\+\_\+get\+\_\+flow\+\_\+metadata (
+\begin{DoxyParamCaption}
+\item[{const struct nlattr $\ast$}]{attr, }
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{{\bf bool}}]{log}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a4927521e590b588f48062031450e415d}
+ovs\+\_\+nla\+\_\+get\+\_\+flow\+\_\+metadata -\/ parses Netlink attributes into a flow key. \+: Receives extracted in\+\_\+port, priority, tun\+\_\+key and skb\+\_\+mark. \+: Netlink attribute holding nested O\+V\+S\+\_\+\+K\+E\+Y\+\_\+\+A\+T\+T\+R\+\_\+$\ast$ Netlink attribute sequence. \+: Boolean to allow kernel error logging. Normally true, but when probing for feature compatibility this should be passed in as false to suppress unnecessary error logging.
+
+This parses a series of Netlink attributes that form a flow key, which must take the same form accepted by flow\+\_\+from\+\_\+nlattrs(), but only enough of it to get the metadata, that is, the parts of the flow key that cannot be extracted from the packet itself. 
+\begin{DoxyCode}
+1255 \{
+1256     \textcolor{keyword}{const} \textcolor{keyword}{struct }nlattr *a[\hyperlink{openvswitch_8h_a2a2adc6c47c38f0e7889580602ccbe22}{OVS\_KEY\_ATTR\_MAX} + 1];
+1257     \textcolor{keyword}{struct }\hyperlink{structsw__flow__match}{sw\_flow\_match} match;
+1258     u64 attrs = 0;
+1259     \textcolor{keywordtype}{int} err;
+1260 
+1261     err = \hyperlink{flow__netlink_8c_aafe0de49242cd0276fd5ced0fd81514f}{parse\_flow\_nlattrs}(attr, a, &attrs, log);
+1262     \textcolor{keywordflow}{if} (err)
+1263         \textcolor{keywordflow}{return} -EINVAL;
+1264 
+1265     memset(&match, 0, \textcolor{keyword}{sizeof}(match));
+1266     match.key = \hyperlink{structsw__flow__match_a4030aac38105b63798ea11f43f506372}{key};
+1267 
+1268     memset(key, 0, \hyperlink{flow_8h_aa38104b9e3106537d588a65cdce52e3a}{OVS\_SW\_FLOW\_KEY\_METADATA\_SIZE});
+1269     key->\hyperlink{structsw__flow__key_a57cbddb75a8d4fd859300bd34d98e84a}{phy}.\hyperlink{structsw__flow__key_a5848de18caa80d36d9bc60cc686a2c6e}{in\_port} = \hyperlink{datapath_8h_a73b117dd1ebe456eecfb7688047a03f1}{DP\_MAX\_PORTS};
+1270 
+1271     \textcolor{keywordflow}{return} \hyperlink{flow__netlink_8c_aed17f75c6136e01aa609132d5bbc9b2a}{metadata\_from\_nlattrs}(&match, &attrs, a, \textcolor{keyword}{false}, log);
+1272 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_aa416ab3b06ce40eee0be66306129c8d5}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+get\+\_\+identifier@{ovs\+\_\+nla\+\_\+get\+\_\+identifier}}
+\index{ovs\+\_\+nla\+\_\+get\+\_\+identifier@{ovs\+\_\+nla\+\_\+get\+\_\+identifier}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+get\+\_\+identifier}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+nla\+\_\+get\+\_\+identifier (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sw\+\_\+flow\+\_\+id} $\ast$}]{sfid, }
+\item[{const struct nlattr $\ast$}]{ufid, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{key, }
+\item[{{\bf bool}}]{log}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_aa416ab3b06ce40eee0be66306129c8d5}
+
+\begin{DoxyCode}
+1216 \{
+1217     \textcolor{keyword}{struct }\hyperlink{structsw__flow__key}{sw\_flow\_key} *new\_key;
+1218 
+1219     \textcolor{keywordflow}{if} (\hyperlink{flow__netlink_8c_a81e0cfe1c434ecde4ad684c8b8586877}{ovs\_nla\_get\_ufid}(sfid, ufid, log))
+1220         \textcolor{keywordflow}{return} 0;
+1221 
+1222     \textcolor{comment}{/* If UFID was not provided, use unmasked key. */}
+1223     new\_key = kmalloc(\textcolor{keyword}{sizeof}(*new\_key), GFP\_KERNEL);
+1224     \textcolor{keywordflow}{if} (!new\_key)
+1225         \textcolor{keywordflow}{return} -ENOMEM;
+1226     memcpy(new\_key, key, \textcolor{keyword}{sizeof}(*key));
+1227     sfid->\hyperlink{structsw__flow__id_a5d62dce79569cb8c25a43f4039e5df3c}{unmasked\_key} = new\_key;
+1228 
+1229     \textcolor{keywordflow}{return} 0;
+1230 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a18f9d1fe8fdf314eace9559ea4a51d9b}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+get\+\_\+match@{ovs\+\_\+nla\+\_\+get\+\_\+match}}
+\index{ovs\+\_\+nla\+\_\+get\+\_\+match@{ovs\+\_\+nla\+\_\+get\+\_\+match}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+get\+\_\+match}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+nla\+\_\+get\+\_\+match (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sw\+\_\+flow\+\_\+match} $\ast$}]{match, }
+\item[{const struct nlattr $\ast$}]{nla\+\_\+key, }
+\item[{const struct nlattr $\ast$}]{nla\+\_\+mask, }
+\item[{{\bf bool}}]{log}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a18f9d1fe8fdf314eace9559ea4a51d9b}
+ovs\+\_\+nla\+\_\+get\+\_\+match -\/ parses Netlink attributes into a flow key and mask. In case the \textquotesingle{}mask\textquotesingle{} is N\+U\+L\+L, the flow is treated as exact match flow. Otherwise, it is treated as a wildcarded flow, except the mask does not include any don\textquotesingle{}t care bit. \+: receives the extracted flow match information. \+: Netlink attribute holding nested O\+V\+S\+\_\+\+K\+E\+Y\+\_\+\+A\+T\+T\+R\+\_\+$\ast$ Netlink attribute sequence. The fields should of the packet that triggered the creation of this flow. \+: Optional. Netlink attribute holding nested O\+V\+S\+\_\+\+K\+E\+Y\+\_\+\+A\+T\+T\+R\+\_\+$\ast$ Netlink attribute specifies the mask field of the wildcarded flow. \+: Boolean to allow kernel error logging. Normally true, but when probing for feature compatibility this should be passed in as false to suppress unnecessary error logging. 
+\begin{DoxyCode}
+1045 \{
+1046     \textcolor{keyword}{const} \textcolor{keyword}{struct }nlattr *a[\hyperlink{openvswitch_8h_a2a2adc6c47c38f0e7889580602ccbe22}{OVS\_KEY\_ATTR\_MAX} + 1];
+1047     \textcolor{keyword}{const} \textcolor{keyword}{struct }nlattr *encap;
+1048     \textcolor{keyword}{struct }nlattr *newmask = NULL;
+1049     u64 key\_attrs = 0;
+1050     u64 mask\_attrs = 0;
+1051     \textcolor{keywordtype}{bool} encap\_valid = \textcolor{keyword}{false};
+1052     \textcolor{keywordtype}{int} err;
+1053 
+1054     err = \hyperlink{flow__netlink_8c_aafe0de49242cd0276fd5ced0fd81514f}{parse\_flow\_nlattrs}(nla\_key, a, &key\_attrs, log);
+1055     \textcolor{keywordflow}{if} (err)
+1056         \textcolor{keywordflow}{return} err;
+1057 
+1058     \textcolor{keywordflow}{if} ((key\_attrs & (1ULL << \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a75127b87d8a2f36ae2c9aae2cf42cd56}{OVS\_KEY\_ATTR\_ETHERNET})) &&
+1059         (key\_attrs & (1ULL << \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864aaccef1ecf941c78c70cf8a6a3374235a}{OVS\_KEY\_ATTR\_ETHERTYPE})) &&
+1060         (\hyperlink{net_2netlink_8h_a5a9bc877c8fdbf9b3f2f85536aabcae0}{nla\_get\_be16}(a[\hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864aaccef1ecf941c78c70cf8a6a3374235a}{OVS\_KEY\_ATTR\_ETHERTYPE}]) == htons(ETH\_P\_8021Q))) 
+      \{
+1061         \_\_be16 \hyperlink{flow_8h_a4528fe4db43b403cd959b50285d71b0c}{tci};
+1062 
+1063         \textcolor{keywordflow}{if} (!((key\_attrs & (1ULL << \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864ae513231d4612ed9b19551a7e70648005}{OVS\_KEY\_ATTR\_VLAN})) &&
+1064               (key\_attrs & (1ULL << \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a869b60116d7d6ac79bfad91cc808cf75}{OVS\_KEY\_ATTR\_ENCAP})))) \{
+1065             \hyperlink{datapath_8h_a54648b7a2c9b192074cd95eb945433f0}{OVS\_NLERR}(log, \textcolor{stringliteral}{"Invalid Vlan frame."});
+1066             \textcolor{keywordflow}{return} -EINVAL;
+1067         \}
+1068 
+1069         key\_attrs &= ~(1ULL << \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864aaccef1ecf941c78c70cf8a6a3374235a}{OVS\_KEY\_ATTR\_ETHERTYPE});
+1070         tci = \hyperlink{net_2netlink_8h_a5a9bc877c8fdbf9b3f2f85536aabcae0}{nla\_get\_be16}(a[\hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864ae513231d4612ed9b19551a7e70648005}{OVS\_KEY\_ATTR\_VLAN}]);
+1071         encap = a[\hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a869b60116d7d6ac79bfad91cc808cf75}{OVS\_KEY\_ATTR\_ENCAP}];
+1072         key\_attrs &= ~(1ULL << \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a869b60116d7d6ac79bfad91cc808cf75}{OVS\_KEY\_ATTR\_ENCAP});
+1073         encap\_valid = \textcolor{keyword}{true};
+1074 
+1075         \textcolor{keywordflow}{if} (tci & htons(\hyperlink{if__vlan_8h_ac8bf15be3fd1a3a63a2452fa05a83217}{VLAN\_TAG\_PRESENT})) \{
+1076             err = \hyperlink{flow__netlink_8c_aafe0de49242cd0276fd5ced0fd81514f}{parse\_flow\_nlattrs}(encap, a, &key\_attrs, log);
+1077             \textcolor{keywordflow}{if} (err)
+1078                 \textcolor{keywordflow}{return} err;
+1079         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!tci) \{
+1080             \textcolor{comment}{/* Corner case for truncated 802.1Q header. */}
+1081             \textcolor{keywordflow}{if} (nla\_len(encap)) \{
+1082                 \hyperlink{datapath_8h_a54648b7a2c9b192074cd95eb945433f0}{OVS\_NLERR}(log, \textcolor{stringliteral}{"Truncated 802.1Q header has non-zero encap attribute."});
+1083                 \textcolor{keywordflow}{return} -EINVAL;
+1084             \}
+1085         \} \textcolor{keywordflow}{else} \{
+1086             \hyperlink{datapath_8h_a54648b7a2c9b192074cd95eb945433f0}{OVS\_NLERR}(log, \textcolor{stringliteral}{"Encap attr is set for non-VLAN frame"});
+1087             \textcolor{keywordflow}{return}  -EINVAL;
+1088         \}
+1089     \}
+1090 
+1091     err = \hyperlink{flow__netlink_8c_a7e2f54c332f7bdac73756972da69ad53}{ovs\_key\_from\_nlattrs}(match, key\_attrs, a, \textcolor{keyword}{false}, log);
+1092     \textcolor{keywordflow}{if} (err)
+1093         \textcolor{keywordflow}{return} err;
+1094 
+1095     \textcolor{keywordflow}{if} (match->\hyperlink{structsw__flow__match_a4536aff731528d6def7d386435c203d1}{mask}) \{
+1096         \textcolor{keywordflow}{if} (!nla\_mask) \{
+1097             \textcolor{comment}{/* Create an exact match mask. We need to set to 0xff}
+1098 \textcolor{comment}{             * all the 'match->mask' fields that have been touched}
+1099 \textcolor{comment}{             * in 'match->key'. We cannot simply memset}
+1100 \textcolor{comment}{             * 'match->mask', because padding bytes and fields not}
+1101 \textcolor{comment}{             * specified in 'match->key' should be left to 0.}
+1102 \textcolor{comment}{             * Instead, we use a stream of netlink attributes,}
+1103 \textcolor{comment}{             * copied from 'key' and set to 0xff.}
+1104 \textcolor{comment}{             * ovs\_key\_from\_nlattrs() will take care of filling}
+1105 \textcolor{comment}{             * 'match->mask' appropriately.}
+1106 \textcolor{comment}{             */}
+1107             newmask = kmemdup(nla\_key,
+1108                       nla\_total\_size(nla\_len(nla\_key)),
+1109                       GFP\_KERNEL);
+1110             \textcolor{keywordflow}{if} (!newmask)
+1111                 \textcolor{keywordflow}{return} -ENOMEM;
+1112 
+1113             \hyperlink{flow__netlink_8c_aa862995e0363dbb698ee51eb1be8a40c}{mask\_set\_nlattr}(newmask, 0xff);
+1114 
+1115             \textcolor{comment}{/* The userspace does not send tunnel attributes that}
+1116 \textcolor{comment}{             * are 0, but we should not wildcard them nonetheless.}
+1117 \textcolor{comment}{             */}
+1118             \textcolor{keywordflow}{if} (match->\hyperlink{structsw__flow__match_a4030aac38105b63798ea11f43f506372}{key}->\hyperlink{structsw__flow__key_a2f87b7690c0cc2797f1f4347589472c3}{tun\_key}.\hyperlink{structovs__key__ipv4__tunnel_ae443d381a97f53bbc4139fe36c0aae30}{ipv4\_dst})
+1119                 \hyperlink{flow__netlink_8c_a428fac9f6cc49614e07de128b9e4869f}{SW\_FLOW\_KEY\_MEMSET\_FIELD}(match, \hyperlink{flow_8h_a904e9497acde49a1992636f77597c5c7}{tun\_key},
+1120                              0xff, \textcolor{keyword}{true});
+1121 
+1122             nla\_mask = newmask;
+1123         \}
+1124 
+1125         err = \hyperlink{flow__netlink_8c_a4a090c5659903b6b8d125ab7598ad1a6}{parse\_flow\_mask\_nlattrs}(nla\_mask, a, &mask\_attrs, log);
+1126         \textcolor{keywordflow}{if} (err)
+1127             \textcolor{keywordflow}{goto} free\_newmask;
+1128 
+1129         \textcolor{comment}{/* Always match on tci. */}
+1130         \hyperlink{flow__netlink_8c_a7cb040299f14f8ff8806dd868c321d7b}{SW\_FLOW\_KEY\_PUT}(match, \hyperlink{flow_8h_a1679a3c93391059deba58179f52c86a6}{eth}.tci, htons(0xffff), \textcolor{keyword}{true});
+1131 
+1132         \textcolor{keywordflow}{if} (mask\_attrs & 1ULL << \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a869b60116d7d6ac79bfad91cc808cf75}{OVS\_KEY\_ATTR\_ENCAP}) \{
+1133             \_\_be16 eth\_type = 0;
+1134             \_\_be16 tci = 0;
+1135 
+1136             \textcolor{keywordflow}{if} (!encap\_valid) \{
+1137                 \hyperlink{datapath_8h_a54648b7a2c9b192074cd95eb945433f0}{OVS\_NLERR}(log, \textcolor{stringliteral}{"Encap mask attribute is set for non-VLAN frame."});
+1138                 err = -EINVAL;
+1139                 \textcolor{keywordflow}{goto} free\_newmask;
+1140             \}
+1141 
+1142             mask\_attrs &= ~(1ULL << \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a869b60116d7d6ac79bfad91cc808cf75}{OVS\_KEY\_ATTR\_ENCAP});
+1143             \textcolor{keywordflow}{if} (a[OVS\_KEY\_ATTR\_ETHERTYPE])
+1144                 eth\_type = \hyperlink{net_2netlink_8h_a5a9bc877c8fdbf9b3f2f85536aabcae0}{nla\_get\_be16}(a[OVS\_KEY\_ATTR\_ETHERTYPE]);
+1145 
+1146             \textcolor{keywordflow}{if} (eth\_type == htons(0xffff)) \{
+1147                 mask\_attrs &= ~(1ULL << \hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864aaccef1ecf941c78c70cf8a6a3374235a}{OVS\_KEY\_ATTR\_ETHERTYPE});
+1148                 encap = a[\hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864a869b60116d7d6ac79bfad91cc808cf75}{OVS\_KEY\_ATTR\_ENCAP}];
+1149                 err = \hyperlink{flow__netlink_8c_a4a090c5659903b6b8d125ab7598ad1a6}{parse\_flow\_mask\_nlattrs}(encap, a,
+1150                                   &mask\_attrs, log);
+1151                 \textcolor{keywordflow}{if} (err)
+1152                     \textcolor{keywordflow}{goto} free\_newmask;
+1153             \} \textcolor{keywordflow}{else} \{
+1154                 \hyperlink{datapath_8h_a54648b7a2c9b192074cd95eb945433f0}{OVS\_NLERR}(log, \textcolor{stringliteral}{"VLAN frames must have an exact match on the TPID (mask=%x)."},
+1155                       ntohs(eth\_type));
+1156                 err = -EINVAL;
+1157                 \textcolor{keywordflow}{goto} free\_newmask;
+1158             \}
+1159 
+1160             \textcolor{keywordflow}{if} (a[\hyperlink{openvswitch_8h_a6a279bc7098c9bc819c12355c9e07864ae513231d4612ed9b19551a7e70648005}{OVS\_KEY\_ATTR\_VLAN}])
+1161                 tci = \hyperlink{net_2netlink_8h_a5a9bc877c8fdbf9b3f2f85536aabcae0}{nla\_get\_be16}(a[OVS\_KEY\_ATTR\_VLAN]);
+1162 
+1163             \textcolor{keywordflow}{if} (!(tci & htons(\hyperlink{if__vlan_8h_ac8bf15be3fd1a3a63a2452fa05a83217}{VLAN\_TAG\_PRESENT}))) \{
+1164                 \hyperlink{datapath_8h_a54648b7a2c9b192074cd95eb945433f0}{OVS\_NLERR}(log, \textcolor{stringliteral}{"VLAN tag present bit must have an exact match (tci\_mask=%x)."},
+1165                       ntohs(tci));
+1166                 err = -EINVAL;
+1167                 \textcolor{keywordflow}{goto} free\_newmask;
+1168             \}
+1169         \}
+1170 
+1171         err = \hyperlink{flow__netlink_8c_a7e2f54c332f7bdac73756972da69ad53}{ovs\_key\_from\_nlattrs}(match, mask\_attrs, a, \textcolor{keyword}{true}, log);
+1172         \textcolor{keywordflow}{if} (err)
+1173             \textcolor{keywordflow}{goto} free\_newmask;
+1174     \}
+1175 
+1176     \textcolor{keywordflow}{if} (!\hyperlink{flow__netlink_8c_ab4be6b01938d3a8f5a14bc787cb2b0b2}{match\_validate}(match, key\_attrs, mask\_attrs, log))
+1177         err = -EINVAL;
+1178 
+1179 free\_newmask:
+1180     kfree(newmask);
+1181     \textcolor{keywordflow}{return} err;
+1182 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a97ac3692b5df3f22593f37746fe5f428}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+get\+\_\+ufid@{ovs\+\_\+nla\+\_\+get\+\_\+ufid}}
+\index{ovs\+\_\+nla\+\_\+get\+\_\+ufid@{ovs\+\_\+nla\+\_\+get\+\_\+ufid}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+get\+\_\+ufid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} ovs\+\_\+nla\+\_\+get\+\_\+ufid (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sw\+\_\+flow\+\_\+id} $\ast$}]{, }
+\item[{const struct nlattr $\ast$}]{, }
+\item[{{\bf bool}}]{log}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a97ac3692b5df3f22593f37746fe5f428}
+
+\begin{DoxyCode}
+1206 \{
+1207     sfid->ufid\_len = \hyperlink{flow__netlink_8c_a5189e471b5832c9371b45c5e58ca5b41}{get\_ufid\_len}(attr, log);
+1208     \textcolor{keywordflow}{if} (sfid->ufid\_len)
+1209         memcpy(sfid->ufid, nla\_data(attr), sfid->ufid\_len);
+1210 
+1211     \textcolor{keywordflow}{return} sfid->ufid\_len;
+1212 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a415cb727697a02d62b8ff40795337d40}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+get\+\_\+ufid\+\_\+flags@{ovs\+\_\+nla\+\_\+get\+\_\+ufid\+\_\+flags}}
+\index{ovs\+\_\+nla\+\_\+get\+\_\+ufid\+\_\+flags@{ovs\+\_\+nla\+\_\+get\+\_\+ufid\+\_\+flags}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+get\+\_\+ufid\+\_\+flags}]{\setlength{\rightskip}{0pt plus 5cm}u32 ovs\+\_\+nla\+\_\+get\+\_\+ufid\+\_\+flags (
+\begin{DoxyParamCaption}
+\item[{const struct nlattr $\ast$}]{attr}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a415cb727697a02d62b8ff40795337d40}
+
+\begin{DoxyCode}
+1233 \{
+1234     \textcolor{keywordflow}{return} attr ? nla\_get\_u32(attr) : 0;
+1235 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a923304ee69be1cfa52197b0f73c29e49}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+put\+\_\+actions@{ovs\+\_\+nla\+\_\+put\+\_\+actions}}
+\index{ovs\+\_\+nla\+\_\+put\+\_\+actions@{ovs\+\_\+nla\+\_\+put\+\_\+actions}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+put\+\_\+actions}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+nla\+\_\+put\+\_\+actions (
+\begin{DoxyParamCaption}
+\item[{const struct nlattr $\ast$}]{attr, }
+\item[{int}]{len, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a923304ee69be1cfa52197b0f73c29e49}
+
+\begin{DoxyCode}
+2282 \{
+2283     \textcolor{keyword}{const} \textcolor{keyword}{struct }nlattr *a;
+2284     \textcolor{keywordtype}{int} rem, err;
+2285 
+2286     nla\_for\_each\_attr(a, attr, len, rem) \{
+2287         \textcolor{keywordtype}{int} \hyperlink{flow_8h_ab22aaab04f806700def00f32823fcb9e}{type} = nla\_type(a);
+2288 
+2289         \textcolor{keywordflow}{switch} (type) \{
+2290         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26eaff937deb7687d0dd4b073c27aed9c8be}{OVS\_ACTION\_ATTR\_SET}:
+2291             err = \hyperlink{flow__netlink_8c_af38f12c35d382eb717bb6e5b4fba2309}{set\_action\_to\_attr}(a, skb);
+2292             \textcolor{keywordflow}{if} (err)
+2293                 \textcolor{keywordflow}{return} err;
+2294             \textcolor{keywordflow}{break};
+2295 
+2296         \textcolor{keywordflow}{case} OVS\_ACTION\_ATTR\_SET\_TO\_MASKED:
+2297             err = \hyperlink{flow__netlink_8c_a14e859cc22996f05850ca737daf2ee09}{masked\_set\_action\_to\_set\_action\_attr}(a, skb);
+2298             \textcolor{keywordflow}{if} (err)
+2299                 \textcolor{keywordflow}{return} err;
+2300             \textcolor{keywordflow}{break};
+2301 
+2302         \textcolor{keywordflow}{case} \hyperlink{openvswitch_8h_affc4a4d29437ad03a23444243e2db26eaddc6f70b9e8501e5bb90548373faf734}{OVS\_ACTION\_ATTR\_SAMPLE}:
+2303             err = \hyperlink{flow__netlink_8c_a92621d7eaed9e960f5e5d7b72e501db0}{sample\_action\_to\_attr}(a, skb);
+2304             \textcolor{keywordflow}{if} (err)
+2305                 \textcolor{keywordflow}{return} err;
+2306             \textcolor{keywordflow}{break};
+2307         \textcolor{keywordflow}{default}:
+2308             \textcolor{keywordflow}{if} (nla\_put(skb, type, nla\_len(a), nla\_data(a)))
+2309                 \textcolor{keywordflow}{return} -EMSGSIZE;
+2310             \textcolor{keywordflow}{break};
+2311         \}
+2312     \}
+2313 
+2314     \textcolor{keywordflow}{return} 0;
+2315 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a3ee4389059beab6dfbf2ce436b0e5483}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+put\+\_\+egress\+\_\+tunnel\+\_\+key@{ovs\+\_\+nla\+\_\+put\+\_\+egress\+\_\+tunnel\+\_\+key}}
+\index{ovs\+\_\+nla\+\_\+put\+\_\+egress\+\_\+tunnel\+\_\+key@{ovs\+\_\+nla\+\_\+put\+\_\+egress\+\_\+tunnel\+\_\+key}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+put\+\_\+egress\+\_\+tunnel\+\_\+key}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+nla\+\_\+put\+\_\+egress\+\_\+tunnel\+\_\+key (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{, }
+\item[{const struct {\bf ovs\+\_\+tunnel\+\_\+info} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a3ee4389059beab6dfbf2ce436b0e5483}
+
+\begin{DoxyCode}
+710 \{
+711     \textcolor{keywordflow}{return} \hyperlink{flow__netlink_8c_ac7f453fb68977c7a24d7af50f18b43db}{\_\_ipv4\_tun\_to\_nlattr}(skb, &egress\_tun\_info->tunnel,
+712                     egress\_tun\_info->options,
+713                     egress\_tun\_info->options\_len);
+714 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a636f7d3cbe8656ceda87373110a4abc4}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+put\+\_\+identifier@{ovs\+\_\+nla\+\_\+put\+\_\+identifier}}
+\index{ovs\+\_\+nla\+\_\+put\+\_\+identifier@{ovs\+\_\+nla\+\_\+put\+\_\+identifier}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+put\+\_\+identifier}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+nla\+\_\+put\+\_\+identifier (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf sw\+\_\+flow} $\ast$}]{flow, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a636f7d3cbe8656ceda87373110a4abc4}
+
+\begin{DoxyCode}
+1509 \{
+1510     \textcolor{keywordflow}{if} (\hyperlink{flow_8h_a995966854ceb0b5a72ff027c12ccf426}{ovs\_identifier\_is\_ufid}(&flow->\hyperlink{structsw__flow_a6e6645eec909d54871675be30000c0b9}{id}))
+1511         \textcolor{keywordflow}{return} nla\_put(skb, \hyperlink{openvswitch_8h_a57b731cb45ac4bf32234fbf071e9c554a0d2822e9d4b6fa37c54dd8b693c2b465}{OVS\_FLOW\_ATTR\_UFID}, flow->\hyperlink{structsw__flow_a6e6645eec909d54871675be30000c0b9}{id}.
+      \hyperlink{structsw__flow__id_a7cfead96fedf295e55d6a17857adfbf5}{ufid\_len},
+1512                    flow->\hyperlink{structsw__flow_a6e6645eec909d54871675be30000c0b9}{id}.\hyperlink{structsw__flow__id_a22ce2b1fed980149931fbccb05750f3e}{ufid});
+1513 
+1514     \textcolor{keywordflow}{return} \hyperlink{flow__netlink_8c_a845412e2f8f2bcb48df005e857474fcb}{ovs\_nla\_put\_key}(flow->\hyperlink{structsw__flow_a6e6645eec909d54871675be30000c0b9}{id}.\hyperlink{structsw__flow__id_a5d62dce79569cb8c25a43f4039e5df3c}{unmasked\_key}, flow->
+      \hyperlink{structsw__flow_a6e6645eec909d54871675be30000c0b9}{id}.\hyperlink{structsw__flow__id_a5d62dce79569cb8c25a43f4039e5df3c}{unmasked\_key},
+1515                    \hyperlink{openvswitch_8h_a57b731cb45ac4bf32234fbf071e9c554a0d310e7624962a1b4c5212459995a5c9}{OVS\_FLOW\_ATTR\_KEY}, \textcolor{keyword}{false}, skb);
+1516 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_ab52f962a5af3e769831e94b28a56171f}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+put\+\_\+key@{ovs\+\_\+nla\+\_\+put\+\_\+key}}
+\index{ovs\+\_\+nla\+\_\+put\+\_\+key@{ovs\+\_\+nla\+\_\+put\+\_\+key}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+put\+\_\+key}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+nla\+\_\+put\+\_\+key (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{, }
+\item[{int}]{attr, }
+\item[{{\bf bool}}]{is\+\_\+mask, }
+\item[{struct sk\+\_\+buff $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_ab52f962a5af3e769831e94b28a56171f}
+
+\begin{DoxyCode}
+1492 \{
+1493     \textcolor{keywordtype}{int} err;
+1494     \textcolor{keyword}{struct }nlattr *nla;
+1495 
+1496     nla = nla\_nest\_start(skb, attr);
+1497     \textcolor{keywordflow}{if} (!nla)
+1498         \textcolor{keywordflow}{return} -EMSGSIZE;
+1499     err = \hyperlink{flow__netlink_8c_a469e9434d0bedd721b2e31a106799335}{\_\_ovs\_nla\_put\_key}(swkey, output, is\_mask, skb);
+1500     \textcolor{keywordflow}{if} (err)
+1501         \textcolor{keywordflow}{return} err;
+1502     nla\_nest\_end(skb, nla);
+1503 
+1504     \textcolor{keywordflow}{return} 0;
+1505 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_af5ab12e938f8564945464a9e110eace3}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+put\+\_\+mask@{ovs\+\_\+nla\+\_\+put\+\_\+mask}}
+\index{ovs\+\_\+nla\+\_\+put\+\_\+mask@{ovs\+\_\+nla\+\_\+put\+\_\+mask}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+put\+\_\+mask}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+nla\+\_\+put\+\_\+mask (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf sw\+\_\+flow} $\ast$}]{flow, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_af5ab12e938f8564945464a9e110eace3}
+
+\begin{DoxyCode}
+1527 \{
+1528     \textcolor{keywordflow}{return} \hyperlink{flow__netlink_8c_a845412e2f8f2bcb48df005e857474fcb}{ovs\_nla\_put\_key}(&flow->\hyperlink{structsw__flow_a14b83cbd65275bda4e97ae35500d26d8}{key}, &flow->\hyperlink{structsw__flow_a89c162e340693d0bb4977737e2b68c22}{mask}->\hyperlink{structsw__flow__mask_a52db0284fdd4579a5f30dee0837a7485}{key},
+1529                 \hyperlink{openvswitch_8h_a57b731cb45ac4bf32234fbf071e9c554a355a203b089e115abb28ea003dc5822c}{OVS\_FLOW\_ATTR\_MASK}, \textcolor{keyword}{true}, skb);
+1530 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_a2f6c3ab02b8e5d6296278dc9214500eb}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+nla\+\_\+put\+\_\+masked\+\_\+key@{ovs\+\_\+nla\+\_\+put\+\_\+masked\+\_\+key}}
+\index{ovs\+\_\+nla\+\_\+put\+\_\+masked\+\_\+key@{ovs\+\_\+nla\+\_\+put\+\_\+masked\+\_\+key}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+nla\+\_\+put\+\_\+masked\+\_\+key}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+nla\+\_\+put\+\_\+masked\+\_\+key (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf sw\+\_\+flow} $\ast$}]{flow, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_a2f6c3ab02b8e5d6296278dc9214500eb}
+
+\begin{DoxyCode}
+1520 \{
+1521     \textcolor{keywordflow}{return} \hyperlink{flow__netlink_8c_a845412e2f8f2bcb48df005e857474fcb}{ovs\_nla\_put\_key}(&flow->\hyperlink{structsw__flow_a14b83cbd65275bda4e97ae35500d26d8}{key}, &flow->\hyperlink{structsw__flow_a14b83cbd65275bda4e97ae35500d26d8}{key},
+1522                 \hyperlink{openvswitch_8h_a57b731cb45ac4bf32234fbf071e9c554a0d310e7624962a1b4c5212459995a5c9}{OVS\_FLOW\_ATTR\_KEY}, \textcolor{keyword}{false}, skb);
+1523 \}
+\end{DoxyCode}
+\hypertarget{flow__netlink_8h_ac920825ffe4fa75e7ca3c5e76ad4ec2a}{}\index{flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}!ovs\+\_\+tun\+\_\+key\+\_\+attr\+\_\+size@{ovs\+\_\+tun\+\_\+key\+\_\+attr\+\_\+size}}
+\index{ovs\+\_\+tun\+\_\+key\+\_\+attr\+\_\+size@{ovs\+\_\+tun\+\_\+key\+\_\+attr\+\_\+size}!flow\+\_\+netlink.\+h@{flow\+\_\+netlink.\+h}}
+\subsubsection[{ovs\+\_\+tun\+\_\+key\+\_\+attr\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}size\+\_\+t ovs\+\_\+tun\+\_\+key\+\_\+attr\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{flow__netlink_8h_ac920825ffe4fa75e7ca3c5e76ad4ec2a}
+
+\begin{DoxyCode}
+259 \{
+260     \textcolor{comment}{/* Whenever adding new OVS\_TUNNEL\_KEY\_ FIELDS, we should consider}
+261 \textcolor{comment}{     * updating this function.}
+262 \textcolor{comment}{     */}
+263     \textcolor{keywordflow}{return}    nla\_total\_size(8)    \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_ID */}
+264         + nla\_total\_size(4)    \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_IPV4\_SRC */}
+265         + nla\_total\_size(4)    \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_IPV4\_DST */}
+266         + nla\_total\_size(1)    \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_TOS */}
+267         + nla\_total\_size(1)    \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_TTL */}
+268         + nla\_total\_size(0)    \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_DONT\_FRAGMENT */}
+269         + nla\_total\_size(0)    \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_CSUM */}
+270         + nla\_total\_size(0)    \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_OAM */}
+271         + nla\_total\_size(256)  \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_GENEVE\_OPTS */}
+272         \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_VXLAN\_OPTS is mutually exclusive with}
+273 \textcolor{comment}{         * OVS\_TUNNEL\_KEY\_ATTR\_GENEVE\_OPTS and covered by it.}
+274 \textcolor{comment}{         */}
+275         + nla\_total\_size(2)    \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_TP\_SRC */}
+276         + nla\_total\_size(2);   \textcolor{comment}{/* OVS\_TUNNEL\_KEY\_ATTR\_TP\_DST */}
+277 \}
+\end{DoxyCode}

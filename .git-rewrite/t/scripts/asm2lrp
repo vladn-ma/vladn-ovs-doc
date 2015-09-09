@@ -1,0 +1,14 @@
+# sed script
+# reformat microcode from old asm format to new lrp format
+# use:
+# sed -f asm2lrp source_file > dest_file 
+
+# replace define of the registers to the assign
+#s/define[ \t]\+\([a-zA-Z0-9_]\+\)[ \t]\+\(R\([0-9[#\:]\|]\)\+\)/assign \2 \1/
+s/define[ \t]\+\([a-zA-Z0-9_]\+\)[ \t]\+\([a-oq-zA-OQ-Z0-9_]\+\([0-9[#\:]\|]\)\+\)/assign \2 \1/
+
+#replace upper case register names to low case
+s/R/r/g
+
+# replace define to the @define
+s/define/@&/

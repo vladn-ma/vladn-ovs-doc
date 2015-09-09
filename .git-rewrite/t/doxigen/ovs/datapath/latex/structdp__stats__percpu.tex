@@ -1,0 +1,55 @@
+\hypertarget{structdp__stats__percpu}{}\section{dp\+\_\+stats\+\_\+percpu Struct Reference}
+\label{structdp__stats__percpu}\index{dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}}
+
+
+{\ttfamily \#include $<$datapath.\+h$>$}
+
+
+
+Collaboration diagram for dp\+\_\+stats\+\_\+percpu\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=169pt]{structdp__stats__percpu__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+u64 \hyperlink{structdp__stats__percpu_add53281b86504a50626cce7fac173d5b}{n\+\_\+hit}
+\item 
+u64 \hyperlink{structdp__stats__percpu_ab919c22c9548a3dcd42632fb84634e26}{n\+\_\+missed}
+\item 
+u64 \hyperlink{structdp__stats__percpu_abecbd535feefeb9ff1721ca6e517c310}{n\+\_\+lost}
+\item 
+u64 \hyperlink{structdp__stats__percpu_acbf57615b1fb66464f9e67efb32bd038}{n\+\_\+mask\+\_\+hit}
+\item 
+struct \hyperlink{structu64__stats__sync}{u64\+\_\+stats\+\_\+sync} \hyperlink{structdp__stats__percpu_ad67971f59f6db5432848db23d185dc2f}{syncp}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+struct \hyperlink{structdp__stats__percpu}{dp\+\_\+stats\+\_\+percpu} -\/ per-\/cpu packet processing statistics for a given datapath. \+: Number of received packets for which a matching flow was found in the flow table. \+: Number of received packets that had no matching flow in the flow table. The sum of  and  is the number of packets that have been received by the datapath. \+: Number of received packets that had no matching flow in the flow table that could not be sent to userspace (normally due to an overflow in one of the datapath\textquotesingle{}s queues). \+: Number of masks looked up for flow match.  / ( + ) will be the average masks looked up per packet. 
+
+\subsection{Field Documentation}
+\hypertarget{structdp__stats__percpu_add53281b86504a50626cce7fac173d5b}{}\index{dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}!n\+\_\+hit@{n\+\_\+hit}}
+\index{n\+\_\+hit@{n\+\_\+hit}!dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}}
+\subsubsection[{n\+\_\+hit}]{\setlength{\rightskip}{0pt plus 5cm}u64 dp\+\_\+stats\+\_\+percpu\+::n\+\_\+hit}\label{structdp__stats__percpu_add53281b86504a50626cce7fac173d5b}
+\hypertarget{structdp__stats__percpu_abecbd535feefeb9ff1721ca6e517c310}{}\index{dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}!n\+\_\+lost@{n\+\_\+lost}}
+\index{n\+\_\+lost@{n\+\_\+lost}!dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}}
+\subsubsection[{n\+\_\+lost}]{\setlength{\rightskip}{0pt plus 5cm}u64 dp\+\_\+stats\+\_\+percpu\+::n\+\_\+lost}\label{structdp__stats__percpu_abecbd535feefeb9ff1721ca6e517c310}
+\hypertarget{structdp__stats__percpu_acbf57615b1fb66464f9e67efb32bd038}{}\index{dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}!n\+\_\+mask\+\_\+hit@{n\+\_\+mask\+\_\+hit}}
+\index{n\+\_\+mask\+\_\+hit@{n\+\_\+mask\+\_\+hit}!dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}}
+\subsubsection[{n\+\_\+mask\+\_\+hit}]{\setlength{\rightskip}{0pt plus 5cm}u64 dp\+\_\+stats\+\_\+percpu\+::n\+\_\+mask\+\_\+hit}\label{structdp__stats__percpu_acbf57615b1fb66464f9e67efb32bd038}
+\hypertarget{structdp__stats__percpu_ab919c22c9548a3dcd42632fb84634e26}{}\index{dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}!n\+\_\+missed@{n\+\_\+missed}}
+\index{n\+\_\+missed@{n\+\_\+missed}!dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}}
+\subsubsection[{n\+\_\+missed}]{\setlength{\rightskip}{0pt plus 5cm}u64 dp\+\_\+stats\+\_\+percpu\+::n\+\_\+missed}\label{structdp__stats__percpu_ab919c22c9548a3dcd42632fb84634e26}
+\hypertarget{structdp__stats__percpu_ad67971f59f6db5432848db23d185dc2f}{}\index{dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}!syncp@{syncp}}
+\index{syncp@{syncp}!dp\+\_\+stats\+\_\+percpu@{dp\+\_\+stats\+\_\+percpu}}
+\subsubsection[{syncp}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf u64\+\_\+stats\+\_\+sync} dp\+\_\+stats\+\_\+percpu\+::syncp}\label{structdp__stats__percpu_ad67971f59f6db5432848db23d185dc2f}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/vladn/git/ovs/datapath/\hyperlink{datapath_8h}{datapath.\+h}\end{DoxyCompactItemize}

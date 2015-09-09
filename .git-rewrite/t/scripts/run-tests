@@ -1,0 +1,2 @@
+runtest --tool fe2k.asm2-constraints r-000.exp 
+runtest --tool fe2k.asm2-constraints BUG=25580

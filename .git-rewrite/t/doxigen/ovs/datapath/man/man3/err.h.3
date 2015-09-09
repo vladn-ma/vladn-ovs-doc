@@ -1,0 +1,42 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/linux/err.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/linux/err.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void * \fBERR_CAST\fP (const void *ptr)"
+.br
+.ti -1c
+.RI "static \fBbool\fP __must_check \fBIS_ERR_OR_NULL\fP (__force const void *ptr)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "static void* ERR_CAST (const void * ptr)\fC [inline]\fP, \fC [static]\fP"
+ERR_CAST - Explicitly cast an error-valued pointer to another pointer type : The pointer to cast\&.
+.PP
+Explicitly cast an error-valued pointer to another pointer type in such a way as to make it clear that's what's going on\&. 
+.PP
+.nf
+15 {
+16     /* cast away the const */
+17     return (void *) ptr;
+18 }
+.fi
+.SS "static \fBbool\fP __must_check IS_ERR_OR_NULL (__force const void * ptr)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+23 {
+24     return !ptr || IS_ERR_VALUE((unsigned long)ptr);
+25 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

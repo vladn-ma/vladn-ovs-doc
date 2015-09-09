@@ -1,0 +1,34 @@
+#!/bin/bash
+
+############################
+# muse - Multi Sed
+# this script will find files using pattern 
+# given by the first argument, default is *.tm
+# pattern must be given in the quota marks like '*.txt'
+# and replace them with the rezulting after processed by sed 
+# using sed command string given as second argument, 
+# default is 's/test/&-&/g'
+# prints out number of processed files
+############################
+
+fnum=0
+defadd=__
+tmp=
+patsrc=$1
+if [ -z "$patsrc" ]; then patsrc="*.test"
+fi
+
+patsed="$2"
+if [ -z "$patsed" ]; then patsed="s/test/&-&/g"
+fi
+
+for file in $(find . -iname "$patsrc" )
+do
+let "fnum += 1"
+tmp="$file$defadd"
+rm -f $tmp
+sed $patsed $file > $tmp
+mv -f $tmp $file
+done
+
+echo "processed files : " $fnum

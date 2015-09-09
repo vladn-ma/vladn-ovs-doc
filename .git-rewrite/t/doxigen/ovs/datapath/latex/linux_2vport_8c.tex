@@ -1,0 +1,913 @@
+\hypertarget{linux_2vport_8c}{}\section{/home/vladn/git/ovs/datapath/linux/vport.c File Reference}
+\label{linux_2vport_8c}\index{/home/vladn/git/ovs/datapath/linux/vport.\+c@{/home/vladn/git/ovs/datapath/linux/vport.\+c}}
+{\ttfamily \#include $<$linux/etherdevice.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+vlan.\+h$>$}\\*
+{\ttfamily \#include $<$linux/jhash.\+h$>$}\\*
+{\ttfamily \#include $<$linux/kconfig.\+h$>$}\\*
+{\ttfamily \#include $<$linux/kernel.\+h$>$}\\*
+{\ttfamily \#include $<$linux/list.\+h$>$}\\*
+{\ttfamily \#include $<$linux/module.\+h$>$}\\*
+{\ttfamily \#include $<$linux/mutex.\+h$>$}\\*
+{\ttfamily \#include $<$linux/percpu.\+h$>$}\\*
+{\ttfamily \#include $<$linux/rcupdate.\+h$>$}\\*
+{\ttfamily \#include $<$linux/rtnetlink.\+h$>$}\\*
+{\ttfamily \#include $<$linux/compat.\+h$>$}\\*
+{\ttfamily \#include $<$linux/version.\+h$>$}\\*
+{\ttfamily \#include $<$net/net\+\_\+namespace.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}datapath.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gso.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}vport.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}vport-\/internal\+\_\+dev.\+h\char`\"{}}\\*
+Include dependency graph for vport.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux_2vport_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{linux_2vport_8c_a46b55d1d4d6cc07a83259f332ff555ad}{V\+P\+O\+R\+T\+\_\+\+H\+A\+S\+H\+\_\+\+B\+U\+C\+K\+E\+T\+S}~1024
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{linux_2vport_8c_ac0267e32e1fa59b1557702c6a381546f}{L\+I\+S\+T\+\_\+\+H\+E\+A\+D} (vport\+\_\+ops\+\_\+list)
+\item 
+int \hyperlink{linux_2vport_8c_aacc501a60108d387b8fd7535c2e6168f}{ovs\+\_\+vport\+\_\+init} (void)
+\item 
+void \hyperlink{linux_2vport_8c_a32e04c9d5d25cb3b7e23a297dc65fc6a}{ovs\+\_\+vport\+\_\+exit} (void)
+\item 
+static struct hlist\+\_\+head $\ast$ \hyperlink{linux_2vport_8c_af8f78ca35e84187b7b26a12676e363bc}{hash\+\_\+bucket} (const struct net $\ast$net, const char $\ast$name)
+\item 
+int \hyperlink{linux_2vport_8c_a6b6d24642324a66b7bacab2909bea2dc}{ovs\+\_\+vport\+\_\+ops\+\_\+register} (struct \hyperlink{structvport__ops}{vport\+\_\+ops} $\ast$ops)
+\item 
+\hyperlink{linux_2vport_8c_a66ca2041bc212095f4de3a9fae2f56d8}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{vport_8h_a6b6d24642324a66b7bacab2909bea2dc}{ovs\+\_\+vport\+\_\+ops\+\_\+register})
+\item 
+void \hyperlink{linux_2vport_8c_a8659a5c436f2b09d0b6be2c208ee790e}{ovs\+\_\+vport\+\_\+ops\+\_\+unregister} (struct \hyperlink{structvport__ops}{vport\+\_\+ops} $\ast$ops)
+\item 
+\hyperlink{linux_2vport_8c_a6f097cd3cf2923c177b42ab91ac06d87}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{vport_8h_a8659a5c436f2b09d0b6be2c208ee790e}{ovs\+\_\+vport\+\_\+ops\+\_\+unregister})
+\end{DoxyCompactItemize}
+\begin{Indent}{\bf \+: name of port to find}\par
+{\em ovs\+\_\+vport\+\_\+locate -\/ find a port that has already been created
+
+Must be called with ovs or R\+C\+U read lock. }\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{linux_2vport_8c_a76cfadb621b3e59bcf1a0268c1ea9715}{ovs\+\_\+vport\+\_\+record\+\_\+error} (struct \hyperlink{structvport}{vport} $\ast$, enum \hyperlink{vport_8h_a41291b69ebff49e5bd1af2b88dae3f4a}{vport\+\_\+err\+\_\+type} err\+\_\+type)
+\item 
+struct \hyperlink{structvport}{vport} $\ast$ \hyperlink{linux_2vport_8c_a6982e9b904201400a516a90502cdb70d}{ovs\+\_\+vport\+\_\+locate} (const struct net $\ast$net, const char $\ast$name)
+\item 
+struct \hyperlink{structvport}{vport} $\ast$ \hyperlink{linux_2vport_8c_a9198ee06111592d2cf6c3b2bf94561c1}{ovs\+\_\+vport\+\_\+alloc} (int priv\+\_\+size, const struct \hyperlink{structvport__ops}{vport\+\_\+ops} $\ast$ops, const struct \hyperlink{structvport__parms}{vport\+\_\+parms} $\ast$parms)
+\item 
+\hyperlink{linux_2vport_8c_af39c016e4ee8f8242a73827ea41dd891}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{vport_8h_ab889a5c45b9237944dd59ee9fe3db487}{ovs\+\_\+vport\+\_\+alloc})
+\item 
+static struct \hyperlink{structvport__ops}{vport\+\_\+ops} $\ast$ \hyperlink{linux_2vport_8c_aab54c81e64893c3944d80fa035056648}{ovs\+\_\+vport\+\_\+lookup} (const struct \hyperlink{structvport__parms}{vport\+\_\+parms} $\ast$parms)
+\item 
+void \hyperlink{linux_2vport_8c_a17e57e95b47bad0bcf00e2e2805e2170}{ovs\+\_\+vport\+\_\+free} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport})
+\item 
+\hyperlink{linux_2vport_8c_ac326045a5fdb0fe12bb7290f12220f41}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{vport_8h_a030189b9a85e6e96cc3f165f50bf49f8}{ovs\+\_\+vport\+\_\+free})
+\item 
+struct \hyperlink{structvport}{vport} $\ast$ \hyperlink{linux_2vport_8c_ae922e6de985b3cb78f3d8f470a2e6ff9}{ovs\+\_\+vport\+\_\+add} (const struct \hyperlink{structvport__parms}{vport\+\_\+parms} $\ast$parms)
+\item 
+int \hyperlink{linux_2vport_8c_acfdffde36364d009c64778f1ef6c863b}{ovs\+\_\+vport\+\_\+set\+\_\+options} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct nlattr $\ast$options)
+\item 
+void \hyperlink{linux_2vport_8c_ad7676013c642bc044ead47b79eb94075}{ovs\+\_\+vport\+\_\+del} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport})
+\item 
+void \hyperlink{linux_2vport_8c_a7753bcf5f4263f9f8d9d4ff42e64d86a}{ovs\+\_\+vport\+\_\+get\+\_\+stats} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct \hyperlink{structovs__vport__stats}{ovs\+\_\+vport\+\_\+stats} $\ast$stats)
+\item 
+int \hyperlink{linux_2vport_8c_a7224829872e717ebe354d80bf9860db2}{ovs\+\_\+vport\+\_\+get\+\_\+options} (const struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct sk\+\_\+buff $\ast$skb)
+\item 
+static void \hyperlink{linux_2vport_8c_af0d1fe416a91b69f19cb2be6eaf89dde}{vport\+\_\+portids\+\_\+destroy\+\_\+rcu\+\_\+cb} (struct rcu\+\_\+head $\ast$rcu)
+\item 
+int \hyperlink{linux_2vport_8c_a8d6c13e6f31531135adf06eb8004a20a}{ovs\+\_\+vport\+\_\+set\+\_\+upcall\+\_\+portids} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, const struct nlattr $\ast$ids)
+\item 
+int \hyperlink{linux_2vport_8c_a44407fddea47b25021a73cfc6f36c7ad}{ovs\+\_\+vport\+\_\+get\+\_\+upcall\+\_\+portids} (const struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct sk\+\_\+buff $\ast$skb)
+\item 
+u32 \hyperlink{linux_2vport_8c_aeee9e742f0a0fbb3bda943eea9e63e56}{ovs\+\_\+vport\+\_\+find\+\_\+upcall\+\_\+portid} (const struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct sk\+\_\+buff $\ast$skb)
+\item 
+void \hyperlink{linux_2vport_8c_a45b6883b8ea28eb25965e1f2e1586d46}{ovs\+\_\+vport\+\_\+receive} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct sk\+\_\+buff $\ast$skb, const struct \hyperlink{structovs__tunnel__info}{ovs\+\_\+tunnel\+\_\+info} $\ast$tun\+\_\+info)
+\item 
+\hyperlink{linux_2vport_8c_aaf070def13e1711d4481935db4da66b5}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{vport_8h_ad1224e30040beab25f074b3929433f6c}{ovs\+\_\+vport\+\_\+receive})
+\item 
+int \hyperlink{linux_2vport_8c_abd74f3970bd7dc951b8399d00efe42d8}{ovs\+\_\+vport\+\_\+send} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct sk\+\_\+buff $\ast$skb)
+\item 
+static void \hyperlink{linux_2vport_8c_a4ea8e8dfba95df3fed74709b0930f7e0}{free\+\_\+vport\+\_\+rcu} (struct rcu\+\_\+head $\ast$rcu)
+\item 
+void \hyperlink{linux_2vport_8c_a91949289f78c0f0c2433ef5f20495e66}{ovs\+\_\+vport\+\_\+deferred\+\_\+free} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport})
+\item 
+\hyperlink{linux_2vport_8c_aa80dde8675d4bb84230795d9fc8ea127}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{vport_8h_a91949289f78c0f0c2433ef5f20495e66}{ovs\+\_\+vport\+\_\+deferred\+\_\+free})
+\item 
+int \hyperlink{linux_2vport_8c_ac5b64ee0badeb969348aae464fdc4c8d}{ovs\+\_\+tunnel\+\_\+get\+\_\+egress\+\_\+info} (struct \hyperlink{structovs__tunnel__info}{ovs\+\_\+tunnel\+\_\+info} $\ast$egress\+\_\+tun\+\_\+info, struct net $\ast$net, const struct \hyperlink{structovs__tunnel__info}{ovs\+\_\+tunnel\+\_\+info} $\ast$tun\+\_\+info, u8 ipproto, u32 \hyperlink{flow_8h_aaa98314a1108ff2209ae3bb6515e1dd5}{skb\+\_\+mark}, \+\_\+\+\_\+be16 \hyperlink{flow_8h_ad2071126c591c16c05617b0620c784e7}{tp\+\_\+src}, \+\_\+\+\_\+be16 \hyperlink{flow_8h_acb2f3d43a724a8c1782b7e55ec10b63a}{tp\+\_\+dst})
+\item 
+\hyperlink{linux_2vport_8c_ab21d62a4a60f4c17db89f73d561d44b7}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{vport_8h_ac5b64ee0badeb969348aae464fdc4c8d}{ovs\+\_\+tunnel\+\_\+get\+\_\+egress\+\_\+info})
+\item 
+int \hyperlink{linux_2vport_8c_a92b973cf9ddb07398a3d1c0492b0c422}{ovs\+\_\+vport\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structovs__tunnel__info}{ovs\+\_\+tunnel\+\_\+info} $\ast$info)
+\end{DoxyCompactItemize}
+\end{Indent}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static struct hlist\+\_\+head $\ast$ \hyperlink{linux_2vport_8c_a8d8eed219fbfb344d996f7695a356e5d}{dev\+\_\+table}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{linux_2vport_8c_a46b55d1d4d6cc07a83259f332ff555ad}{}\index{linux/vport.\+c@{linux/vport.\+c}!V\+P\+O\+R\+T\+\_\+\+H\+A\+S\+H\+\_\+\+B\+U\+C\+K\+E\+T\+S@{V\+P\+O\+R\+T\+\_\+\+H\+A\+S\+H\+\_\+\+B\+U\+C\+K\+E\+T\+S}}
+\index{V\+P\+O\+R\+T\+\_\+\+H\+A\+S\+H\+\_\+\+B\+U\+C\+K\+E\+T\+S@{V\+P\+O\+R\+T\+\_\+\+H\+A\+S\+H\+\_\+\+B\+U\+C\+K\+E\+T\+S}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{V\+P\+O\+R\+T\+\_\+\+H\+A\+S\+H\+\_\+\+B\+U\+C\+K\+E\+T\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+P\+O\+R\+T\+\_\+\+H\+A\+S\+H\+\_\+\+B\+U\+C\+K\+E\+T\+S~1024}\label{linux_2vport_8c_a46b55d1d4d6cc07a83259f332ff555ad}
+
+
+\subsection{Function Documentation}
+\hypertarget{linux_2vport_8c_a66ca2041bc212095f4de3a9fae2f56d8}{}\index{linux/vport.\+c@{linux/vport.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf ovs\+\_\+vport\+\_\+ops\+\_\+register}}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a66ca2041bc212095f4de3a9fae2f56d8}
+\hypertarget{linux_2vport_8c_a6f097cd3cf2923c177b42ab91ac06d87}{}\index{linux/vport.\+c@{linux/vport.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf ovs\+\_\+vport\+\_\+ops\+\_\+unregister}}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a6f097cd3cf2923c177b42ab91ac06d87}
+\hypertarget{linux_2vport_8c_af39c016e4ee8f8242a73827ea41dd891}{}\index{linux/vport.\+c@{linux/vport.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf ovs\+\_\+vport\+\_\+alloc}}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_af39c016e4ee8f8242a73827ea41dd891}
+\hypertarget{linux_2vport_8c_ac326045a5fdb0fe12bb7290f12220f41}{}\index{linux/vport.\+c@{linux/vport.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf ovs\+\_\+vport\+\_\+free}}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_ac326045a5fdb0fe12bb7290f12220f41}
+\hypertarget{linux_2vport_8c_aaf070def13e1711d4481935db4da66b5}{}\index{linux/vport.\+c@{linux/vport.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf ovs\+\_\+vport\+\_\+receive}}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_aaf070def13e1711d4481935db4da66b5}
+\hypertarget{linux_2vport_8c_aa80dde8675d4bb84230795d9fc8ea127}{}\index{linux/vport.\+c@{linux/vport.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf ovs\+\_\+vport\+\_\+deferred\+\_\+free}}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_aa80dde8675d4bb84230795d9fc8ea127}
+\hypertarget{linux_2vport_8c_ab21d62a4a60f4c17db89f73d561d44b7}{}\index{linux/vport.\+c@{linux/vport.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf ovs\+\_\+tunnel\+\_\+get\+\_\+egress\+\_\+info}}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_ab21d62a4a60f4c17db89f73d561d44b7}
+\hypertarget{linux_2vport_8c_a4ea8e8dfba95df3fed74709b0930f7e0}{}\index{linux/vport.\+c@{linux/vport.\+c}!free\+\_\+vport\+\_\+rcu@{free\+\_\+vport\+\_\+rcu}}
+\index{free\+\_\+vport\+\_\+rcu@{free\+\_\+vport\+\_\+rcu}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{free\+\_\+vport\+\_\+rcu}]{\setlength{\rightskip}{0pt plus 5cm}static void free\+\_\+vport\+\_\+rcu (
+\begin{DoxyParamCaption}
+\item[{struct rcu\+\_\+head $\ast$}]{rcu}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2vport_8c_a4ea8e8dfba95df3fed74709b0930f7e0}
+
+\begin{DoxyCode}
+571 \{
+572     \textcolor{keyword}{struct }\hyperlink{structvport}{vport} *\hyperlink{structvport}{vport} = container\_of(\hyperlink{structvport_ac08b8a62e054bc2840a9ba6964091f89}{rcu}, \textcolor{keyword}{struct} vport, \hyperlink{structvport_ac08b8a62e054bc2840a9ba6964091f89}{rcu});
+573 
+574     \hyperlink{linux_2vport_8c_a17e57e95b47bad0bcf00e2e2805e2170}{ovs\_vport\_free}(vport);
+575 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_af8f78ca35e84187b7b26a12676e363bc}{}\index{linux/vport.\+c@{linux/vport.\+c}!hash\+\_\+bucket@{hash\+\_\+bucket}}
+\index{hash\+\_\+bucket@{hash\+\_\+bucket}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{hash\+\_\+bucket}]{\setlength{\rightskip}{0pt plus 5cm}static struct hlist\+\_\+head$\ast$ hash\+\_\+bucket (
+\begin{DoxyParamCaption}
+\item[{const struct net $\ast$}]{net, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2vport_8c_af8f78ca35e84187b7b26a12676e363bc}
+
+\begin{DoxyCode}
+75 \{
+76     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} hash = jhash(name, strlen(name), (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long}) net);
+77     \textcolor{keywordflow}{return} &\hyperlink{linux_2vport_8c_a8d8eed219fbfb344d996f7695a356e5d}{dev\_table}[hash & (\hyperlink{linux_2vport_8c_a46b55d1d4d6cc07a83259f332ff555ad}{VPORT\_HASH\_BUCKETS} - 1)];
+78 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_ac0267e32e1fa59b1557702c6a381546f}{}\index{linux/vport.\+c@{linux/vport.\+c}!L\+I\+S\+T\+\_\+\+H\+E\+A\+D@{L\+I\+S\+T\+\_\+\+H\+E\+A\+D}}
+\index{L\+I\+S\+T\+\_\+\+H\+E\+A\+D@{L\+I\+S\+T\+\_\+\+H\+E\+A\+D}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{L\+I\+S\+T\+\_\+\+H\+E\+A\+D}]{\setlength{\rightskip}{0pt plus 5cm}static L\+I\+S\+T\+\_\+\+H\+E\+A\+D (
+\begin{DoxyParamCaption}
+\item[{vport\+\_\+ops\+\_\+list}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2vport_8c_ac0267e32e1fa59b1557702c6a381546f}
+\hypertarget{linux_2vport_8c_ac5b64ee0badeb969348aae464fdc4c8d}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+tunnel\+\_\+get\+\_\+egress\+\_\+info@{ovs\+\_\+tunnel\+\_\+get\+\_\+egress\+\_\+info}}
+\index{ovs\+\_\+tunnel\+\_\+get\+\_\+egress\+\_\+info@{ovs\+\_\+tunnel\+\_\+get\+\_\+egress\+\_\+info}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+tunnel\+\_\+get\+\_\+egress\+\_\+info}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+tunnel\+\_\+get\+\_\+egress\+\_\+info (
+\begin{DoxyParamCaption}
+\item[{struct {\bf ovs\+\_\+tunnel\+\_\+info} $\ast$}]{egress\+\_\+tun\+\_\+info, }
+\item[{struct net $\ast$}]{net, }
+\item[{const struct {\bf ovs\+\_\+tunnel\+\_\+info} $\ast$}]{tun\+\_\+info, }
+\item[{u8}]{ipproto, }
+\item[{u32}]{skb\+\_\+mark, }
+\item[{\+\_\+\+\_\+be16}]{tp\+\_\+src, }
+\item[{\+\_\+\+\_\+be16}]{tp\+\_\+dst}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_ac5b64ee0badeb969348aae464fdc4c8d}
+
+\begin{DoxyCode}
+593 \{
+594     \textcolor{keyword}{const} \textcolor{keyword}{struct }\hyperlink{structovs__key__ipv4__tunnel}{ovs\_key\_ipv4\_tunnel} *\hyperlink{flow_8h_a904e9497acde49a1992636f77597c5c7}{tun\_key};
+595     \textcolor{keyword}{struct }rtable *rt;
+596     \_\_be32 saddr;
+597 
+598     \textcolor{keywordflow}{if} (unlikely(!tun\_info))
+599         \textcolor{keywordflow}{return} -EINVAL;
+600 
+601     tun\_key = &tun\_info->\hyperlink{structovs__tunnel__info_a007f0c7a9938884e6e8663cb4ab20d10}{tunnel};
+602     saddr = tun\_key->\hyperlink{structovs__key__ipv4__tunnel_a1e5a978f104d61e9694e914a109734a7}{ipv4\_src};
+603     \textcolor{comment}{/* Route lookup to get srouce IP address: saddr.}
+604 \textcolor{comment}{     * The process may need to be changed if the corresponding process}
+605 \textcolor{comment}{     * in vports ops changed.}
+606 \textcolor{comment}{     */}
+607     rt = \hyperlink{compat_8h_a9fd71ce2d13a3dcc4f7d51469ba86d79}{find\_route}(net,
+608             &saddr,
+609             tun\_key->\hyperlink{structovs__key__ipv4__tunnel_ae443d381a97f53bbc4139fe36c0aae30}{ipv4\_dst},
+610             ipproto,
+611             tun\_key->\hyperlink{structovs__key__ipv4__tunnel_a69594eaf9d7dfc2824b264484e02498e}{ipv4\_tos},
+612             \hyperlink{flow_8h_aaa98314a1108ff2209ae3bb6515e1dd5}{skb\_mark});
+613     \textcolor{keywordflow}{if} (IS\_ERR(rt))
+614         \textcolor{keywordflow}{return} PTR\_ERR(rt);
+615 
+616     ip\_rt\_put(rt);
+617 
+618     \textcolor{comment}{/* Generate egress\_tun\_info based on tun\_info,}
+619 \textcolor{comment}{     * saddr, tp\_src and tp\_dst}
+620 \textcolor{comment}{     */}
+621     \hyperlink{flow_8h_ae20b25e6cec56e9c0d07bc7f2c7d55ab}{\_\_ovs\_flow\_tun\_info\_init}(egress\_tun\_info,
+622                  saddr, tun\_key->\hyperlink{structovs__key__ipv4__tunnel_ae443d381a97f53bbc4139fe36c0aae30}{ipv4\_dst},
+623                  tun\_key->\hyperlink{structovs__key__ipv4__tunnel_a69594eaf9d7dfc2824b264484e02498e}{ipv4\_tos},
+624                  tun\_key->\hyperlink{structovs__key__ipv4__tunnel_a24de7472a8c22903fce96b73dab68a40}{ipv4\_ttl},
+625                  \hyperlink{flow_8h_ad2071126c591c16c05617b0620c784e7}{tp\_src}, \hyperlink{flow_8h_acb2f3d43a724a8c1782b7e55ec10b63a}{tp\_dst},
+626                  tun\_key->\hyperlink{structovs__key__ipv4__tunnel_ae36132bc05ca6257b572edddffcb867a}{tun\_id},
+627                  tun\_key->\hyperlink{structovs__key__ipv4__tunnel_a7459e66ecf90329eb2fa6cf3fc4781db}{tun\_flags},
+628                  tun\_info->\hyperlink{structovs__tunnel__info_ae4fd786894f579a38a5955e7a0e68fd4}{options},
+629                  tun\_info->\hyperlink{structovs__tunnel__info_ab50d289f61727b922831739affb28b18}{options\_len});
+630 
+631     \textcolor{keywordflow}{return} 0;
+632 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_ae922e6de985b3cb78f3d8f470a2e6ff9}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+add@{ovs\+\_\+vport\+\_\+add}}
+\index{ovs\+\_\+vport\+\_\+add@{ovs\+\_\+vport\+\_\+add}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+add}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf vport}$\ast$ ovs\+\_\+vport\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport\+\_\+parms} $\ast$}]{parms}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_ae922e6de985b3cb78f3d8f470a2e6ff9}
+ovs\+\_\+vport\+\_\+add -\/ add vport device (for kernel callers)
+
+\+: Information about new vport.
+
+Creates a new vport with the specified configuration (which is dependent on device type). ovs\+\_\+mutex must be held. 
+\begin{DoxyCode}
+211 \{
+212     \textcolor{keyword}{struct }\hyperlink{structvport__ops}{vport\_ops} *ops;
+213     \textcolor{keyword}{struct }\hyperlink{structvport}{vport} *\hyperlink{structvport}{vport};
+214 
+215     ops = \hyperlink{linux_2vport_8c_aab54c81e64893c3944d80fa035056648}{ovs\_vport\_lookup}(parms);
+216     \textcolor{keywordflow}{if} (ops) \{
+217         \textcolor{keyword}{struct }hlist\_head *bucket;
+218 
+219         \textcolor{keywordflow}{if} (!try\_module\_get(ops->\hyperlink{structvport__ops_a74f3e852dbe8137d21e87895bd5f94e9}{owner}))
+220             \textcolor{keywordflow}{return} ERR\_PTR(-EAFNOSUPPORT);
+221 
+222         vport = ops->\hyperlink{structvport__ops_acf3642d1a18755d25c37e9634c6945a2}{create}(parms);
+223         \textcolor{keywordflow}{if} (IS\_ERR(vport)) \{
+224             module\_put(ops->\hyperlink{structvport__ops_a74f3e852dbe8137d21e87895bd5f94e9}{owner});
+225             \textcolor{keywordflow}{return} vport;
+226         \}
+227 
+228         bucket = \hyperlink{linux_2vport_8c_af8f78ca35e84187b7b26a12676e363bc}{hash\_bucket}(\hyperlink{datapath_8h_aef2302004ca1f45133eaef00bb3740eb}{ovs\_dp\_get\_net}(vport->\hyperlink{structvport_a49fb6f6bf0ac4337853e9242e88ddc42}{dp}),
+229                      vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->\hyperlink{structvport__ops_abe0c3315271724bf05338487e0ced13c}{get\_name}(vport));
+230         hlist\_add\_head\_rcu(&vport->\hyperlink{structvport_ae6324a0c2483c3d1600cb29a6f4bcb8d}{hash\_node}, bucket);
+231         \textcolor{keywordflow}{return} vport;
+232     \}
+233 
+234     \textcolor{comment}{/* Unlock to attempt module load and return -EAGAIN if load}
+235 \textcolor{comment}{     * was successful as we need to restart the port addition}
+236 \textcolor{comment}{     * workflow.}
+237 \textcolor{comment}{     */}
+238     \hyperlink{datapath_8c_ac3ccfd98a880ed6d2480209be0d16680}{ovs\_unlock}();
+239     request\_module(\textcolor{stringliteral}{"vport-type-%d"}, parms->\hyperlink{structvport__parms_ad79f91d20a33ff64cd72cad0b83ffae3}{type});
+240     \hyperlink{datapath_8c_a092c1f450b78a173c890ed4c56839e1a}{ovs\_lock}();
+241 
+242     \textcolor{keywordflow}{if} (!\hyperlink{linux_2vport_8c_aab54c81e64893c3944d80fa035056648}{ovs\_vport\_lookup}(parms))
+243         \textcolor{keywordflow}{return} ERR\_PTR(-EAFNOSUPPORT);
+244     \textcolor{keywordflow}{else}
+245         \textcolor{keywordflow}{return} ERR\_PTR(-EAGAIN);
+246 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a9198ee06111592d2cf6c3b2bf94561c1}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+alloc@{ovs\+\_\+vport\+\_\+alloc}}
+\index{ovs\+\_\+vport\+\_\+alloc@{ovs\+\_\+vport\+\_\+alloc}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+alloc}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf vport}$\ast$ ovs\+\_\+vport\+\_\+alloc (
+\begin{DoxyParamCaption}
+\item[{int}]{priv\+\_\+size, }
+\item[{const struct {\bf vport\+\_\+ops} $\ast$}]{ops, }
+\item[{const struct {\bf vport\+\_\+parms} $\ast$}]{parms}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a9198ee06111592d2cf6c3b2bf94561c1}
+ovs\+\_\+vport\+\_\+alloc -\/ allocate and initialize new vport
+
+\+: Size of private data area to allocate. \+: vport device ops
+
+Allocate and initialize a new vport defined by . The vport will contain a private data area of size  that can be accessed using \hyperlink{vport_8h_ad18aa811f80cfd4c3895d96f7f3f4acd}{vport\+\_\+priv()}. vports that are no longer needed should be released with \hyperlink{linux_2vport_8c_a17e57e95b47bad0bcf00e2e2805e2170}{ovs\+\_\+vport\+\_\+free()}. 
+\begin{DoxyCode}
+139 \{
+140     \textcolor{keyword}{struct }\hyperlink{structvport}{vport} *\hyperlink{structvport}{vport};
+141     \textcolor{keywordtype}{size\_t} alloc\_size;
+142 
+143     alloc\_size = \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }vport);
+144     \textcolor{keywordflow}{if} (priv\_size) \{
+145         alloc\_size = ALIGN(alloc\_size, \hyperlink{vport_8h_ae7c8121257f401e2981f319ad4bc250b}{VPORT\_ALIGN});
+146         alloc\_size += priv\_size;
+147     \}
+148 
+149     vport = kzalloc(alloc\_size, GFP\_KERNEL);
+150     \textcolor{keywordflow}{if} (!vport)
+151         \textcolor{keywordflow}{return} ERR\_PTR(-ENOMEM);
+152 
+153     vport->\hyperlink{structvport_a49fb6f6bf0ac4337853e9242e88ddc42}{dp} = parms->\hyperlink{structvport__parms_a15faa866e3d35a721de77b347017499e}{dp};
+154     vport->\hyperlink{structvport_aae00fc5d12b47f02cbfd4f67ae114b58}{port\_no} = parms->\hyperlink{structvport__parms_a5bc77ace899b9bbdb6d7f833b31c009a}{port\_no};
+155     vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops} = \hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops};
+156     INIT\_HLIST\_NODE(&vport->\hyperlink{structvport_a27d2c94e2edd5de172e0b866cdd70fea}{dp\_hash\_node});
+157 
+158     \textcolor{keywordflow}{if} (\hyperlink{linux_2vport_8c_a8d6c13e6f31531135adf06eb8004a20a}{ovs\_vport\_set\_upcall\_portids}(vport, parms->
+      \hyperlink{structvport__parms_ae9dbd12fddc1869a17229cef771a4d29}{upcall\_portids})) \{
+159         kfree(vport);
+160         \textcolor{keywordflow}{return} ERR\_PTR(-EINVAL);
+161     \}
+162 
+163     vport->\hyperlink{structvport_a04983f0d17ae4deb6ffb87333f6d4f05}{percpu\_stats} = \hyperlink{netdevice_8h_ac860eb13284bc990b8da39516ec6d4b4}{netdev\_alloc\_pcpu\_stats}(\textcolor{keyword}{struct} 
+      \hyperlink{structpcpu__sw__netstats}{pcpu\_sw\_netstats});
+164     \textcolor{keywordflow}{if} (!vport->\hyperlink{structvport_a04983f0d17ae4deb6ffb87333f6d4f05}{percpu\_stats}) \{
+165         kfree(vport);
+166         \textcolor{keywordflow}{return} ERR\_PTR(-ENOMEM);
+167     \}
+168 
+169     \textcolor{keywordflow}{return} vport;
+170 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a91949289f78c0f0c2433ef5f20495e66}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+deferred\+\_\+free@{ovs\+\_\+vport\+\_\+deferred\+\_\+free}}
+\index{ovs\+\_\+vport\+\_\+deferred\+\_\+free@{ovs\+\_\+vport\+\_\+deferred\+\_\+free}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+deferred\+\_\+free}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+vport\+\_\+deferred\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a91949289f78c0f0c2433ef5f20495e66}
+
+\begin{DoxyCode}
+578 \{
+579     \textcolor{keywordflow}{if} (!vport)
+580         \textcolor{keywordflow}{return};
+581 
+582     call\_rcu(&vport->\hyperlink{structvport_ac08b8a62e054bc2840a9ba6964091f89}{rcu}, \hyperlink{linux_2vport_8c_a4ea8e8dfba95df3fed74709b0930f7e0}{free\_vport\_rcu});
+583 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_ad7676013c642bc044ead47b79eb94075}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+del@{ovs\+\_\+vport\+\_\+del}}
+\index{ovs\+\_\+vport\+\_\+del@{ovs\+\_\+vport\+\_\+del}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+del}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+vport\+\_\+del (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_ad7676013c642bc044ead47b79eb94075}
+ovs\+\_\+vport\+\_\+del -\/ delete existing vport device
+
+\+: vport to delete.
+
+Detaches  from its datapath and destroys it. It is possible to fail for reasons such as lack of memory. ovs\+\_\+mutex must be held. 
+\begin{DoxyCode}
+273 \{
+274     \hyperlink{datapath_8h_af8d476fa8191790e6f57cad0623f192c}{ASSERT\_OVSL}();
+275 
+276     hlist\_del\_rcu(&vport->\hyperlink{structvport_ae6324a0c2483c3d1600cb29a6f4bcb8d}{hash\_node});
+277     module\_put(vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->\hyperlink{structvport__ops_a74f3e852dbe8137d21e87895bd5f94e9}{owner});
+278     vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->\hyperlink{structvport__ops_a4fd321083545d82f308dc78331649632}{destroy}(vport);
+279 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a32e04c9d5d25cb3b7e23a297dc65fc6a}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+exit@{ovs\+\_\+vport\+\_\+exit}}
+\index{ovs\+\_\+vport\+\_\+exit@{ovs\+\_\+vport\+\_\+exit}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+exit}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+vport\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a32e04c9d5d25cb3b7e23a297dc65fc6a}
+ovs\+\_\+vport\+\_\+exit -\/ shutdown vport subsystem
+
+Called at module exit time to shutdown the vport subsystem. 
+\begin{DoxyCode}
+70 \{
+71     kfree(\hyperlink{linux_2vport_8c_a8d8eed219fbfb344d996f7695a356e5d}{dev\_table});
+72 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_aeee9e742f0a0fbb3bda943eea9e63e56}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+find\+\_\+upcall\+\_\+portid@{ovs\+\_\+vport\+\_\+find\+\_\+upcall\+\_\+portid}}
+\index{ovs\+\_\+vport\+\_\+find\+\_\+upcall\+\_\+portid@{ovs\+\_\+vport\+\_\+find\+\_\+upcall\+\_\+portid}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+find\+\_\+upcall\+\_\+portid}]{\setlength{\rightskip}{0pt plus 5cm}u32 ovs\+\_\+vport\+\_\+find\+\_\+upcall\+\_\+portid (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport} $\ast$}]{vport, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_aeee9e742f0a0fbb3bda943eea9e63e56}
+ovs\+\_\+vport\+\_\+find\+\_\+upcall\+\_\+portid -\/ find the upcall portid to send upcall.
+
+\+: vport from which the missed packet is received. \+: skb that the missed packet was received.
+
+Uses the \hyperlink{skbuff_8h_acb236314b209f764af9aae7fbbb04311}{skb\+\_\+get\+\_\+hash()} to select the upcall portid to send the upcall.
+
+Returns the portid of the target socket. Must be called with rcu\+\_\+read\+\_\+lock. 
+\begin{DoxyCode}
+459 \{
+460     \textcolor{keyword}{struct }\hyperlink{structvport__portids}{vport\_portids} *\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids};
+461     u32 hash;
+462 
+463     ids = rcu\_dereference(vport->\hyperlink{structvport_a7963679d5c8d3a923eb42faf9d5fb2d1}{upcall\_portids});
+464 
+465     \textcolor{keywordflow}{if} (ids->\hyperlink{structvport__portids_ac76f512a0f0dbe3468b006e66bddc420}{n\_ids} == 1 && ids->\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids}[0] == 0)
+466         \textcolor{keywordflow}{return} 0;
+467 
+468     hash = \hyperlink{skbuff_8h_acb236314b209f764af9aae7fbbb04311}{skb\_get\_hash}(skb);
+469     \textcolor{keywordflow}{return} ids->\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids}[hash - ids->\hyperlink{structvport__portids_ac76f512a0f0dbe3468b006e66bddc420}{n\_ids} * \hyperlink{reciprocal__div_8h_a1aeee1ba3d23d8252d3df41c25c1fb68}{reciprocal\_divide}(hash, ids->
+      \hyperlink{structvport__portids_a9828dc460e2dd5ef92f6c4a1eba6bc3b}{rn\_ids})];
+470 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a17e57e95b47bad0bcf00e2e2805e2170}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+free@{ovs\+\_\+vport\+\_\+free}}
+\index{ovs\+\_\+vport\+\_\+free@{ovs\+\_\+vport\+\_\+free}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+free}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+vport\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a17e57e95b47bad0bcf00e2e2805e2170}
+ovs\+\_\+vport\+\_\+free -\/ uninitialize and free vport
+
+\+: vport to free
+
+Frees a vport allocated with \hyperlink{linux_2vport_8c_a9198ee06111592d2cf6c3b2bf94561c1}{ovs\+\_\+vport\+\_\+alloc()} when it is no longer needed.
+
+The caller must ensure that an R\+C\+U grace period has passed since the last time  was in a datapath. 
+\begin{DoxyCode}
+195 \{
+196     kfree(\hyperlink{rcupdate_8h_a9e866c0e8ba667e053cb8f59af572157}{rcu\_dereference\_raw}(vport->\hyperlink{structvport_a7963679d5c8d3a923eb42faf9d5fb2d1}{upcall\_portids}));
+197     free\_percpu(vport->\hyperlink{structvport_a04983f0d17ae4deb6ffb87333f6d4f05}{percpu\_stats});
+198     kfree(vport);
+199 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a92b973cf9ddb07398a3d1c0492b0c422}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info@{ovs\+\_\+vport\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info}}
+\index{ovs\+\_\+vport\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info@{ovs\+\_\+vport\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+vport\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf ovs\+\_\+tunnel\+\_\+info} $\ast$}]{info}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a92b973cf9ddb07398a3d1c0492b0c422}
+
+\begin{DoxyCode}
+637 \{
+638     \textcolor{comment}{/* get\_egress\_tun\_info() is only implemented on tunnel ports. */}
+639     \textcolor{keywordflow}{if} (unlikely(!vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->\hyperlink{structvport__ops_a80a9e57f33d01dceca77f83fd3b88d23}{get\_egress\_tun\_info}))
+640         \textcolor{keywordflow}{return} -EINVAL;
+641 
+642     \textcolor{keywordflow}{return} vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->\hyperlink{structvport__ops_a80a9e57f33d01dceca77f83fd3b88d23}{get\_egress\_tun\_info}(vport, skb, info);
+643 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a7224829872e717ebe354d80bf9860db2}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+get\+\_\+options@{ovs\+\_\+vport\+\_\+get\+\_\+options}}
+\index{ovs\+\_\+vport\+\_\+get\+\_\+options@{ovs\+\_\+vport\+\_\+get\+\_\+options}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+get\+\_\+options}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+vport\+\_\+get\+\_\+options (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport} $\ast$}]{vport, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a7224829872e717ebe354d80bf9860db2}
+ovs\+\_\+vport\+\_\+get\+\_\+options -\/ retrieve device options
+
+\+: vport from which to retrieve the options. \+: sk\+\_\+buff where options should be appended.
+
+Retrieves the configuration of the given device, appending an O\+V\+S\+\_\+\+V\+P\+O\+R\+T\+\_\+\+A\+T\+T\+R\+\_\+\+O\+P\+T\+I\+O\+N\+S attribute that in turn contains nested vport-\/specific attributes to .
+
+Returns 0 if successful, -\/\+E\+M\+S\+G\+S\+I\+Z\+E if  has insufficient room, or another negative error code if a real error occurred. If an error occurs,  is left unmodified.
+
+Must be called with ovs\+\_\+mutex or rcu\+\_\+read\+\_\+lock. 
+\begin{DoxyCode}
+351 \{
+352     \textcolor{keyword}{struct }nlattr *nla;
+353     \textcolor{keywordtype}{int} err;
+354 
+355     \textcolor{keywordflow}{if} (!vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->\hyperlink{structvport__ops_aacbd431343ae726a067b66b9b9de8ec4}{get\_options})
+356         \textcolor{keywordflow}{return} 0;
+357 
+358     nla = nla\_nest\_start(skb, \hyperlink{openvswitch_8h_aae19f7a3f207d3adc0b9a30b79c6464dac0bc104dd1ef77ac2f0a0f9d6f087239}{OVS\_VPORT\_ATTR\_OPTIONS});
+359     \textcolor{keywordflow}{if} (!nla)
+360         \textcolor{keywordflow}{return} -EMSGSIZE;
+361 
+362     err = vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->\hyperlink{structvport__ops_aacbd431343ae726a067b66b9b9de8ec4}{get\_options}(vport, skb);
+363     \textcolor{keywordflow}{if} (err) \{
+364         nla\_nest\_cancel(skb, nla);
+365         \textcolor{keywordflow}{return} err;
+366     \}
+367 
+368     nla\_nest\_end(skb, nla);
+369     \textcolor{keywordflow}{return} 0;
+370 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a7753bcf5f4263f9f8d9d4ff42e64d86a}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+get\+\_\+stats@{ovs\+\_\+vport\+\_\+get\+\_\+stats}}
+\index{ovs\+\_\+vport\+\_\+get\+\_\+stats@{ovs\+\_\+vport\+\_\+get\+\_\+stats}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+get\+\_\+stats}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+vport\+\_\+get\+\_\+stats (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport, }
+\item[{struct {\bf ovs\+\_\+vport\+\_\+stats} $\ast$}]{stats}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a7753bcf5f4263f9f8d9d4ff42e64d86a}
+ovs\+\_\+vport\+\_\+get\+\_\+stats -\/ retrieve device stats
+
+\+: vport from which to retrieve the stats \+: location to store stats
+
+Retrieves transmit, receive, and error stats for the given device.
+
+Must be called with ovs\+\_\+mutex or rcu\+\_\+read\+\_\+lock. 
+\begin{DoxyCode}
+292 \{
+293     \textcolor{keywordtype}{int} i;
+294 
+295     \textcolor{comment}{/* We potentially have two surces of stats that need to be}
+296 \textcolor{comment}{     * combined: those we have collected (split into err\_stats and}
+297 \textcolor{comment}{     * percpu\_stats), and device error stats from netdev->get\_stats()}
+298 \textcolor{comment}{     * (for errors that happen downstream and therefore aren't}
+299 \textcolor{comment}{     * reported through our vport\_record\_error() function).}
+300 \textcolor{comment}{     * Stats from first source are reported by ovs over}
+301 \textcolor{comment}{     * OVS\_VPORT\_ATTR\_STATS.}
+302 \textcolor{comment}{     * netdev-stats can be directly read over netlink-ioctl.}
+303 \textcolor{comment}{     */}
+304 
+305     stats->\hyperlink{structovs__vport__stats_a95d0551abc4c1f3874e60fbaa593a63c}{rx\_errors}  = atomic\_long\_read(&vport->\hyperlink{structvport_a5cd8a50cb02833a868db549d64052c99}{err\_stats}.
+      \hyperlink{structvport__err__stats_ad253987f143edfffea6546baa0e990f6}{rx\_errors});
+306     stats->\hyperlink{structovs__vport__stats_ac0233ed277e2568b4471479beaa4b642}{tx\_errors}  = atomic\_long\_read(&vport->\hyperlink{structvport_a5cd8a50cb02833a868db549d64052c99}{err\_stats}.
+      \hyperlink{structvport__err__stats_a24478cbc4a61b5454a4247830bf2c7b4}{tx\_errors});
+307     stats->\hyperlink{structovs__vport__stats_a9b32bc999ba296823133077db108027f}{tx\_dropped} = atomic\_long\_read(&vport->\hyperlink{structvport_a5cd8a50cb02833a868db549d64052c99}{err\_stats}.
+      \hyperlink{structvport__err__stats_a299aaacfac0fe9d48ddd000674b7816a}{tx\_dropped});
+308     stats->\hyperlink{structovs__vport__stats_a91152608a32f597ef28ef5de32b716e9}{rx\_dropped} = atomic\_long\_read(&vport->\hyperlink{structvport_a5cd8a50cb02833a868db549d64052c99}{err\_stats}.
+      \hyperlink{structvport__err__stats_a38849ae05107fbf9e9824149b60bd91f}{rx\_dropped});
+309 
+310     stats->\hyperlink{structovs__vport__stats_a27cf52cea0ff9168cd2b536edee94284}{rx\_bytes}     = 0;
+311     stats->\hyperlink{structovs__vport__stats_ae40f3501f32e41cdf6658cc8725f48e7}{rx\_packets} = 0;
+312     stats->\hyperlink{structovs__vport__stats_a2602d5f9072e762b4a6091874c02fd1c}{tx\_bytes}     = 0;
+313     stats->\hyperlink{structovs__vport__stats_adb91be6e2d6695cb19acc87d817191c5}{tx\_packets} = 0;
+314 
+315     \hyperlink{cpumask_8h_ad15c4fe55a8b712e3bf1049320f3c3cb}{for\_each\_possible\_cpu}(i) \{
+316         \textcolor{keyword}{const} \textcolor{keyword}{struct }\hyperlink{structpcpu__sw__netstats}{pcpu\_sw\_netstats} *percpu\_stats;
+317         \textcolor{keyword}{struct }\hyperlink{structpcpu__sw__netstats}{pcpu\_sw\_netstats} local\_stats;
+318         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} start;
+319 
+320         percpu\_stats = per\_cpu\_ptr(vport->\hyperlink{structvport_a04983f0d17ae4deb6ffb87333f6d4f05}{percpu\_stats}, i);
+321 
+322         \textcolor{keywordflow}{do} \{
+323             start = \hyperlink{u64__stats__sync_8h_addfaebb71638dbc159aaee907e45fe84}{u64\_stats\_fetch\_begin\_irq}(&percpu\_stats->
+      \hyperlink{structpcpu__sw__netstats_a09b11d813594941c06b3e1e818a9b543}{syncp});
+324             local\_stats = *percpu\_stats;
+325         \} \textcolor{keywordflow}{while} (\hyperlink{u64__stats__sync_8h_a663ca602e197bee607ec46f743c839e1}{u64\_stats\_fetch\_retry\_irq}(&percpu\_stats->
+      \hyperlink{structpcpu__sw__netstats_a09b11d813594941c06b3e1e818a9b543}{syncp}, start));
+326 
+327         stats->\hyperlink{structovs__vport__stats_a27cf52cea0ff9168cd2b536edee94284}{rx\_bytes}     += local\_stats.rx\_bytes;
+328         stats->\hyperlink{structovs__vport__stats_ae40f3501f32e41cdf6658cc8725f48e7}{rx\_packets} += local\_stats.rx\_packets;
+329         stats->\hyperlink{structovs__vport__stats_a2602d5f9072e762b4a6091874c02fd1c}{tx\_bytes}     += local\_stats.tx\_bytes;
+330         stats->\hyperlink{structovs__vport__stats_adb91be6e2d6695cb19acc87d817191c5}{tx\_packets} += local\_stats.tx\_packets;
+331     \}
+332 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a44407fddea47b25021a73cfc6f36c7ad}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+get\+\_\+upcall\+\_\+portids@{ovs\+\_\+vport\+\_\+get\+\_\+upcall\+\_\+portids}}
+\index{ovs\+\_\+vport\+\_\+get\+\_\+upcall\+\_\+portids@{ovs\+\_\+vport\+\_\+get\+\_\+upcall\+\_\+portids}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+get\+\_\+upcall\+\_\+portids}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+vport\+\_\+get\+\_\+upcall\+\_\+portids (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport} $\ast$}]{vport, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a44407fddea47b25021a73cfc6f36c7ad}
+ovs\+\_\+vport\+\_\+get\+\_\+upcall\+\_\+portids -\/ get the upcall\+\_\+portids of .
+
+\+: vport from which to retrieve the portids. \+: sk\+\_\+buff where portids should be appended.
+
+Retrieves the configuration of the given vport, appending the O\+V\+S\+\_\+\+V\+P\+O\+R\+T\+\_\+\+A\+T\+T\+R\+\_\+\+U\+P\+C\+A\+L\+L\+\_\+\+P\+I\+D attribute which is the array of upcall portids to .
+
+Returns 0 if successful, -\/\+E\+M\+S\+G\+S\+I\+Z\+E if  has insufficient room. If an error occurs,  is left unmodified. Must be called with ovs\+\_\+mutex or rcu\+\_\+read\+\_\+lock. 
+\begin{DoxyCode}
+435 \{
+436     \textcolor{keyword}{struct }\hyperlink{structvport__portids}{vport\_portids} *\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids};
+437 
+438     ids = \hyperlink{datapath_8h_a5f2a2c1026f970f0052e77f5ebba33d1}{rcu\_dereference\_ovsl}(vport->\hyperlink{structvport_a7963679d5c8d3a923eb42faf9d5fb2d1}{upcall\_portids});
+439 
+440     \textcolor{keywordflow}{if} (vport->\hyperlink{structvport_a49fb6f6bf0ac4337853e9242e88ddc42}{dp}->\hyperlink{structdatapath_a92ce3b704c20f18b3a696f98b6f7d266}{user\_features} & \hyperlink{openvswitch_8h_ad3d54910ac07af143977d6082e222a5f}{OVS\_DP\_F\_VPORT\_PIDS})
+441         \textcolor{keywordflow}{return} nla\_put(skb, \hyperlink{openvswitch_8h_aae19f7a3f207d3adc0b9a30b79c6464da3afa40888197949fd69c2f5f6076fcc2}{OVS\_VPORT\_ATTR\_UPCALL\_PID},
+442                    ids->\hyperlink{structvport__portids_ac76f512a0f0dbe3468b006e66bddc420}{n\_ids} * \textcolor{keyword}{sizeof}(u32), (\textcolor{keywordtype}{void} *) ids->\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids});
+443     \textcolor{keywordflow}{else}
+444         \textcolor{keywordflow}{return} nla\_put\_u32(skb, \hyperlink{openvswitch_8h_aae19f7a3f207d3adc0b9a30b79c6464da3afa40888197949fd69c2f5f6076fcc2}{OVS\_VPORT\_ATTR\_UPCALL\_PID}, ids->
+      \hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids}[0]);
+445 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_aacc501a60108d387b8fd7535c2e6168f}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+init@{ovs\+\_\+vport\+\_\+init}}
+\index{ovs\+\_\+vport\+\_\+init@{ovs\+\_\+vport\+\_\+init}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+vport\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_aacc501a60108d387b8fd7535c2e6168f}
+ovs\+\_\+vport\+\_\+init -\/ initialize vport subsystem
+
+Called at module load time to initialize the vport subsystem. 
+\begin{DoxyCode}
+55 \{
+56     \hyperlink{linux_2vport_8c_a8d8eed219fbfb344d996f7695a356e5d}{dev\_table} = kzalloc(\hyperlink{linux_2vport_8c_a46b55d1d4d6cc07a83259f332ff555ad}{VPORT\_HASH\_BUCKETS} * \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} hlist\_head),
+57                 GFP\_KERNEL);
+58     \textcolor{keywordflow}{if} (!\hyperlink{linux_2vport_8c_a8d8eed219fbfb344d996f7695a356e5d}{dev\_table})
+59         \textcolor{keywordflow}{return} -ENOMEM;
+60 
+61     \textcolor{keywordflow}{return} 0;
+62 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a6982e9b904201400a516a90502cdb70d}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+locate@{ovs\+\_\+vport\+\_\+locate}}
+\index{ovs\+\_\+vport\+\_\+locate@{ovs\+\_\+vport\+\_\+locate}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+locate}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf vport}$\ast$ ovs\+\_\+vport\+\_\+locate (
+\begin{DoxyParamCaption}
+\item[{const struct net $\ast$}]{net, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a6982e9b904201400a516a90502cdb70d}
+
+\begin{DoxyCode}
+114 \{
+115     \textcolor{keyword}{struct }hlist\_head *bucket = \hyperlink{linux_2vport_8c_af8f78ca35e84187b7b26a12676e363bc}{hash\_bucket}(net, name);
+116     \textcolor{keyword}{struct }\hyperlink{structvport}{vport} *\hyperlink{structvport}{vport};
+117 
+118     \hyperlink{rculist_8h_a482ed6bca0b607f6455d5386f3b1ed75}{hlist\_for\_each\_entry\_rcu}(vport, bucket, \hyperlink{structvport_ae6324a0c2483c3d1600cb29a6f4bcb8d}{hash\_node})
+119         if (!strcmp(name, vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->get\_name(vport)) &&
+120             net\_eq(\hyperlink{datapath_8h_aef2302004ca1f45133eaef00bb3740eb}{ovs\_dp\_get\_net}(vport->\hyperlink{structvport_a49fb6f6bf0ac4337853e9242e88ddc42}{dp}), net))
+121             return vport;
+122 
+123     return NULL;
+124 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_aab54c81e64893c3944d80fa035056648}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+lookup@{ovs\+\_\+vport\+\_\+lookup}}
+\index{ovs\+\_\+vport\+\_\+lookup@{ovs\+\_\+vport\+\_\+lookup}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+lookup}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf vport\+\_\+ops}$\ast$ ovs\+\_\+vport\+\_\+lookup (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport\+\_\+parms} $\ast$}]{parms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2vport_8c_aab54c81e64893c3944d80fa035056648}
+
+\begin{DoxyCode}
+174 \{
+175     \textcolor{keyword}{struct }\hyperlink{structvport__ops}{vport\_ops} *ops;
+176 
+177     list\_for\_each\_entry(ops, &vport\_ops\_list, \hyperlink{structvport__ops_aa0eadb49f41db4919e247ce17dd77aed}{list})
+178         if (ops->\hyperlink{flow_8h_ab22aaab04f806700def00f32823fcb9e}{type} == parms->\hyperlink{flow_8h_ab22aaab04f806700def00f32823fcb9e}{type})
+179             return ops;
+180 
+181     return NULL;
+182 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a6b6d24642324a66b7bacab2909bea2dc}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+ops\+\_\+register@{ovs\+\_\+vport\+\_\+ops\+\_\+register}}
+\index{ovs\+\_\+vport\+\_\+ops\+\_\+register@{ovs\+\_\+vport\+\_\+ops\+\_\+register}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+ops\+\_\+register}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+vport\+\_\+ops\+\_\+register (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport\+\_\+ops} $\ast$}]{ops}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a6b6d24642324a66b7bacab2909bea2dc}
+
+\begin{DoxyCode}
+81 \{
+82     \textcolor{keywordtype}{int} err = -EEXIST;
+83     \textcolor{keyword}{struct }\hyperlink{structvport__ops}{vport\_ops} *o;
+84 
+85     \hyperlink{datapath_8c_a092c1f450b78a173c890ed4c56839e1a}{ovs\_lock}();
+86     list\_for\_each\_entry(o, &vport\_ops\_list, \hyperlink{structvport__ops_aa0eadb49f41db4919e247ce17dd77aed}{list})
+87     if (ops->\hyperlink{flow_8h_ab22aaab04f806700def00f32823fcb9e}{type} == o->\hyperlink{flow_8h_ab22aaab04f806700def00f32823fcb9e}{type})
+88         goto errout;
+89 
+90     list\_add\_tail(&ops->\hyperlink{structvport__ops_aa0eadb49f41db4919e247ce17dd77aed}{list}, &vport\_ops\_list);
+91     err = 0;
+92 errout:
+93     \hyperlink{datapath_8c_ac3ccfd98a880ed6d2480209be0d16680}{ovs\_unlock}();
+94     return err;
+95 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a8659a5c436f2b09d0b6be2c208ee790e}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+ops\+\_\+unregister@{ovs\+\_\+vport\+\_\+ops\+\_\+unregister}}
+\index{ovs\+\_\+vport\+\_\+ops\+\_\+unregister@{ovs\+\_\+vport\+\_\+ops\+\_\+unregister}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+ops\+\_\+unregister}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+vport\+\_\+ops\+\_\+unregister (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport\+\_\+ops} $\ast$}]{ops}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a8659a5c436f2b09d0b6be2c208ee790e}
+
+\begin{DoxyCode}
+99 \{
+100     \hyperlink{datapath_8c_a092c1f450b78a173c890ed4c56839e1a}{ovs\_lock}();
+101     list\_del(&ops->\hyperlink{structvport__ops_aa0eadb49f41db4919e247ce17dd77aed}{list});
+102     \hyperlink{datapath_8c_ac3ccfd98a880ed6d2480209be0d16680}{ovs\_unlock}();
+103 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a45b6883b8ea28eb25965e1f2e1586d46}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+receive@{ovs\+\_\+vport\+\_\+receive}}
+\index{ovs\+\_\+vport\+\_\+receive@{ovs\+\_\+vport\+\_\+receive}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+receive}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+vport\+\_\+receive (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{const struct {\bf ovs\+\_\+tunnel\+\_\+info} $\ast$}]{tun\+\_\+info}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a45b6883b8ea28eb25965e1f2e1586d46}
+ovs\+\_\+vport\+\_\+receive -\/ pass up received packet to the datapath for processing
+
+\+: vport that received the packet \+: skb that was received \+: tunnel (if any) that carried packet
+
+Must be called with rcu\+\_\+read\+\_\+lock. The packet cannot be shared and skb-\/$>$data should point to the Ethernet header. The caller must have already called compute\+\_\+ip\+\_\+summed() to initialize the checksumming fields. 
+\begin{DoxyCode}
+485 \{
+486     \textcolor{keyword}{struct }\hyperlink{structpcpu__sw__netstats}{pcpu\_sw\_netstats} *stats;
+487     \textcolor{keyword}{struct }\hyperlink{structsw__flow__key}{sw\_flow\_key} key;
+488     \textcolor{keywordtype}{int} error;
+489 
+490     stats = \hyperlink{percpu_8h_a1cd55f287dff5c4a79fc11dd38d47c12}{this\_cpu\_ptr}(vport->\hyperlink{structvport_a04983f0d17ae4deb6ffb87333f6d4f05}{percpu\_stats});
+491     \hyperlink{u64__stats__sync_8h_a79de6de9a2c8c4e1c98d78e5689b74f7}{u64\_stats\_update\_begin}(&stats->\hyperlink{structpcpu__sw__netstats_a09b11d813594941c06b3e1e818a9b543}{syncp});
+492     stats->\hyperlink{structpcpu__sw__netstats_aef09f7c9a31a557c278f7768f6d54488}{rx\_packets}++;
+493     stats->\hyperlink{structpcpu__sw__netstats_ae71ad7ad7c404b7820d022d42c515a70}{rx\_bytes} += skb->len + (\hyperlink{if__vlan_8h_a0bdf3e26944669a4265c7e717e846215}{skb\_vlan\_tag\_present}(skb) ? VLAN\_HLEN : 0);
+494     \hyperlink{u64__stats__sync_8h_a4005b558b0a34d25298936e8d899e980}{u64\_stats\_update\_end}(&stats->\hyperlink{structpcpu__sw__netstats_a09b11d813594941c06b3e1e818a9b543}{syncp});
+495 
+496     \hyperlink{gso_8h_a41c183a631fa349a124a3c25724d8d0e}{ovs\_skb\_init\_inner\_protocol}(skb);
+497     \hyperlink{datapath_8h_ac337c4d4ddca29916ce8e900038ddd78}{OVS\_CB}(skb)->input\_vport = vport;
+498     \hyperlink{datapath_8h_ac337c4d4ddca29916ce8e900038ddd78}{OVS\_CB}(skb)->egress\_tun\_info = NULL;
+499     error = \hyperlink{flow_8c_a88b5c281d297950115033a17dbce5208}{ovs\_flow\_key\_extract}(tun\_info, skb, &key);
+500     \textcolor{keywordflow}{if} (unlikely(error)) \{
+501         kfree\_skb(skb);
+502         \textcolor{keywordflow}{return};
+503     \}
+504     \hyperlink{datapath_8c_aa52cbaf8a4e68129287bfc8ddcde0711}{ovs\_dp\_process\_packet}(skb, &key);
+505 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a76cfadb621b3e59bcf1a0268c1ea9715}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+record\+\_\+error@{ovs\+\_\+vport\+\_\+record\+\_\+error}}
+\index{ovs\+\_\+vport\+\_\+record\+\_\+error@{ovs\+\_\+vport\+\_\+record\+\_\+error}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+record\+\_\+error}]{\setlength{\rightskip}{0pt plus 5cm}static void ovs\+\_\+vport\+\_\+record\+\_\+error (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport, }
+\item[{enum {\bf vport\+\_\+err\+\_\+type}}]{err\+\_\+type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2vport_8c_a76cfadb621b3e59bcf1a0268c1ea9715}
+ovs\+\_\+vport\+\_\+record\+\_\+error -\/ indicate device error to generic stats layer
+
+\+: vport that encountered the error \+: one of enum vport\+\_\+err\+\_\+type types to indicate the error type
+
+If using the vport generic stats layer indicate that an error of the given type has occurred. 
+\begin{DoxyCode}
+549 \{
+550     \textcolor{keywordflow}{switch} (err\_type) \{
+551     \textcolor{keywordflow}{case} \hyperlink{vport_8h_a41291b69ebff49e5bd1af2b88dae3f4aaecdde7db6ebfd0cd6adcd6689ef7183a}{VPORT\_E\_RX\_DROPPED}:
+552         atomic\_long\_inc(&vport->\hyperlink{structvport_a5cd8a50cb02833a868db549d64052c99}{err\_stats}.\hyperlink{structvport__err__stats_a38849ae05107fbf9e9824149b60bd91f}{rx\_dropped});
+553         \textcolor{keywordflow}{break};
+554 
+555     \textcolor{keywordflow}{case} \hyperlink{vport_8h_a41291b69ebff49e5bd1af2b88dae3f4aa4ab58505ef7f6dd73543f741e15a4d3f}{VPORT\_E\_RX\_ERROR}:
+556         atomic\_long\_inc(&vport->\hyperlink{structvport_a5cd8a50cb02833a868db549d64052c99}{err\_stats}.\hyperlink{structvport__err__stats_ad253987f143edfffea6546baa0e990f6}{rx\_errors});
+557         \textcolor{keywordflow}{break};
+558 
+559     \textcolor{keywordflow}{case} \hyperlink{vport_8h_a41291b69ebff49e5bd1af2b88dae3f4aa38f5ebc68979e7e533166635cc649a14}{VPORT\_E\_TX\_DROPPED}:
+560         atomic\_long\_inc(&vport->\hyperlink{structvport_a5cd8a50cb02833a868db549d64052c99}{err\_stats}.\hyperlink{structvport__err__stats_a299aaacfac0fe9d48ddd000674b7816a}{tx\_dropped});
+561         \textcolor{keywordflow}{break};
+562 
+563     \textcolor{keywordflow}{case} \hyperlink{vport_8h_a41291b69ebff49e5bd1af2b88dae3f4aa67aa9ca01bf39dbcf42e1c39bea62582}{VPORT\_E\_TX\_ERROR}:
+564         atomic\_long\_inc(&vport->\hyperlink{structvport_a5cd8a50cb02833a868db549d64052c99}{err\_stats}.\hyperlink{structvport__err__stats_a24478cbc4a61b5454a4247830bf2c7b4}{tx\_errors});
+565         \textcolor{keywordflow}{break};
+566     \}
+567 
+568 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_abd74f3970bd7dc951b8399d00efe42d8}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+send@{ovs\+\_\+vport\+\_\+send}}
+\index{ovs\+\_\+vport\+\_\+send@{ovs\+\_\+vport\+\_\+send}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+send}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+vport\+\_\+send (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_abd74f3970bd7dc951b8399d00efe42d8}
+ovs\+\_\+vport\+\_\+send -\/ send a packet on a device
+
+\+: vport on which to send the packet \+: skb to send
+
+Sends the given packet and returns the length of data sent. Either ovs lock or rcu\+\_\+read\+\_\+lock must be held. 
+\begin{DoxyCode}
+518 \{
+519     \textcolor{keywordtype}{int} sent = vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->\hyperlink{structvport__ops_a70034105b72fdde6d137bbc7e5d55a6a}{send}(vport, skb);
+520 
+521     \textcolor{keywordflow}{if} (likely(sent > 0)) \{
+522         \textcolor{keyword}{struct }\hyperlink{structpcpu__sw__netstats}{pcpu\_sw\_netstats} *stats;
+523 
+524         stats = \hyperlink{percpu_8h_a1cd55f287dff5c4a79fc11dd38d47c12}{this\_cpu\_ptr}(vport->\hyperlink{structvport_a04983f0d17ae4deb6ffb87333f6d4f05}{percpu\_stats});
+525 
+526         \hyperlink{u64__stats__sync_8h_a79de6de9a2c8c4e1c98d78e5689b74f7}{u64\_stats\_update\_begin}(&stats->\hyperlink{structpcpu__sw__netstats_a09b11d813594941c06b3e1e818a9b543}{syncp});
+527         stats->\hyperlink{structpcpu__sw__netstats_a1b3e22436ccc3b5d13124f481eb2261f}{tx\_packets}++;
+528         stats->\hyperlink{structpcpu__sw__netstats_ab017757f36d020e04458ef3748fe1d69}{tx\_bytes} += sent;
+529         \hyperlink{u64__stats__sync_8h_a4005b558b0a34d25298936e8d899e980}{u64\_stats\_update\_end}(&stats->\hyperlink{structpcpu__sw__netstats_a09b11d813594941c06b3e1e818a9b543}{syncp});
+530     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sent < 0) \{
+531         \hyperlink{linux_2vport_8c_a76cfadb621b3e59bcf1a0268c1ea9715}{ovs\_vport\_record\_error}(vport, \hyperlink{vport_8h_a41291b69ebff49e5bd1af2b88dae3f4aa67aa9ca01bf39dbcf42e1c39bea62582}{VPORT\_E\_TX\_ERROR});
+532     \} \textcolor{keywordflow}{else} \{
+533         \hyperlink{linux_2vport_8c_a76cfadb621b3e59bcf1a0268c1ea9715}{ovs\_vport\_record\_error}(vport, \hyperlink{vport_8h_a41291b69ebff49e5bd1af2b88dae3f4aa38f5ebc68979e7e533166635cc649a14}{VPORT\_E\_TX\_DROPPED});
+534     \}
+535     \textcolor{keywordflow}{return} sent;
+536 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_acfdffde36364d009c64778f1ef6c863b}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+set\+\_\+options@{ovs\+\_\+vport\+\_\+set\+\_\+options}}
+\index{ovs\+\_\+vport\+\_\+set\+\_\+options@{ovs\+\_\+vport\+\_\+set\+\_\+options}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+set\+\_\+options}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+vport\+\_\+set\+\_\+options (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport, }
+\item[{struct nlattr $\ast$}]{options}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_acfdffde36364d009c64778f1ef6c863b}
+ovs\+\_\+vport\+\_\+set\+\_\+options -\/ modify existing vport device (for kernel callers)
+
+\+: vport to modify. \+: New configuration.
+
+Modifies an existing device with the specified configuration (which is dependent on device type). ovs\+\_\+mutex must be held. 
+\begin{DoxyCode}
+258 \{
+259     \textcolor{keywordflow}{if} (!vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->\hyperlink{structvport__ops_a2a99b53de4cfaeaf8fb88d41660f5e73}{set\_options})
+260         \textcolor{keywordflow}{return} -EOPNOTSUPP;
+261     \textcolor{keywordflow}{return} vport->\hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}->\hyperlink{structvport__ops_a2a99b53de4cfaeaf8fb88d41660f5e73}{set\_options}(vport, options);
+262 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_a8d6c13e6f31531135adf06eb8004a20a}{}\index{linux/vport.\+c@{linux/vport.\+c}!ovs\+\_\+vport\+\_\+set\+\_\+upcall\+\_\+portids@{ovs\+\_\+vport\+\_\+set\+\_\+upcall\+\_\+portids}}
+\index{ovs\+\_\+vport\+\_\+set\+\_\+upcall\+\_\+portids@{ovs\+\_\+vport\+\_\+set\+\_\+upcall\+\_\+portids}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{ovs\+\_\+vport\+\_\+set\+\_\+upcall\+\_\+portids}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+vport\+\_\+set\+\_\+upcall\+\_\+portids (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport, }
+\item[{const struct nlattr $\ast$}]{ids}
+\end{DoxyParamCaption}
+)}\label{linux_2vport_8c_a8d6c13e6f31531135adf06eb8004a20a}
+ovs\+\_\+vport\+\_\+set\+\_\+upcall\+\_\+portids -\/ set upcall portids of .
+
+\+: vport to modify. \+: new configuration, an array of port ids.
+
+Sets the vport\textquotesingle{}s upcall\+\_\+portids to .
+
+Returns 0 if successful, -\/\+E\+I\+N\+V\+A\+L if  is zero length or cannot be parsed as an array of U32.
+
+Must be called with ovs\+\_\+mutex. 
+\begin{DoxyCode}
+394 \{
+395     \textcolor{keyword}{struct }\hyperlink{structvport__portids}{vport\_portids} *old, *\hyperlink{structvport__portids}{vport\_portids};
+396 
+397     \textcolor{keywordflow}{if} (!nla\_len(\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids}) || nla\_len(\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids}) % \textcolor{keyword}{sizeof}(u32))
+398         \textcolor{keywordflow}{return} -EINVAL;
+399 
+400     old = \hyperlink{datapath_8h_a06ef69170d345fd3996a467dcacf3ff3}{ovsl\_dereference}(vport->\hyperlink{structvport_a7963679d5c8d3a923eb42faf9d5fb2d1}{upcall\_portids});
+401 
+402     vport\_portids = kmalloc(\textcolor{keyword}{sizeof} *vport\_portids + nla\_len(\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids}),
+403                 GFP\_KERNEL);
+404     \textcolor{keywordflow}{if} (!vport\_portids)
+405         \textcolor{keywordflow}{return} -ENOMEM;
+406 
+407     vport\_portids->\hyperlink{structvport__portids_ac76f512a0f0dbe3468b006e66bddc420}{n\_ids} = nla\_len(\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids}) / \textcolor{keyword}{sizeof}(u32);
+408     vport\_portids->\hyperlink{structvport__portids_a9828dc460e2dd5ef92f6c4a1eba6bc3b}{rn\_ids} = \hyperlink{reciprocal__div_8h_a78adc7b97028a17a134f8a0cd82c5c82}{reciprocal\_value}(vport\_portids->
+      \hyperlink{structvport__portids_ac76f512a0f0dbe3468b006e66bddc420}{n\_ids});
+409     nla\_memcpy(vport\_portids->\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids}, \hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids}, nla\_len(\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids}));
+410 
+411     rcu\_assign\_pointer(vport->\hyperlink{structvport_a7963679d5c8d3a923eb42faf9d5fb2d1}{upcall\_portids}, vport\_portids);
+412 
+413     \textcolor{keywordflow}{if} (old)
+414         call\_rcu(&old->\hyperlink{structvport__portids_ab5cbafb043788d6b07ed054824f6167c}{rcu}, \hyperlink{linux_2vport_8c_af0d1fe416a91b69f19cb2be6eaf89dde}{vport\_portids\_destroy\_rcu\_cb});
+415 
+416     \textcolor{keywordflow}{return} 0;
+417 \}
+\end{DoxyCode}
+\hypertarget{linux_2vport_8c_af0d1fe416a91b69f19cb2be6eaf89dde}{}\index{linux/vport.\+c@{linux/vport.\+c}!vport\+\_\+portids\+\_\+destroy\+\_\+rcu\+\_\+cb@{vport\+\_\+portids\+\_\+destroy\+\_\+rcu\+\_\+cb}}
+\index{vport\+\_\+portids\+\_\+destroy\+\_\+rcu\+\_\+cb@{vport\+\_\+portids\+\_\+destroy\+\_\+rcu\+\_\+cb}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{vport\+\_\+portids\+\_\+destroy\+\_\+rcu\+\_\+cb}]{\setlength{\rightskip}{0pt plus 5cm}static void vport\+\_\+portids\+\_\+destroy\+\_\+rcu\+\_\+cb (
+\begin{DoxyParamCaption}
+\item[{struct rcu\+\_\+head $\ast$}]{rcu}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2vport_8c_af0d1fe416a91b69f19cb2be6eaf89dde}
+
+\begin{DoxyCode}
+373 \{
+374     \textcolor{keyword}{struct }\hyperlink{structvport__portids}{vport\_portids} *\hyperlink{structvport__portids_aa8570053786f982366b3dfb513479628}{ids} = container\_of(\hyperlink{structvport__portids_ab5cbafb043788d6b07ed054824f6167c}{rcu}, \textcolor{keyword}{struct} 
+      \hyperlink{structvport__portids}{vport\_portids},
+375                          \hyperlink{structvport__portids_ab5cbafb043788d6b07ed054824f6167c}{rcu});
+376 
+377     kfree(ids);
+378 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{linux_2vport_8c_a8d8eed219fbfb344d996f7695a356e5d}{}\index{linux/vport.\+c@{linux/vport.\+c}!dev\+\_\+table@{dev\+\_\+table}}
+\index{dev\+\_\+table@{dev\+\_\+table}!linux/vport.\+c@{linux/vport.\+c}}
+\subsubsection[{dev\+\_\+table}]{\setlength{\rightskip}{0pt plus 5cm}struct hlist\+\_\+head$\ast$ dev\+\_\+table\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2vport_8c_a8d8eed219fbfb344d996f7695a356e5d}

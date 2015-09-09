@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="compat_2gre_8c">
+    <title>gre.c File Reference</title>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kconfig.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_tunnel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/icmp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/in.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kmod.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/netdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/skbuff.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/spinlock.h&gt;</programlisting>
+    <programlisting>#include &lt;net/gre.h&gt;</programlisting>
+    <programlisting>#include &lt;net/icmp.h&gt;</programlisting>
+    <programlisting>#include &lt;net/protocol.h&gt;</programlisting>
+    <programlisting>#include &lt;net/route.h&gt;</programlisting>
+    <programlisting>#include &lt;net/xfrm.h&gt;</programlisting>
+    <programlisting>#include &quot;gso.h&quot;</programlisting>
+<para>Include dependency diagram for gre.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="compat_2gre_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for gre.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="compat_2gre_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/gre.c</para>
+    </simplesect>
+</section>

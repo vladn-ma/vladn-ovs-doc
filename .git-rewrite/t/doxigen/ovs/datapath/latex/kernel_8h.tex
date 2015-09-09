@@ -1,0 +1,70 @@
+\hypertarget{kernel_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/linux/kernel.h File Reference}
+\label{kernel_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/linux/kernel.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/linux/kernel.\+h}}
+{\ttfamily \#include $<$linux/log2.\+h$>$}\\*
+{\ttfamily \#include $<$linux/version.\+h$>$}\\*
+Include dependency graph for kernel.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{kernel_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{kernel_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{kernel_8h_a689b119da994dece91d44b5aeac643ed}{U\+S\+H\+R\+T\+\_\+\+M\+A\+X}~((u16)($\sim$0\+U))
+\item 
+\#define \hyperlink{kernel_8h_a1f758438cb1c7bcf55da2431f5e319e6}{S\+H\+R\+T\+\_\+\+M\+A\+X}~((s16)(\hyperlink{kernel_8h_a689b119da994dece91d44b5aeac643ed}{U\+S\+H\+R\+T\+\_\+\+M\+A\+X}$>$$>$1))
+\item 
+\#define \hyperlink{kernel_8h_ae59de266aceffa1c258ac13f45fe0d18}{S\+H\+R\+T\+\_\+\+M\+I\+N}~((s16)(-\/\hyperlink{kernel_8h_a1f758438cb1c7bcf55da2431f5e319e6}{S\+H\+R\+T\+\_\+\+M\+A\+X} -\/ 1))
+\item 
+\#define \hyperlink{kernel_8h_ae664e7492e37d324831caf2321ddda37}{D\+I\+V\+\_\+\+R\+O\+U\+N\+D\+\_\+\+U\+P}(n,  d)~(((n) + (d) -\/ 1) / (d))
+\item 
+\#define \hyperlink{kernel_8h_abbacd255029bd6692704964758c8aa97}{rounddown}(x,  y)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{kernel_8h_ae664e7492e37d324831caf2321ddda37}{}\index{kernel.\+h@{kernel.\+h}!D\+I\+V\+\_\+\+R\+O\+U\+N\+D\+\_\+\+U\+P@{D\+I\+V\+\_\+\+R\+O\+U\+N\+D\+\_\+\+U\+P}}
+\index{D\+I\+V\+\_\+\+R\+O\+U\+N\+D\+\_\+\+U\+P@{D\+I\+V\+\_\+\+R\+O\+U\+N\+D\+\_\+\+U\+P}!kernel.\+h@{kernel.\+h}}
+\subsubsection[{D\+I\+V\+\_\+\+R\+O\+U\+N\+D\+\_\+\+U\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+V\+\_\+\+R\+O\+U\+N\+D\+\_\+\+U\+P(
+\begin{DoxyParamCaption}
+\item[{}]{n, }
+\item[{}]{d}
+\end{DoxyParamCaption}
+)~(((n) + (d) -\/ 1) / (d))}\label{kernel_8h_ae664e7492e37d324831caf2321ddda37}
+\hypertarget{kernel_8h_abbacd255029bd6692704964758c8aa97}{}\index{kernel.\+h@{kernel.\+h}!rounddown@{rounddown}}
+\index{rounddown@{rounddown}!kernel.\+h@{kernel.\+h}}
+\subsubsection[{rounddown}]{\setlength{\rightskip}{0pt plus 5cm}\#define rounddown(
+\begin{DoxyParamCaption}
+\item[{}]{x, }
+\item[{}]{y}
+\end{DoxyParamCaption}
+)}\label{kernel_8h_abbacd255029bd6692704964758c8aa97}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(               \(\backslash\)
+\{                           \(\backslash\)
+    typeof(x) \_\_x = (x);                \(\backslash\)
+    \_\_x - (\_\_x % (y));              \(\backslash\)
+\}                           \(\backslash\)
+)
+\end{DoxyCode}
+\hypertarget{kernel_8h_a1f758438cb1c7bcf55da2431f5e319e6}{}\index{kernel.\+h@{kernel.\+h}!S\+H\+R\+T\+\_\+\+M\+A\+X@{S\+H\+R\+T\+\_\+\+M\+A\+X}}
+\index{S\+H\+R\+T\+\_\+\+M\+A\+X@{S\+H\+R\+T\+\_\+\+M\+A\+X}!kernel.\+h@{kernel.\+h}}
+\subsubsection[{S\+H\+R\+T\+\_\+\+M\+A\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+R\+T\+\_\+\+M\+A\+X~((s16)({\bf U\+S\+H\+R\+T\+\_\+\+M\+A\+X}$>$$>$1))}\label{kernel_8h_a1f758438cb1c7bcf55da2431f5e319e6}
+\hypertarget{kernel_8h_ae59de266aceffa1c258ac13f45fe0d18}{}\index{kernel.\+h@{kernel.\+h}!S\+H\+R\+T\+\_\+\+M\+I\+N@{S\+H\+R\+T\+\_\+\+M\+I\+N}}
+\index{S\+H\+R\+T\+\_\+\+M\+I\+N@{S\+H\+R\+T\+\_\+\+M\+I\+N}!kernel.\+h@{kernel.\+h}}
+\subsubsection[{S\+H\+R\+T\+\_\+\+M\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+R\+T\+\_\+\+M\+I\+N~((s16)(-\/{\bf S\+H\+R\+T\+\_\+\+M\+A\+X} -\/ 1))}\label{kernel_8h_ae59de266aceffa1c258ac13f45fe0d18}
+\hypertarget{kernel_8h_a689b119da994dece91d44b5aeac643ed}{}\index{kernel.\+h@{kernel.\+h}!U\+S\+H\+R\+T\+\_\+\+M\+A\+X@{U\+S\+H\+R\+T\+\_\+\+M\+A\+X}}
+\index{U\+S\+H\+R\+T\+\_\+\+M\+A\+X@{U\+S\+H\+R\+T\+\_\+\+M\+A\+X}!kernel.\+h@{kernel.\+h}}
+\subsubsection[{U\+S\+H\+R\+T\+\_\+\+M\+A\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+S\+H\+R\+T\+\_\+\+M\+A\+X~((u16)($\sim$0\+U))}\label{kernel_8h_a689b119da994dece91d44b5aeac643ed}

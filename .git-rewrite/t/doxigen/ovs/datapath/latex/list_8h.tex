@@ -1,0 +1,68 @@
+\hypertarget{list_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/linux/list.h File Reference}
+\label{list_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/linux/list.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/linux/list.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{list_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{list_8h_a9aba32f6dc43ee54db1eebd61df58fb0}{hlist\+\_\+entry\+\_\+safe}(ptr,  \hyperlink{flow_8h_ab22aaab04f806700def00f32823fcb9e}{type},  member)
+\item 
+\#define \hyperlink{list_8h_a3782c1eea66f5cacadce6e0175e4650a}{hlist\+\_\+for\+\_\+each\+\_\+entry}(pos,  head,  member)
+\item 
+\#define \hyperlink{list_8h_ae2f7dd7dbbe2f13fa51aca9fcb31a03f}{hlist\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe}(pos,  n,  head,  member)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{list_8h_a9aba32f6dc43ee54db1eebd61df58fb0}{}\index{list.\+h@{list.\+h}!hlist\+\_\+entry\+\_\+safe@{hlist\+\_\+entry\+\_\+safe}}
+\index{hlist\+\_\+entry\+\_\+safe@{hlist\+\_\+entry\+\_\+safe}!list.\+h@{list.\+h}}
+\subsubsection[{hlist\+\_\+entry\+\_\+safe}]{\setlength{\rightskip}{0pt plus 5cm}\#define hlist\+\_\+entry\+\_\+safe(
+\begin{DoxyParamCaption}
+\item[{}]{ptr, }
+\item[{}]{{\bf type}, }
+\item[{}]{member}
+\end{DoxyParamCaption}
+)}\label{list_8h_a9aba32f6dc43ee54db1eebd61df58fb0}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\{ typeof(ptr) \_\_\_\_ptr = (ptr); \(\backslash\)
+     \_\_\_\_ptr ? hlist\_entry(\_\_\_\_ptr, \hyperlink{flow_8h_ab22aaab04f806700def00f32823fcb9e}{type}, member) : NULL; \(\backslash\)
+     \})
+\end{DoxyCode}
+\hypertarget{list_8h_a3782c1eea66f5cacadce6e0175e4650a}{}\index{list.\+h@{list.\+h}!hlist\+\_\+for\+\_\+each\+\_\+entry@{hlist\+\_\+for\+\_\+each\+\_\+entry}}
+\index{hlist\+\_\+for\+\_\+each\+\_\+entry@{hlist\+\_\+for\+\_\+each\+\_\+entry}!list.\+h@{list.\+h}}
+\subsubsection[{hlist\+\_\+for\+\_\+each\+\_\+entry}]{\setlength{\rightskip}{0pt plus 5cm}\#define hlist\+\_\+for\+\_\+each\+\_\+entry(
+\begin{DoxyParamCaption}
+\item[{}]{pos, }
+\item[{}]{head, }
+\item[{}]{member}
+\end{DoxyParamCaption}
+)}\label{list_8h_a3782c1eea66f5cacadce6e0175e4650a}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{for} (pos = \hyperlink{list_8h_a9aba32f6dc43ee54db1eebd61df58fb0}{hlist\_entry\_safe}((head)->first, typeof(*(pos)), member);\(\backslash\)
+         pos;                           \(\backslash\)
+         pos = \hyperlink{list_8h_a9aba32f6dc43ee54db1eebd61df58fb0}{hlist\_entry\_safe}((pos)->member.next, typeof(*(pos)), member))
+\end{DoxyCode}
+\hypertarget{list_8h_ae2f7dd7dbbe2f13fa51aca9fcb31a03f}{}\index{list.\+h@{list.\+h}!hlist\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe@{hlist\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe}}
+\index{hlist\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe@{hlist\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe}!list.\+h@{list.\+h}}
+\subsubsection[{hlist\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe}]{\setlength{\rightskip}{0pt plus 5cm}\#define hlist\+\_\+for\+\_\+each\+\_\+entry\+\_\+safe(
+\begin{DoxyParamCaption}
+\item[{}]{pos, }
+\item[{}]{n, }
+\item[{}]{head, }
+\item[{}]{member}
+\end{DoxyParamCaption}
+)}\label{list_8h_ae2f7dd7dbbe2f13fa51aca9fcb31a03f}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{for} (pos = \hyperlink{list_8h_a9aba32f6dc43ee54db1eebd61df58fb0}{hlist\_entry\_safe}((head)->first, typeof(*pos), member);\(\backslash\)
+         pos && (\{ n = pos->member.next; 1; \});         \(\backslash\)
+         pos = \hyperlink{list_8h_a9aba32f6dc43ee54db1eebd61df58fb0}{hlist\_entry\_safe}(n, typeof(*pos), member))
+\end{DoxyCode}

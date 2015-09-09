@@ -1,0 +1,80 @@
+.TH "/home/vladn/git/ovs/datapath/vport-internal_dev.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/vport-internal_dev.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'datapath\&.h'\fP
+.br
+\fC#include 'vport\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBovs_is_internal_dev\fP (const struct net_device *)"
+.br
+.ti -1c
+.RI "struct \fBvport\fP * \fBovs_internal_dev_get_vport\fP (struct net_device *)"
+.br
+.ti -1c
+.RI "int \fBovs_internal_dev_rtnl_link_register\fP (void)"
+.br
+.ti -1c
+.RI "void \fBovs_internal_dev_rtnl_link_unregister\fP (void)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "struct \fBvport\fP* ovs_internal_dev_get_vport (struct net_device *)"
+
+.PP
+.nf
+304 {
+305     if (!ovs_is_internal_dev(netdev))
+306         return NULL;
+307 
+308     return internal_dev_priv(netdev)->vport;
+309 }
+.fi
+.SS "int ovs_internal_dev_rtnl_link_register (void)"
+
+.PP
+.nf
+312 {
+313     int err;
+314 
+315     err = rtnl_link_register(&internal_dev_link_ops);
+316     if (err < 0)
+317         return err;
+318 
+319     err = ovs_vport_ops_register(&ovs_internal_vport_ops);
+320     if (err < 0)
+321         rtnl_link_unregister(&internal_dev_link_ops);
+322 
+323     return err;
+324 }
+.fi
+.SS "void ovs_internal_dev_rtnl_link_unregister (void)"
+
+.PP
+.nf
+327 {
+328     ovs_vport_ops_unregister(&ovs_internal_vport_ops);
+329     rtnl_link_unregister(&internal_dev_link_ops);
+330 }
+.fi
+.SS "int ovs_is_internal_dev (const struct net_device *)"
+
+.PP
+.nf
+299 {
+300     return netdev->netdev_ops == &internal_dev_netdev_ops;
+301 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

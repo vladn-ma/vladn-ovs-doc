@@ -1,0 +1,45 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/linux/rculist.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/linux/rculist.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBhlist_first_rcu\fP(head)   (*((struct hlist_node \fB__rcu\fP **)(&(head)->first)))"
+.br
+.ti -1c
+.RI "#define \fBhlist_next_rcu\fP(node)   (*((struct hlist_node \fB__rcu\fP **)(&(node)->next)))"
+.br
+.ti -1c
+.RI "#define \fBhlist_pprev_rcu\fP(node)   (*((struct hlist_node \fB__rcu\fP **)((node)->pprev)))"
+.br
+.ti -1c
+.RI "#define \fBhlist_for_each_entry_rcu\fP(pos,  head,  member)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define hlist_first_rcu(head)   (*((struct hlist_node \fB__rcu\fP **)(&(head)->first)))"
+
+.SS "#define hlist_for_each_entry_rcu(pos, head, member)"
+\fBValue:\fP
+.PP
+.nf
+for (pos = hlist_entry_safe (rcu_dereference_raw(hlist_first_rcu(head)),\
+            typeof(*(pos)), member);            \
+        pos;                            \
+        pos = hlist_entry_safe(rcu_dereference_raw(hlist_next_rcu(\
+            &(pos)->member)), typeof(*(pos)), member))
+.fi
+.SS "#define hlist_next_rcu(node)   (*((struct hlist_node \fB__rcu\fP **)(&(node)->next)))"
+
+.SS "#define hlist_pprev_rcu(node)   (*((struct hlist_node \fB__rcu\fP **)((node)->pprev)))"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

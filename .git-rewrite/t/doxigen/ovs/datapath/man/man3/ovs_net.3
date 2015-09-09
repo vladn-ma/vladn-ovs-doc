@@ -1,0 +1,38 @@
+.TH "ovs_net" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ovs_net \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <datapath\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct list_head \fBdps\fP"
+.br
+.ti -1c
+.RI "struct work_struct \fBdp_notify_work\fP"
+.br
+.ti -1c
+.RI "struct \fBvport_net\fP \fBvport_net\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+struct \fBovs_net\fP - Per net-namespace data for ovs\&. : List of datapaths to enable dumping them all out\&. Protected by genl_mutex\&. : Per network namespace data for vport\&. 
+.SH "Field Documentation"
+.PP 
+.SS "struct work_struct ovs_net::dp_notify_work"
+
+.SS "struct list_head ovs_net::dps"
+
+.SS "struct \fBvport_net\fP ovs_net::vport_net"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

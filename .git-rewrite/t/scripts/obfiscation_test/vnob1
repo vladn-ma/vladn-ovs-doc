@@ -1,0 +1,36 @@
+#!/bin/bash
+
+############################
+# vnob1 vn obfiscation version 1
+# this scripts find files using pattern given by the first argument, 
+# default is *.c and *h #pattern must be given in the quota marks like '*.txt'
+# 1. remove comments in those files
+# 2. remove empty lines in those files
+############################
+
+fnum=0
+
+for file in $(find . -iname '*.hpp' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.c')
+do
+let "fnum += 1"
+tmp="$file"__
+rm -f $tmp
+#sed -e 's/\(@include\)[ \t]\+\([^\"][a-zA-Z0-9_\.\/]\+\)/\1 \"\2\"/g' -e 's/\([^@]\)\(define\)/\1@\2/g' -e 's/^\(define\)/@\1/g' $file > $tmp
+#sed -e 's:/**/::g' $file > $tmp
+
+sed '/ONE/ {
+# append a line
+	N
+# search for TWO on the second line	
+	/\n.*TWO/ {
+# found it - now edit making one line
+		s/ONE.*\n.*TWO/ONE TWO/
+	}
+}' $file
+
+
+
+mv -f $tmp $file
+done
+
+echo "number of processed files : " $fnum

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+#----------------------------------------------------------
+# OVS project
+# run this script for build and debug
+#----------------------------------------------------------
+make -j4
+sudo make install
+sudo make modules_install
+
+sudo modprobe -r openvswitch
+sudo modprobe openvswitch
+sudo modprobe -r openvswitch
+sudo modprobe openvswitch
+
+#dmesg | grep vn
+
+
+
+

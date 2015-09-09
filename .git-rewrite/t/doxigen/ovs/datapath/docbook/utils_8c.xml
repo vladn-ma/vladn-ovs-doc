@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="utils_8c">
+    <title>utils.c File Reference</title>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/jiffies.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ctype.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/inet.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/mm.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/net.h&gt;</programlisting>
+    <programlisting>#include &lt;net/checksum.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/string.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/types.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/percpu.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/init.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ratelimit.h&gt;</programlisting>
+    <programlisting>#include &lt;net/sock.h&gt;</programlisting>
+    <programlisting>#include &lt;asm/byteorder.h&gt;</programlisting>
+    <programlisting>#include &lt;asm/uaccess.h&gt;</programlisting>
+<para>Include dependency diagram for utils.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="utils_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for utils.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="utils_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/utils.c</para>
+    </simplesect>
+</section>

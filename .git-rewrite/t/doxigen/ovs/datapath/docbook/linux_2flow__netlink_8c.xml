@@ -1,0 +1,589 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="linux_2flow__netlink_8c">
+    <title>flow_netlink.c File Reference</title>
+    <programlisting>#include &lt;linux/uaccess.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/netdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/etherdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_ether.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_vlan.h&gt;</programlisting>
+    <programlisting>#include &lt;net/llc_pdu.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/jhash.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/jiffies.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/llc.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/in.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rcupdate.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_arp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ipv6.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/sctp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/tcp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/udp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/icmp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/icmpv6.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rculist.h&gt;</programlisting>
+    <programlisting>#include &lt;net/geneve.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ipv6.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ndisc.h&gt;</programlisting>
+    <programlisting>#include &lt;net/mpls.h&gt;</programlisting>
+    <programlisting>#include &quot;datapath.h&quot;</programlisting>
+    <programlisting>#include &quot;flow.h&quot;</programlisting>
+    <programlisting>#include &quot;flow_netlink.h&quot;</programlisting>
+    <programlisting>#include &quot;vport-vxlan.h&quot;</programlisting>
+<para>Include dependency diagram for flow_netlink.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2flow__netlink_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for flow_netlink.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2flow__netlink_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title> Data Structures </title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structovs__len__tbl">ovs_len_tbl</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__netlink_8c_1a1f8c165bf4196327bc3abff648276d92">pr_fmt</link> KBUILD_MODNAME &quot;: &quot; fmt</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__netlink_8c_1aa45250c738c1a22be7f5e711887c8547">OVS_ATTR_NESTED</link> -1</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__netlink_8c_1a7cb040299f14f8ff8806dd868c321d7b">SW_FLOW_KEY_PUT</link> do { \
+		<link linkend="linux_2flow__netlink_8c_1ac21a080dcc5b01d3da9b75d32b13fb40">update_range</link>(match, offsetof(struct <link linkend="structsw__flow__key">sw_flow_key</link>, field),    \
+			     sizeof((match)-&gt;key-&gt;field), is_mask);	    \
+		if (is_mask)						    \
+			(match)-&gt;mask-&gt;key.field = value;		    \
+		else							    \
+			(match)-&gt;key-&gt;field = value;		            \
+	} while (0)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__netlink_8c_1aceedf9228ebbe5291ac9e12d1d011278">SW_FLOW_KEY_MEMCPY_OFFSET</link> do {								    \
+		<link linkend="linux_2flow__netlink_8c_1ac21a080dcc5b01d3da9b75d32b13fb40">update_range</link>(match, offset, len, is_mask);		    \
+		if (is_mask)						    \
+			memcpy((u8 *)&amp;(match)-&gt;mask-&gt;key + offset, value_p, len);\
+		else							    \
+			memcpy((u8 *)(match)-&gt;key + offset, value_p, len);  \
+	} while (0)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__netlink_8c_1aa303fd044db169fb22013e1279c18dd1">SW_FLOW_KEY_MEMCPY</link> <link linkend="linux_2flow__netlink_8c_1aceedf9228ebbe5291ac9e12d1d011278">SW_FLOW_KEY_MEMCPY_OFFSET</link>(match, offsetof(struct <link linkend="structsw__flow__key">sw_flow_key</link>, field), \
+				  value_p, len, is_mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__netlink_8c_1a428fac9f6cc49614e07de128b9e4869f">SW_FLOW_KEY_MEMSET_FIELD</link> do {								    \
+		<link linkend="linux_2flow__netlink_8c_1ac21a080dcc5b01d3da9b75d32b13fb40">update_range</link>(match, offsetof(struct <link linkend="structsw__flow__key">sw_flow_key</link>, field),    \
+			     sizeof((match)-&gt;key-&gt;field), is_mask);	    \
+		if (is_mask)						    \
+			memset((u8 *)&amp;(match)-&gt;mask-&gt;key.field, value,      \
+			       sizeof((match)-&gt;mask-&gt;key.field));	    \
+		else							    \
+			memset((u8 *)&amp;(match)-&gt;key-&gt;field, value,           \
+			       sizeof((match)-&gt;key-&gt;field));                \
+	} while (0)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow__netlink_8c_1a429e7a37f3797cd9870c534467a7f762">MAX_ACTIONS_BUFSIZE</link> (32 * 1024)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Variables</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static const struct <link linkend="structovs__len__tbl">ovs_len_tbl</link> <link linkend="linux_2flow__netlink_8c_1abcfd7a34b15e86938f3646cda1522e07">ovs_tunnel_key_lens</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static const struct <link linkend="structovs__len__tbl">ovs_len_tbl</link> <link linkend="linux_2flow__netlink_8c_1a5565daa559332f47a1d214007d97e0d7">ovs_key_lens</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static const struct nla_policy <link linkend="linux_2flow__netlink_8c_1ac262f3819d334e0cbbdf8198d6d2aed8">vxlan_opt_policy</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__netlink_8c_1ac21a080dcc5b01d3da9b75d32b13fb40">update_range</link> (
+struct <link linkend="structsw__flow__match">sw_flow_match</link> * match, size_t offset, size_t size, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> is_mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow__netlink_8c_1ab4be6b01938d3a8f5a14bc787cb2b0b2">match_validate</link> (
+const struct <link linkend="structsw__flow__match">sw_flow_match</link> * match, u64 key_attrs, u64 mask_attrs, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>size_t <link linkend="linux_2flow__netlink_8c_1ac920825ffe4fa75e7ca3c5e76ad4ec2a">ovs_tun_key_attr_size</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>size_t <link linkend="linux_2flow__netlink_8c_1a4ea1ec7f3650fd324fc1538c97e795d0">ovs_key_attr_size</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow__netlink_8c_1a237e69cf49fbb7f26d6f886bdf4e4aad">is_all_zero</link> (
+const u8 * fp, size_t size)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1acc907c6eed2beccfb3d8564a9f627e93">__parse_flow_nlattrs</link> (
+const struct nlattr * attr, const struct nlattr * a, u64 * attrsp, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> nz)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a4a090c5659903b6b8d125ab7598ad1a6">parse_flow_mask_nlattrs</link> (
+const struct nlattr * attr, const struct nlattr * a, u64 * attrsp, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1aafe0de49242cd0276fd5ced0fd81514f">parse_flow_nlattrs</link> (
+const struct nlattr * attr, const struct nlattr * a, u64 * attrsp, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a5f31d9f0798910742b360bbdfe29eeae">genev_tun_opt_from_nlattr</link> (
+const struct nlattr * a, struct <link linkend="structsw__flow__match">sw_flow_match</link> * match, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> is_mask, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1aef546829167c0fe738dd9db84c3848d4">vxlan_tun_opt_from_nlattr</link> (
+const struct nlattr * a, struct <link linkend="structsw__flow__match">sw_flow_match</link> * match, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> is_mask, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1aa9ad124d7dc9f5042d10b1237ce02f28">ipv4_tun_from_nlattr</link> (
+const struct nlattr * attr, struct <link linkend="structsw__flow__match">sw_flow_match</link> * match, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> is_mask, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a9283dd76011434d73c43654a9c32ecfb">vxlan_opt_to_nlattr</link> (
+struct sk_buff * skb, const void * tun_opts, int swkey_tun_opts_len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1ac7f453fb68977c7a24d7af50f18b43db">__ipv4_tun_to_nlattr</link> (
+struct sk_buff * skb, const struct <link linkend="structovs__key__ipv4__tunnel">ovs_key_ipv4_tunnel</link> * output, const void * tun_opts, int swkey_tun_opts_len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a534ea0693e07f81a7a00f4b3125fbb1a">ipv4_tun_to_nlattr</link> (
+struct sk_buff * skb, const struct <link linkend="structovs__key__ipv4__tunnel">ovs_key_ipv4_tunnel</link> * output, const void * tun_opts, int swkey_tun_opts_len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__netlink_8c_1a8a7309f6247775b5682061576c039e22">ovs_nla_put_egress_tunnel_key</link> (
+struct sk_buff * skb, const struct <link linkend="structovs__tunnel__info">ovs_tunnel_info</link> * egress_tun_info)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1aed17f75c6136e01aa609132d5bbc9b2a">metadata_from_nlattrs</link> (
+struct <link linkend="structsw__flow__match">sw_flow_match</link> * match, u64 * attrs, const struct nlattr ** a, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> is_mask, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a7e2f54c332f7bdac73756972da69ad53">ovs_key_from_nlattrs</link> (
+struct <link linkend="structsw__flow__match">sw_flow_match</link> * match, u64 attrs, const struct nlattr ** a, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> is_mask, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__netlink_8c_1a412721fb459cda8f2b25400f8832d84f">nlattr_set</link> (
+struct nlattr * attr, u8 val, const struct <link linkend="structovs__len__tbl">ovs_len_tbl</link> * tbl)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__netlink_8c_1aa862995e0363dbb698ee51eb1be8a40c">mask_set_nlattr</link> (
+struct nlattr * attr, u8 val)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__netlink_8c_1a074547b2bcb32890a72ae873700391d5">ovs_nla_get_match</link> (
+struct <link linkend="structsw__flow__match">sw_flow_match</link> * match, const struct nlattr * nla_key, const struct nlattr * nla_mask, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static size_t <link linkend="linux_2flow__netlink_8c_1a5189e471b5832c9371b45c5e58ca5b41">get_ufid_len</link> (
+const struct nlattr * attr, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para><link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow__netlink_8c_1a81e0cfe1c434ecde4ad684c8b8586877">ovs_nla_get_ufid</link> (
+struct <link linkend="structsw__flow__id">sw_flow_id</link> * sfid, const struct nlattr * attr, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__netlink_8c_1aa416ab3b06ce40eee0be66306129c8d5">ovs_nla_get_identifier</link> (
+struct <link linkend="structsw__flow__id">sw_flow_id</link> * sfid, const struct nlattr * ufid, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>u32 <link linkend="linux_2flow__netlink_8c_1a415cb727697a02d62b8ff40795337d40">ovs_nla_get_ufid_flags</link> (
+const struct nlattr * attr)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__netlink_8c_1a90428a389e4ba65133d2cf837d5a8dc3">ovs_nla_get_flow_metadata</link> (
+const struct nlattr * attr, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a469e9434d0bedd721b2e31a106799335">__ovs_nla_put_key</link> (
+const struct <link linkend="structsw__flow__key">sw_flow_key</link> * swkey, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * output, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> is_mask, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__netlink_8c_1a845412e2f8f2bcb48df005e857474fcb">ovs_nla_put_key</link> (
+const struct <link linkend="structsw__flow__key">sw_flow_key</link> * swkey, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * output, int attr, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> is_mask, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__netlink_8c_1a636f7d3cbe8656ceda87373110a4abc4">ovs_nla_put_identifier</link> (
+const struct <link linkend="structsw__flow">sw_flow</link> * flow, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__netlink_8c_1a2f6c3ab02b8e5d6296278dc9214500eb">ovs_nla_put_masked_key</link> (
+const struct <link linkend="structsw__flow">sw_flow</link> * flow, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__netlink_8c_1af5ab12e938f8564945464a9e110eace3">ovs_nla_put_mask</link> (
+const struct <link linkend="structsw__flow">sw_flow</link> * flow, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structsw__flow__actions">sw_flow_actions</link> * <link linkend="linux_2flow__netlink_8c_1acf3273c812551499c4b4d48651548286">nla_alloc_flow_actions</link> (
+int size, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__netlink_8c_1a386dd5cb0c8be8ce91e59761cbf820b4">rcu_free_acts_callback</link> (
+struct rcu_head * rcu)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2flow__netlink_8c_1a5e773c3bb49bbeb0c0a4eb356c779a22">ovs_nla_free_flow_actions</link> (
+struct <link linkend="structsw__flow__actions">sw_flow_actions</link> * sf_acts)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct nlattr * <link linkend="linux_2flow__netlink_8c_1a5ce53ec8a0a126f8e33e1d9af6e1e083">reserve_sfa_size</link> (
+struct <link linkend="structsw__flow__actions">sw_flow_actions</link> ** sfa, int attr_len, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct nlattr * <link linkend="linux_2flow__netlink_8c_1ad6fb4bf743e36b42c72eaa09db192e87">__add_action</link> (
+struct <link linkend="structsw__flow__actions">sw_flow_actions</link> ** sfa, int attrtype, void * data, int len, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a4316343b483e9a6b4d8885147036beb2">add_action</link> (
+struct <link linkend="structsw__flow__actions">sw_flow_actions</link> ** sfa, int attrtype, void * data, int len, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a08778088a1f3c3c88aee0055bcd05110">add_nested_action_start</link> (
+struct <link linkend="structsw__flow__actions">sw_flow_actions</link> ** sfa, int attrtype, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2flow__netlink_8c_1ab0176001eff016bfad478f0f06cefa0a">add_nested_action_end</link> (
+struct <link linkend="structsw__flow__actions">sw_flow_actions</link> * sfa, int st_offset)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1ae5c58b498948d3c5564b7916505d8455">__ovs_nla_copy_actions</link> (
+const struct nlattr * attr, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, int depth, struct <link linkend="structsw__flow__actions">sw_flow_actions</link> ** sfa, __be16 eth_type, __be16 vlan_tci, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a0dcf3429559610cf8b8204e04151728b">validate_and_copy_sample</link> (
+const struct nlattr * attr, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, int depth, struct <link linkend="structsw__flow__actions">sw_flow_actions</link> ** sfa, __be16 eth_type, __be16 vlan_tci, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2flow__netlink_8c_1a1a09e9d38844c59332975789573e994c">ovs_match_init</link> (
+struct <link linkend="structsw__flow__match">sw_flow_match</link> * match, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, struct <link linkend="structsw__flow__mask">sw_flow_mask</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1af4e9606a99a9ccc71de18c0531a99808">validate_geneve_opts</link> (
+struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1ac06cff749bd68b0a91ecacc196b4892f">validate_and_copy_set_tun</link> (
+const struct nlattr * attr, struct <link linkend="structsw__flow__actions">sw_flow_actions</link> ** sfa, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow__netlink_8c_1ae01edbfa96ed8cef19cb86caf0512d7a">validate_masked</link> (
+u8 * data, int len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1afabdbd008e8fb3c515063cafaf267e02">validate_set</link> (
+const struct nlattr * a, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * flow_key, struct <link linkend="structsw__flow__actions">sw_flow_actions</link> ** sfa, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> * skip_copy, __be16 eth_type, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> masked, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1ab7c5d132ac3085d8c2da993c66138ab0">validate_userspace</link> (
+const struct nlattr * attr)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a746e2c558f7350550b1734826a8c25f7">copy_action</link> (
+const struct nlattr * from, struct <link linkend="structsw__flow__actions">sw_flow_actions</link> ** sfa, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__netlink_8c_1a10dc93f8c379eae7a557d54d9b387dd6">ovs_nla_copy_actions</link> (
+const struct nlattr * attr, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, struct <link linkend="structsw__flow__actions">sw_flow_actions</link> ** sfa, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a92621d7eaed9e960f5e5d7b72e501db0">sample_action_to_attr</link> (
+const struct nlattr * attr, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1af38f12c35d382eb717bb6e5b4fba2309">set_action_to_attr</link> (
+const struct nlattr * a, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow__netlink_8c_1a14e859cc22996f05850ca737daf2ee09">masked_set_action_to_set_action_attr</link> (
+const struct nlattr * a, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow__netlink_8c_1a923304ee69be1cfa52197b0f73c29e49">ovs_nla_put_actions</link> (
+const struct nlattr * attr, int len, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/flow_netlink.c</para>
+    </simplesect>
+</section>

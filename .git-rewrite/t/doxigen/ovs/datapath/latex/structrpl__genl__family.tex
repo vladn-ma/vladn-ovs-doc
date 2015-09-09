@@ -1,0 +1,107 @@
+\hypertarget{structrpl__genl__family}{}\section{rpl\+\_\+genl\+\_\+family Struct Reference}
+\label{structrpl__genl__family}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+
+
+{\ttfamily \#include $<$genetlink.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family} \hyperlink{structrpl__genl__family_a6da3fbe86360d91cce207287b2de165d}{compat\+\_\+family}
+\item 
+unsigned int \hyperlink{structrpl__genl__family_a34a498924fba8a8da9d410d545cfeee2}{id}
+\item 
+unsigned int \hyperlink{structrpl__genl__family_a9a291012510fda23c4d3bf64859e5de0}{hdrsize}
+\item 
+char \hyperlink{structrpl__genl__family_a0ee3a650097beb5d2e4a4deb301cb479}{name} \mbox{[}G\+E\+N\+L\+\_\+\+N\+A\+M\+S\+I\+Z\mbox{]}
+\item 
+unsigned int \hyperlink{structrpl__genl__family_a09a64c948abbbd61907dfd9f0d17663d}{version}
+\item 
+unsigned int \hyperlink{structrpl__genl__family_a7f6d39207e37f45f704e387488b580d0}{maxattr}
+\item 
+\hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{structrpl__genl__family_a126424f7f454c57970d3aa43fa6f6321}{netnsok}
+\item 
+\hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{structrpl__genl__family_a0c6f86f5d811b297add5721fc9412545}{parallel\+\_\+ops}
+\item 
+int($\ast$ \hyperlink{structrpl__genl__family_aa5134cfc246e4d34814262c04c2e7a87}{pre\+\_\+doit} )(const struct genl\+\_\+ops $\ast$\hyperlink{structrpl__genl__family_a2d6fa633ee14f455af7965bf76508255}{ops}, struct sk\+\_\+buff $\ast$skb, struct genl\+\_\+info $\ast$info)
+\item 
+void($\ast$ \hyperlink{structrpl__genl__family_a2b7972eca0ca87a04c701b03fe78e23a}{post\+\_\+doit} )(const struct genl\+\_\+ops $\ast$\hyperlink{structrpl__genl__family_a2d6fa633ee14f455af7965bf76508255}{ops}, struct sk\+\_\+buff $\ast$skb, struct genl\+\_\+info $\ast$info)
+\item 
+struct nlattr $\ast$$\ast$ \hyperlink{structrpl__genl__family_a3ad09df2fe4ef38e5efc0c3ef7cc5fb6}{attrbuf}
+\item 
+const struct genl\+\_\+ops $\ast$ \hyperlink{structrpl__genl__family_a2d6fa633ee14f455af7965bf76508255}{ops}
+\item 
+const struct genl\+\_\+multicast\+\_\+group $\ast$ \hyperlink{structrpl__genl__family_aa824bef8504ad3a92bc3fdd62d7554ec}{mcgrps}
+\item 
+unsigned int \hyperlink{structrpl__genl__family_a2015e11f05185d06f8ef4125a43fd48b}{n\+\_\+ops}
+\item 
+unsigned int \hyperlink{structrpl__genl__family_aa39896dd5abd2de8beaeaa1a39d61c98}{n\+\_\+mcgrps}
+\item 
+unsigned int \hyperlink{structrpl__genl__family_a9b80c856eaea457b92e8e3997a09df9e}{mcgrp\+\_\+offset}
+\item 
+struct list\+\_\+head \hyperlink{structrpl__genl__family_a3b34f3eda668c9cd2340349615467eb9}{family\+\_\+list}
+\item 
+struct module $\ast$ \hyperlink{structrpl__genl__family_a8c514aedced0b4c6421aa08881aa1609}{module}
+\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\hypertarget{structrpl__genl__family_a3ad09df2fe4ef38e5efc0c3ef7cc5fb6}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!attrbuf@{attrbuf}}
+\index{attrbuf@{attrbuf}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{attrbuf}]{\setlength{\rightskip}{0pt plus 5cm}struct nlattr$\ast$$\ast$ rpl\+\_\+genl\+\_\+family\+::attrbuf}\label{structrpl__genl__family_a3ad09df2fe4ef38e5efc0c3ef7cc5fb6}
+\hypertarget{structrpl__genl__family_a6da3fbe86360d91cce207287b2de165d}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!compat\+\_\+family@{compat\+\_\+family}}
+\index{compat\+\_\+family@{compat\+\_\+family}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{compat\+\_\+family}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf genl\+\_\+family} rpl\+\_\+genl\+\_\+family\+::compat\+\_\+family}\label{structrpl__genl__family_a6da3fbe86360d91cce207287b2de165d}
+\hypertarget{structrpl__genl__family_a3b34f3eda668c9cd2340349615467eb9}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!family\+\_\+list@{family\+\_\+list}}
+\index{family\+\_\+list@{family\+\_\+list}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{family\+\_\+list}]{\setlength{\rightskip}{0pt plus 5cm}struct list\+\_\+head rpl\+\_\+genl\+\_\+family\+::family\+\_\+list}\label{structrpl__genl__family_a3b34f3eda668c9cd2340349615467eb9}
+\hypertarget{structrpl__genl__family_a9a291012510fda23c4d3bf64859e5de0}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!hdrsize@{hdrsize}}
+\index{hdrsize@{hdrsize}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{hdrsize}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int rpl\+\_\+genl\+\_\+family\+::hdrsize}\label{structrpl__genl__family_a9a291012510fda23c4d3bf64859e5de0}
+\hypertarget{structrpl__genl__family_a34a498924fba8a8da9d410d545cfeee2}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!id@{id}}
+\index{id@{id}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{id}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int rpl\+\_\+genl\+\_\+family\+::id}\label{structrpl__genl__family_a34a498924fba8a8da9d410d545cfeee2}
+\hypertarget{structrpl__genl__family_a7f6d39207e37f45f704e387488b580d0}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!maxattr@{maxattr}}
+\index{maxattr@{maxattr}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{maxattr}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int rpl\+\_\+genl\+\_\+family\+::maxattr}\label{structrpl__genl__family_a7f6d39207e37f45f704e387488b580d0}
+\hypertarget{structrpl__genl__family_a9b80c856eaea457b92e8e3997a09df9e}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!mcgrp\+\_\+offset@{mcgrp\+\_\+offset}}
+\index{mcgrp\+\_\+offset@{mcgrp\+\_\+offset}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{mcgrp\+\_\+offset}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int rpl\+\_\+genl\+\_\+family\+::mcgrp\+\_\+offset}\label{structrpl__genl__family_a9b80c856eaea457b92e8e3997a09df9e}
+\hypertarget{structrpl__genl__family_aa824bef8504ad3a92bc3fdd62d7554ec}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!mcgrps@{mcgrps}}
+\index{mcgrps@{mcgrps}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{mcgrps}]{\setlength{\rightskip}{0pt plus 5cm}const struct genl\+\_\+multicast\+\_\+group$\ast$ rpl\+\_\+genl\+\_\+family\+::mcgrps}\label{structrpl__genl__family_aa824bef8504ad3a92bc3fdd62d7554ec}
+\hypertarget{structrpl__genl__family_a8c514aedced0b4c6421aa08881aa1609}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!module@{module}}
+\index{module@{module}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{module}]{\setlength{\rightskip}{0pt plus 5cm}struct module$\ast$ rpl\+\_\+genl\+\_\+family\+::module}\label{structrpl__genl__family_a8c514aedced0b4c6421aa08881aa1609}
+\hypertarget{structrpl__genl__family_aa39896dd5abd2de8beaeaa1a39d61c98}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!n\+\_\+mcgrps@{n\+\_\+mcgrps}}
+\index{n\+\_\+mcgrps@{n\+\_\+mcgrps}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{n\+\_\+mcgrps}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int rpl\+\_\+genl\+\_\+family\+::n\+\_\+mcgrps}\label{structrpl__genl__family_aa39896dd5abd2de8beaeaa1a39d61c98}
+\hypertarget{structrpl__genl__family_a2015e11f05185d06f8ef4125a43fd48b}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!n\+\_\+ops@{n\+\_\+ops}}
+\index{n\+\_\+ops@{n\+\_\+ops}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{n\+\_\+ops}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int rpl\+\_\+genl\+\_\+family\+::n\+\_\+ops}\label{structrpl__genl__family_a2015e11f05185d06f8ef4125a43fd48b}
+\hypertarget{structrpl__genl__family_a0ee3a650097beb5d2e4a4deb301cb479}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!name@{name}}
+\index{name@{name}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}char rpl\+\_\+genl\+\_\+family\+::name\mbox{[}G\+E\+N\+L\+\_\+\+N\+A\+M\+S\+I\+Z\mbox{]}}\label{structrpl__genl__family_a0ee3a650097beb5d2e4a4deb301cb479}
+\hypertarget{structrpl__genl__family_a126424f7f454c57970d3aa43fa6f6321}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!netnsok@{netnsok}}
+\index{netnsok@{netnsok}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{netnsok}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} rpl\+\_\+genl\+\_\+family\+::netnsok}\label{structrpl__genl__family_a126424f7f454c57970d3aa43fa6f6321}
+\hypertarget{structrpl__genl__family_a2d6fa633ee14f455af7965bf76508255}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!ops@{ops}}
+\index{ops@{ops}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{ops}]{\setlength{\rightskip}{0pt plus 5cm}const struct genl\+\_\+ops$\ast$ rpl\+\_\+genl\+\_\+family\+::ops}\label{structrpl__genl__family_a2d6fa633ee14f455af7965bf76508255}
+\hypertarget{structrpl__genl__family_a0c6f86f5d811b297add5721fc9412545}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!parallel\+\_\+ops@{parallel\+\_\+ops}}
+\index{parallel\+\_\+ops@{parallel\+\_\+ops}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{parallel\+\_\+ops}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} rpl\+\_\+genl\+\_\+family\+::parallel\+\_\+ops}\label{structrpl__genl__family_a0c6f86f5d811b297add5721fc9412545}
+\hypertarget{structrpl__genl__family_a2b7972eca0ca87a04c701b03fe78e23a}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!post\+\_\+doit@{post\+\_\+doit}}
+\index{post\+\_\+doit@{post\+\_\+doit}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{post\+\_\+doit}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ rpl\+\_\+genl\+\_\+family\+::post\+\_\+doit) (const struct genl\+\_\+ops $\ast${\bf ops}, struct sk\+\_\+buff $\ast$skb, struct genl\+\_\+info $\ast$info)}\label{structrpl__genl__family_a2b7972eca0ca87a04c701b03fe78e23a}
+\hypertarget{structrpl__genl__family_aa5134cfc246e4d34814262c04c2e7a87}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!pre\+\_\+doit@{pre\+\_\+doit}}
+\index{pre\+\_\+doit@{pre\+\_\+doit}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{pre\+\_\+doit}]{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ rpl\+\_\+genl\+\_\+family\+::pre\+\_\+doit) (const struct genl\+\_\+ops $\ast${\bf ops}, struct sk\+\_\+buff $\ast$skb, struct genl\+\_\+info $\ast$info)}\label{structrpl__genl__family_aa5134cfc246e4d34814262c04c2e7a87}
+\hypertarget{structrpl__genl__family_a09a64c948abbbd61907dfd9f0d17663d}{}\index{rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}!version@{version}}
+\index{version@{version}!rpl\+\_\+genl\+\_\+family@{rpl\+\_\+genl\+\_\+family}}
+\subsubsection[{version}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int rpl\+\_\+genl\+\_\+family\+::version}\label{structrpl__genl__family_a09a64c948abbbd61907dfd9f0d17663d}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/vladn/git/ovs/datapath/linux/compat/include/net/\hyperlink{genetlink_8h}{genetlink.\+h}\end{DoxyCompactItemize}

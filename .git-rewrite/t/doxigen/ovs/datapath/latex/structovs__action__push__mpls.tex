@@ -1,0 +1,32 @@
+\hypertarget{structovs__action__push__mpls}{}\section{ovs\+\_\+action\+\_\+push\+\_\+mpls Struct Reference}
+\label{structovs__action__push__mpls}\index{ovs\+\_\+action\+\_\+push\+\_\+mpls@{ovs\+\_\+action\+\_\+push\+\_\+mpls}}
+
+
+{\ttfamily \#include $<$openvswitch.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+\_\+be32 \hyperlink{structovs__action__push__mpls_a58c09de1a14973c13197f7748beb3803}{mpls\+\_\+lse}
+\item 
+\+\_\+\+\_\+be16 \hyperlink{structovs__action__push__mpls_adea8de7c1e924d0665c4eb62901ce521}{mpls\+\_\+ethertype}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+struct \hyperlink{structovs__action__push__mpls}{ovs\+\_\+action\+\_\+push\+\_\+mpls} -\/ O\+V\+S\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+A\+T\+T\+R\+\_\+\+P\+U\+S\+H\+\_\+\+M\+P\+L\+S action argument. \+: M\+P\+L\+S label stack entry to push. \+: Ethertype to set in the encapsulating ethernet frame.
+
+The only values  should ever be given are E\+T\+H\+\_\+\+P\+\_\+\+M\+P\+L\+S\+\_\+\+U\+C and E\+T\+H\+\_\+\+P\+\_\+\+M\+P\+L\+S\+\_\+\+M\+C, indicating M\+P\+L\+S unicast or multicast. Other are rejected. 
+
+\subsection{Field Documentation}
+\hypertarget{structovs__action__push__mpls_adea8de7c1e924d0665c4eb62901ce521}{}\index{ovs\+\_\+action\+\_\+push\+\_\+mpls@{ovs\+\_\+action\+\_\+push\+\_\+mpls}!mpls\+\_\+ethertype@{mpls\+\_\+ethertype}}
+\index{mpls\+\_\+ethertype@{mpls\+\_\+ethertype}!ovs\+\_\+action\+\_\+push\+\_\+mpls@{ovs\+\_\+action\+\_\+push\+\_\+mpls}}
+\subsubsection[{mpls\+\_\+ethertype}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+be16 ovs\+\_\+action\+\_\+push\+\_\+mpls\+::mpls\+\_\+ethertype}\label{structovs__action__push__mpls_adea8de7c1e924d0665c4eb62901ce521}
+\hypertarget{structovs__action__push__mpls_a58c09de1a14973c13197f7748beb3803}{}\index{ovs\+\_\+action\+\_\+push\+\_\+mpls@{ovs\+\_\+action\+\_\+push\+\_\+mpls}!mpls\+\_\+lse@{mpls\+\_\+lse}}
+\index{mpls\+\_\+lse@{mpls\+\_\+lse}!ovs\+\_\+action\+\_\+push\+\_\+mpls@{ovs\+\_\+action\+\_\+push\+\_\+mpls}}
+\subsubsection[{mpls\+\_\+lse}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+be32 ovs\+\_\+action\+\_\+push\+\_\+mpls\+::mpls\+\_\+lse}\label{structovs__action__push__mpls_a58c09de1a14973c13197f7748beb3803}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/vladn/git/ovs/datapath/linux/compat/include/linux/\hyperlink{openvswitch_8h}{openvswitch.\+h}\end{DoxyCompactItemize}

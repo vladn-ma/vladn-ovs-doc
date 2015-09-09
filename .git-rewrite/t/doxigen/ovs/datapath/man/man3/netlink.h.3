@@ -1,0 +1,97 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/net/netlink.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/net/netlink.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/version\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBnla_for_each_nested\fP(pos,  nla,  rem)   nla_for_each_attr(pos, nla_data(nla), nla_len(nla), rem)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static __be16 \fBnla_get_be16\fP (const struct nlattr *nla)"
+.br
+.ti -1c
+.RI "static int \fBnla_put_be16\fP (struct sk_buff *skb, int attrtype, __be16 value)"
+.br
+.ti -1c
+.RI "static int \fBnla_put_be32\fP (struct sk_buff *skb, int attrtype, __be32 value)"
+.br
+.ti -1c
+.RI "static int \fBnla_put_be64\fP (struct sk_buff *skb, int attrtype, __be64 value)"
+.br
+.ti -1c
+.RI "static struct nlattr * \fBnla_find_nested\fP (struct nlattr *nla, int attrtype)"
+.br
+.ti -1c
+.RI "static \fBbool\fP \fBnla_is_last\fP (const struct nlattr *nla, int rem)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define nla_for_each_nested(pos, nla, rem)   nla_for_each_attr(pos, nla_data(nla), nla_len(nla), rem)"
+
+.SH "Function Documentation"
+.PP 
+.SS "static struct nlattr* nla_find_nested (struct nlattr * nla, int attrtype)\fC [static]\fP"
+
+.PP
+.nf
+61 {
+62     return nla_find(nla_data(nla), nla_len(nla), attrtype);
+63 }
+.fi
+.SS "static __be16 nla_get_be16 (const struct nlattr * nla)\fC [inline]\fP, \fC [static]\fP"
+nla_get_be16 - return payload of __be16 attribute : __be16 netlink attribute 
+.PP
+.nf
+13 {
+14     return *(__be16 *) nla_data(nla);
+15 }
+.fi
+.SS "static \fBbool\fP nla_is_last (const struct nlattr * nla, int rem)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+68 {
+69     return nla->nla_len == rem;
+70 }
+.fi
+.SS "static int nla_put_be16 (struct sk_buff * skb, int attrtype, __be16 value)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+35 {
+36     return nla_put(skb, attrtype, sizeof(__be16), &value);
+37 }
+.fi
+.SS "static int nla_put_be32 (struct sk_buff * skb, int attrtype, __be32 value)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+42 {
+43     return nla_put(skb, attrtype, sizeof(__be32), &value);
+44 }
+.fi
+.SS "static int nla_put_be64 (struct sk_buff * skb, int attrtype, __be64 value)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+49 {
+50     return nla_put(skb, attrtype, sizeof(__be64), &value);
+51 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

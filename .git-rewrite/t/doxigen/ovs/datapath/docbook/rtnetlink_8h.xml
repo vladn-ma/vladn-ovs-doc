@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="rtnetlink_8h">
+    <title>rtnetlink.h File Reference</title>
+<para>Include dependency diagram for rtnetlink.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="rtnetlink_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for rtnetlink.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="rtnetlink_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="rtnetlink_8h_1a7a763bd08263252ca210e83cac93e0d9">rcu_dereference_rtnl</link> <link linkend="rcupdate_8h_1a1132a81ccc2a14e56d6fd4d794f953ea">rcu_dereference_check</link>(p, <link linkend="rcupdate_8h_1ab77c80b5efea34ea99ec24a4f532eb9b">rcu_read_lock_held</link>() ||	\
+				 lockdep_rtnl_is_held())</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="rtnetlink_8h_1abf3caef726000f67dda32deb7e1b3586">rtnl_dereference</link> <link linkend="rcupdate_8h_1af8e0682efe4f8bd0488ea6c1f66b0064">rcu_dereference_protected</link>(p, lockdep_rtnl_is_held())</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/include/linux/rtnetlink.h</para>
+    </simplesect>
+</section>

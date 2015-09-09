@@ -1,0 +1,483 @@
+\hypertarget{vxlan_8c}{}\section{/home/vladn/git/ovs/datapath/linux/vxlan.c File Reference}
+\label{vxlan_8c}\index{/home/vladn/git/ovs/datapath/linux/vxlan.\+c@{/home/vladn/git/ovs/datapath/linux/vxlan.\+c}}
+{\ttfamily \#include $<$linux/version.\+h$>$}\\*
+{\ttfamily \#include $<$linux/kernel.\+h$>$}\\*
+{\ttfamily \#include $<$linux/types.\+h$>$}\\*
+{\ttfamily \#include $<$linux/module.\+h$>$}\\*
+{\ttfamily \#include $<$linux/errno.\+h$>$}\\*
+{\ttfamily \#include $<$linux/slab.\+h$>$}\\*
+{\ttfamily \#include $<$linux/skbuff.\+h$>$}\\*
+{\ttfamily \#include $<$linux/rculist.\+h$>$}\\*
+{\ttfamily \#include $<$linux/netdevice.\+h$>$}\\*
+{\ttfamily \#include $<$linux/in.\+h$>$}\\*
+{\ttfamily \#include $<$linux/ip.\+h$>$}\\*
+{\ttfamily \#include $<$linux/udp.\+h$>$}\\*
+{\ttfamily \#include $<$linux/igmp.\+h$>$}\\*
+{\ttfamily \#include $<$linux/etherdevice.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+ether.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+vlan.\+h$>$}\\*
+{\ttfamily \#include $<$linux/hash.\+h$>$}\\*
+{\ttfamily \#include $<$linux/ethtool.\+h$>$}\\*
+{\ttfamily \#include $<$net/arp.\+h$>$}\\*
+{\ttfamily \#include $<$net/ndisc.\+h$>$}\\*
+{\ttfamily \#include $<$net/ip.\+h$>$}\\*
+{\ttfamily \#include $<$net/gre.\+h$>$}\\*
+{\ttfamily \#include $<$net/ip\+\_\+tunnels.\+h$>$}\\*
+{\ttfamily \#include $<$net/icmp.\+h$>$}\\*
+{\ttfamily \#include $<$net/udp.\+h$>$}\\*
+{\ttfamily \#include $<$net/udp\+\_\+tunnel.\+h$>$}\\*
+{\ttfamily \#include $<$net/rtnetlink.\+h$>$}\\*
+{\ttfamily \#include $<$net/route.\+h$>$}\\*
+{\ttfamily \#include $<$net/dsfield.\+h$>$}\\*
+{\ttfamily \#include $<$net/inet\+\_\+ecn.\+h$>$}\\*
+{\ttfamily \#include $<$net/net\+\_\+namespace.\+h$>$}\\*
+{\ttfamily \#include $<$net/netns/generic.\+h$>$}\\*
+{\ttfamily \#include $<$net/vxlan.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}compat.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}datapath.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gso.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}vlan.\+h\char`\"{}}\\*
+Include dependency graph for vxlan.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vxlan_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structvxlanhdr}{vxlanhdr}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{vxlan_8c_a1f8c165bf4196327bc3abff648276d92}{pr\+\_\+fmt}(fmt)~K\+B\+U\+I\+L\+D\+\_\+\+M\+O\+D\+N\+A\+M\+E \char`\"{}\+: \char`\"{} fmt
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{vxlan_8c_af2695304e987e1dd6826de86b243291a}{vxlan\+\_\+udp\+\_\+encap\+\_\+recv} (struct sock $\ast$sk, struct sk\+\_\+buff $\ast$skb)
+\item 
+static void \hyperlink{vxlan_8c_a196fe3c97c2fbc6cf11de971f9ced083}{vxlan\+\_\+sock\+\_\+put} (struct sk\+\_\+buff $\ast$skb)
+\item 
+static void \hyperlink{vxlan_8c_a3873c15329e6a997e14cf29e0a5f379e}{vxlan\+\_\+set\+\_\+owner} (struct sock $\ast$sk, struct sk\+\_\+buff $\ast$skb)
+\item 
+static void \hyperlink{vxlan_8c_ac39ea408cddbf49b0f51c29f01e00b44}{vxlan\+\_\+build\+\_\+gbp\+\_\+hdr} (struct \hyperlink{structvxlanhdr}{vxlanhdr} $\ast$vxh, u32 vxflags, struct \hyperlink{structvxlan__metadata}{vxlan\+\_\+metadata} $\ast$md)
+\item 
+int \hyperlink{vxlan_8c_a9ebcb30ebf95cd09ff7137585a787633}{rpl\+\_\+vxlan\+\_\+xmit\+\_\+skb} (struct \hyperlink{structvxlan__sock}{vxlan\+\_\+sock} $\ast$vs, struct rtable $\ast$rt, struct sk\+\_\+buff $\ast$skb, \+\_\+\+\_\+be32 \hyperlink{flow_8h_a2e7e37e9dfe6465386d6c500f83ef144}{src}, \+\_\+\+\_\+be32 \hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst}, \+\_\+\+\_\+u8 \hyperlink{flow_8h_a5612e9bbcc89219117d353438b2f9dad}{tos}, \+\_\+\+\_\+u8 \hyperlink{flow_8h_af5ff054badb6c806a3ab62dfa146cde1}{ttl}, \+\_\+\+\_\+be16 df, \+\_\+\+\_\+be16 src\+\_\+port, \+\_\+\+\_\+be16 dst\+\_\+port, struct \hyperlink{structvxlan__metadata}{vxlan\+\_\+metadata} $\ast$md, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} xnet, u32 vxflags)
+\item 
+\hyperlink{vxlan_8c_a2993292fc4322a2bf6fec0404b24c302}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{vxlan_8c_a9ebcb30ebf95cd09ff7137585a787633}{rpl\+\_\+vxlan\+\_\+xmit\+\_\+skb})
+\item 
+static void \hyperlink{vxlan_8c_ac64eb5287e6564aad201d94c4281d238}{rcu\+\_\+free\+\_\+vs} (struct rcu\+\_\+head $\ast$rcu)
+\item 
+static void \hyperlink{vxlan_8c_ae427483756b58f1ca5e7f77aad2607a8}{vxlan\+\_\+del\+\_\+work} (struct work\+\_\+struct $\ast$work)
+\item 
+static struct socket $\ast$ \hyperlink{vxlan_8c_a0a920e4c765b42a701f89ad803207516}{vxlan\+\_\+create\+\_\+sock} (struct net $\ast$net, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{flow_8h_a0e15caa0bf708962ec6aa94137d5bbae}{ipv6}, \+\_\+\+\_\+be16 port, u32 \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags})
+\item 
+static struct \hyperlink{structvxlan__sock}{vxlan\+\_\+sock} $\ast$ \hyperlink{vxlan_8c_abd7074d925eb20a123e4e621e5b6663e}{vxlan\+\_\+socket\+\_\+create} (struct net $\ast$net, \+\_\+\+\_\+be16 port, \hyperlink{vxlan_8h_a8de966706f4eb1f2059020f4ec31aa6f}{vxlan\+\_\+rcv\+\_\+t} $\ast$rcv, void $\ast$data, u32 \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags})
+\item 
+struct \hyperlink{structvxlan__sock}{vxlan\+\_\+sock} $\ast$ \hyperlink{vxlan_8c_abe3905d2844b3ce0e67d2790cc3fbe59}{rpl\+\_\+vxlan\+\_\+sock\+\_\+add} (struct net $\ast$net, \+\_\+\+\_\+be16 port, \hyperlink{vxlan_8h_a8de966706f4eb1f2059020f4ec31aa6f}{vxlan\+\_\+rcv\+\_\+t} $\ast$rcv, void $\ast$data, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} no\+\_\+share, u32 \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags})
+\item 
+\hyperlink{vxlan_8c_a89d32880145031606f64893f5196ca35}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{vxlan_8c_abe3905d2844b3ce0e67d2790cc3fbe59}{rpl\+\_\+vxlan\+\_\+sock\+\_\+add})
+\item 
+void \hyperlink{vxlan_8c_a39d6055746bc3347885b6bad9ab73346}{rpl\+\_\+vxlan\+\_\+sock\+\_\+release} (struct \hyperlink{structvxlan__sock}{vxlan\+\_\+sock} $\ast$vs)
+\item 
+\hyperlink{vxlan_8c_a1ed5b298083b46c18d1e7f18c6ef052c}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{vxlan_8c_a39d6055746bc3347885b6bad9ab73346}{rpl\+\_\+vxlan\+\_\+sock\+\_\+release})
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{vxlan_8c_a1f8c165bf4196327bc3abff648276d92}{}\index{vxlan.\+c@{vxlan.\+c}!pr\+\_\+fmt@{pr\+\_\+fmt}}
+\index{pr\+\_\+fmt@{pr\+\_\+fmt}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{pr\+\_\+fmt}]{\setlength{\rightskip}{0pt plus 5cm}\#define pr\+\_\+fmt(
+\begin{DoxyParamCaption}
+\item[{}]{fmt}
+\end{DoxyParamCaption}
+)~K\+B\+U\+I\+L\+D\+\_\+\+M\+O\+D\+N\+A\+M\+E \char`\"{}\+: \char`\"{} fmt}\label{vxlan_8c_a1f8c165bf4196327bc3abff648276d92}
+
+
+\subsection{Function Documentation}
+\hypertarget{vxlan_8c_a2993292fc4322a2bf6fec0404b24c302}{}\index{vxlan.\+c@{vxlan.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf rpl\+\_\+vxlan\+\_\+xmit\+\_\+skb}}]{}
+\end{DoxyParamCaption}
+)}\label{vxlan_8c_a2993292fc4322a2bf6fec0404b24c302}
+\hypertarget{vxlan_8c_a89d32880145031606f64893f5196ca35}{}\index{vxlan.\+c@{vxlan.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf rpl\+\_\+vxlan\+\_\+sock\+\_\+add}}]{}
+\end{DoxyParamCaption}
+)}\label{vxlan_8c_a89d32880145031606f64893f5196ca35}
+\hypertarget{vxlan_8c_a1ed5b298083b46c18d1e7f18c6ef052c}{}\index{vxlan.\+c@{vxlan.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf rpl\+\_\+vxlan\+\_\+sock\+\_\+release}}]{}
+\end{DoxyParamCaption}
+)}\label{vxlan_8c_a1ed5b298083b46c18d1e7f18c6ef052c}
+\hypertarget{vxlan_8c_ac64eb5287e6564aad201d94c4281d238}{}\index{vxlan.\+c@{vxlan.\+c}!rcu\+\_\+free\+\_\+vs@{rcu\+\_\+free\+\_\+vs}}
+\index{rcu\+\_\+free\+\_\+vs@{rcu\+\_\+free\+\_\+vs}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{rcu\+\_\+free\+\_\+vs}]{\setlength{\rightskip}{0pt plus 5cm}static void rcu\+\_\+free\+\_\+vs (
+\begin{DoxyParamCaption}
+\item[{struct rcu\+\_\+head $\ast$}]{rcu}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vxlan_8c_ac64eb5287e6564aad201d94c4281d238}
+
+\begin{DoxyCode}
+231 \{
+232     \textcolor{keyword}{struct }\hyperlink{structvxlan__sock}{vxlan\_sock} *vs = container\_of(\hyperlink{structvxlan__sock_a3ab897e7f7d97d2f2bf71791f5ebffdb}{rcu}, \textcolor{keyword}{struct} \hyperlink{structvxlan__sock}{vxlan\_sock}, 
+      \hyperlink{structvxlan__sock_a3ab897e7f7d97d2f2bf71791f5ebffdb}{rcu});
+233 
+234     kfree(vs);
+235 \}
+\end{DoxyCode}
+\hypertarget{vxlan_8c_abe3905d2844b3ce0e67d2790cc3fbe59}{}\index{vxlan.\+c@{vxlan.\+c}!rpl\+\_\+vxlan\+\_\+sock\+\_\+add@{rpl\+\_\+vxlan\+\_\+sock\+\_\+add}}
+\index{rpl\+\_\+vxlan\+\_\+sock\+\_\+add@{rpl\+\_\+vxlan\+\_\+sock\+\_\+add}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{rpl\+\_\+vxlan\+\_\+sock\+\_\+add}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf vxlan\+\_\+sock}$\ast$ rpl\+\_\+vxlan\+\_\+sock\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{struct net $\ast$}]{net, }
+\item[{\+\_\+\+\_\+be16}]{port, }
+\item[{{\bf vxlan\+\_\+rcv\+\_\+t} $\ast$}]{rcv, }
+\item[{void $\ast$}]{data, }
+\item[{{\bf bool}}]{no\+\_\+share, }
+\item[{u32}]{flags}
+\end{DoxyParamCaption}
+)}\label{vxlan_8c_abe3905d2844b3ce0e67d2790cc3fbe59}
+
+\begin{DoxyCode}
+314 \{
+315     \textcolor{keywordflow}{return} \hyperlink{vxlan_8c_abd7074d925eb20a123e4e621e5b6663e}{vxlan\_socket\_create}(net, port, \hyperlink{structvxlan__sock_a62dbbfc22620a8120799bad80e04c639}{rcv}, \hyperlink{structvxlan__sock_a44942474f147992d768c3a74b44c4d5f}{data}, 
+      \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags});
+316 \}
+\end{DoxyCode}
+\hypertarget{vxlan_8c_a39d6055746bc3347885b6bad9ab73346}{}\index{vxlan.\+c@{vxlan.\+c}!rpl\+\_\+vxlan\+\_\+sock\+\_\+release@{rpl\+\_\+vxlan\+\_\+sock\+\_\+release}}
+\index{rpl\+\_\+vxlan\+\_\+sock\+\_\+release@{rpl\+\_\+vxlan\+\_\+sock\+\_\+release}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{rpl\+\_\+vxlan\+\_\+sock\+\_\+release}]{\setlength{\rightskip}{0pt plus 5cm}void rpl\+\_\+vxlan\+\_\+sock\+\_\+release (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vxlan\+\_\+sock} $\ast$}]{vs}
+\end{DoxyParamCaption}
+)}\label{vxlan_8c_a39d6055746bc3347885b6bad9ab73346}
+
+\begin{DoxyCode}
+320 \{
+321     \hyperlink{datapath_8h_af8d476fa8191790e6f57cad0623f192c}{ASSERT\_OVSL}();
+322 
+323     queue\_work(system\_wq, &vs->\hyperlink{structvxlan__sock_a951b7a9ee28672b49838176513bf343d}{del\_work});
+324 \}
+\end{DoxyCode}
+\hypertarget{vxlan_8c_a9ebcb30ebf95cd09ff7137585a787633}{}\index{vxlan.\+c@{vxlan.\+c}!rpl\+\_\+vxlan\+\_\+xmit\+\_\+skb@{rpl\+\_\+vxlan\+\_\+xmit\+\_\+skb}}
+\index{rpl\+\_\+vxlan\+\_\+xmit\+\_\+skb@{rpl\+\_\+vxlan\+\_\+xmit\+\_\+skb}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{rpl\+\_\+vxlan\+\_\+xmit\+\_\+skb}]{\setlength{\rightskip}{0pt plus 5cm}int rpl\+\_\+vxlan\+\_\+xmit\+\_\+skb (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vxlan\+\_\+sock} $\ast$}]{vs, }
+\item[{struct rtable $\ast$}]{rt, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{\+\_\+\+\_\+be32}]{src, }
+\item[{\+\_\+\+\_\+be32}]{dst, }
+\item[{\+\_\+\+\_\+u8}]{tos, }
+\item[{\+\_\+\+\_\+u8}]{ttl, }
+\item[{\+\_\+\+\_\+be16}]{df, }
+\item[{\+\_\+\+\_\+be16}]{src\+\_\+port, }
+\item[{\+\_\+\+\_\+be16}]{dst\+\_\+port, }
+\item[{struct {\bf vxlan\+\_\+metadata} $\ast$}]{md, }
+\item[{{\bf bool}}]{xnet, }
+\item[{u32}]{vxflags}
+\end{DoxyParamCaption}
+)}\label{vxlan_8c_a9ebcb30ebf95cd09ff7137585a787633}
+
+\begin{DoxyCode}
+188 \{
+189     \textcolor{keyword}{struct }\hyperlink{structvxlanhdr}{vxlanhdr} *vxh;
+190     \textcolor{keywordtype}{int} min\_headroom;
+191     \textcolor{keywordtype}{int} err;
+192     \textcolor{keywordtype}{bool} udp\_sum = !!(vxflags & \hyperlink{vxlan_8h_a1b3d960bf01a2faa7302f79170aca48e}{VXLAN\_F\_UDP\_CSUM});
+193 
+194     min\_headroom = LL\_RESERVED\_SPACE(\hyperlink{compat_8h_afce1864ee37be971c99555fdf1f76d88}{rt\_dst}(rt).dev) + \hyperlink{compat_8h_afce1864ee37be971c99555fdf1f76d88}{rt\_dst}(rt).header\_len
+195             + \hyperlink{vxlan_8h_a71a2513cfba2b8e0689d8ac0f546afdb}{VXLAN\_HLEN} + \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }iphdr)
+196             + (\hyperlink{if__vlan_8h_a0bdf3e26944669a4265c7e717e846215}{skb\_vlan\_tag\_present}(skb) ? VLAN\_HLEN : 0);
+197 
+198     \textcolor{comment}{/* Need space for new headers (invalidates iph ptr) */}
+199     err = \hyperlink{skbuff_8h_af94d3f18640790df84539d4c0575a880}{skb\_cow\_head}(skb, min\_headroom);
+200     if (unlikely(err)) \{
+201         kfree\_skb(skb);
+202         \textcolor{keywordflow}{return} err;
+203     \}
+204 
+205     skb = vlan\_hwaccel\_push\_inside(skb);
+206     \textcolor{keywordflow}{if} (WARN\_ON(!skb))
+207         \textcolor{keywordflow}{return} -ENOMEM;
+208 
+209     skb = \hyperlink{udp__tunnel_8h_a2c093a62e766646df5cf62f8ea3aba91}{udp\_tunnel\_handle\_offloads}(skb, udp\_sum, \textcolor{keyword}{true});
+210     \textcolor{keywordflow}{if} (IS\_ERR(skb))
+211         \textcolor{keywordflow}{return} PTR\_ERR(skb);
+212 
+213     vxh = (\textcolor{keyword}{struct }\hyperlink{structvxlanhdr}{vxlanhdr} *) \_\_skb\_push(skb, \textcolor{keyword}{sizeof}(*vxh));
+214     vxh->\hyperlink{structvxlanhdr_a62dd0a1f926bef8eee34f4cf09dd0e1d}{vx\_flags} = htonl(\hyperlink{vxlan_8h_ade2d874b12e2c27d10008c838249dca5}{VXLAN\_HF\_VNI});
+215     vxh->\hyperlink{structvxlanhdr_a4239361cddf2d17ca6654a75497dcddd}{vx\_vni} = md->\hyperlink{structvxlan__metadata_ac78e68c33d3c91061e3642616135cbc8}{vni};
+216 
+217     \textcolor{keywordflow}{if} (vxflags & \hyperlink{vxlan_8h_a8331ae965f1a780ef26d2adc7ddb9fec}{VXLAN\_F\_GBP})
+218         \hyperlink{vxlan_8c_ac39ea408cddbf49b0f51c29f01e00b44}{vxlan\_build\_gbp\_hdr}(vxh, vxflags, md);
+219 
+220     \hyperlink{vxlan_8c_a3873c15329e6a997e14cf29e0a5f379e}{vxlan\_set\_owner}(vs->\hyperlink{structvxlan__sock_a75f35ac3f5f8e0340b2bdc247a84c322}{sock}->sk, skb);
+221 
+222     \hyperlink{gso_8h_afa56bd287d4a10d09bf25d8219f574b5}{ovs\_skb\_set\_inner\_protocol}(skb, htons(ETH\_P\_TEB));
+223 
+224     \textcolor{keywordflow}{return} udp\_tunnel\_xmit\_skb(rt, skb, \hyperlink{flow_8h_a2e7e37e9dfe6465386d6c500f83ef144}{src}, \hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst}, \hyperlink{flow_8h_a5612e9bbcc89219117d353438b2f9dad}{tos},
+225                    \hyperlink{flow_8h_af5ff054badb6c806a3ab62dfa146cde1}{ttl}, df, src\_port, dst\_port, xnet,
+226                    !udp\_sum);
+227 \}
+\end{DoxyCode}
+\hypertarget{vxlan_8c_ac39ea408cddbf49b0f51c29f01e00b44}{}\index{vxlan.\+c@{vxlan.\+c}!vxlan\+\_\+build\+\_\+gbp\+\_\+hdr@{vxlan\+\_\+build\+\_\+gbp\+\_\+hdr}}
+\index{vxlan\+\_\+build\+\_\+gbp\+\_\+hdr@{vxlan\+\_\+build\+\_\+gbp\+\_\+hdr}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{vxlan\+\_\+build\+\_\+gbp\+\_\+hdr}]{\setlength{\rightskip}{0pt plus 5cm}static void vxlan\+\_\+build\+\_\+gbp\+\_\+hdr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vxlanhdr} $\ast$}]{vxh, }
+\item[{u32}]{vxflags, }
+\item[{struct {\bf vxlan\+\_\+metadata} $\ast$}]{md}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vxlan_8c_ac39ea408cddbf49b0f51c29f01e00b44}
+
+\begin{DoxyCode}
+165 \{
+166     \textcolor{keyword}{struct }\hyperlink{structvxlanhdr__gbp}{vxlanhdr\_gbp} *gbp;
+167 
+168     \textcolor{keywordflow}{if} (!md->\hyperlink{structvxlan__metadata_ad71c7ab9d521840720e30ebae8ff2a6a}{gbp})
+169         \textcolor{keywordflow}{return};
+170 
+171     gbp = (\textcolor{keyword}{struct }\hyperlink{structvxlanhdr__gbp}{vxlanhdr\_gbp} *)vxh;
+172     vxh->\hyperlink{structvxlanhdr_a62dd0a1f926bef8eee34f4cf09dd0e1d}{vx\_flags} |= htonl(\hyperlink{vxlan_8h_a22b5a02db4869404b5b12e06adf3a65b}{VXLAN\_HF\_GBP});
+173 
+174     \textcolor{keywordflow}{if} (md->\hyperlink{structvxlan__metadata_ad71c7ab9d521840720e30ebae8ff2a6a}{gbp} & \hyperlink{vxlan_8h_af063457e3cdc95754cb77b14d245cc8b}{VXLAN\_GBP\_DONT\_LEARN})
+175         gbp->dont\_learn = 1;
+176 
+177     \textcolor{keywordflow}{if} (md->\hyperlink{structvxlan__metadata_ad71c7ab9d521840720e30ebae8ff2a6a}{gbp} & \hyperlink{vxlan_8h_a47e227548ab2c8e628c65ee09854c9cf}{VXLAN\_GBP\_POLICY\_APPLIED})
+178         gbp->policy\_applied = 1;
+179 
+180     gbp->\hyperlink{structvxlanhdr__gbp_a96bf86ab13573ff42399f11b1c8c5e34}{policy\_id} = htons(md->\hyperlink{structvxlan__metadata_ad71c7ab9d521840720e30ebae8ff2a6a}{gbp} & \hyperlink{vxlan_8h_a9d051215cb362016f854a3b6e013def1}{VXLAN\_GBP\_ID\_MASK});
+181 \}
+\end{DoxyCode}
+\hypertarget{vxlan_8c_a0a920e4c765b42a701f89ad803207516}{}\index{vxlan.\+c@{vxlan.\+c}!vxlan\+\_\+create\+\_\+sock@{vxlan\+\_\+create\+\_\+sock}}
+\index{vxlan\+\_\+create\+\_\+sock@{vxlan\+\_\+create\+\_\+sock}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{vxlan\+\_\+create\+\_\+sock}]{\setlength{\rightskip}{0pt plus 5cm}static struct socket$\ast$ vxlan\+\_\+create\+\_\+sock (
+\begin{DoxyParamCaption}
+\item[{struct net $\ast$}]{net, }
+\item[{{\bf bool}}]{ipv6, }
+\item[{\+\_\+\+\_\+be16}]{port, }
+\item[{u32}]{flags}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vxlan_8c_a0a920e4c765b42a701f89ad803207516}
+
+\begin{DoxyCode}
+247 \{
+248     \textcolor{keyword}{struct }socket *sock;
+249     \textcolor{keyword}{struct }udp\_port\_cfg udp\_conf;
+250     \textcolor{keywordtype}{int} err;
+251 
+252     memset(&udp\_conf, 0, \textcolor{keyword}{sizeof}(udp\_conf));
+253 
+254     \textcolor{keywordflow}{if} (\hyperlink{flow_8h_a0e15caa0bf708962ec6aa94137d5bbae}{ipv6}) \{
+255         udp\_conf.family = AF\_INET6;
+256         \textcolor{comment}{/* The checksum flag is silently ignored but it}
+257 \textcolor{comment}{         * doesn't make sense here anyways because OVS enables}
+258 \textcolor{comment}{         * checksums on a finer granularity than per-socket.}
+259 \textcolor{comment}{         */}
+260     \} \textcolor{keywordflow}{else} \{
+261         udp\_conf.family = AF\_INET;
+262         udp\_conf.local\_ip.s\_addr = htonl(INADDR\_ANY);
+263     \}
+264 
+265     udp\_conf.local\_udp\_port = port;
+266 
+267     \textcolor{comment}{/* Open UDP socket */}
+268     err = udp\_sock\_create(net, &udp\_conf, &sock);
+269     \textcolor{keywordflow}{if} (err < 0)
+270         \textcolor{keywordflow}{return} ERR\_PTR(err);
+271 
+272     \textcolor{keywordflow}{return} sock;
+273 \}
+\end{DoxyCode}
+\hypertarget{vxlan_8c_ae427483756b58f1ca5e7f77aad2607a8}{}\index{vxlan.\+c@{vxlan.\+c}!vxlan\+\_\+del\+\_\+work@{vxlan\+\_\+del\+\_\+work}}
+\index{vxlan\+\_\+del\+\_\+work@{vxlan\+\_\+del\+\_\+work}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{vxlan\+\_\+del\+\_\+work}]{\setlength{\rightskip}{0pt plus 5cm}static void vxlan\+\_\+del\+\_\+work (
+\begin{DoxyParamCaption}
+\item[{struct work\+\_\+struct $\ast$}]{work}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vxlan_8c_ae427483756b58f1ca5e7f77aad2607a8}
+
+\begin{DoxyCode}
+238 \{
+239     \textcolor{keyword}{struct }\hyperlink{structvxlan__sock}{vxlan\_sock} *vs = container\_of(work, \textcolor{keyword}{struct} \hyperlink{structvxlan__sock}{vxlan\_sock}, 
+      \hyperlink{structvxlan__sock_a951b7a9ee28672b49838176513bf343d}{del\_work});
+240 
+241     udp\_tunnel\_sock\_release(vs->\hyperlink{structvxlan__sock_a75f35ac3f5f8e0340b2bdc247a84c322}{sock});
+242     call\_rcu(&vs->\hyperlink{structvxlan__sock_a3ab897e7f7d97d2f2bf71791f5ebffdb}{rcu}, \hyperlink{vxlan_8c_ac64eb5287e6564aad201d94c4281d238}{rcu\_free\_vs});
+243 \}
+\end{DoxyCode}
+\hypertarget{vxlan_8c_a3873c15329e6a997e14cf29e0a5f379e}{}\index{vxlan.\+c@{vxlan.\+c}!vxlan\+\_\+set\+\_\+owner@{vxlan\+\_\+set\+\_\+owner}}
+\index{vxlan\+\_\+set\+\_\+owner@{vxlan\+\_\+set\+\_\+owner}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{vxlan\+\_\+set\+\_\+owner}]{\setlength{\rightskip}{0pt plus 5cm}static void vxlan\+\_\+set\+\_\+owner (
+\begin{DoxyParamCaption}
+\item[{struct sock $\ast$}]{sk, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vxlan_8c_a3873c15329e6a997e14cf29e0a5f379e}
+
+\begin{DoxyCode}
+156 \{
+157     skb\_orphan(skb);
+158     sock\_hold(sk);
+159     skb->sk = sk;
+160     skb->destructor = \hyperlink{vxlan_8c_a196fe3c97c2fbc6cf11de971f9ced083}{vxlan\_sock\_put};
+161 \}
+\end{DoxyCode}
+\hypertarget{vxlan_8c_a196fe3c97c2fbc6cf11de971f9ced083}{}\index{vxlan.\+c@{vxlan.\+c}!vxlan\+\_\+sock\+\_\+put@{vxlan\+\_\+sock\+\_\+put}}
+\index{vxlan\+\_\+sock\+\_\+put@{vxlan\+\_\+sock\+\_\+put}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{vxlan\+\_\+sock\+\_\+put}]{\setlength{\rightskip}{0pt plus 5cm}static void vxlan\+\_\+sock\+\_\+put (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vxlan_8c_a196fe3c97c2fbc6cf11de971f9ced083}
+
+\begin{DoxyCode}
+150 \{
+151     sock\_put(skb->sk);
+152 \}
+\end{DoxyCode}
+\hypertarget{vxlan_8c_abd7074d925eb20a123e4e621e5b6663e}{}\index{vxlan.\+c@{vxlan.\+c}!vxlan\+\_\+socket\+\_\+create@{vxlan\+\_\+socket\+\_\+create}}
+\index{vxlan\+\_\+socket\+\_\+create@{vxlan\+\_\+socket\+\_\+create}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{vxlan\+\_\+socket\+\_\+create}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf vxlan\+\_\+sock}$\ast$ vxlan\+\_\+socket\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{struct net $\ast$}]{net, }
+\item[{\+\_\+\+\_\+be16}]{port, }
+\item[{{\bf vxlan\+\_\+rcv\+\_\+t} $\ast$}]{rcv, }
+\item[{void $\ast$}]{data, }
+\item[{u32}]{flags}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vxlan_8c_abd7074d925eb20a123e4e621e5b6663e}
+
+\begin{DoxyCode}
+277 \{
+278     \textcolor{keyword}{struct }\hyperlink{structvxlan__sock}{vxlan\_sock} *vs;
+279     \textcolor{keyword}{struct }socket *sock;
+280     \textcolor{keyword}{struct }udp\_tunnel\_sock\_cfg tunnel\_cfg;
+281 
+282     vs = kmalloc(\textcolor{keyword}{sizeof}(*vs), GFP\_KERNEL);
+283     \textcolor{keywordflow}{if} (!vs) \{
+284         pr\_debug(\textcolor{stringliteral}{"memory alocation failure\(\backslash\)n"});
+285         \textcolor{keywordflow}{return} ERR\_PTR(-ENOMEM);
+286     \}
+287 
+288     INIT\_WORK(&vs->del\_work, \hyperlink{vxlan_8c_ae427483756b58f1ca5e7f77aad2607a8}{vxlan\_del\_work});
+289 
+290     sock = \hyperlink{vxlan_8c_a0a920e4c765b42a701f89ad803207516}{vxlan\_create\_sock}(net, \textcolor{keyword}{false}, port, \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags});
+291     \textcolor{keywordflow}{if} (IS\_ERR(sock)) \{
+292         kfree(vs);
+293         \textcolor{keywordflow}{return} \hyperlink{err_8h_a81ed60b97e1ce0484cdbff47522ebb50}{ERR\_CAST}(sock);
+294     \}
+295 
+296     vs->sock = sock;
+297     vs->rcv = rcv;
+298     vs->data = data;
+299     vs->flags = (\hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags} & \hyperlink{vxlan_8h_ae011cb4634ce9ca91f4f988732cf0d94}{VXLAN\_F\_RCV\_FLAGS});
+300 
+301     tunnel\_cfg.sk\_user\_data = vs;
+302     tunnel\_cfg.encap\_type = 1;
+303     tunnel\_cfg.encap\_rcv = \hyperlink{vxlan_8c_af2695304e987e1dd6826de86b243291a}{vxlan\_udp\_encap\_recv};
+304     tunnel\_cfg.encap\_destroy = NULL;
+305 
+306     setup\_udp\_tunnel\_sock(net, sock, &tunnel\_cfg);
+307 
+308     \textcolor{keywordflow}{return} vs;
+309 \}
+\end{DoxyCode}
+\hypertarget{vxlan_8c_af2695304e987e1dd6826de86b243291a}{}\index{vxlan.\+c@{vxlan.\+c}!vxlan\+\_\+udp\+\_\+encap\+\_\+recv@{vxlan\+\_\+udp\+\_\+encap\+\_\+recv}}
+\index{vxlan\+\_\+udp\+\_\+encap\+\_\+recv@{vxlan\+\_\+udp\+\_\+encap\+\_\+recv}!vxlan.\+c@{vxlan.\+c}}
+\subsubsection[{vxlan\+\_\+udp\+\_\+encap\+\_\+recv}]{\setlength{\rightskip}{0pt plus 5cm}static int vxlan\+\_\+udp\+\_\+encap\+\_\+recv (
+\begin{DoxyParamCaption}
+\item[{struct sock $\ast$}]{sk, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vxlan_8c_af2695304e987e1dd6826de86b243291a}
+
+\begin{DoxyCode}
+73 \{
+74     \textcolor{keyword}{struct }\hyperlink{structvxlan__sock}{vxlan\_sock} *vs;
+75     \textcolor{keyword}{struct }\hyperlink{structvxlanhdr}{vxlanhdr} *vxh;
+76     u32 \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags}, vni;
+77     \textcolor{keyword}{struct }\hyperlink{structvxlan__metadata}{vxlan\_metadata} md = \{0\};
+78 
+79     \textcolor{comment}{/* Need Vxlan and inner Ethernet header to be present */}
+80     \textcolor{keywordflow}{if} (!pskb\_may\_pull(skb, \hyperlink{vxlan_8h_a71a2513cfba2b8e0689d8ac0f546afdb}{VXLAN\_HLEN}))
+81         \textcolor{keywordflow}{goto} error;
+82 
+83     vxh = (\textcolor{keyword}{struct }\hyperlink{structvxlanhdr}{vxlanhdr} *)(\hyperlink{linux_2udp_8h_a7b8908e197538768cf4ff9ec577bd86b}{udp\_hdr}(skb) + 1);
+84     flags = ntohl(vxh->\hyperlink{structvxlanhdr_a62dd0a1f926bef8eee34f4cf09dd0e1d}{vx\_flags});
+85     vni = ntohl(vxh->\hyperlink{structvxlanhdr_a4239361cddf2d17ca6654a75497dcddd}{vx\_vni});
+86 
+87     \textcolor{keywordflow}{if} (flags & \hyperlink{vxlan_8h_ade2d874b12e2c27d10008c838249dca5}{VXLAN\_HF\_VNI}) \{
+88         flags &= ~VXLAN\_HF\_VNI;
+89     \} \textcolor{keywordflow}{else} \{
+90         \textcolor{comment}{/* VNI flag always required to be set */}
+91         \textcolor{keywordflow}{goto} bad\_flags;
+92     \}
+93 
+94     \textcolor{keywordflow}{if} (iptunnel\_pull\_header(skb, \hyperlink{vxlan_8h_a71a2513cfba2b8e0689d8ac0f546afdb}{VXLAN\_HLEN}, htons(ETH\_P\_TEB)))
+95         \textcolor{keywordflow}{goto} drop;
+96 
+97     vs = \hyperlink{sock_8h_a2a8307d46586194d832739a9982dfdcf}{rcu\_dereference\_sk\_user\_data}(sk);
+98     \textcolor{keywordflow}{if} (!vs)
+99         \textcolor{keywordflow}{goto} drop;
+100 
+101     \textcolor{comment}{/* For backwards compatibility, only allow reserved fields to be}
+102 \textcolor{comment}{    * used by VXLAN extensions if explicitly requested.}
+103 \textcolor{comment}{    */}
+104     \textcolor{keywordflow}{if} ((flags & \hyperlink{vxlan_8h_a22b5a02db4869404b5b12e06adf3a65b}{VXLAN\_HF\_GBP}) && (vs->\hyperlink{structvxlan__sock_ac3711b8cc4c992e3270dee5791a542cf}{flags} & \hyperlink{vxlan_8h_a8331ae965f1a780ef26d2adc7ddb9fec}{VXLAN\_F\_GBP})) \{
+105         \textcolor{keyword}{struct }\hyperlink{structvxlanhdr__gbp}{vxlanhdr\_gbp} *gbp;
+106 
+107         gbp = (\textcolor{keyword}{struct }\hyperlink{structvxlanhdr__gbp}{vxlanhdr\_gbp} *)vxh;
+108         md.\hyperlink{structvxlan__metadata_ad71c7ab9d521840720e30ebae8ff2a6a}{gbp} = ntohs(gbp->\hyperlink{structvxlanhdr__gbp_a96bf86ab13573ff42399f11b1c8c5e34}{policy\_id});
+109 
+110         \textcolor{keywordflow}{if} (gbp->dont\_learn)
+111             md.\hyperlink{structvxlan__metadata_ad71c7ab9d521840720e30ebae8ff2a6a}{gbp} |= \hyperlink{vxlan_8h_af063457e3cdc95754cb77b14d245cc8b}{VXLAN\_GBP\_DONT\_LEARN};
+112 
+113         \textcolor{keywordflow}{if} (gbp->policy\_applied)
+114             md.\hyperlink{structvxlan__metadata_ad71c7ab9d521840720e30ebae8ff2a6a}{gbp} |= \hyperlink{vxlan_8h_a47e227548ab2c8e628c65ee09854c9cf}{VXLAN\_GBP\_POLICY\_APPLIED};
+115 
+116         flags &= ~\hyperlink{vxlan_8h_a698cc2a219b45242e6c090515672636a}{VXLAN\_GBP\_USED\_BITS};
+117     \}
+118 
+119     \textcolor{keywordflow}{if} (flags || (vni & 0xff)) \{
+120         \textcolor{comment}{/* If there are any unprocessed flags remaining treat}
+121 \textcolor{comment}{        * this as a malformed packet. This behavior diverges from}
+122 \textcolor{comment}{        * VXLAN RFC (RFC7348) which stipulates that bits in reserved}
+123 \textcolor{comment}{        * in reserved fields are to be ignored. The approach here}
+124 \textcolor{comment}{        * maintains compatbility with previous stack code, and also}
+125 \textcolor{comment}{        * is more robust and provides a little more security in}
+126 \textcolor{comment}{        * adding extensions to VXLAN.}
+127 \textcolor{comment}{        */}
+128 
+129         \textcolor{keywordflow}{goto} bad\_flags;
+130     \}
+131 
+132     md.\hyperlink{structvxlan__metadata_ac78e68c33d3c91061e3642616135cbc8}{vni} = vxh->\hyperlink{structvxlanhdr_a4239361cddf2d17ca6654a75497dcddd}{vx\_vni};
+133     vs->\hyperlink{structvxlan__sock_a62dbbfc22620a8120799bad80e04c639}{rcv}(vs, skb, &md);
+134     \textcolor{keywordflow}{return} 0;
+135 
+136 drop:
+137     \textcolor{comment}{/* Consume bad packet */}
+138     kfree\_skb(skb);
+139     \textcolor{keywordflow}{return} 0;
+140 bad\_flags:
+141     pr\_debug(\textcolor{stringliteral}{"invalid vxlan flags=%#x vni=%#x\(\backslash\)n"},
+142          ntohl(vxh->\hyperlink{structvxlanhdr_a62dd0a1f926bef8eee34f4cf09dd0e1d}{vx\_flags}), ntohl(vxh->\hyperlink{structvxlanhdr_a4239361cddf2d17ca6654a75497dcddd}{vx\_vni}));
+143 
+144 error:
+145     \textcolor{comment}{/* Return non vxlan pkt */}
+146     \textcolor{keywordflow}{return} 1;
+147 \}
+\end{DoxyCode}

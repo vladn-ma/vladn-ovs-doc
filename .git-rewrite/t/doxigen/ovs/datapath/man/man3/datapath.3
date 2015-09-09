@@ -1,0 +1,55 @@
+.TH "datapath" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+datapath \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <datapath\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct rcu_head \fBrcu\fP"
+.br
+.ti -1c
+.RI "struct list_head \fBlist_node\fP"
+.br
+.ti -1c
+.RI "struct \fBflow_table\fP \fBtable\fP"
+.br
+.ti -1c
+.RI "struct hlist_head * \fBports\fP"
+.br
+.ti -1c
+.RI "struct \fBdp_stats_percpu\fP \fB__percpu\fP * \fBstats_percpu\fP"
+.br
+.ti -1c
+.RI "u32 \fBuser_features\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+struct datapath - datapath for flow-based packet switching : RCU callback head for deferred destruction\&. : Element in global 'dps' list\&. : flow table\&. : Hash table for ports\&. OVSP_LOCAL port always exists\&. Protected by ovs_mutex and RCU\&. : Per-CPU datapath statistics\&. : Reference to net namespace\&.
+.PP
+Context: See the comment on locking at the top of datapath\&.c for additional locking information\&. 
+.SH "Field Documentation"
+.PP 
+.SS "struct list_head datapath::list_node"
+
+.SS "struct hlist_head* datapath::ports"
+
+.SS "struct rcu_head datapath::rcu"
+
+.SS "struct \fBdp_stats_percpu\fP \fB__percpu\fP* datapath::stats_percpu"
+
+.SS "struct \fBflow_table\fP datapath::table"
+
+.SS "u32 datapath::user_features"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

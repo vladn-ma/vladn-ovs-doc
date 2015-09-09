@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="jiffies_8h">
+    <title>jiffies.h File Reference</title>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+<para>Include dependency diagram for jiffies.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="jiffies_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for jiffies.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="jiffies_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="jiffies_8h_1a248fdc4fc4bced43a66020f26377b79a">time_after64</link> (typecheck(__u64, a) &amp;&amp; \
+	typecheck(__u64, b) &amp;&amp; \
+	((__s64)(b) - (__s64)(a) &lt; 0))</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="jiffies_8h_1a66208a3e87dfb9b2177823a3dcca1faf">time_before64</link> <link linkend="jiffies_8h_1a248fdc4fc4bced43a66020f26377b79a">time_after64</link>(b, a)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="jiffies_8h_1aa1a51299a73906d99d9e62cc72664274">time_after_eq64</link> (typecheck(__u64, a) &amp;&amp; \
+	typecheck(__u64, b) &amp;&amp; \
+	((__s64)(a) - (__s64)(b) &gt;= 0))</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="jiffies_8h_1aa2bf6b95340da2e4f28fee047239c08c">time_before_eq64</link> <link linkend="jiffies_8h_1aa1a51299a73906d99d9e62cc72664274">time_after_eq64</link>(b, a)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/include/linux/jiffies.h</para>
+    </simplesect>
+</section>

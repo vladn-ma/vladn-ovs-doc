@@ -1,0 +1,139 @@
+.TH "lisphdr" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lisphdr \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "__u8 \fBnonce_present\fP:1"
+.br
+.ti -1c
+.RI "__u8 \fBlocator_status_bits_present\fP:1"
+.br
+.ti -1c
+.RI "__u8 \fBsolicit_echo_nonce\fP:1"
+.br
+.ti -1c
+.RI "__u8 \fBmap_version_present\fP:1"
+.br
+.ti -1c
+.RI "__u8 \fBinstance_id_present\fP:1"
+.br
+.ti -1c
+.RI "__u8 \fBreserved_flags\fP:3"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   __u8 \fBnonce\fP [3]"
+.br
+.ti -1c
+.RI "   __u8 \fBmap_version\fP [3]"
+.br
+.ti -1c
+.RI "} \fBu1\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   __be32 \fBlocator_status_bits\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      __u8 \fBinstance_id\fP [3]"
+.br
+.ti -1c
+.RI "      __u8 \fBlocator_status_bits\fP"
+.br
+.ti -1c
+.RI "   } \fBword2\fP"
+.br
+.ti -1c
+.RI "} \fBu2\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   __u8 \fBnonce\fP [3]"
+.br
+.ti -1c
+.RI "   __u8 \fBmap_version\fP [3]"
+.br
+.ti -1c
+.RI "} \fBu1\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   __be32 \fBlocator_status_bits\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      __u8 \fBinstance_id\fP [3]"
+.br
+.ti -1c
+.RI "      __u8 \fBlocator_status_bits\fP"
+.br
+.ti -1c
+.RI "   } \fBword2\fP"
+.br
+.ti -1c
+.RI "} \fBu2\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+struct lisphdr - LISP header : Flag indicating the presence of a 24 bit nonce value\&. : Flag indicating the presence of Locator Status Bits (LSB)\&. : Flag indicating the use of the echo noncing mechanism\&. : Flag indicating the use of mapping versioning\&. : Flag indicating the presence of a 24 bit Instance ID\&. : 3 bits reserved for future flags\&. : 24 bit nonce value\&. : 24 bit mapping version\&. : Locator Status Bits: 32 bits when instance_id_present is not set, 8 bits when it is\&. : 24 bit Instance ID 
+.SH "Field Documentation"
+.PP 
+.SS "__u8 lisphdr::instance_id[3]"
+
+.SS "__u8 lisphdr::instance_id_present"
+
+.SS "__be32 lisphdr::locator_status_bits"
+
+.SS "__u8 lisphdr::locator_status_bits"
+
+.SS "__u8 lisphdr::locator_status_bits_present"
+
+.SS "__u8 lisphdr::map_version[3]"
+
+.SS "__u8 lisphdr::map_version_present"
+
+.SS "__u8 lisphdr::nonce[3]"
+
+.SS "__u8 lisphdr::nonce_present"
+
+.SS "__u8 lisphdr::reserved_flags"
+
+.SS "__u8 lisphdr::solicit_echo_nonce"
+
+.SS "union { \&.\&.\&. }   lisphdr::u1"
+
+.SS "union { \&.\&.\&. }   lisphdr::u1"
+
+.SS "union { \&.\&.\&. }   lisphdr::u2"
+
+.SS "union { \&.\&.\&. }   lisphdr::u2"
+
+.SS "struct { \&.\&.\&. }   lisphdr::word2"
+
+.SS "struct { \&.\&.\&. }   lisphdr::word2"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

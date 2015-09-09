@@ -1,0 +1,351 @@
+#! /bin/bash
+
+#------------------------------------------------------
+#CMD_BCMSIM__GET_SDK=1
+#CMD_BCMSIM__GET_LCMODEL=1
+#CMD_BCMSIM__GET_FE2KTOOLS=1
+#CMD_BCMSIM__GET_SBXTOOLS=1
+#CMD_BCMSIM__BUILD_FE2KTOOLS=1
+#CMD_BCMSIM__BUILD_UCODE=1
+#CMD_BCMSIM__BUILD_SDK=1
+#CMD_BCMSIM__CLEAN_LCMODEL=1
+#CMD_BCMSIM__BUILD_LCMODEL=1
+#CMD_BCMSIM__BUILD_BCMSIM=1
+#CMD_BCMSIM__ADJUST_UNIT_TEST_SRC=1
+CMD_BCMSIM__RUN_BCMSIM=1
+#CMD_BCMSIM__GDB_BCMSIM=1
+#CMD_SDK_RUN_COVERITY=1
+#-------------------------------------------------------
+if [ ]; then
+# to run unit tests from the bcm prompt run following: 
+
+setenv USER vladn
+setenv DEBUG_LEVEL 10
+setenv SDK /projects/sbx-sdk_ext1/work/$USER/views/sdk.bcmsim/sdk
+cd $SDK/regress/bcm
+tcl
+set USER vladn
+set SDK /projects/sbx-sdk_ext1/work/$USER/views/sdk.bcmsim/sdk
+set SBR $SDK/regress/bcm/tests/sbx 
+set BTL $SDK/regress/bcm 
+set SGU $SDK/regress/sbx/gu2 
+lappend auto_path $SDK/rc/tcl8.3.3 $SDK/regress/bcm/pkg 
+source tests/sbxUnit/vn_testSbxUnit.tcl 
+
+#AT_g2p3i_001 0 1
+fi
+
+#------------------------------------------------------------------
+# process command line
+BUILD=latest
+if [ -n "$1" ]; then BUILD=$1
+fi
+
+#-------------------------------------------------------------------
+#create root directory
+mkdir -p sdk.$BUILD
+cd sdk.$BUILD
+export BUILDDIR=`pwd`
+
+# 3 main components of the combined source / build tree
+export SDK=$BUILDDIR/sdk
+export SYSTEM_SIM=$BUILDDIR/system_sim
+export FE2K_TOOLS=$BUILDDIR/fe2k-tools
+VERILATOR_DIR=$FE2K_TOOLS/verilator
+SYSTEMPERL_DIR=$FE2K_TOOLS/systemperl
+
+# other generic directories
+export BCMSBXLCM_LIB=$BUILDDIR/system_sim/lcmodel/bcmsim/caladan2/libbcmsbxlcm_c2.a
+export BCMSIM_ROOT=/projects/ntsw-sw/dsg/bcmsim/framework_v1.0
+
+export CROSS_COMPILE=
+export GCCVER='3.3.3'
+export M32_BUILD_CMD=''
+
+old_path=$PATH
+new_path=/tools/bin:$PATH
+
+#-------------------------------------------------------------------
+#get sdk
+if [ $CMD_BCMSIM__GET_SDK ]; then
+export CVSROOT=:pserver:$USER@cvsps-sj1-1.sj.broadcom.com:/projects/ntsw-cvs/swcvs/athena
+cd $BUILDDIR
+#cvs co -r SDK_5_6_3_RELEASE_POINT sdk
+cvs co sdk
+fi
+
+#-------------------------------------------------------------------
+#get lc model
+if [ $CMD_BCMSIM__GET_LCMODEL ]; then
+cd $BUILDDIR
+export CVSROOT=/projects/car_cvsdb
+cvs co system_sim
+cd $BUILDDIR/system_sim
+./release.pl co lcmodel_dist@latest
+fi
+
+#-------------------------------------------------------------------
+#get fe2k-tools
+if [ $CMD_BCMSIM__GET_FE2KTOOLS ]; then
+cd $BUILDDIR
+export CVSROOT=/projects/car_cvsdb
+cvs co fe2k-tools
+fi
+
+#-------------------------------------------------------------------
+#get sbx_tools
+if [ $CMD_BCMSIM__GET_SBXTOOLS ]; then
+cd $BUILDDIR
+export CVSROOT=/projects/car_cvsdb
+cvs co sbx_tools
+fi
+
+#-------------------------------------------------------------------
+#build fe2k-tools
+if [ $CMD_BCMSIM__BUILD_FE2KTOOLS ]; then
+export PATH=$old_path
+
+export AUTOMAKEVER='1.10.2'
+export AUTOCONFVER='2.63'
+export LIBTOOLVER='1.5.8'
+export autom4te_perllibdir /tools/oss/packages/`/tools/bin/OSid`/autoconf/2.63/share/autoconf
+#export autom4te_perllibdir=/tools/oss/packages/x86_64-rhel3/autoconf/2.63/share/autoconf
+export M4VER='1.4.12'
+
+export ANTLR_HOME=/tools/sbx/antlr/2.7.6/linux.x86_64
+export TOOLS=/tools/sbx
+export BOOST_LIBS=/tools/sbx/boost/1.33.1/linux.i686/2.2//lib
+export BOOST_HOME=/tools/sbx/boost/1.33.1/linux.i686/2.2/
+export BOOST_INCLUDE=/tools/sbx/boost/1.33.1/linux.i686/2.2//include/boost-1_33_1
+
+prepend_env PATH "/tools/bin"
+
+cd $FE2K_TOOLS
+cd verilator
+configure
+make
+cd ..
+bootstrap
+configure
+make clean
+make
+fi
+
+#-------------------------------------------------------------------
+#check out and build fe2k-ucode - then build sdk and bcmsim again
+if [ $CMD_BCMSIM__BUILD_UCODE ]; then
+cd $SDK/src/soc/sbx; 
+cvs -d :local:/projects/car_cvsdb co fe2k-ucode
+cd $SDK/src/soc/sbx/fe2k-ucode/g2p3/src
+
+chmod +w $SDK/src/soc/sbx/g2p3/c2_g2p3_ucode.bin
+chmod +w $SDK/src/soc/sbx/g2p3/c2_g2p3_ucode.c 
+chmod +w $SDK/include/soc/sbx/g2p3/c2_g2p3_ucode.h
+chmod +w $SDK/src/soc/sbx/g2p3/c2_g2p3_sirius_ucode.c
+chmod +w $SDK/include/soc/sbx/g2p3/c2_g2p3_sirius_ucode.h
+chmod +w $SDK/src/soc/sbx/g2p3/c2_g2p3_v6_ucode.c
+chmod +w $SDK/include/soc/sbx/g2p3/c2_g2p3_v6_ucode.h
+chmod +w $SDK/src/soc/sbx/g2p3/c2_g2p3_v6_sirius_ucode.c
+chmod +w $SDK/include/soc/sbx/g2p3/c2_g2p3_v6_sirius_ucode.h
+chmod +w $SDK/src/soc/sbx/g2p3/g2p3_20g_ucode.c
+chmod +w $SDK/include/soc/sbx/g2p3/g2p3_20g_ucode.h
+chmod +w $SDK/src/soc/sbx/g2p3/g2p3_ucode.c
+chmod +w $SDK/include/soc/sbx/g2p3/g2p3_ucode.h
+
+
+make clean 
+make
+cd $SDK/make 
+chmod +w Make.local.template
+cd $SDK/src/soc/sbx/fe2k-ucode/g2p3/sdkfiles 
+make
+fi
+
+#-------------------------------------------------------------------
+#build sdk
+if [ $CMD_BCMSIM__BUILD_SDK ]; then
+export PATH=$new_path
+#create local Make.local and add SBX_CHIPS=1 at the end
+cd $SDK/make
+cp Make.local.template Make.local
+chmod +w Make.local
+echo '' >> Make.local 
+echo 'SBX_CHIPS=1' >> Make.local
+
+#in file Make.config add TCL CINT to _SBX_FEATURE_LIST
+cd $SDK/make
+chmod +w Make.config
+rm -f __tmp.config 
+sed 's/_SBX_FEATURE_LIST = /_SBX_FEATURE_LIST = TCL CINT /' Make.config > __tmp.config
+mv -f __tmp.config Make.config
+
+# build
+cd $SDK/systems/sim/
+make
+cd  $SDK/systems/sim/pcid
+make
+fi
+          
+#-------------------------------------------------------------------
+#clean lcmodel lib
+if [ $CMD_BCMSIM__CLEAN_LCMODEL ]; then
+export PATH=$new_path
+cd $SYSTEM_SIM
+make -C lcmodel clean
+fi
+
+#-------------------------------------------------------------------
+#build lcmodel lib
+if [ $CMD_BCMSIM__BUILD_LCMODEL ]; then
+export PATH=$new_path
+cd $SYSTEM_SIM
+#chmod +w lcmodel/bcmsim/caladan2/*
+make -C lcmodel bcmsim_lcmodel_dist
+mv sw3/model/lcmodel sw3/model/lcmeodel.old 
+ln -s ../../lcmodel/dist sw3/model/lcmodel 
+make -C lcmodel/bcmsim/ caladan2 CPP=c++ 
+fi
+
+#-------------------------------------------------------------------
+#build bcmsim executable
+if [ $CMD_BCMSIM__BUILD_BCMSIM ]; then
+export PATH=$new_path
+cd $SDK/systems/sim/bcmsim
+make sbxlcm
+fi
+
+#-------------------------------------------------------------------
+# adjust unit test source for running with the bcmsim since only few are currently supported
+#
+# 1. go to the directory: 
+#     cd $SDK/regress/bcm/tests/sbxUnit
+# 2. in the file testSbxUnit.tcl:
+#    2.1. replace file name:
+#        g2p3_unit_ingress.tcl
+#        with file name
+#        vn_g2p3_unit_ingress.tcl
+#    2.2. comment out following line (aprox line 85): 
+#        g2p3_unit_egress_config 
+#    2.3. comment out following line (aprox line 99): 
+#        test load "file" "$gu2_tcl_path/testSbxUnitP3.tlist" 
+#    2.4. add after the above following new line (aprox line 99+1): 
+#        puts [AT_g2p3i_001 0 1] 
+# 3. in the file: g2p3_unit_ingress.tcl
+#     2.1. comment out following lines:
+#         config_v4uc $unit
+#         config_v4mc $unit
+#         config_v4uc_routes $unit
+#         config_vrrp $unit
+#         config_urpf $unit
+#         config_mim $unit
+#         config_ipv6 $unit
+#         config_ifp_v6 $unit
+
+if [ $CMD_BCMSIM__ADJUST_UNIT_TEST_SRC ]; then
+cd $SDK/regress/bcm/tests/sbxUnit
+
+file=testSbxUnit.tcl
+tmp=vn_"$file"
+rm -f $tmp
+
+sed \
+    -e 's/\(g2p3_unit_ingress.tcl\)/vn_\1/g' \
+    -e 's/\(^.*g2p3_unit_egress_config\)/\#\1/g' \
+    -e 's/\(test load .*$\)/\#\1\n\tputs [AT_g2p3i_001 0 1]/g' \
+    $file > $tmp
+
+file=g2p3_unit_ingress.tcl
+tmp=vn_"$file"
+rm -f $tmp
+
+sed  \
+    -e 's/\(^.*config_v4uc \$unit\)/\#\1/g' \
+    -e 's/\(^.*config_v4mc \$unit\)/\#\1/g' \
+    -e 's/\(^.*config_v4uc_routes \$unit\)/\#\1/g' \
+    -e 's/\(^.*config_vrrp \$unit\)/\#\1/g' \
+    -e 's/\(^.*config_urpf \$unit\)/\#\1/g' \
+    -e 's/\(^.*config_mim \$unit\)/\#\1/g' \
+    -e 's/\(^.*config_ipv6 \$unit\)/\#\1/g' \
+    -e 's/\(^.*config_ifp_v6 \$unit\)/\#\1/g' \
+    $file > $tmp
+
+fi
+
+#-------------------------------------------------------------------
+#run bcmsim
+if [ $CMD_BCMSIM__RUN_BCMSIM ]; then
+export PATH=$new_path
+cd $BCMSIM_ROOT
+bin/bcmsim -c configuration/lcm_c2.cdf
+fi
+
+#-------------------------------------------------------------------
+#run bcmsim under GDB
+if [ $CMD_BCMSIM__GDB_BCMSIM ]; then
+export PATH=$new_path
+export GDB=1
+cd $BCMSIM_ROOT
+bin/bcmsim -c configuration/lcm_c2.cdf 
+fi 
+
+#-------------------------------------------------------------------
+# run coverity on sdk
+if [ $CMD_SDK_RUN_COVERITY ]; then
+
+cd $SDK/make
+rm -f Make.local
+
+sed '$a\
+ \
+ \
+######################################################################\
+# vn-1002221139 support of coverity run for the sbx build\
+######################################################################\
+FEATURE_LIST = L3 BCMX BCMX_DIAG EDITLINE CUSTOMER TEST CHASSIS I2C\
+SBX_CHIPS=1\
+BCM_PTL_SPT = 1\
+BCM_FE2000_A0 = 1\
+BCM_QE2000_A0 = 1\
+BCM_BM9600_A0 = 1\
+BCM_BME3200_B0 = 1\
+BCM_88230_A0 = 1\
+VENDOR_LIST = BROADCOM\
+######################################################################\
+' Make.local.template > Make.local
+
+cd $SDK
+export PATH=$new_path
+cvmake
+
+fi
+   
+#-------------------------------------------------------------------
+exit
+
+#------------------------------------------------------------------
+# following two fragments are not used bacause veriator 
+# will be configured and built in the fe2k-tools
+# and systemperl only used for the headers
+#CMD_BCMSIM__BUILD_VERILATOR=1
+#CMD_BCMSIM__BUILD_SYSTEMPERL=1
+#-------------------------------------------------------------------
+#build verilator
+if [ $CMD_BCMSIM__BUILD_VERILATOR ]; then
+cd $VERILATOR_DIR
+./configure
+make clean
+make
+fi
+          
+#-------------------------------------------------------------------
+#build systemperl
+if [ $CMD_BCMSIM__BUILD_SYSTEMPERL ]; then
+cd $SYSTEMPERL_DIR
+make clean
+perl Makefile.PL
+make 
+fi
+
+
+###########################################################################
+# end of file

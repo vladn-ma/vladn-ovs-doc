@@ -1,0 +1,48 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/net/udp_tunnel.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/net/udp_tunnel.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/version\&.h>\fP
+.br
+\fC#include <linux/kconfig\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBudp_tunnel_handle_offloads\fP   \fBrpl_udp_tunnel_handle_offloads\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static struct sk_buff * \fBrpl_udp_tunnel_handle_offloads\fP (struct sk_buff *skb, \fBbool\fP udp_csum, \fBbool\fP is_vxlan)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define udp_tunnel_handle_offloads   \fBrpl_udp_tunnel_handle_offloads\fP"
+
+.SH "Function Documentation"
+.PP 
+.SS "static struct sk_buff* rpl_udp_tunnel_handle_offloads (struct sk_buff * skb, \fBbool\fP udp_csum, \fBbool\fP is_vxlan)\fC [static]\fP"
+
+.PP
+.nf
+13 {
+14     if (skb_is_gso(skb) && skb_is_encapsulated(skb)) {
+15         kfree_skb(skb);
+16         return ERR_PTR(-ENOSYS);
+17     }
+18     return udp_tunnel_handle_offloads(skb, udp_csum);
+19 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

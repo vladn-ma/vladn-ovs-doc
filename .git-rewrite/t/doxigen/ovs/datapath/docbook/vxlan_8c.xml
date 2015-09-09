@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="vxlan_8c">
+    <title>vxlan.c File Reference</title>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/types.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/errno.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/slab.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/skbuff.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rculist.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/netdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/in.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/udp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/igmp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/etherdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_ether.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_vlan.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/hash.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ethtool.h&gt;</programlisting>
+    <programlisting>#include &lt;net/arp.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ndisc.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;net/gre.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ip_tunnels.h&gt;</programlisting>
+    <programlisting>#include &lt;net/icmp.h&gt;</programlisting>
+    <programlisting>#include &lt;net/udp.h&gt;</programlisting>
+    <programlisting>#include &lt;net/udp_tunnel.h&gt;</programlisting>
+    <programlisting>#include &lt;net/rtnetlink.h&gt;</programlisting>
+    <programlisting>#include &lt;net/route.h&gt;</programlisting>
+    <programlisting>#include &lt;net/dsfield.h&gt;</programlisting>
+    <programlisting>#include &lt;net/inet_ecn.h&gt;</programlisting>
+    <programlisting>#include &lt;net/net_namespace.h&gt;</programlisting>
+    <programlisting>#include &lt;net/netns/generic.h&gt;</programlisting>
+    <programlisting>#include &lt;net/vxlan.h&gt;</programlisting>
+    <programlisting>#include &quot;compat.h&quot;</programlisting>
+    <programlisting>#include &quot;datapath.h&quot;</programlisting>
+    <programlisting>#include &quot;gso.h&quot;</programlisting>
+    <programlisting>#include &quot;vlan.h&quot;</programlisting>
+<para>Include dependency diagram for vxlan.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="vxlan_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for vxlan.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="vxlan_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title> Data Structures </title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structvxlanhdr">vxlanhdr</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="vxlan_8c_1a1f8c165bf4196327bc3abff648276d92">pr_fmt</link> KBUILD_MODNAME &quot;: &quot; fmt</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="vxlan_8c_1af2695304e987e1dd6826de86b243291a">vxlan_udp_encap_recv</link> (
+struct sock * sk, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="vxlan_8c_1a196fe3c97c2fbc6cf11de971f9ced083">vxlan_sock_put</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="vxlan_8c_1a3873c15329e6a997e14cf29e0a5f379e">vxlan_set_owner</link> (
+struct sock * sk, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="vxlan_8c_1ac39ea408cddbf49b0f51c29f01e00b44">vxlan_build_gbp_hdr</link> (
+struct <link linkend="structvxlanhdr">vxlanhdr</link> * vxh, u32 vxflags, struct <link linkend="structvxlan__metadata">vxlan_metadata</link> * md)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="vxlan_8c_1a9ebcb30ebf95cd09ff7137585a787633">rpl_vxlan_xmit_skb</link> (
+struct <link linkend="structvxlan__sock">vxlan_sock</link> * vs, struct rtable * rt, struct sk_buff * skb, __be32 src, __be32 dst, __u8 tos, __u8 ttl, __be16 df, __be16 src_port, __be16 dst_port, struct <link linkend="structvxlan__metadata">vxlan_metadata</link> * md, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> xnet, u32 vxflags)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="vxlan_8c_1a2993292fc4322a2bf6fec0404b24c302">EXPORT_SYMBOL_GPL</link> (
+<link linkend="vxlan_8c_1a9ebcb30ebf95cd09ff7137585a787633">rpl_vxlan_xmit_skb</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="vxlan_8c_1ac64eb5287e6564aad201d94c4281d238">rcu_free_vs</link> (
+struct rcu_head * rcu)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="vxlan_8c_1ae427483756b58f1ca5e7f77aad2607a8">vxlan_del_work</link> (
+struct work_struct * work)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct socket * <link linkend="vxlan_8c_1a0a920e4c765b42a701f89ad803207516">vxlan_create_sock</link> (
+struct net * net, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> ipv6, __be16 port, u32 flags)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structvxlan__sock">vxlan_sock</link> * <link linkend="vxlan_8c_1abd7074d925eb20a123e4e621e5b6663e">vxlan_socket_create</link> (
+struct net * net, __be16 port, <link linkend="vxlan_8h_1a8de966706f4eb1f2059020f4ec31aa6f">vxlan_rcv_t</link> * rcv, void * data, u32 flags)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structvxlan__sock">vxlan_sock</link> * <link linkend="vxlan_8c_1abe3905d2844b3ce0e67d2790cc3fbe59">rpl_vxlan_sock_add</link> (
+struct net * net, __be16 port, <link linkend="vxlan_8h_1a8de966706f4eb1f2059020f4ec31aa6f">vxlan_rcv_t</link> * rcv, void * data, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> no_share, u32 flags)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="vxlan_8c_1a89d32880145031606f64893f5196ca35">EXPORT_SYMBOL_GPL</link> (
+<link linkend="vxlan_8c_1abe3905d2844b3ce0e67d2790cc3fbe59">rpl_vxlan_sock_add</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="vxlan_8c_1a39d6055746bc3347885b6bad9ab73346">rpl_vxlan_sock_release</link> (
+struct <link linkend="structvxlan__sock">vxlan_sock</link> * vs)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="vxlan_8c_1a1ed5b298083b46c18d1e7f18c6ef052c">EXPORT_SYMBOL_GPL</link> (
+<link linkend="vxlan_8c_1a39d6055746bc3347885b6bad9ab73346">rpl_vxlan_sock_release</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/vxlan.c</para>
+    </simplesect>
+</section>

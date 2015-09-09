@@ -1,0 +1,80 @@
+\hypertarget{structvport}{}\section{vport Struct Reference}
+\label{structvport}\index{vport@{vport}}
+
+
+{\ttfamily \#include $<$vport.\+h$>$}
+
+
+
+Collaboration diagram for vport\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structvport__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct rcu\+\_\+head \hyperlink{structvport_ac08b8a62e054bc2840a9ba6964091f89}{rcu}
+\item 
+struct \hyperlink{structdatapath}{datapath} $\ast$ \hyperlink{structvport_a49fb6f6bf0ac4337853e9242e88ddc42}{dp}
+\item 
+struct \hyperlink{structvport__portids}{vport\+\_\+portids} \hyperlink{compiler_8h_a2b3b0c016258969e4b39c66b6eec2129}{\+\_\+\+\_\+rcu} $\ast$ \hyperlink{structvport_a7963679d5c8d3a923eb42faf9d5fb2d1}{upcall\+\_\+portids}
+\item 
+u16 \hyperlink{structvport_aae00fc5d12b47f02cbfd4f67ae114b58}{port\+\_\+no}
+\item 
+struct hlist\+\_\+node \hyperlink{structvport_ae6324a0c2483c3d1600cb29a6f4bcb8d}{hash\+\_\+node}
+\item 
+struct hlist\+\_\+node \hyperlink{structvport_a27d2c94e2edd5de172e0b866cdd70fea}{dp\+\_\+hash\+\_\+node}
+\item 
+const struct \hyperlink{structvport__ops}{vport\+\_\+ops} $\ast$ \hyperlink{structvport_a5af933fc664c1194ac3bbc337da35586}{ops}
+\item 
+struct \hyperlink{structpcpu__sw__netstats}{pcpu\+\_\+sw\+\_\+netstats} \hyperlink{compiler_8h_a497f20279760cdb59a5187689f9f5ab1}{\+\_\+\+\_\+percpu} $\ast$ \hyperlink{structvport_a04983f0d17ae4deb6ffb87333f6d4f05}{percpu\+\_\+stats}
+\item 
+struct \hyperlink{structvport__err__stats}{vport\+\_\+err\+\_\+stats} \hyperlink{structvport_a5cd8a50cb02833a868db549d64052c99}{err\+\_\+stats}
+\item 
+struct list\+\_\+head \hyperlink{structvport_ae41f659d10b0f1c27324e9406d5c2ef1}{detach\+\_\+list}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+struct vport -\/ one port within a datapath \+: R\+C\+U callback head for deferred destruction. \+: Datapath to which this port belongs. \+: R\+C\+U protected \textquotesingle{}struct \hyperlink{structvport__portids}{vport\+\_\+portids}\textquotesingle{}. \+: Index into \textquotesingle{}s  array. \+: Element in  hash table in vport.\+c. \+: Element in -\/$>$ports hash table in datapath.\+c. \+: Class structure. \+: Points to per-\/\+C\+P\+U statistics used and maintained by vport \+: Points to error statistics used and maintained by vport \+: list used for detaching vport in net-\/exit call. 
+
+\subsection{Field Documentation}
+\hypertarget{structvport_ae41f659d10b0f1c27324e9406d5c2ef1}{}\index{vport@{vport}!detach\+\_\+list@{detach\+\_\+list}}
+\index{detach\+\_\+list@{detach\+\_\+list}!vport@{vport}}
+\subsubsection[{detach\+\_\+list}]{\setlength{\rightskip}{0pt plus 5cm}struct list\+\_\+head vport\+::detach\+\_\+list}\label{structvport_ae41f659d10b0f1c27324e9406d5c2ef1}
+\hypertarget{structvport_a49fb6f6bf0ac4337853e9242e88ddc42}{}\index{vport@{vport}!dp@{dp}}
+\index{dp@{dp}!vport@{vport}}
+\subsubsection[{dp}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf datapath}$\ast$ vport\+::dp}\label{structvport_a49fb6f6bf0ac4337853e9242e88ddc42}
+\hypertarget{structvport_a27d2c94e2edd5de172e0b866cdd70fea}{}\index{vport@{vport}!dp\+\_\+hash\+\_\+node@{dp\+\_\+hash\+\_\+node}}
+\index{dp\+\_\+hash\+\_\+node@{dp\+\_\+hash\+\_\+node}!vport@{vport}}
+\subsubsection[{dp\+\_\+hash\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}struct hlist\+\_\+node vport\+::dp\+\_\+hash\+\_\+node}\label{structvport_a27d2c94e2edd5de172e0b866cdd70fea}
+\hypertarget{structvport_a5cd8a50cb02833a868db549d64052c99}{}\index{vport@{vport}!err\+\_\+stats@{err\+\_\+stats}}
+\index{err\+\_\+stats@{err\+\_\+stats}!vport@{vport}}
+\subsubsection[{err\+\_\+stats}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf vport\+\_\+err\+\_\+stats} vport\+::err\+\_\+stats}\label{structvport_a5cd8a50cb02833a868db549d64052c99}
+\hypertarget{structvport_ae6324a0c2483c3d1600cb29a6f4bcb8d}{}\index{vport@{vport}!hash\+\_\+node@{hash\+\_\+node}}
+\index{hash\+\_\+node@{hash\+\_\+node}!vport@{vport}}
+\subsubsection[{hash\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}struct hlist\+\_\+node vport\+::hash\+\_\+node}\label{structvport_ae6324a0c2483c3d1600cb29a6f4bcb8d}
+\hypertarget{structvport_a5af933fc664c1194ac3bbc337da35586}{}\index{vport@{vport}!ops@{ops}}
+\index{ops@{ops}!vport@{vport}}
+\subsubsection[{ops}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf vport\+\_\+ops}$\ast$ vport\+::ops}\label{structvport_a5af933fc664c1194ac3bbc337da35586}
+\hypertarget{structvport_a04983f0d17ae4deb6ffb87333f6d4f05}{}\index{vport@{vport}!percpu\+\_\+stats@{percpu\+\_\+stats}}
+\index{percpu\+\_\+stats@{percpu\+\_\+stats}!vport@{vport}}
+\subsubsection[{percpu\+\_\+stats}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf pcpu\+\_\+sw\+\_\+netstats} {\bf \+\_\+\+\_\+percpu}$\ast$ vport\+::percpu\+\_\+stats}\label{structvport_a04983f0d17ae4deb6ffb87333f6d4f05}
+\hypertarget{structvport_aae00fc5d12b47f02cbfd4f67ae114b58}{}\index{vport@{vport}!port\+\_\+no@{port\+\_\+no}}
+\index{port\+\_\+no@{port\+\_\+no}!vport@{vport}}
+\subsubsection[{port\+\_\+no}]{\setlength{\rightskip}{0pt plus 5cm}u16 vport\+::port\+\_\+no}\label{structvport_aae00fc5d12b47f02cbfd4f67ae114b58}
+\hypertarget{structvport_ac08b8a62e054bc2840a9ba6964091f89}{}\index{vport@{vport}!rcu@{rcu}}
+\index{rcu@{rcu}!vport@{vport}}
+\subsubsection[{rcu}]{\setlength{\rightskip}{0pt plus 5cm}struct rcu\+\_\+head vport\+::rcu}\label{structvport_ac08b8a62e054bc2840a9ba6964091f89}
+\hypertarget{structvport_a7963679d5c8d3a923eb42faf9d5fb2d1}{}\index{vport@{vport}!upcall\+\_\+portids@{upcall\+\_\+portids}}
+\index{upcall\+\_\+portids@{upcall\+\_\+portids}!vport@{vport}}
+\subsubsection[{upcall\+\_\+portids}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf vport\+\_\+portids} {\bf \+\_\+\+\_\+rcu}$\ast$ vport\+::upcall\+\_\+portids}\label{structvport_a7963679d5c8d3a923eb42faf9d5fb2d1}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/vladn/git/ovs/datapath/\hyperlink{vport_8h}{vport.\+h}\end{DoxyCompactItemize}

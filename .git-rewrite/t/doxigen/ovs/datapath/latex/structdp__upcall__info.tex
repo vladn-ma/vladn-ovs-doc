@@ -1,0 +1,60 @@
+\hypertarget{structdp__upcall__info}{}\section{dp\+\_\+upcall\+\_\+info Struct Reference}
+\label{structdp__upcall__info}\index{dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}}
+
+
+{\ttfamily \#include $<$datapath.\+h$>$}
+
+
+
+Collaboration diagram for dp\+\_\+upcall\+\_\+info\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{structdp__upcall__info__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+const struct \hyperlink{structovs__tunnel__info}{ovs\+\_\+tunnel\+\_\+info} $\ast$ \hyperlink{structdp__upcall__info_a74a70c7b1f24487fd51d0f0c5aa1c11e}{egress\+\_\+tun\+\_\+info}
+\item 
+const struct nlattr $\ast$ \hyperlink{structdp__upcall__info_a78d8f8bd4a0418b043a3a2401e516d5a}{userdata}
+\item 
+const struct nlattr $\ast$ \hyperlink{structdp__upcall__info_a0e948e89cb162118d95c37d8c2a6c5c3}{actions}
+\item 
+int \hyperlink{structdp__upcall__info_ad5ccfb55799f138fa7d01461e2035d1f}{actions\+\_\+len}
+\item 
+u32 \hyperlink{structdp__upcall__info_a4300576f43ab3d9293453d9c664de818}{portid}
+\item 
+u8 \hyperlink{structdp__upcall__info_afdbbbb0aef83ab4652e15715db247d22}{cmd}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+struct dp\+\_\+upcall -\/ metadata to include with a packet to send to userspace \+: One of O\+V\+S\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+C\+M\+D\+\_\+$\ast$. \+: If nonnull, its variable-\/length value is passed to userspace as O\+V\+S\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+A\+T\+T\+R\+\_\+\+U\+S\+E\+R\+D\+A\+T\+A. \+: Netlink portid to which packet should be sent. If  is 0 then no packet is sent and the packet is accounted in the datapath\textquotesingle{}s  counter. \+: If nonnull, becomes O\+V\+S\+\_\+\+P\+A\+C\+K\+E\+T\+\_\+\+A\+T\+T\+R\+\_\+\+E\+G\+R\+E\+S\+S\+\_\+\+T\+U\+N\+\_\+\+K\+E\+Y. 
+
+\subsection{Field Documentation}
+\hypertarget{structdp__upcall__info_a0e948e89cb162118d95c37d8c2a6c5c3}{}\index{dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}!actions@{actions}}
+\index{actions@{actions}!dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}}
+\subsubsection[{actions}]{\setlength{\rightskip}{0pt plus 5cm}const struct nlattr$\ast$ dp\+\_\+upcall\+\_\+info\+::actions}\label{structdp__upcall__info_a0e948e89cb162118d95c37d8c2a6c5c3}
+\hypertarget{structdp__upcall__info_ad5ccfb55799f138fa7d01461e2035d1f}{}\index{dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}!actions\+\_\+len@{actions\+\_\+len}}
+\index{actions\+\_\+len@{actions\+\_\+len}!dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}}
+\subsubsection[{actions\+\_\+len}]{\setlength{\rightskip}{0pt plus 5cm}int dp\+\_\+upcall\+\_\+info\+::actions\+\_\+len}\label{structdp__upcall__info_ad5ccfb55799f138fa7d01461e2035d1f}
+\hypertarget{structdp__upcall__info_afdbbbb0aef83ab4652e15715db247d22}{}\index{dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}!cmd@{cmd}}
+\index{cmd@{cmd}!dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}}
+\subsubsection[{cmd}]{\setlength{\rightskip}{0pt plus 5cm}u8 dp\+\_\+upcall\+\_\+info\+::cmd}\label{structdp__upcall__info_afdbbbb0aef83ab4652e15715db247d22}
+\hypertarget{structdp__upcall__info_a74a70c7b1f24487fd51d0f0c5aa1c11e}{}\index{dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}!egress\+\_\+tun\+\_\+info@{egress\+\_\+tun\+\_\+info}}
+\index{egress\+\_\+tun\+\_\+info@{egress\+\_\+tun\+\_\+info}!dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}}
+\subsubsection[{egress\+\_\+tun\+\_\+info}]{\setlength{\rightskip}{0pt plus 5cm}const struct {\bf ovs\+\_\+tunnel\+\_\+info}$\ast$ dp\+\_\+upcall\+\_\+info\+::egress\+\_\+tun\+\_\+info}\label{structdp__upcall__info_a74a70c7b1f24487fd51d0f0c5aa1c11e}
+\hypertarget{structdp__upcall__info_a4300576f43ab3d9293453d9c664de818}{}\index{dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}!portid@{portid}}
+\index{portid@{portid}!dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}}
+\subsubsection[{portid}]{\setlength{\rightskip}{0pt plus 5cm}u32 dp\+\_\+upcall\+\_\+info\+::portid}\label{structdp__upcall__info_a4300576f43ab3d9293453d9c664de818}
+\hypertarget{structdp__upcall__info_a78d8f8bd4a0418b043a3a2401e516d5a}{}\index{dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}!userdata@{userdata}}
+\index{userdata@{userdata}!dp\+\_\+upcall\+\_\+info@{dp\+\_\+upcall\+\_\+info}}
+\subsubsection[{userdata}]{\setlength{\rightskip}{0pt plus 5cm}const struct nlattr$\ast$ dp\+\_\+upcall\+\_\+info\+::userdata}\label{structdp__upcall__info_a78d8f8bd4a0418b043a3a2401e516d5a}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/vladn/git/ovs/datapath/\hyperlink{datapath_8h}{datapath.\+h}\end{DoxyCompactItemize}

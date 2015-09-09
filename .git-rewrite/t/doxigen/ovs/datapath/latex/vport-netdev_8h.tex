@@ -1,0 +1,149 @@
+\hypertarget{vport-netdev_8h}{}\section{/home/vladn/git/ovs/datapath/vport-\/netdev.h File Reference}
+\label{vport-netdev_8h}\index{/home/vladn/git/ovs/datapath/vport-\/netdev.\+h@{/home/vladn/git/ovs/datapath/vport-\/netdev.\+h}}
+{\ttfamily \#include $<$linux/netdevice.\+h$>$}\\*
+{\ttfamily \#include $<$linux/rcupdate.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}vport.\+h\char`\"{}}\\*
+Include dependency graph for vport-\/netdev.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vport-netdev_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vport-netdev_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structnetdev__vport}{netdev\+\_\+vport}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structvport}{vport} $\ast$ \hyperlink{vport-netdev_8h_adf074c6126d43c3f7ea008ac19d33112}{ovs\+\_\+netdev\+\_\+get\+\_\+vport} (struct net\+\_\+device $\ast$dev)
+\item 
+static struct \hyperlink{structnetdev__vport}{netdev\+\_\+vport} $\ast$ \hyperlink{vport-netdev_8h_a2cb441c6cf067ce3c79cb43836e9fc55}{netdev\+\_\+vport\+\_\+priv} (const struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport})
+\item 
+const char $\ast$ \hyperlink{vport-netdev_8h_a934c40a207aaa538a0f4e5d90e52256e}{ovs\+\_\+netdev\+\_\+get\+\_\+name} (const struct \hyperlink{structvport}{vport} $\ast$)
+\item 
+void \hyperlink{vport-netdev_8h_ac1bdd459f11003c172f208e0b8d0bb20}{ovs\+\_\+netdev\+\_\+detach\+\_\+dev} (struct \hyperlink{structvport}{vport} $\ast$)
+\item 
+int \+\_\+\+\_\+init \hyperlink{vport-netdev_8h_a70dd93833f5d471ed3951dd80f54a914}{ovs\+\_\+netdev\+\_\+init} (void)
+\item 
+void \hyperlink{vport-netdev_8h_ada5333ba6a30c7b472582687565e316c}{ovs\+\_\+netdev\+\_\+exit} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{vport-netdev_8h_a2cb441c6cf067ce3c79cb43836e9fc55}{}\index{vport-\/netdev.\+h@{vport-\/netdev.\+h}!netdev\+\_\+vport\+\_\+priv@{netdev\+\_\+vport\+\_\+priv}}
+\index{netdev\+\_\+vport\+\_\+priv@{netdev\+\_\+vport\+\_\+priv}!vport-\/netdev.\+h@{vport-\/netdev.\+h}}
+\subsubsection[{netdev\+\_\+vport\+\_\+priv}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf netdev\+\_\+vport}$\ast$ netdev\+\_\+vport\+\_\+priv (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport} $\ast$}]{vport}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-netdev_8h_a2cb441c6cf067ce3c79cb43836e9fc55}
+
+\begin{DoxyCode}
+37 \{
+38     \textcolor{keywordflow}{return} \hyperlink{vport_8h_ad18aa811f80cfd4c3895d96f7f3f4acd}{vport\_priv}(vport);
+39 \}
+\end{DoxyCode}
+\hypertarget{vport-netdev_8h_ac1bdd459f11003c172f208e0b8d0bb20}{}\index{vport-\/netdev.\+h@{vport-\/netdev.\+h}!ovs\+\_\+netdev\+\_\+detach\+\_\+dev@{ovs\+\_\+netdev\+\_\+detach\+\_\+dev}}
+\index{ovs\+\_\+netdev\+\_\+detach\+\_\+dev@{ovs\+\_\+netdev\+\_\+detach\+\_\+dev}!vport-\/netdev.\+h@{vport-\/netdev.\+h}}
+\subsubsection[{ovs\+\_\+netdev\+\_\+detach\+\_\+dev}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+netdev\+\_\+detach\+\_\+dev (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{vport-netdev_8h_ac1bdd459f11003c172f208e0b8d0bb20}
+
+\begin{DoxyCode}
+165 \{
+166     \textcolor{keyword}{struct }\hyperlink{structnetdev__vport}{netdev\_vport} *\hyperlink{structnetdev__vport}{netdev\_vport} = 
+      \hyperlink{vport-netdev_8h_a2cb441c6cf067ce3c79cb43836e9fc55}{netdev\_vport\_priv}(\hyperlink{structvport}{vport});
+167 
+168     ASSERT\_RTNL();
+169     netdev\_vport->\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev}->priv\_flags &= ~\hyperlink{netdevice_8h_af64d56c8ab4db15e2ca83f0e24cdbdba}{IFF\_OVS\_DATAPATH};
+170     netdev\_rx\_handler\_unregister(netdev\_vport->\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev});
+171     netdev\_upper\_dev\_unlink(netdev\_vport->\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev},
+172                 netdev\_master\_upper\_dev\_get(netdev\_vport->\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev}));
+173     dev\_set\_promiscuity(netdev\_vport->\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev}, -1);
+174 \}
+\end{DoxyCode}
+\hypertarget{vport-netdev_8h_ada5333ba6a30c7b472582687565e316c}{}\index{vport-\/netdev.\+h@{vport-\/netdev.\+h}!ovs\+\_\+netdev\+\_\+exit@{ovs\+\_\+netdev\+\_\+exit}}
+\index{ovs\+\_\+netdev\+\_\+exit@{ovs\+\_\+netdev\+\_\+exit}!vport-\/netdev.\+h@{vport-\/netdev.\+h}}
+\subsubsection[{ovs\+\_\+netdev\+\_\+exit}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+netdev\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{vport-netdev_8h_ada5333ba6a30c7b472582687565e316c}
+
+\begin{DoxyCode}
+292 \{
+293     \hyperlink{linux_2vport_8c_a8659a5c436f2b09d0b6be2c208ee790e}{ovs\_vport\_ops\_unregister}(&\hyperlink{linux_2vport-netdev_8c_a881cb730847416574c9c4b3b7c4c3003}{ovs\_netdev\_vport\_ops});
+294 \}
+\end{DoxyCode}
+\hypertarget{vport-netdev_8h_a934c40a207aaa538a0f4e5d90e52256e}{}\index{vport-\/netdev.\+h@{vport-\/netdev.\+h}!ovs\+\_\+netdev\+\_\+get\+\_\+name@{ovs\+\_\+netdev\+\_\+get\+\_\+name}}
+\index{ovs\+\_\+netdev\+\_\+get\+\_\+name@{ovs\+\_\+netdev\+\_\+get\+\_\+name}!vport-\/netdev.\+h@{vport-\/netdev.\+h}}
+\subsubsection[{ovs\+\_\+netdev\+\_\+get\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ ovs\+\_\+netdev\+\_\+get\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{vport-netdev_8h_a934c40a207aaa538a0f4e5d90e52256e}
+
+\begin{DoxyCode}
+189 \{
+190     \textcolor{keyword}{const} \textcolor{keyword}{struct }\hyperlink{structnetdev__vport}{netdev\_vport} *\hyperlink{structnetdev__vport}{netdev\_vport} = 
+      \hyperlink{vport-netdev_8h_a2cb441c6cf067ce3c79cb43836e9fc55}{netdev\_vport\_priv}(\hyperlink{structvport}{vport});
+191     \textcolor{keywordflow}{return} netdev\_vport->\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev}->name;
+192 \}
+\end{DoxyCode}
+\hypertarget{vport-netdev_8h_adf074c6126d43c3f7ea008ac19d33112}{}\index{vport-\/netdev.\+h@{vport-\/netdev.\+h}!ovs\+\_\+netdev\+\_\+get\+\_\+vport@{ovs\+\_\+netdev\+\_\+get\+\_\+vport}}
+\index{ovs\+\_\+netdev\+\_\+get\+\_\+vport@{ovs\+\_\+netdev\+\_\+get\+\_\+vport}!vport-\/netdev.\+h@{vport-\/netdev.\+h}}
+\subsubsection[{ovs\+\_\+netdev\+\_\+get\+\_\+vport}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf vport}$\ast$ ovs\+\_\+netdev\+\_\+get\+\_\+vport (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{dev}
+\end{DoxyParamCaption}
+)}\label{vport-netdev_8h_adf074c6126d43c3f7ea008ac19d33112}
+
+\begin{DoxyCode}
+258 \{
+259 \textcolor{preprocessor}{#if LINUX\_VERSION\_CODE >= KERNEL\_VERSION(2,6,36) || \(\backslash\)}
+260 \textcolor{preprocessor}{    defined HAVE\_RHEL\_OVS\_HOOK}
+261 \textcolor{preprocessor}{#ifdef HAVE\_OVS\_DATAPATH}
+262     \textcolor{keywordflow}{if} (likely(\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev}->priv\_flags & \hyperlink{netdevice_8h_af64d56c8ab4db15e2ca83f0e24cdbdba}{IFF\_OVS\_DATAPATH}))
+263 \textcolor{preprocessor}{#else}
+264     \textcolor{keywordflow}{if} (likely(\hyperlink{rcupdate_8h_a2c3aebbd11b184d9cab3049e4743882e}{rcu\_access\_pointer}(\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev}->rx\_handler) == 
+      \hyperlink{linux_2vport-netdev_8c_a4c69c350d93bf290fea2ff1e9759311d}{netdev\_frame\_hook}))
+265 \textcolor{preprocessor}{#endif}
+266 \textcolor{preprocessor}{#ifdef HAVE\_RHEL\_OVS\_HOOK}
+267         \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} \hyperlink{structvport}{vport} *)\hyperlink{rtnetlink_8h_a7a763bd08263252ca210e83cac93e0d9}{rcu\_dereference\_rtnl}(\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev}->ax25\_ptr);
+268 \textcolor{preprocessor}{#else}
+269         \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} \hyperlink{structvport}{vport} *)\hyperlink{rtnetlink_8h_a7a763bd08263252ca210e83cac93e0d9}{rcu\_dereference\_rtnl}(\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev}->rx\_handler\_data);
+270 \textcolor{preprocessor}{#endif}
+271     \textcolor{keywordflow}{else}
+272         \textcolor{keywordflow}{return} NULL;
+273 \textcolor{preprocessor}{#else}
+274     \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} \hyperlink{structvport}{vport} *)\hyperlink{rtnetlink_8h_a7a763bd08263252ca210e83cac93e0d9}{rcu\_dereference\_rtnl}(\hyperlink{structnetdev__vport_acf4ee248f7385e2f987fd2736f824ca9}{dev}->br\_port);
+275 \textcolor{preprocessor}{#endif}
+276 \}
+\end{DoxyCode}
+\hypertarget{vport-netdev_8h_a70dd93833f5d471ed3951dd80f54a914}{}\index{vport-\/netdev.\+h@{vport-\/netdev.\+h}!ovs\+\_\+netdev\+\_\+init@{ovs\+\_\+netdev\+\_\+init}}
+\index{ovs\+\_\+netdev\+\_\+init@{ovs\+\_\+netdev\+\_\+init}!vport-\/netdev.\+h@{vport-\/netdev.\+h}}
+\subsubsection[{ovs\+\_\+netdev\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+\+\_\+init ovs\+\_\+netdev\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{vport-netdev_8h_a70dd93833f5d471ed3951dd80f54a914}
+
+\begin{DoxyCode}
+287 \{
+288     \textcolor{keywordflow}{return} \hyperlink{linux_2vport_8c_a6b6d24642324a66b7bacab2909bea2dc}{ovs\_vport\_ops\_register}(&\hyperlink{linux_2vport-netdev_8c_a881cb730847416574c9c4b3b7c4c3003}{ovs\_netdev\_vport\_ops});
+289 \}
+\end{DoxyCode}

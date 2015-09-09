@@ -1,0 +1,43 @@
+\hypertarget{sctp_2checksum_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/net/sctp/checksum.h File Reference}
+\label{sctp_2checksum_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/net/sctp/checksum.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/net/sctp/checksum.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{sctp_2checksum_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \+\_\+\+\_\+le32 \hyperlink{sctp_2checksum_8h_a37c2469f1cafc0c708d543defa2babf0}{sctp\+\_\+compute\+\_\+cksum} (const struct sk\+\_\+buff $\ast$skb, unsigned int offset)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{sctp_2checksum_8h_a37c2469f1cafc0c708d543defa2babf0}{}\index{sctp/checksum.\+h@{sctp/checksum.\+h}!sctp\+\_\+compute\+\_\+cksum@{sctp\+\_\+compute\+\_\+cksum}}
+\index{sctp\+\_\+compute\+\_\+cksum@{sctp\+\_\+compute\+\_\+cksum}!sctp/checksum.\+h@{sctp/checksum.\+h}}
+\subsubsection[{sctp\+\_\+compute\+\_\+cksum}]{\setlength{\rightskip}{0pt plus 5cm}static \+\_\+\+\_\+le32 sctp\+\_\+compute\+\_\+cksum (
+\begin{DoxyParamCaption}
+\item[{const struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{unsigned int}]{offset}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{sctp_2checksum_8h_a37c2469f1cafc0c708d543defa2babf0}
+
+\begin{DoxyCode}
+9 \{
+10     \textcolor{keyword}{const} \textcolor{keyword}{struct }sk\_buff *iter;
+11 
+12     \_\_u32 crc32 = sctp\_start\_cksum(skb->data + offset,
+13                        skb\_headlen(skb) - offset);
+14     skb\_walk\_frags(skb, iter)
+15         crc32 = sctp\_update\_cksum((\_\_u8 *) iter->data,
+16                       skb\_headlen(iter), crc32);
+17 
+18     \textcolor{comment}{/* Open-code sctp\_end\_cksum() to avoid a sparse warning due to a bug in}
+19 \textcolor{comment}{     * sparse annotations in Linux fixed in 3.10 in commit eee1d5a14 (sctp:}
+20 \textcolor{comment}{     * Correct type and usage of sctp\_end\_cksum()). */}
+21     return cpu\_to\_le32(~crc32);
+22 \}
+\end{DoxyCode}

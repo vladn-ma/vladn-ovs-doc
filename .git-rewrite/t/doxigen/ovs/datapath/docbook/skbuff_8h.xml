@@ -1,0 +1,442 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="skbuff_8h">
+    <title>skbuff.h File Reference</title>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/types.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/jhash.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/mm.h&gt;</programlisting>
+<para>Include dependency diagram for skbuff.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="skbuff_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for skbuff.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="skbuff_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1afc9a3e49441a973ff9818fd3549aa9ac">SKB_GSO_GRE_CSUM</link> 0</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1ac07ac01fc4a23ed6ab5116a7afe0caef">SKB_GSO_UDP_TUNNEL_CSUM</link> 0</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1a4617b4c0dd2298d7dc019a75e549fb41">ignore_df</link> local_df</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1af4b4573ed23bb2b65643cca3e46492de">NET_SKB_PAD</link> 16</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1a627906a22e9d4cb31c7674b86eb25ef3">CHECKSUM_PARTIAL</link> CHECKSUM_HW</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1a207f4c225f70b6bc82d1519bb10245f7">CHECKSUM_COMPLETE</link> CHECKSUM_HW</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1adc460a9e6dccf5557d55bbce8c7adb6a">consume_skb</link> kfree_skb</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1acb236314b209f764af9aae7fbbb04311">skb_get_hash</link> skb_get_rxhash</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1a3b5615a68dce0b4c498e3363bf48ee52">skb_zerocopy</link> <link linkend="skbuff_8h_1a6b3cd7aad0c5a2f015430f96685c4a60">rpl_skb_zerocopy</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1a37d9d8a99a1a567a9fba954c6011c25c">skb_has_frag_list</link> skb_has_frags</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1adb2ee822c4cb80b0d9c272133feedb72">skb_ensure_writable</link> <link linkend="skbuff-openvswitch_8c_1a15c9dad54898a1483b0c61101836ae4b">rpl_skb_ensure_writable</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1aa4efc0310575260b396ee19c694316bd">skb_vlan_pop</link> <link linkend="skbuff-openvswitch_8c_1a797322c61b7d5999237ffdd59972751e">rpl_skb_vlan_pop</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1a342fa8b4c4941fff76c6cddb212c54d4">skb_vlan_push</link> <link linkend="skbuff-openvswitch_8c_1ad4f8c18bdd22cdd3623de896458c404e">rpl_skb_vlan_push</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="skbuff_8h_1a637f93707583dd1bcbafdd5d8969fd31">kfree_skb_list</link> <link linkend="skbuff-openvswitch_8c_1a23942601601684adfd86854f195244f3">rpl_kfree_skb_list</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1a432c2ed559c12355eefdd873b9520b23">skb_copy_from_linear_data_offset</link> (
+const struct sk_buff * skb, const int offset, void * to, const unsigned int len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1a607d3afb4d4a04b228d2df9c8054a491">skb_copy_to_linear_data_offset</link> (
+struct sk_buff * skb, const int offset, const void * from, const unsigned int len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1aba5370058f4aa9bce39037297809f21d">skb_reset_tail_pointer</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="skbuff_8h_1a988fd6142444a47cd93085684fdb0a6d">__skb_cow</link> (
+struct sk_buff * skb, unsigned int headroom, int cloned)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="skbuff_8h_1af94d3f18640790df84539d4c0575a880">skb_cow_head</link> (
+struct sk_buff * skb, unsigned int headroom)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct dst_entry * <link linkend="skbuff_8h_1abad96939496a915ab2a3e7c3b6d4498f">skb_dst</link> (
+const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1aa4e5de7843df0d912c1041b5881643d0">skb_dst_set</link> (
+struct sk_buff * skb, struct dst_entry * dst)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct rtable * <link linkend="skbuff_8h_1a6c1a5942aace86bc98f1f837defa8824">skb_rtable</link> (
+const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static unsigned char * <link linkend="skbuff_8h_1ad4a95a26793695e82fca60888688450f">skb_transport_header</link> (
+const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1ac3d6d2152e36e908d164cd26fe0cdf27">skb_reset_transport_header</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1a35af79b1b630fc75fbd7347549b6affe">skb_set_transport_header</link> (
+struct sk_buff * skb, const int offset)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static unsigned char * <link linkend="skbuff_8h_1aa9e0f2aeb3abecde73023d35145bc4a0">skb_network_header</link> (
+const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1a2ea5d9050fe3927247bb55820cfcb02c">skb_reset_network_header</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1a2aa771daf8e324a50f60e4934839dc2c">skb_set_network_header</link> (
+struct sk_buff * skb, const int offset)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static unsigned char * <link linkend="skbuff_8h_1a292027671dfcf3aa23f9551f48713e24">skb_mac_header</link> (
+const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1aaf81c26756757ac1e1d7e6933f61bdaf">skb_reset_mac_header</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1aaa2dfd67a19e0d001f4ab0fff6fc39dd">skb_set_mac_header</link> (
+struct sk_buff * skb, const int offset)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="skbuff_8h_1ac8d86ecdcd808a5839009d4a8f85f6c8">skb_transport_offset</link> (
+const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="skbuff_8h_1aabe75b44039b11c1b7c6e2f246e7146e">skb_network_offset</link> (
+const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1a3f33e965f36b99a7f40e0dc70357028e">skb_copy_to_linear_data</link> (
+struct sk_buff * skb, const void * from, const unsigned int len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="skbuff_8h_1aff68e0dcb375b52ae7dcf12601d5b77c">skb_warn_if_lro</link> (
+const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct page * <link linkend="skbuff_8h_1aa4e53b46e975a5600626f77e937c6f55">skb_frag_page</link> (
+const skb_frag_t * frag)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1a6bdc3509cdcf5987dfb535981082b6fc">__skb_frag_set_page</link> (
+skb_frag_t * frag, struct page * page)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1ae697df6694640ebbcd5008ec0381e713">skb_frag_size_set</link> (
+skb_frag_t * frag, unsigned int size)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1aa27f4202ae373d538f154b1adecf7ef3">__skb_frag_ref</link> (
+skb_frag_t * frag)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1af66f8c7a510ac4d6a09bfb9b088acbb0">__skb_frag_unref</link> (
+skb_frag_t * frag)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1abc400621a6a25e34402094eab3d63f28">skb_frag_ref</link> (
+struct sk_buff * skb, int f)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1aac44c453f49e3556db214c33b4bc8044">skb_frag_unref</link> (
+struct sk_buff * skb, int f)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1ae4be7dfedacf0e75fd904f0f54c9c731">skb_reset_mac_len</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="skbuff_8h_1a773c6b4931491eef8262744e7f31e0f2">skb_unclone</link> (
+struct sk_buff * skb, gfp_t pri)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="skbuff_8h_1ac94da260772bb0948d48fd2fd36ac11c">skb_orphan_frags</link> (
+struct sk_buff * skb, gfp_t gfp_mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="skbuff_8h_1a6b3cd7aad0c5a2f015430f96685c4a60">rpl_skb_zerocopy</link> (
+struct sk_buff * to, struct sk_buff * from, int len, int hlen)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1aafa2bc07e41e10df94be99968b935d2e">skb_clear_hash</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="skbuff_8h_1aa70397e715e15233a71a99ecd1e2adee">__skb_fill_page_desc</link> (
+struct sk_buff * skb, int i, struct page * page, int off, int size)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="skbuff_8h_1a15c9dad54898a1483b0c61101836ae4b">rpl_skb_ensure_writable</link> (
+struct sk_buff * skb, int write_len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="skbuff_8h_1a797322c61b7d5999237ffdd59972751e">rpl_skb_vlan_pop</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="skbuff_8h_1ad4f8c18bdd22cdd3623de896458c404e">rpl_skb_vlan_push</link> (
+struct sk_buff * skb, __be16 vlan_proto, u16 vlan_tci)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="skbuff_8h_1a23942601601684adfd86854f195244f3">rpl_kfree_skb_list</link> (
+struct sk_buff * segs)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/include/linux/skbuff.h</para>
+    </simplesect>
+</section>

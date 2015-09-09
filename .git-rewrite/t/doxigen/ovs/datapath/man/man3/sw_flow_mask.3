@@ -1,0 +1,40 @@
+.TH "sw_flow_mask" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sw_flow_mask \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <flow\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBref_count\fP"
+.br
+.ti -1c
+.RI "struct rcu_head \fBrcu\fP"
+.br
+.ti -1c
+.RI "struct \fBsw_flow_key_range\fP \fBrange\fP"
+.br
+.ti -1c
+.RI "struct \fBsw_flow_key\fP \fBkey\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBsw_flow_key\fP sw_flow_mask::key"
+
+.SS "struct \fBsw_flow_key_range\fP sw_flow_mask::range"
+
+.SS "struct rcu_head sw_flow_mask::rcu"
+
+.SS "int sw_flow_mask::ref_count"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

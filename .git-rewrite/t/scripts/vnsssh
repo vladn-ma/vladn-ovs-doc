@@ -1,0 +1,214 @@
+#! /bin/bash
+
+# vn-1007061122
+# script helps to get, fix and build simplesclar simulator package for the arm processor
+
+# arguments
+MODE=$1
+
+# global parameters
+SIMNAME=simplesim-arm
+SIMVER=0.2
+SIMADDR=http://www.eecs.umich.edu/~taustin/code/arm
+
+# global derivatives 
+SIMDIR=$SIMNAME
+SIMTAR=$SIMNAME-$SIMVER.tar
+SIMTGZ=$SIMTAR.gz
+SIMSRC=$SIMADDR/$SIMTGZ
+		
+
+# print out script debug info
+function debug_msg
+{
+	echo "debug_msg"
+	echo " MODE   : $MODE"
+	echo " SIMNAME: $SIMNAME"
+	echo " SIMVER : $SIMVER"
+	echo " SIMADDR: $SIMADDR"
+	echo " SIMDIR : $SIMDIR"
+	echo " SIMTAR : $SIMTAR"
+	echo " SIMTGZ : $SIMTGZ"
+	echo " SIMSRC : $SIMSRC"
+}
+
+# print help message
+function help_msg
+{
+	echo " , version vn-1007061122"
+	echo " usage: "
+	echo " $0 mode"
+	echo " modes"
+	echo "     1 : get tgz from internet to the current directory"
+	echo "     2 : uncompress archive to $SIMDIR"
+	echo "     3 : fix source - run it in $SIMDIR"
+	echo "     4 : build sim - run it in $SIMDIR"
+	echo "     5 : run sim tests - run it in simplesim-arm/tests-arm directory"
+	echo "     6 : do all but run: get, uncompress, fix and build simplesim_arm"
+	echo "     7 : do all: get, uncompress, fix and build simplesim_arm, run arm tests"
+
+	echo "     9 : print script debug info"
+}
+
+# print mode value
+function mode_msg
+{
+	if [ -z "$MODE" ]; then echo "mode: HELP"
+	else echo "mode: $MODE"
+	fi
+}
+
+# print to stdout command and then run it
+function run_cmd
+{
+	echo "cmd: $1"
+	$1
+}
+
+# print to stdout prefixed with the "data_time" name received as argument 1
+function prefix_src_date 
+{
+	echo $(date +%y%m%d_%H%M)__$1
+}
+
+# get tgz from internet
+function get_tgz
+{
+	run_cmd "wget $SIMSRC"
+}
+
+# uncompress archive
+function uncompress_archive
+{
+	run_cmd "gunzip $SIMTGZ"
+	run_cmd "tar -xf $SIMTAR"
+	run_cmd "rm -f $SIMTAR" 
+}
+
+# fix source so it would compile without errors hopefully
+function fix_source
+{
+	# 1. backup current make file with name data_time_Makefile
+            1.1. backup make
+	      BACKUP_NAME=$(prefix_src_date Makefile)
+	      run_cmd "cp Makefile $BACKUP_NAME"
+	#   1.2. restore Makefile - used for the debugging of this script only
+	#     run_cmd "cp 100706_1224__Makefile Makefile"
+
+	# 2. in the Makefile:
+	#   2.1. after line CC = gcc add following lines:
+	#     VN_FLAGS = -include errno.h
+	#     VN_SSSD  = $(shell pwd)
+        #   2.2. replace line :
+	#     MFLAGS = `./sysprobe -flags` 
+	#     with line
+        #     MFLAGS = `$(VN_SSSD)/sysprobe -flags`
+        #   2.3. replice line:
+        #     MLIBS  = `./sysprobe -libs` -lm
+        #     with line
+        #     MLIBS  = `$(VN_SSSD)/sysprobe -libs` -lm
+	#   2.4. replice line
+	#     ENDIAN = `./sysprobe -s`
+	#     with line
+	#     ENDIAN = `$(VN_SSSD)/sysprobe -s`
+	#   2.5. replace line
+	#     CFLAGS = $(MFLAGS) $(FFLAGS) $(OFLAGS) $(BINUTILS_INC) $(BINUTILS_LIB) -DARMULATOR -DMODE32 -DMODET
+	#     with line 
+        #     CFLAGS = $(MFLAGS) $(FFLAGS) $(OFLAGS) $(BINUTILS_INC) $(BINUTILS_LIB) -DARMULATOR -DMODE32 -DMODET $(VN_FLAGS) 
+
+	      mfile=Makefile
+	      tmpfile=vn_"$mfile"
+	      run_cmd "rm -f $tmpfile"
+
+	      echo cmd: sed
+	      sed \
+		  -e 's/^CC[ \t]*=.*$/&\n\nVN_FLAGS = -include errno\.h\nVN_SSSD  = \$\(shell pwd\)\n/g' \
+		  -e 's/\(^MFLAGS[ \t]*=[ \t]*`\)\.\(.*$\)/\1\$(VN_SSSD)\2/g' \
+		  -e 's/\(^MLIBS[ \t]*=[ \t]*`\)\.\(.*$\)/\1\$(VN_SSSD)\2/g' \
+		  -e 's/\(^ENDIAN[ \t]*=[ \t]*`\)\.\(.*$\)/\1\$(VN_SSSD)\2/g' \
+		  -e 's/^CFLAGS[ \t]*=.*$/& $(VN_FLAGS)/g' \
+		  $mfile > $tmpfile
+
+	      run_cmd "cp $tmpfile $mfile"
+	      run_cmd "rm -f $tmpfile"
+}
+
+function build_sim
+{
+	  make config-arm
+	  #make > grep -v undefined
+	  make
+}
+
+function run_sim_tests
+{
+  run_cmd "../sim-uop anagram words < input.txt"           #(anagram)
+  run_cmd "../sim-uop bresenham.1 100"                     #(line drawing)
+  run_cmd "../sim-uop bresenham.2 100"                     #(another alg)
+  run_cmd "../sim-uop bzip2 10"                            #(compressor)
+  run_cmd "../sim-uop cc1 -O 1stmt.i"                      #(GNU GCC)
+  run_cmd "../sim-uop grep.arm dist grep-input.txt"        #(text search)
+  run_cmd "../sim-uop gsm.arm -l -f -p clinton.pcm"        #(GSM encoder)
+  run_cmd "../sim-uop test-args 1 2 3"                     #(test arg stack)
+  run_cmd "../sim-uop test-math"                           #(test FP)
+  run_cmd "../sim-uop yacr2 input1"                        #(VLSI router)
+  run_cmd "../sim-uop ubench/ln"                           #(all br nottaken)
+  run_cmd "../sim-uop ubench/ly"                           #(all br taken)
+  run_cmd "../sim-uop ubench/smooth.new"                   #(all loads hit)
+  run_cmd "../sim-uop ubench/trash.new"                    #(all loads miss)
+}
+
+#################################################################
+# start of the program flow
+
+# give mode information medssage
+mode_msg
+
+# execute commands given by mode
+case "$MODE" in
+"") 	# print help message
+	help_msg
+	;;
+"1")	# get tgz from internet
+	get_tgz
+	;;
+"2")	# uncompress archive 
+	uncompress_archive
+	;;
+"3")	# fix source
+	fix_source
+	;;
+"4")	# build sim
+	build_sim
+	;;
+"5")	# run arm tests
+	run_sim_tests
+	;;
+"6")	# do all but run
+	get_tgz
+	uncompress_archive
+	cd $SIMDIR
+	fix_source
+	build_sim
+	cd tests-arm
+	;;
+"7")	# do all
+	get_tgz
+	uncompress_archive
+	cd $SIMDIR
+	fix_source
+	build_sim
+	cd tests-arm
+	run_sim_tests
+	;;
+
+
+#-------------------------------------------------------------------
+"9")	# print out script debug info  
+	debug_msg
+	;;
+esac
+
+#####################################################################
+# end of the script
+#####################################################################

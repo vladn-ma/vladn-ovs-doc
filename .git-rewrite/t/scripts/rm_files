@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#remove files with pattern $1 from dirctory tree
+
+find . -iname $1 -exec rm -fR {} \;

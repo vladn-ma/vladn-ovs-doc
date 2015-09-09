@@ -1,0 +1,619 @@
+\hypertarget{flow__table_8h}{}\section{/home/vladn/git/ovs/datapath/flow\+\_\+table.h File Reference}
+\label{flow__table_8h}\index{/home/vladn/git/ovs/datapath/flow\+\_\+table.\+h@{/home/vladn/git/ovs/datapath/flow\+\_\+table.\+h}}
+{\ttfamily \#include $<$linux/kernel.\+h$>$}\\*
+{\ttfamily \#include $<$linux/netlink.\+h$>$}\\*
+{\ttfamily \#include $<$linux/openvswitch.\+h$>$}\\*
+{\ttfamily \#include $<$linux/spinlock.\+h$>$}\\*
+{\ttfamily \#include $<$linux/types.\+h$>$}\\*
+{\ttfamily \#include $<$linux/rcupdate.\+h$>$}\\*
+{\ttfamily \#include $<$linux/if\+\_\+ether.\+h$>$}\\*
+{\ttfamily \#include $<$linux/in6.\+h$>$}\\*
+{\ttfamily \#include $<$linux/jiffies.\+h$>$}\\*
+{\ttfamily \#include $<$linux/time.\+h$>$}\\*
+{\ttfamily \#include $<$linux/flex\+\_\+array.\+h$>$}\\*
+{\ttfamily \#include $<$net/inet\+\_\+ecn.\+h$>$}\\*
+{\ttfamily \#include $<$net/ip\+\_\+tunnels.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}flow.\+h\char`\"{}}\\*
+Include dependency graph for flow\+\_\+table.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{flow__table_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{flow__table_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmask__cache__entry}{mask\+\_\+cache\+\_\+entry}
+\item 
+struct \hyperlink{structmask__array}{mask\+\_\+array}
+\item 
+struct \hyperlink{structtable__instance}{table\+\_\+instance}
+\item 
+struct \hyperlink{structflow__table}{flow\+\_\+table}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{flow__table_8h_a07492868e65ba495c86d49df9cf1bc50}{ovs\+\_\+flow\+\_\+init} (void)
+\item 
+void \hyperlink{flow__table_8h_a96cce30f7a9c3231d5b5afaf967378eb}{ovs\+\_\+flow\+\_\+exit} (void)
+\item 
+struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$ \hyperlink{flow__table_8h_acce701c647d8e59486574fba1be3e10c}{ovs\+\_\+flow\+\_\+alloc} (void)
+\item 
+void \hyperlink{flow__table_8h_a2629f2024cffebd33b3e9989085400aa}{ovs\+\_\+flow\+\_\+free} (struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$, \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} deferred)
+\item 
+int \hyperlink{flow__table_8h_a352a5f5e249d448bac51e011a6164443}{ovs\+\_\+flow\+\_\+tbl\+\_\+init} (struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$)
+\item 
+int \hyperlink{flow__table_8h_a8f1f39fd4e1ecafd99321016698a709a}{ovs\+\_\+flow\+\_\+tbl\+\_\+count} (const struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$table)
+\item 
+void \hyperlink{flow__table_8h_ad37dcfdb56d17589ed79b5c4dd38bc76}{ovs\+\_\+flow\+\_\+tbl\+\_\+destroy} (struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$table)
+\item 
+int \hyperlink{flow__table_8h_a7e424f978318e8c007b3de68854e8dc2}{ovs\+\_\+flow\+\_\+tbl\+\_\+flush} (struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$\hyperlink{structflow__table}{flow\+\_\+table})
+\item 
+int \hyperlink{flow__table_8h_a72ec4f72961a64b1c006978a32554a4c}{ovs\+\_\+flow\+\_\+tbl\+\_\+insert} (struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$table, struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$flow, const struct \hyperlink{structsw__flow__mask}{sw\+\_\+flow\+\_\+mask} $\ast$mask)
+\item 
+void \hyperlink{flow__table_8h_aa75b8bc2551f9c1a8d65b942a10df89a}{ovs\+\_\+flow\+\_\+tbl\+\_\+remove} (struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$table, struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$flow)
+\item 
+int \hyperlink{flow__table_8h_ab6e18d16217cddd0af756b76b72e6ce6}{ovs\+\_\+flow\+\_\+tbl\+\_\+num\+\_\+masks} (const struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$table)
+\item 
+struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$ \hyperlink{flow__table_8h_aa2011feb0ef139b04c14890771e97f69}{ovs\+\_\+flow\+\_\+tbl\+\_\+dump\+\_\+next} (struct \hyperlink{structtable__instance}{table\+\_\+instance} $\ast$table, u32 $\ast$bucket, u32 $\ast$idx)
+\item 
+struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$ \hyperlink{flow__table_8h_adb87952f9d3b78f48c4f35efb0b41d1a}{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+stats} (struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$, const struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$, u32 skb\+\_\+hash, u32 $\ast$n\+\_\+mask\+\_\+hit)
+\item 
+struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$ \hyperlink{flow__table_8h_af75c5609b455f9fc2171ab1ef592982e}{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup} (struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$, const struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$)
+\item 
+struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$ \hyperlink{flow__table_8h_ad54c8ee8b511e42f2296bcf5ff8d0fd3}{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+exact} (struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$tbl, const struct \hyperlink{structsw__flow__match}{sw\+\_\+flow\+\_\+match} $\ast$match)
+\item 
+struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$ \hyperlink{flow__table_8h_a61adf41ddec6ed85834909231cfa84e0}{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+ufid} (struct \hyperlink{structflow__table}{flow\+\_\+table} $\ast$, const struct \hyperlink{structsw__flow__id}{sw\+\_\+flow\+\_\+id} $\ast$)
+\item 
+\hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{flow__table_8h_a6c6f1ec8e9d4ce0159a4d2f9ce383249}{ovs\+\_\+flow\+\_\+cmp} (const struct \hyperlink{structsw__flow}{sw\+\_\+flow} $\ast$, const struct \hyperlink{structsw__flow__match}{sw\+\_\+flow\+\_\+match} $\ast$)
+\item 
+void \hyperlink{flow__table_8h_a40f76cbd2e168abb1b9744562e24be3b}{ovs\+\_\+flow\+\_\+mask\+\_\+key} (struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$\hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst}, const struct \hyperlink{structsw__flow__key}{sw\+\_\+flow\+\_\+key} $\ast$\hyperlink{flow_8h_a2e7e37e9dfe6465386d6c500f83ef144}{src}, const struct \hyperlink{structsw__flow__mask}{sw\+\_\+flow\+\_\+mask} $\ast$mask)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct kmem\+\_\+cache $\ast$ \hyperlink{flow__table_8h_ab305bee215adea2618069cc592f6ee6b}{flow\+\_\+stats\+\_\+cache}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{flow__table_8h_acce701c647d8e59486574fba1be3e10c}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+alloc@{ovs\+\_\+flow\+\_\+alloc}}
+\index{ovs\+\_\+flow\+\_\+alloc@{ovs\+\_\+flow\+\_\+alloc}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+alloc}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf sw\+\_\+flow}$\ast$ ovs\+\_\+flow\+\_\+alloc (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_acce701c647d8e59486574fba1be3e10c}
+
+\begin{DoxyCode}
+84 \{
+85     \textcolor{keyword}{struct }\hyperlink{structsw__flow}{sw\_flow} *flow;
+86     \textcolor{keyword}{struct }\hyperlink{structflow__stats}{flow\_stats} *stats;
+87     \textcolor{keywordtype}{int} node;
+88 
+89     flow = kmem\_cache\_alloc(\hyperlink{flow__table_8c_ab00a8de93e918b8aba331f4872a2c97c}{flow\_cache}, GFP\_KERNEL);
+90     \textcolor{keywordflow}{if} (!flow)
+91         \textcolor{keywordflow}{return} ERR\_PTR(-ENOMEM);
+92 
+93     flow->\hyperlink{structsw__flow_aa845bdaabc25d81dcf8b1a7519b35408}{sf\_acts} = NULL;
+94     flow->\hyperlink{structsw__flow_a89c162e340693d0bb4977737e2b68c22}{mask} = NULL;
+95     flow->\hyperlink{structsw__flow_a6e6645eec909d54871675be30000c0b9}{id}.\hyperlink{structsw__flow__id_a7cfead96fedf295e55d6a17857adfbf5}{ufid\_len} = 0;
+96     flow->\hyperlink{structsw__flow_a6e6645eec909d54871675be30000c0b9}{id}.\hyperlink{structsw__flow__id_a5d62dce79569cb8c25a43f4039e5df3c}{unmasked\_key} = NULL;
+97     flow->\hyperlink{structsw__flow_a7b4a10d23b2824b421527bc2600ef4ba}{stats\_last\_writer} = NUMA\_NO\_NODE;
+98 
+99     \textcolor{comment}{/* Initialize the default stat node. */}
+100     stats = kmem\_cache\_alloc\_node(\hyperlink{flow__table_8h_ab305bee215adea2618069cc592f6ee6b}{flow\_stats\_cache},
+101                       GFP\_KERNEL | \_\_GFP\_ZERO, 0);
+102     \textcolor{keywordflow}{if} (!stats)
+103         \textcolor{keywordflow}{goto} err;
+104 
+105     spin\_lock\_init(&stats->\hyperlink{structflow__stats_a1930f864d7fc52f4afeb86714e3e5c07}{lock});
+106 
+107     \hyperlink{rcupdate_8h_ad30f6689018c0dc0178126e1e12897e9}{RCU\_INIT\_POINTER}(flow->\hyperlink{structsw__flow_a5ccc743bcf16038ab0cf5dda88565f33}{stats}[0], stats);
+108 
+109     for\_each\_node(node)
+110         if (node != 0)
+111             \hyperlink{rcupdate_8h_ad30f6689018c0dc0178126e1e12897e9}{RCU\_INIT\_POINTER}(flow->stats[node], NULL);
+112 
+113     return flow;
+114 err:
+115     kmem\_cache\_free(\hyperlink{flow__table_8c_ab00a8de93e918b8aba331f4872a2c97c}{flow\_cache}, flow);
+116     return ERR\_PTR(-ENOMEM);
+117 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_a6c6f1ec8e9d4ce0159a4d2f9ce383249}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+cmp@{ovs\+\_\+flow\+\_\+cmp}}
+\index{ovs\+\_\+flow\+\_\+cmp@{ovs\+\_\+flow\+\_\+cmp}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+cmp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} ovs\+\_\+flow\+\_\+cmp (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf sw\+\_\+flow} $\ast$}]{, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+match} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_a6c6f1ec8e9d4ce0159a4d2f9ce383249}
+
+\begin{DoxyCode}
+725 \{
+726     \textcolor{keywordflow}{if} (\hyperlink{flow_8h_a995966854ceb0b5a72ff027c12ccf426}{ovs\_identifier\_is\_ufid}(&flow->id))
+727         \textcolor{keywordflow}{return} \hyperlink{flow__table_8c_ae52adc695ca936e630f8a4a61753520d}{flow\_cmp\_masked\_key}(flow, match->key, &match->range);
+728 
+729     \textcolor{keywordflow}{return} \hyperlink{flow__table_8c_a0dd59a846abd3c41f19357b2223b10a9}{ovs\_flow\_cmp\_unmasked\_key}(flow, match);
+730 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_a96cce30f7a9c3231d5b5afaf967378eb}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+exit@{ovs\+\_\+flow\+\_\+exit}}
+\index{ovs\+\_\+flow\+\_\+exit@{ovs\+\_\+flow\+\_\+exit}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+exit}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+flow\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_a96cce30f7a9c3231d5b5afaf967378eb}
+
+\begin{DoxyCode}
+1011 \{
+1012     kmem\_cache\_destroy(\hyperlink{flow__table_8h_ab305bee215adea2618069cc592f6ee6b}{flow\_stats\_cache});
+1013     kmem\_cache\_destroy(\hyperlink{flow__table_8c_ab00a8de93e918b8aba331f4872a2c97c}{flow\_cache});
+1014 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_a2629f2024cffebd33b3e9989085400aa}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+free@{ovs\+\_\+flow\+\_\+free}}
+\index{ovs\+\_\+flow\+\_\+free@{ovs\+\_\+flow\+\_\+free}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+free}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+flow\+\_\+free (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sw\+\_\+flow} $\ast$}]{, }
+\item[{{\bf bool}}]{deferred}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_a2629f2024cffebd33b3e9989085400aa}
+
+\begin{DoxyCode}
+176 \{
+177     \textcolor{keywordflow}{if} (!flow)
+178         \textcolor{keywordflow}{return};
+179 
+180     \textcolor{keywordflow}{if} (deferred)
+181         call\_rcu(&flow->rcu, \hyperlink{flow__table_8c_a38fd2d883e505bba412320f3216dc377}{rcu\_free\_flow\_callback});
+182     \textcolor{keywordflow}{else}
+183         \hyperlink{flow__table_8c_af6a50f2fb2e93732e8d706dd7cf67c9b}{flow\_free}(flow);
+184 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_a07492868e65ba495c86d49df9cf1bc50}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+init@{ovs\+\_\+flow\+\_\+init}}
+\index{ovs\+\_\+flow\+\_\+init@{ovs\+\_\+flow\+\_\+init}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+flow\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_a07492868e65ba495c86d49df9cf1bc50}
+
+\begin{DoxyCode}
+986 \{
+987     BUILD\_BUG\_ON(\_\_alignof\_\_(\textcolor{keyword}{struct} \hyperlink{structsw__flow__key}{sw\_flow\_key}) % \_\_alignof\_\_(\textcolor{keywordtype}{long}));
+988     BUILD\_BUG\_ON(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structsw__flow__key}{sw\_flow\_key}) % \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{long}));
+989 
+990     \hyperlink{flow__table_8c_ab00a8de93e918b8aba331f4872a2c97c}{flow\_cache} = kmem\_cache\_create(\textcolor{stringliteral}{"sw\_flow"}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structsw__flow}{sw\_flow})
+991                        + (nr\_node\_ids
+992                       * \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structflow__stats}{flow\_stats} *)),
+993                        0, 0, NULL);
+994     \textcolor{keywordflow}{if} (\hyperlink{flow__table_8c_ab00a8de93e918b8aba331f4872a2c97c}{flow\_cache} == NULL)
+995         \textcolor{keywordflow}{return} -ENOMEM;
+996 
+997     \hyperlink{flow__table_8h_ab305bee215adea2618069cc592f6ee6b}{flow\_stats\_cache}
+998         = kmem\_cache\_create(\textcolor{stringliteral}{"sw\_flow\_stats"}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structflow__stats}{flow\_stats}),
+999                     0, SLAB\_HWCACHE\_ALIGN, NULL);
+1000     \textcolor{keywordflow}{if} (\hyperlink{flow__table_8h_ab305bee215adea2618069cc592f6ee6b}{flow\_stats\_cache} == NULL) \{
+1001         kmem\_cache\_destroy(\hyperlink{flow__table_8c_ab00a8de93e918b8aba331f4872a2c97c}{flow\_cache});
+1002         \hyperlink{flow__table_8c_ab00a8de93e918b8aba331f4872a2c97c}{flow\_cache} = NULL;
+1003         \textcolor{keywordflow}{return} -ENOMEM;
+1004     \}
+1005 
+1006     \textcolor{keywordflow}{return} 0;
+1007 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_a40f76cbd2e168abb1b9744562e24be3b}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+mask\+\_\+key@{ovs\+\_\+flow\+\_\+mask\+\_\+key}}
+\index{ovs\+\_\+flow\+\_\+mask\+\_\+key@{ovs\+\_\+flow\+\_\+mask\+\_\+key}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+mask\+\_\+key}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+flow\+\_\+mask\+\_\+key (
+\begin{DoxyParamCaption}
+\item[{struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{dst, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{src, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+mask} $\ast$}]{mask}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_a40f76cbd2e168abb1b9744562e24be3b}
+
+\begin{DoxyCode}
+67 \{
+68     \textcolor{keyword}{const} \textcolor{keywordtype}{long} *m = (\textcolor{keyword}{const} \textcolor{keywordtype}{long} *)((\textcolor{keyword}{const} u8 *)&mask->\hyperlink{structsw__flow__mask_a52db0284fdd4579a5f30dee0837a7485}{key} +
+69                 mask->\hyperlink{structsw__flow__mask_aa6062c0e580d516ff2d9ce8f9611432b}{range}.\hyperlink{structsw__flow__key__range_a3139158cea80b4e5af36967f3748e846}{start});
+70     \textcolor{keyword}{const} \textcolor{keywordtype}{long} *s = (\textcolor{keyword}{const} \textcolor{keywordtype}{long} *)((\textcolor{keyword}{const} u8 *)src +
+71                 mask->\hyperlink{structsw__flow__mask_aa6062c0e580d516ff2d9ce8f9611432b}{range}.\hyperlink{structsw__flow__key__range_a3139158cea80b4e5af36967f3748e846}{start});
+72     \textcolor{keywordtype}{long} *d = (\textcolor{keywordtype}{long} *)((u8 *)dst + mask->\hyperlink{structsw__flow__mask_aa6062c0e580d516ff2d9ce8f9611432b}{range}.\hyperlink{structsw__flow__key__range_a3139158cea80b4e5af36967f3748e846}{start});
+73     \textcolor{keywordtype}{int} i;
+74 
+75     \textcolor{comment}{/* The memory outside of the 'mask->range' are not set since}
+76 \textcolor{comment}{     * further operations on 'dst' only uses contents within}
+77 \textcolor{comment}{     * 'mask->range'.}
+78 \textcolor{comment}{     */}
+79     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{flow__table_8c_a1b494e4862736de33cbbd7cd72ee8521}{range\_n\_bytes}(&mask->\hyperlink{structsw__flow__mask_aa6062c0e580d516ff2d9ce8f9611432b}{range}); i += \textcolor{keyword}{sizeof}(long))
+80         *d++ = *s++ & *m++;
+81 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_a8f1f39fd4e1ecafd99321016698a709a}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+count@{ovs\+\_\+flow\+\_\+tbl\+\_\+count}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+count@{ovs\+\_\+flow\+\_\+tbl\+\_\+count}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+count}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+flow\+\_\+tbl\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf flow\+\_\+table} $\ast$}]{table}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_a8f1f39fd4e1ecafd99321016698a709a}
+
+\begin{DoxyCode}
+120 \{
+121     \textcolor{keywordflow}{return} table->\hyperlink{structflow__table_a97cae1e714c6dcfe0d39ce4cff371786}{count};
+122 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_ad37dcfdb56d17589ed79b5c4dd38bc76}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+destroy@{ovs\+\_\+flow\+\_\+tbl\+\_\+destroy}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+destroy@{ovs\+\_\+flow\+\_\+tbl\+\_\+destroy}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+destroy}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+flow\+\_\+tbl\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flow\+\_\+table} $\ast$}]{table}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_ad37dcfdb56d17589ed79b5c4dd38bc76}
+
+\begin{DoxyCode}
+358 \{
+359     \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *ti = \hyperlink{rcupdate_8h_a9e866c0e8ba667e053cb8f59af572157}{rcu\_dereference\_raw}(table->
+      \hyperlink{structflow__table_a49d708e68608d510f6d25a16a14fd565}{ti});
+360     \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *ufid\_ti = \hyperlink{rcupdate_8h_a9e866c0e8ba667e053cb8f59af572157}{rcu\_dereference\_raw}(table->
+      \hyperlink{structflow__table_aa29e185501af8dcd15549ee157c6c047}{ufid\_ti});
+361 
+362     free\_percpu(table->\hyperlink{structflow__table_a7395c72250199771559f2aaf32da5d0d}{mask\_cache});
+363     kfree(\hyperlink{rcupdate_8h_a9e866c0e8ba667e053cb8f59af572157}{rcu\_dereference\_raw}(table->\hyperlink{structflow__table_a0e568d59590f38936b714555597505be}{mask\_array}));
+364     \hyperlink{flow__table_8c_a5abf80651b67f4198a34f7a94e116ec6}{table\_instance\_destroy}(ti, ufid\_ti, \textcolor{keyword}{false});
+365 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_aa2011feb0ef139b04c14890771e97f69}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+dump\+\_\+next@{ovs\+\_\+flow\+\_\+tbl\+\_\+dump\+\_\+next}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+dump\+\_\+next@{ovs\+\_\+flow\+\_\+tbl\+\_\+dump\+\_\+next}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+dump\+\_\+next}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf sw\+\_\+flow}$\ast$ ovs\+\_\+flow\+\_\+tbl\+\_\+dump\+\_\+next (
+\begin{DoxyParamCaption}
+\item[{struct {\bf table\+\_\+instance} $\ast$}]{table, }
+\item[{u32 $\ast$}]{bucket, }
+\item[{u32 $\ast$}]{idx}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_aa2011feb0ef139b04c14890771e97f69}
+
+\begin{DoxyCode}
+369 \{
+370     \textcolor{keyword}{struct }\hyperlink{structsw__flow}{sw\_flow} *flow;
+371     \textcolor{keyword}{struct }hlist\_head *head;
+372     \textcolor{keywordtype}{int} ver;
+373     \textcolor{keywordtype}{int} i;
+374 
+375     ver = ti->node\_ver;
+376     \textcolor{keywordflow}{while} (*bucket < ti->n\_buckets) \{
+377         i = 0;
+378         head = flex\_array\_get(ti->buckets, *bucket);
+379         \hyperlink{rculist_8h_a482ed6bca0b607f6455d5386f3b1ed75}{hlist\_for\_each\_entry\_rcu}(flow, head, \hyperlink{structflow__table}{flow\_table}.node[ver]) \{
+380             \textcolor{keywordflow}{if} (i < *last) \{
+381                 i++;
+382                 \textcolor{keywordflow}{continue};
+383             \}
+384             *last = i + 1;
+385             \textcolor{keywordflow}{return} flow;
+386         \}
+387         (*bucket)++;
+388         *last = 0;
+389     \}
+390 
+391     \textcolor{keywordflow}{return} NULL;
+392 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_a7e424f978318e8c007b3de68854e8dc2}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+flush@{ovs\+\_\+flow\+\_\+tbl\+\_\+flush}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+flush@{ovs\+\_\+flow\+\_\+tbl\+\_\+flush}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+flush}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+flow\+\_\+tbl\+\_\+flush (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flow\+\_\+table} $\ast$}]{flow\+\_\+table}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_a7e424f978318e8c007b3de68854e8dc2}
+
+\begin{DoxyCode}
+463 \{
+464     \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *old\_ti, *new\_ti;
+465     \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *old\_ufid\_ti, *new\_ufid\_ti;
+466 
+467     new\_ti = \hyperlink{flow__table_8c_afa79f1c5220d4487a4236884110b9f13}{table\_instance\_alloc}(\hyperlink{flow__table_8c_a84843442d8db7eda5192117e7c6b2997}{TBL\_MIN\_BUCKETS});
+468     \textcolor{keywordflow}{if} (!new\_ti)
+469         \textcolor{keywordflow}{return} -ENOMEM;
+470     new\_ufid\_ti = \hyperlink{flow__table_8c_afa79f1c5220d4487a4236884110b9f13}{table\_instance\_alloc}(\hyperlink{flow__table_8c_a84843442d8db7eda5192117e7c6b2997}{TBL\_MIN\_BUCKETS});
+471     \textcolor{keywordflow}{if} (!new\_ufid\_ti)
+472         \textcolor{keywordflow}{goto} err\_free\_ti;
+473 
+474     old\_ti = \hyperlink{datapath_8h_a06ef69170d345fd3996a467dcacf3ff3}{ovsl\_dereference}(flow\_table->\hyperlink{structflow__table_a49d708e68608d510f6d25a16a14fd565}{ti});
+475     old\_ufid\_ti = \hyperlink{datapath_8h_a06ef69170d345fd3996a467dcacf3ff3}{ovsl\_dereference}(flow\_table->\hyperlink{structflow__table_aa29e185501af8dcd15549ee157c6c047}{ufid\_ti});
+476 
+477     rcu\_assign\_pointer(flow\_table->\hyperlink{structflow__table_a49d708e68608d510f6d25a16a14fd565}{ti}, new\_ti);
+478     rcu\_assign\_pointer(flow\_table->\hyperlink{structflow__table_aa29e185501af8dcd15549ee157c6c047}{ufid\_ti}, new\_ufid\_ti);
+479     flow\_table->\hyperlink{structflow__table_a82c7cfef05b2898b3ffb3b6cb6fdc6a4}{last\_rehash} = jiffies;
+480     flow\_table->\hyperlink{structflow__table_a97cae1e714c6dcfe0d39ce4cff371786}{count} = 0;
+481     flow\_table->\hyperlink{structflow__table_ad8ff1e259e64690608d9552f0b467bf0}{ufid\_count} = 0;
+482 
+483     \hyperlink{flow__table_8c_a5abf80651b67f4198a34f7a94e116ec6}{table\_instance\_destroy}(old\_ti, old\_ufid\_ti, \textcolor{keyword}{true});
+484     \textcolor{keywordflow}{return} 0;
+485 
+486 err\_free\_ti:
+487     \hyperlink{flow__table_8c_a4699ad0074a999c5f80e77a8ff1b0ebc}{\_\_table\_instance\_destroy}(new\_ti);
+488     \textcolor{keywordflow}{return} -ENOMEM;
+489 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_a352a5f5e249d448bac51e011a6164443}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+init@{ovs\+\_\+flow\+\_\+tbl\+\_\+init}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+init@{ovs\+\_\+flow\+\_\+tbl\+\_\+init}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+flow\+\_\+tbl\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flow\+\_\+table} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_a352a5f5e249d448bac51e011a6164443}
+
+\begin{DoxyCode}
+271 \{
+272     \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *ti, *ufid\_ti;
+273     \textcolor{keyword}{struct }\hyperlink{structmask__array}{mask\_array} *ma;
+274 
+275     table->mask\_cache = \_\_alloc\_percpu(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structmask__cache__entry}{mask\_cache\_entry}) *
+276                       \hyperlink{flow__table_8c_af961440482d56f3b26f232774a37c9c5}{MC\_HASH\_ENTRIES}, \_\_alignof\_\_(\textcolor{keyword}{struct} 
+      \hyperlink{structmask__cache__entry}{mask\_cache\_entry}));
+277     \textcolor{keywordflow}{if} (!table->mask\_cache)
+278         \textcolor{keywordflow}{return} -ENOMEM;
+279 
+280     ma = \hyperlink{flow__table_8c_a327b2f9873b81f7b7920e85c366cc96e}{tbl\_mask\_array\_alloc}(\hyperlink{flow__table_8c_a8240394ae842a0ba76d82f50744ced0a}{MASK\_ARRAY\_SIZE\_MIN});
+281     \textcolor{keywordflow}{if} (!ma)
+282         \textcolor{keywordflow}{goto} free\_mask\_cache;
+283 
+284     ti = \hyperlink{flow__table_8c_afa79f1c5220d4487a4236884110b9f13}{table\_instance\_alloc}(\hyperlink{flow__table_8c_a84843442d8db7eda5192117e7c6b2997}{TBL\_MIN\_BUCKETS});
+285     \textcolor{keywordflow}{if} (!ti)
+286         \textcolor{keywordflow}{goto} free\_mask\_array;
+287 
+288     ufid\_ti = \hyperlink{flow__table_8c_afa79f1c5220d4487a4236884110b9f13}{table\_instance\_alloc}(\hyperlink{flow__table_8c_a84843442d8db7eda5192117e7c6b2997}{TBL\_MIN\_BUCKETS});
+289     \textcolor{keywordflow}{if} (!ufid\_ti)
+290         \textcolor{keywordflow}{goto} free\_ti;
+291 
+292     rcu\_assign\_pointer(table->ti, ti);
+293     rcu\_assign\_pointer(table->ufid\_ti, ufid\_ti);
+294     rcu\_assign\_pointer(table->mask\_array, ma);
+295     table->last\_rehash = jiffies;
+296     table->count = 0;
+297     table->ufid\_count = 0;
+298     \textcolor{keywordflow}{return} 0;
+299 
+300 free\_ti:
+301     \hyperlink{flow__table_8c_a4699ad0074a999c5f80e77a8ff1b0ebc}{\_\_table\_instance\_destroy}(ti);
+302 free\_mask\_array:
+303     kfree(ma);
+304 free\_mask\_cache:
+305     free\_percpu(table->mask\_cache);
+306     \textcolor{keywordflow}{return} -ENOMEM;
+307 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_a72ec4f72961a64b1c006978a32554a4c}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+insert@{ovs\+\_\+flow\+\_\+tbl\+\_\+insert}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+insert@{ovs\+\_\+flow\+\_\+tbl\+\_\+insert}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+insert}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+flow\+\_\+tbl\+\_\+insert (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flow\+\_\+table} $\ast$}]{table, }
+\item[{struct {\bf sw\+\_\+flow} $\ast$}]{flow, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+mask} $\ast$}]{mask}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_a72ec4f72961a64b1c006978a32554a4c}
+
+\begin{DoxyCode}
+969 \{
+970     \textcolor{keywordtype}{int} err;
+971 
+972     err = \hyperlink{flow__table_8c_a1ceded3a19f98e73b3c10faf2f2532f5}{flow\_mask\_insert}(table, flow, mask);
+973     \textcolor{keywordflow}{if} (err)
+974         \textcolor{keywordflow}{return} err;
+975     \hyperlink{flow__table_8c_a66f2b72d1c755346c4865714e51cfcf4}{flow\_key\_insert}(table, flow);
+976     \textcolor{keywordflow}{if} (\hyperlink{flow_8h_a995966854ceb0b5a72ff027c12ccf426}{ovs\_identifier\_is\_ufid}(&flow->\hyperlink{structsw__flow_a6e6645eec909d54871675be30000c0b9}{id}))
+977         \hyperlink{flow__table_8c_a36540c6298f41907b7c088b34116346d}{flow\_ufid\_insert}(table, flow);
+978 
+979     \textcolor{keywordflow}{return} 0;
+980 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_af75c5609b455f9fc2171ab1ef592982e}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+lookup@{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup@{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf sw\+\_\+flow}$\ast$ ovs\+\_\+flow\+\_\+tbl\+\_\+lookup (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flow\+\_\+table} $\ast$}]{, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_af75c5609b455f9fc2171ab1ef592982e}
+
+\begin{DoxyCode}
+677 \{
+678     \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *ti = \hyperlink{datapath_8h_a5f2a2c1026f970f0052e77f5ebba33d1}{rcu\_dereference\_ovsl}(tbl->ti);
+679     \textcolor{keyword}{struct }\hyperlink{structmask__array}{mask\_array} *ma = \hyperlink{datapath_8h_a5f2a2c1026f970f0052e77f5ebba33d1}{rcu\_dereference\_ovsl}(tbl->mask\_array);
+680     u32 \hyperlink{compiler-gcc_8h_a4df9005d46835d584f7e924597114061}{\_\_always\_unused} n\_mask\_hit;
+681     u32 index = 0;
+682 
+683     \textcolor{keywordflow}{return} \hyperlink{flow__table_8c_a66b2913ba658b83a167b83e5f5ec465a}{flow\_lookup}(tbl, ti, ma, key, &n\_mask\_hit, &index);
+684 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_ad54c8ee8b511e42f2296bcf5ff8d0fd3}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+exact@{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+exact}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+exact@{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+exact}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+exact}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf sw\+\_\+flow}$\ast$ ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+exact (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flow\+\_\+table} $\ast$}]{tbl, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+match} $\ast$}]{match}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_ad54c8ee8b511e42f2296bcf5ff8d0fd3}
+
+\begin{DoxyCode}
+688 \{
+689     \textcolor{keyword}{struct }\hyperlink{structmask__array}{mask\_array} *ma = \hyperlink{datapath_8h_a06ef69170d345fd3996a467dcacf3ff3}{ovsl\_dereference}(tbl->
+      \hyperlink{structflow__table_a0e568d59590f38936b714555597505be}{mask\_array});
+690     \textcolor{keywordtype}{int} i;
+691 
+692     \textcolor{comment}{/* Always called under ovs-mutex. */}
+693     \textcolor{keywordflow}{for} (i = 0; i < ma->\hyperlink{structmask__array_ad981d54486b5dd03bdb4ad20b740171e}{max}; i++) \{
+694         \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *ti = \hyperlink{datapath_8h_a06ef69170d345fd3996a467dcacf3ff3}{ovsl\_dereference}(tbl->
+      \hyperlink{structflow__table_a49d708e68608d510f6d25a16a14fd565}{ti});
+695         u32 \hyperlink{compiler-gcc_8h_a4df9005d46835d584f7e924597114061}{\_\_always\_unused} n\_mask\_hit;
+696         \textcolor{keyword}{struct }\hyperlink{structsw__flow__mask}{sw\_flow\_mask} *mask;
+697         \textcolor{keyword}{struct }\hyperlink{structsw__flow}{sw\_flow} *flow;
+698 
+699         mask = \hyperlink{datapath_8h_a06ef69170d345fd3996a467dcacf3ff3}{ovsl\_dereference}(ma->\hyperlink{structmask__array_a92da2b0ebde32eb6f76a134dc2d61d79}{masks}[i]);
+700         \textcolor{keywordflow}{if} (!mask)
+701             \textcolor{keywordflow}{continue};
+702         flow = \hyperlink{flow__table_8c_ac32c042a5b0b7a5de7c1e43f7187f92b}{masked\_flow\_lookup}(ti, match->\hyperlink{structsw__flow__match_a4030aac38105b63798ea11f43f506372}{key}, mask, &n\_mask\_hit);
+703         \textcolor{keywordflow}{if} (flow && \hyperlink{flow_8h_a3bfeaa297d8807b969a14f1cde78d21b}{ovs\_identifier\_is\_key}(&flow->\hyperlink{structsw__flow_a6e6645eec909d54871675be30000c0b9}{id}) &&
+704             \hyperlink{flow__table_8c_a0dd59a846abd3c41f19357b2223b10a9}{ovs\_flow\_cmp\_unmasked\_key}(flow, match))
+705             \textcolor{keywordflow}{return} flow;
+706     \}
+707     \textcolor{keywordflow}{return} NULL;
+708 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_adb87952f9d3b78f48c4f35efb0b41d1a}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+stats@{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+stats}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+stats@{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+stats}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+stats}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf sw\+\_\+flow}$\ast$ ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+stats (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flow\+\_\+table} $\ast$}]{, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+key} $\ast$}]{, }
+\item[{u32}]{skb\+\_\+hash, }
+\item[{u32 $\ast$}]{n\+\_\+mask\+\_\+hit}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_adb87952f9d3b78f48c4f35efb0b41d1a}
+
+\begin{DoxyCode}
+622 \{
+623     \textcolor{keyword}{struct }\hyperlink{structmask__array}{mask\_array} *ma = rcu\_dereference(tbl->mask\_array);
+624     \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *ti = rcu\_dereference(tbl->ti);
+625     \textcolor{keyword}{struct }\hyperlink{structmask__cache__entry}{mask\_cache\_entry} *entries, *ce;
+626     \textcolor{keyword}{struct }\hyperlink{structsw__flow}{sw\_flow} *flow;
+627     u32 \hyperlink{structsw__flow_a7a33a6a5c62113ffe949a700ef648a71}{hash};
+628     \textcolor{keywordtype}{int} seg;
+629 
+630     *n\_mask\_hit = 0;
+631     \textcolor{keywordflow}{if} (unlikely(!skb\_hash)) \{
+632         u32 mask\_index = 0;
+633 
+634         \textcolor{keywordflow}{return} \hyperlink{flow__table_8c_a66b2913ba658b83a167b83e5f5ec465a}{flow\_lookup}(tbl, ti, ma, \hyperlink{structsw__flow_a14b83cbd65275bda4e97ae35500d26d8}{key}, n\_mask\_hit, &mask\_index);
+635     \}
+636 
+637     \textcolor{comment}{/* Pre and post recirulation flows usually have the same skb\_hash}
+638 \textcolor{comment}{     * value. To avoid hash collisions, rehash the 'skb\_hash' with}
+639 \textcolor{comment}{     * 'recirc\_id'.  */}
+640     \textcolor{keywordflow}{if} (\hyperlink{structsw__flow_a14b83cbd65275bda4e97ae35500d26d8}{key}->\hyperlink{structsw__flow__key_a7e51857c88ad6b0bf90551d0b6e2607b}{recirc\_id})
+641         skb\_hash = jhash\_1word(skb\_hash, \hyperlink{structsw__flow_a14b83cbd65275bda4e97ae35500d26d8}{key}->\hyperlink{structsw__flow__key_a7e51857c88ad6b0bf90551d0b6e2607b}{recirc\_id});
+642 
+643     ce = NULL;
+644     hash = skb\_hash;
+645     entries = \hyperlink{percpu_8h_a1cd55f287dff5c4a79fc11dd38d47c12}{this\_cpu\_ptr}(tbl->mask\_cache);
+646 
+647     \textcolor{comment}{/* Find the cache entry 'ce' to operate on. */}
+648     \textcolor{keywordflow}{for} (seg = 0; seg < \hyperlink{flow__table_8c_ab95179a8dc622b08ce82308fe001d788}{MC\_HASH\_SEGS}; seg++) \{
+649         \textcolor{keywordtype}{int} index = hash & (\hyperlink{flow__table_8c_af961440482d56f3b26f232774a37c9c5}{MC\_HASH\_ENTRIES} - 1);
+650         \textcolor{keyword}{struct }\hyperlink{structmask__cache__entry}{mask\_cache\_entry} *e;
+651 
+652         e = &entries[index];
+653         \textcolor{keywordflow}{if} (e->\hyperlink{structmask__cache__entry_a45ae5222badf95e1c919a0d6d0090b6f}{skb\_hash} == \hyperlink{structmask__cache__entry_a45ae5222badf95e1c919a0d6d0090b6f}{skb\_hash}) \{
+654             flow = \hyperlink{flow__table_8c_a66b2913ba658b83a167b83e5f5ec465a}{flow\_lookup}(tbl, ti, ma, key, n\_mask\_hit,
+655                        &e->\hyperlink{structmask__cache__entry_a87faeaec562bcab421cb208dfc0ef5f0}{mask\_index});
+656             \textcolor{keywordflow}{if} (!flow)
+657                 e->\hyperlink{structmask__cache__entry_a45ae5222badf95e1c919a0d6d0090b6f}{skb\_hash} = 0;
+658             \textcolor{keywordflow}{return} flow;
+659         \}
+660 
+661         \textcolor{keywordflow}{if} (!ce || e->\hyperlink{structmask__cache__entry_a45ae5222badf95e1c919a0d6d0090b6f}{skb\_hash} < ce->\hyperlink{structmask__cache__entry_a45ae5222badf95e1c919a0d6d0090b6f}{skb\_hash})
+662             ce = e;  \textcolor{comment}{/* A better replacement cache candidate. */}
+663 
+664         hash >>= \hyperlink{flow__table_8c_aba54fb364af2c9465bb632f82e4631d7}{MC\_HASH\_SHIFT};
+665     \}
+666 
+667     \textcolor{comment}{/* Cache miss, do full lookup. */}
+668     flow = \hyperlink{flow__table_8c_a66b2913ba658b83a167b83e5f5ec465a}{flow\_lookup}(tbl, ti, ma, key, n\_mask\_hit, &ce->\hyperlink{structmask__cache__entry_a87faeaec562bcab421cb208dfc0ef5f0}{mask\_index});
+669     \textcolor{keywordflow}{if} (flow)
+670         ce->\hyperlink{structmask__cache__entry_a45ae5222badf95e1c919a0d6d0090b6f}{skb\_hash} = \hyperlink{structmask__cache__entry_a45ae5222badf95e1c919a0d6d0090b6f}{skb\_hash};
+671 
+672     \textcolor{keywordflow}{return} flow;
+673 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_a61adf41ddec6ed85834909231cfa84e0}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+ufid@{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+ufid}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+ufid@{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+ufid}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+ufid}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf sw\+\_\+flow}$\ast$ ovs\+\_\+flow\+\_\+tbl\+\_\+lookup\+\_\+ufid (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flow\+\_\+table} $\ast$}]{, }
+\item[{const struct {\bf sw\+\_\+flow\+\_\+id} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_a61adf41ddec6ed85834909231cfa84e0}
+
+\begin{DoxyCode}
+734 \{
+735     \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *ti = \hyperlink{datapath_8h_a5f2a2c1026f970f0052e77f5ebba33d1}{rcu\_dereference\_ovsl}(tbl->ufid\_ti);
+736     \textcolor{keyword}{struct }\hyperlink{structsw__flow}{sw\_flow} *flow;
+737     \textcolor{keyword}{struct }hlist\_head *head;
+738     u32 hash;
+739 
+740     hash = \hyperlink{flow__table_8c_aaf879648c325750d8ff234382797f3af}{ufid\_hash}(ufid);
+741     head = \hyperlink{flow__table_8c_aed00deae6497143255e822e293592558}{find\_bucket}(ti, hash);
+742     \hyperlink{rculist_8h_a482ed6bca0b607f6455d5386f3b1ed75}{hlist\_for\_each\_entry\_rcu}(flow, head, ufid\_table.\hyperlink{structsw__flow_ad56483ca56d2f95857eee360e934fcf2}{node}[ti->
+      \hyperlink{structtable__instance_ab992e9218f85e3b5193ae47e8fbf3f32}{node\_ver}]) \{
+743         \textcolor{keywordflow}{if} (flow->\hyperlink{structsw__flow_af5dad10ae036092f5a26cfebb050a03a}{ufid\_table}.\hyperlink{structsw__flow_a7a33a6a5c62113ffe949a700ef648a71}{hash} == hash &&
+744             \hyperlink{flow__table_8c_aed32909e9cc5bd5644d1eb39184a5615}{ovs\_flow\_cmp\_ufid}(flow, ufid))
+745             \textcolor{keywordflow}{return} flow;
+746     \}
+747     \textcolor{keywordflow}{return} NULL;
+748 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_ab6e18d16217cddd0af756b76b72e6ce6}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+num\+\_\+masks@{ovs\+\_\+flow\+\_\+tbl\+\_\+num\+\_\+masks}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+num\+\_\+masks@{ovs\+\_\+flow\+\_\+tbl\+\_\+num\+\_\+masks}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+num\+\_\+masks}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+flow\+\_\+tbl\+\_\+num\+\_\+masks (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf flow\+\_\+table} $\ast$}]{table}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_ab6e18d16217cddd0af756b76b72e6ce6}
+
+\begin{DoxyCode}
+751 \{
+752     \textcolor{keyword}{struct }\hyperlink{structmask__array}{mask\_array} *ma;
+753 
+754     ma = \hyperlink{datapath_8h_a5f2a2c1026f970f0052e77f5ebba33d1}{rcu\_dereference\_ovsl}(table->\hyperlink{structflow__table_a0e568d59590f38936b714555597505be}{mask\_array});
+755     \textcolor{keywordflow}{return} ma->\hyperlink{structmask__array_a55b8fb7e2d7ad8a5725a749645f73b5a}{count};
+756 \}
+\end{DoxyCode}
+\hypertarget{flow__table_8h_aa75b8bc2551f9c1a8d65b942a10df89a}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!ovs\+\_\+flow\+\_\+tbl\+\_\+remove@{ovs\+\_\+flow\+\_\+tbl\+\_\+remove}}
+\index{ovs\+\_\+flow\+\_\+tbl\+\_\+remove@{ovs\+\_\+flow\+\_\+tbl\+\_\+remove}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{ovs\+\_\+flow\+\_\+tbl\+\_\+remove}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+flow\+\_\+tbl\+\_\+remove (
+\begin{DoxyParamCaption}
+\item[{struct {\bf flow\+\_\+table} $\ast$}]{table, }
+\item[{struct {\bf sw\+\_\+flow} $\ast$}]{flow}
+\end{DoxyParamCaption}
+)}\label{flow__table_8h_aa75b8bc2551f9c1a8d65b942a10df89a}
+
+\begin{DoxyCode}
+809 \{
+810     \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *ti = \hyperlink{datapath_8h_a06ef69170d345fd3996a467dcacf3ff3}{ovsl\_dereference}(table->
+      \hyperlink{structflow__table_a49d708e68608d510f6d25a16a14fd565}{ti});
+811     \textcolor{keyword}{struct }\hyperlink{structtable__instance}{table\_instance} *ufid\_ti = \hyperlink{datapath_8h_a06ef69170d345fd3996a467dcacf3ff3}{ovsl\_dereference}(table->
+      \hyperlink{structflow__table_aa29e185501af8dcd15549ee157c6c047}{ufid\_ti});
+812 
+813     BUG\_ON(table->\hyperlink{structflow__table_a97cae1e714c6dcfe0d39ce4cff371786}{count} == 0);
+814     hlist\_del\_rcu(&flow->\hyperlink{structsw__flow_abca0040cced6a4a84d1a8941764fb5d6}{flow\_table}.\hyperlink{structsw__flow_ad56483ca56d2f95857eee360e934fcf2}{node}[ti->\hyperlink{structtable__instance_ab992e9218f85e3b5193ae47e8fbf3f32}{node\_ver}]);
+815     table->\hyperlink{structflow__table_a97cae1e714c6dcfe0d39ce4cff371786}{count}--;
+816     \textcolor{keywordflow}{if} (\hyperlink{flow_8h_a995966854ceb0b5a72ff027c12ccf426}{ovs\_identifier\_is\_ufid}(&flow->\hyperlink{structsw__flow_a6e6645eec909d54871675be30000c0b9}{id})) \{
+817         hlist\_del\_rcu(&flow->\hyperlink{structsw__flow_af5dad10ae036092f5a26cfebb050a03a}{ufid\_table}.\hyperlink{structsw__flow_ad56483ca56d2f95857eee360e934fcf2}{node}[ufid\_ti->\hyperlink{structtable__instance_ab992e9218f85e3b5193ae47e8fbf3f32}{node\_ver}]);
+818         table->\hyperlink{structflow__table_ad8ff1e259e64690608d9552f0b467bf0}{ufid\_count}--;
+819     \}
+820 
+821     \textcolor{comment}{/* RCU delete the mask. 'flow->mask' is not NULLed, as it should be}
+822 \textcolor{comment}{     * accessible as long as the RCU read lock is held.}
+823 \textcolor{comment}{     */}
+824     \hyperlink{flow__table_8c_a67796467285f769eda43c39ae058d997}{flow\_mask\_remove}(table, flow->\hyperlink{structsw__flow_a89c162e340693d0bb4977737e2b68c22}{mask});
+825 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{flow__table_8h_ab305bee215adea2618069cc592f6ee6b}{}\index{flow\+\_\+table.\+h@{flow\+\_\+table.\+h}!flow\+\_\+stats\+\_\+cache@{flow\+\_\+stats\+\_\+cache}}
+\index{flow\+\_\+stats\+\_\+cache@{flow\+\_\+stats\+\_\+cache}!flow\+\_\+table.\+h@{flow\+\_\+table.\+h}}
+\subsubsection[{flow\+\_\+stats\+\_\+cache}]{\setlength{\rightskip}{0pt plus 5cm}struct kmem\+\_\+cache$\ast$ flow\+\_\+stats\+\_\+cache}\label{flow__table_8h_ab305bee215adea2618069cc592f6ee6b}

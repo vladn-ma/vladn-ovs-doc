@@ -1,0 +1,190 @@
+.TH "/home/vladn/git/ovs/datapath/linux/skbuff-openvswitch.c" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/skbuff-openvswitch.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/module\&.h>\fP
+.br
+\fC#include <linux/netdevice\&.h>\fP
+.br
+\fC#include <linux/skbuff\&.h>\fP
+.br
+\fC#include <linux/if_vlan\&.h>\fP
+.br
+\fC#include 'gso\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBrpl_skb_ensure_writable\fP (struct sk_buff *skb, int write_len)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBrpl_skb_ensure_writable\fP)"
+.br
+.ti -1c
+.RI "static int \fB__skb_vlan_pop\fP (struct sk_buff *skb, u16 *vlan_tci)"
+.br
+.ti -1c
+.RI "int \fBrpl_skb_vlan_pop\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBrpl_skb_vlan_pop\fP)"
+.br
+.ti -1c
+.RI "int \fBrpl_skb_vlan_push\fP (struct sk_buff *skb, __be16 vlan_proto, u16 vlan_tci)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBrpl_skb_vlan_push\fP)"
+.br
+.ti -1c
+.RI "void \fBrpl_kfree_skb_list\fP (struct sk_buff *segs)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL\fP (\fBrpl_kfree_skb_list\fP)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "static int __skb_vlan_pop (struct sk_buff * skb, u16 * vlan_tci)\fC [static]\fP"
+
+.PP
+.nf
+150 {
+151     struct vlan_hdr *vhdr;
+152     unsigned int offset = skb->data - skb_mac_header(skb);
+153     int err;
+154 
+155     __skb_push(skb, offset);
+156     err = skb_ensure_writable(skb, VLAN_ETH_HLEN);
+157     if (unlikely(err))
+158         goto pull;
+159 
+160     skb_postpull_rcsum(skb, skb->data + (2 * ETH_ALEN), VLAN_HLEN);
+161 
+162     vhdr = (struct vlan_hdr *)(skb->data + ETH_HLEN);
+163     *vlan_tci = ntohs(vhdr->h_vlan_TCI);
+164 
+165     memmove(skb->data + VLAN_HLEN, skb->data, 2 * ETH_ALEN);
+166     __skb_pull(skb, VLAN_HLEN);
+167 
+168     vlan_set_encap_proto(skb, vhdr);
+169     skb->mac_header += VLAN_HLEN;
+170 
+171     if (skb_network_offset(skb) < ETH_HLEN)
+172         skb_set_network_header(skb, ETH_HLEN);
+173 
+174     skb_reset_mac_len(skb);
+175 pull:
+176     __skb_pull(skb, offset);
+177 
+178     return err;
+179 }
+.fi
+.SS "EXPORT_SYMBOL (\fBrpl_kfree_skb_list\fP)"
+
+.SS "EXPORT_SYMBOL_GPL (\fBrpl_skb_ensure_writable\fP)"
+
+.SS "EXPORT_SYMBOL_GPL (\fBrpl_skb_vlan_pop\fP)"
+
+.SS "EXPORT_SYMBOL_GPL (\fBrpl_skb_vlan_push\fP)"
+
+.SS "void rpl_kfree_skb_list (struct sk_buff * segs)"
+
+.PP
+.nf
+273 {
+274     while (segs) {
+275         struct sk_buff *next = segs->next;
+276 
+277         kfree_skb(segs);
+278         segs = next;
+279     }
+280 }
+.fi
+.SS "int rpl_skb_ensure_writable (struct sk_buff * skb, int write_len)"
+
+.PP
+.nf
+135 {
+136     if (!pskb_may_pull(skb, write_len))
+137         return -ENOMEM;
+138 
+139     if (!skb_cloned(skb) || skb_clone_writable(skb, write_len))
+140         return 0;
+141 
+142     return pskb_expand_head(skb, 0, 0, GFP_ATOMIC);
+143 }
+.fi
+.SS "int rpl_skb_vlan_pop (struct sk_buff * skb)"
+
+.PP
+.nf
+182 {
+183     u16 vlan_tci;
+184     __be16 vlan_proto;
+185     int err;
+186 
+187     if (likely(skb_vlan_tag_present(skb))) {
+188         skb->vlan_tci = 0;
+189     } else {
+190         if (unlikely((skb->protocol != htons(ETH_P_8021Q) &&
+191                   skb->protocol != htons(ETH_P_8021AD)) ||
+192                  skb->len < VLAN_ETH_HLEN))
+193             return 0;
+194 
+195         err = __skb_vlan_pop(skb, &vlan_tci);
+196         if (err)
+197             return err;
+198     }
+199     /* move next vlan tag to hw accel tag */
+200     if (likely((skb->protocol != htons(ETH_P_8021Q) &&
+201             skb->protocol != htons(ETH_P_8021AD)) ||
+202            skb->len < VLAN_ETH_HLEN))
+203         return 0;
+204 
+205     vlan_proto = htons(ETH_P_8021Q);
+206     err = __skb_vlan_pop(skb, &vlan_tci);
+207     if (unlikely(err))
+208         return err;
+209 
+210     __vlan_hwaccel_put_tag(skb, vlan_proto, vlan_tci);
+211     return 0;
+212 }
+.fi
+.SS "int rpl_skb_vlan_push (struct sk_buff * skb, __be16 vlan_proto, u16 vlan_tci)"
+
+.PP
+.nf
+218 {
+219     if (skb_vlan_tag_present(skb)) {
+220         unsigned int offset = skb->data - skb_mac_header(skb);
+221         int err;
+222 
+223         /* __vlan_insert_tag expect skb->data pointing to mac header\&.
+224          * So change skb->data before calling it and change back to
+225          * original position later
+226          */
+227         __skb_push(skb, offset);
+228         err = __vlan_insert_tag(skb, skb->vlan_proto,
+229                     skb_vlan_tag_get(skb));
+230         if (err)
+231             return err;
+232         skb->mac_len += VLAN_HLEN;
+233         __skb_pull(skb, offset);
+234 
+235         if (skb->ip_summed == CHECKSUM_COMPLETE)
+236             skb->csum = csum_add(skb->csum, csum_partial(skb->data
+237                     + (2 * ETH_ALEN), VLAN_HLEN, 0));
+238     }
+239     __vlan_hwaccel_put_tag(skb, vlan_proto, vlan_tci);
+240     return 0;
+241 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

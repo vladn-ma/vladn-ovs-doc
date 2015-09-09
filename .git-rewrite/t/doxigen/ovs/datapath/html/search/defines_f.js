@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['rcu_5faccess_5fpointer',['rcu_access_pointer',['../rcupdate_8h.html#a2c3aebbd11b184d9cab3049e4743882e',1,'rcupdate.h']]],
+  ['rcu_5fassign_5fsk_5fuser_5fdata',['rcu_assign_sk_user_data',['../sock_8h.html#af428e3a389a81878e74d8b9fff693d28',1,'sock.h']]],
+  ['rcu_5fdereference_5fcheck',['rcu_dereference_check',['../rcupdate_8h.html#a1132a81ccc2a14e56d6fd4d794f953ea',1,'rcupdate.h']]],
+  ['rcu_5fdereference_5fovsl',['rcu_dereference_ovsl',['../datapath_8h.html#a5f2a2c1026f970f0052e77f5ebba33d1',1,'datapath.h']]],
+  ['rcu_5fdereference_5fprotected',['rcu_dereference_protected',['../rcupdate_8h.html#af8e0682efe4f8bd0488ea6c1f66b0064',1,'rcupdate.h']]],
+  ['rcu_5fdereference_5fraw',['rcu_dereference_raw',['../rcupdate_8h.html#a9e866c0e8ba667e053cb8f59af572157',1,'rcupdate.h']]],
+  ['rcu_5fdereference_5frtnl',['rcu_dereference_rtnl',['../rtnetlink_8h.html#a7a763bd08263252ca210e83cac93e0d9',1,'rtnetlink.h']]],
+  ['rcu_5fdereference_5fsk_5fuser_5fdata',['rcu_dereference_sk_user_data',['../sock_8h.html#a2a8307d46586194d832739a9982dfdcf',1,'sock.h']]],
+  ['rcu_5finit_5fpointer',['RCU_INIT_POINTER',['../rcupdate_8h.html#ad30f6689018c0dc0178126e1e12897e9',1,'rcupdate.h']]],
+  ['rcu_5finitializer',['RCU_INITIALIZER',['../rcupdate_8h.html#ac433ae052f661149f5cd4f4c141cef70',1,'rcupdate.h']]],
+  ['reciprocal_5fdivide',['reciprocal_divide',['../reciprocal__div_8h.html#a1aeee1ba3d23d8252d3df41c25c1fb68',1,'reciprocal_div.h']]],
+  ['reciprocal_5fvalue',['reciprocal_value',['../reciprocal__div_8h.html#a78adc7b97028a17a134f8a0cd82c5c82',1,'reciprocal_div.h']]],
+  ['rehash_5finterval',['REHASH_INTERVAL',['../flow__table_8c.html#a70a89d7f312fa8c27a8d2423cd512040',1,'REHASH_INTERVAL():&#160;flow_table.c'],['../linux_2flow__table_8c.html#a70a89d7f312fa8c27a8d2423cd512040',1,'REHASH_INTERVAL():&#160;flow_table.c']]],
+  ['rounddown',['rounddown',['../kernel_8h.html#abbacd255029bd6692704964758c8aa97',1,'kernel.h']]],
+  ['rt_5fdst',['rt_dst',['../compat_8h.html#afce1864ee37be971c99555fdf1f76d88',1,'compat.h']]],
+  ['rtnl_5fdereference',['rtnl_dereference',['../rtnetlink_8h.html#abf3caef726000f67dda32deb7e1b3586',1,'rtnetlink.h']]]
+];

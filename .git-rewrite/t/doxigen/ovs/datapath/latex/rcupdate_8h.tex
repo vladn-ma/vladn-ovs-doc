@@ -1,0 +1,100 @@
+\hypertarget{rcupdate_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/linux/rcupdate.h File Reference}
+\label{rcupdate_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/linux/rcupdate.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/linux/rcupdate.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{rcupdate_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{rcupdate_8h_a1132a81ccc2a14e56d6fd4d794f953ea}{rcu\+\_\+dereference\+\_\+check}(p,  c)~rcu\+\_\+dereference(p)
+\item 
+\#define \hyperlink{rcupdate_8h_af8e0682efe4f8bd0488ea6c1f66b0064}{rcu\+\_\+dereference\+\_\+protected}(p,  c)~(p)
+\item 
+\#define \hyperlink{rcupdate_8h_a9e866c0e8ba667e053cb8f59af572157}{rcu\+\_\+dereference\+\_\+raw}(p)~\hyperlink{rcupdate_8h_a1132a81ccc2a14e56d6fd4d794f953ea}{rcu\+\_\+dereference\+\_\+check}(p, 1)
+\item 
+\#define \hyperlink{rcupdate_8h_a2c3aebbd11b184d9cab3049e4743882e}{rcu\+\_\+access\+\_\+pointer}(p)~rcu\+\_\+dereference(p)
+\item 
+\#define \hyperlink{rcupdate_8h_ac433ae052f661149f5cd4f4c141cef70}{R\+C\+U\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+E\+R}(v)~(typeof($\ast$(v)) \+\_\+\+\_\+force \hyperlink{compiler_8h_a2b3b0c016258969e4b39c66b6eec2129}{\+\_\+\+\_\+rcu} $\ast$)(v)
+\item 
+\#define \hyperlink{rcupdate_8h_ad30f6689018c0dc0178126e1e12897e9}{R\+C\+U\+\_\+\+I\+N\+I\+T\+\_\+\+P\+O\+I\+N\+T\+E\+R}(p,  v)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{rcupdate_8h_ab77c80b5efea34ea99ec24a4f532eb9b}{rcu\+\_\+read\+\_\+lock\+\_\+held} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{rcupdate_8h_a2c3aebbd11b184d9cab3049e4743882e}{}\index{rcupdate.\+h@{rcupdate.\+h}!rcu\+\_\+access\+\_\+pointer@{rcu\+\_\+access\+\_\+pointer}}
+\index{rcu\+\_\+access\+\_\+pointer@{rcu\+\_\+access\+\_\+pointer}!rcupdate.\+h@{rcupdate.\+h}}
+\subsubsection[{rcu\+\_\+access\+\_\+pointer}]{\setlength{\rightskip}{0pt plus 5cm}\#define rcu\+\_\+access\+\_\+pointer(
+\begin{DoxyParamCaption}
+\item[{}]{p}
+\end{DoxyParamCaption}
+)~rcu\+\_\+dereference(p)}\label{rcupdate_8h_a2c3aebbd11b184d9cab3049e4743882e}
+\hypertarget{rcupdate_8h_a1132a81ccc2a14e56d6fd4d794f953ea}{}\index{rcupdate.\+h@{rcupdate.\+h}!rcu\+\_\+dereference\+\_\+check@{rcu\+\_\+dereference\+\_\+check}}
+\index{rcu\+\_\+dereference\+\_\+check@{rcu\+\_\+dereference\+\_\+check}!rcupdate.\+h@{rcupdate.\+h}}
+\subsubsection[{rcu\+\_\+dereference\+\_\+check}]{\setlength{\rightskip}{0pt plus 5cm}\#define rcu\+\_\+dereference\+\_\+check(
+\begin{DoxyParamCaption}
+\item[{}]{p, }
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~rcu\+\_\+dereference(p)}\label{rcupdate_8h_a1132a81ccc2a14e56d6fd4d794f953ea}
+\hypertarget{rcupdate_8h_af8e0682efe4f8bd0488ea6c1f66b0064}{}\index{rcupdate.\+h@{rcupdate.\+h}!rcu\+\_\+dereference\+\_\+protected@{rcu\+\_\+dereference\+\_\+protected}}
+\index{rcu\+\_\+dereference\+\_\+protected@{rcu\+\_\+dereference\+\_\+protected}!rcupdate.\+h@{rcupdate.\+h}}
+\subsubsection[{rcu\+\_\+dereference\+\_\+protected}]{\setlength{\rightskip}{0pt plus 5cm}\#define rcu\+\_\+dereference\+\_\+protected(
+\begin{DoxyParamCaption}
+\item[{}]{p, }
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~(p)}\label{rcupdate_8h_af8e0682efe4f8bd0488ea6c1f66b0064}
+\hypertarget{rcupdate_8h_a9e866c0e8ba667e053cb8f59af572157}{}\index{rcupdate.\+h@{rcupdate.\+h}!rcu\+\_\+dereference\+\_\+raw@{rcu\+\_\+dereference\+\_\+raw}}
+\index{rcu\+\_\+dereference\+\_\+raw@{rcu\+\_\+dereference\+\_\+raw}!rcupdate.\+h@{rcupdate.\+h}}
+\subsubsection[{rcu\+\_\+dereference\+\_\+raw}]{\setlength{\rightskip}{0pt plus 5cm}\#define rcu\+\_\+dereference\+\_\+raw(
+\begin{DoxyParamCaption}
+\item[{}]{p}
+\end{DoxyParamCaption}
+)~{\bf rcu\+\_\+dereference\+\_\+check}(p, 1)}\label{rcupdate_8h_a9e866c0e8ba667e053cb8f59af572157}
+\hypertarget{rcupdate_8h_ad30f6689018c0dc0178126e1e12897e9}{}\index{rcupdate.\+h@{rcupdate.\+h}!R\+C\+U\+\_\+\+I\+N\+I\+T\+\_\+\+P\+O\+I\+N\+T\+E\+R@{R\+C\+U\+\_\+\+I\+N\+I\+T\+\_\+\+P\+O\+I\+N\+T\+E\+R}}
+\index{R\+C\+U\+\_\+\+I\+N\+I\+T\+\_\+\+P\+O\+I\+N\+T\+E\+R@{R\+C\+U\+\_\+\+I\+N\+I\+T\+\_\+\+P\+O\+I\+N\+T\+E\+R}!rcupdate.\+h@{rcupdate.\+h}}
+\subsubsection[{R\+C\+U\+\_\+\+I\+N\+I\+T\+\_\+\+P\+O\+I\+N\+T\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+C\+U\+\_\+\+I\+N\+I\+T\+\_\+\+P\+O\+I\+N\+T\+E\+R(
+\begin{DoxyParamCaption}
+\item[{}]{p, }
+\item[{}]{v}
+\end{DoxyParamCaption}
+)}\label{rcupdate_8h_ad30f6689018c0dc0178126e1e12897e9}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{keywordflow}{do} \{ \(\backslash\)
+                p = \hyperlink{rcupdate_8h_ac433ae052f661149f5cd4f4c141cef70}{RCU\_INITIALIZER}(v); \(\backslash\)
+        \} \textcolor{keywordflow}{while} (0)
+\end{DoxyCode}
+\hypertarget{rcupdate_8h_ac433ae052f661149f5cd4f4c141cef70}{}\index{rcupdate.\+h@{rcupdate.\+h}!R\+C\+U\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+E\+R@{R\+C\+U\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+E\+R}}
+\index{R\+C\+U\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+E\+R@{R\+C\+U\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+E\+R}!rcupdate.\+h@{rcupdate.\+h}}
+\subsubsection[{R\+C\+U\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+C\+U\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+Z\+E\+R(
+\begin{DoxyParamCaption}
+\item[{}]{v}
+\end{DoxyParamCaption}
+)~(typeof($\ast$(v)) \+\_\+\+\_\+force {\bf \+\_\+\+\_\+rcu} $\ast$)(v)}\label{rcupdate_8h_ac433ae052f661149f5cd4f4c141cef70}
+
+
+\subsection{Function Documentation}
+\hypertarget{rcupdate_8h_ab77c80b5efea34ea99ec24a4f532eb9b}{}\index{rcupdate.\+h@{rcupdate.\+h}!rcu\+\_\+read\+\_\+lock\+\_\+held@{rcu\+\_\+read\+\_\+lock\+\_\+held}}
+\index{rcu\+\_\+read\+\_\+lock\+\_\+held@{rcu\+\_\+read\+\_\+lock\+\_\+held}!rcupdate.\+h@{rcupdate.\+h}}
+\subsubsection[{rcu\+\_\+read\+\_\+lock\+\_\+held}]{\setlength{\rightskip}{0pt plus 5cm}static int rcu\+\_\+read\+\_\+lock\+\_\+held (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{rcupdate_8h_ab77c80b5efea34ea99ec24a4f532eb9b}
+
+\begin{DoxyCode}
+24 \{
+25     \textcolor{keywordflow}{return} 1;
+26 \}
+\end{DoxyCode}

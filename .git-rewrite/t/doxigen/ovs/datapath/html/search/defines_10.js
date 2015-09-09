@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['sample_5faction_5fdepth',['SAMPLE_ACTION_DEPTH',['../datapath_8h.html#ad323527e924235c97bf936e4e85dfdba',1,'datapath.h']]],
+  ['set_5fmasked',['SET_MASKED',['../actions_8c.html#a6a812b08a711cd6258c60e9bd0c931e3',1,'SET_MASKED():&#160;actions.c'],['../linux_2actions_8c.html#a6a812b08a711cd6258c60e9bd0c931e3',1,'SET_MASKED():&#160;actions.c']]],
+  ['shrt_5fmax',['SHRT_MAX',['../kernel_8h.html#a1f758438cb1c7bcf55da2431f5e319e6',1,'kernel.h']]],
+  ['shrt_5fmin',['SHRT_MIN',['../kernel_8h.html#ae59de266aceffa1c258ac13f45fe0d18',1,'kernel.h']]],
+  ['skb_5fensure_5fwritable',['skb_ensure_writable',['../skbuff_8h.html#adb2ee822c4cb80b0d9c272133feedb72',1,'skbuff.h']]],
+  ['skb_5fget_5fhash',['skb_get_hash',['../skbuff_8h.html#acb236314b209f764af9aae7fbbb04311',1,'skbuff.h']]],
+  ['skb_5fgso_5fgre_5fcsum',['SKB_GSO_GRE_CSUM',['../skbuff_8h.html#afc9a3e49441a973ff9818fd3549aa9ac',1,'skbuff.h']]],
+  ['skb_5fgso_5fudp_5ftunnel_5fcsum',['SKB_GSO_UDP_TUNNEL_CSUM',['../skbuff_8h.html#ac07ac01fc4a23ed6ab5116a7afe0caef',1,'skbuff.h']]],
+  ['skb_5fhas_5ffrag_5flist',['skb_has_frag_list',['../skbuff_8h.html#a37d9d8a99a1a567a9fba954c6011c25c',1,'skbuff.h']]],
+  ['skb_5fis_5fencapsulated',['skb_is_encapsulated',['../ip__tunnels_8h.html#a0b1a957967a77d78428df0785f5f5bf2',1,'ip_tunnels.h']]],
+  ['skb_5fvlan_5fpop',['skb_vlan_pop',['../skbuff_8h.html#aa4efc0310575260b396ee19c694316bd',1,'skbuff.h']]],
+  ['skb_5fvlan_5fpush',['skb_vlan_push',['../skbuff_8h.html#a342fa8b4c4941fff76c6cddb212c54d4',1,'skbuff.h']]],
+  ['skb_5fvlan_5ftag_5fget',['skb_vlan_tag_get',['../if__vlan_8h.html#a0fa23322859cba87d3f5e4526aafd80f',1,'if_vlan.h']]],
+  ['skb_5fvlan_5ftag_5fpresent',['skb_vlan_tag_present',['../if__vlan_8h.html#a0bdf3e26944669a4265c7e717e846215',1,'if_vlan.h']]],
+  ['skb_5fzerocopy',['skb_zerocopy',['../skbuff_8h.html#a3b5615a68dce0b4c498e3363bf48ee52',1,'skbuff.h']]],
+  ['sw_5fflow_5fkey_5fmemcpy',['SW_FLOW_KEY_MEMCPY',['../flow__netlink_8c.html#aa303fd044db169fb22013e1279c18dd1',1,'SW_FLOW_KEY_MEMCPY():&#160;flow_netlink.c'],['../linux_2flow__netlink_8c.html#aa303fd044db169fb22013e1279c18dd1',1,'SW_FLOW_KEY_MEMCPY():&#160;flow_netlink.c']]],
+  ['sw_5fflow_5fkey_5fmemcpy_5foffset',['SW_FLOW_KEY_MEMCPY_OFFSET',['../flow__netlink_8c.html#aceedf9228ebbe5291ac9e12d1d011278',1,'SW_FLOW_KEY_MEMCPY_OFFSET():&#160;flow_netlink.c'],['../linux_2flow__netlink_8c.html#aceedf9228ebbe5291ac9e12d1d011278',1,'SW_FLOW_KEY_MEMCPY_OFFSET():&#160;flow_netlink.c']]],
+  ['sw_5fflow_5fkey_5fmemset_5ffield',['SW_FLOW_KEY_MEMSET_FIELD',['../flow__netlink_8c.html#a428fac9f6cc49614e07de128b9e4869f',1,'SW_FLOW_KEY_MEMSET_FIELD():&#160;flow_netlink.c'],['../linux_2flow__netlink_8c.html#a428fac9f6cc49614e07de128b9e4869f',1,'SW_FLOW_KEY_MEMSET_FIELD():&#160;flow_netlink.c']]],
+  ['sw_5fflow_5fkey_5fput',['SW_FLOW_KEY_PUT',['../flow__netlink_8c.html#a7cb040299f14f8ff8806dd868c321d7b',1,'SW_FLOW_KEY_PUT():&#160;flow_netlink.c'],['../linux_2flow__netlink_8c.html#a7cb040299f14f8ff8806dd868c321d7b',1,'SW_FLOW_KEY_PUT():&#160;flow_netlink.c']]]
+];

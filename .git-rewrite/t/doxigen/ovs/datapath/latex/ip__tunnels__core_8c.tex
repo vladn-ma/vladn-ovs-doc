@@ -1,0 +1,73 @@
+\hypertarget{ip__tunnels__core_8c}{}\section{/home/vladn/git/ovs/datapath/linux/ip\+\_\+tunnels\+\_\+core.c File Reference}
+\label{ip__tunnels__core_8c}\index{/home/vladn/git/ovs/datapath/linux/ip\+\_\+tunnels\+\_\+core.\+c@{/home/vladn/git/ovs/datapath/linux/ip\+\_\+tunnels\+\_\+core.\+c}}
+{\ttfamily \#include $<$linux/in.\+h$>$}\\*
+{\ttfamily \#include $<$linux/in\+\_\+route.\+h$>$}\\*
+{\ttfamily \#include $<$linux/inetdevice.\+h$>$}\\*
+{\ttfamily \#include $<$linux/jhash.\+h$>$}\\*
+{\ttfamily \#include $<$linux/list.\+h$>$}\\*
+{\ttfamily \#include $<$linux/kernel.\+h$>$}\\*
+{\ttfamily \#include $<$linux/version.\+h$>$}\\*
+{\ttfamily \#include $<$linux/workqueue.\+h$>$}\\*
+{\ttfamily \#include $<$linux/rculist.\+h$>$}\\*
+{\ttfamily \#include $<$net/ip\+\_\+tunnels.\+h$>$}\\*
+{\ttfamily \#include $<$net/route.\+h$>$}\\*
+{\ttfamily \#include $<$net/xfrm.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}compat.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gso.\+h\char`\"{}}\\*
+Include dependency graph for ip\+\_\+tunnels\+\_\+core.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ip__tunnels__core_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ip__tunnels__core_8c_a1f8c165bf4196327bc3abff648276d92}{pr\+\_\+fmt}(fmt)~K\+B\+U\+I\+L\+D\+\_\+\+M\+O\+D\+N\+A\+M\+E \char`\"{}\+: \char`\"{} fmt
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{ip__tunnels__core_8c_af85bf32723d235730cebb18e2dd718ab}{ovs\+\_\+skb\+\_\+is\+\_\+encapsulated} (struct sk\+\_\+buff $\ast$skb)
+\item 
+\hyperlink{ip__tunnels__core_8c_afd7d1733464e4aa8ce9b9459b788e0b6}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{ip__tunnels__core_8c_af85bf32723d235730cebb18e2dd718ab}{ovs\+\_\+skb\+\_\+is\+\_\+encapsulated})
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{ip__tunnels__core_8c_a1f8c165bf4196327bc3abff648276d92}{}\index{ip\+\_\+tunnels\+\_\+core.\+c@{ip\+\_\+tunnels\+\_\+core.\+c}!pr\+\_\+fmt@{pr\+\_\+fmt}}
+\index{pr\+\_\+fmt@{pr\+\_\+fmt}!ip\+\_\+tunnels\+\_\+core.\+c@{ip\+\_\+tunnels\+\_\+core.\+c}}
+\subsubsection[{pr\+\_\+fmt}]{\setlength{\rightskip}{0pt plus 5cm}\#define pr\+\_\+fmt(
+\begin{DoxyParamCaption}
+\item[{}]{fmt}
+\end{DoxyParamCaption}
+)~K\+B\+U\+I\+L\+D\+\_\+\+M\+O\+D\+N\+A\+M\+E \char`\"{}\+: \char`\"{} fmt}\label{ip__tunnels__core_8c_a1f8c165bf4196327bc3abff648276d92}
+
+
+\subsection{Function Documentation}
+\hypertarget{ip__tunnels__core_8c_afd7d1733464e4aa8ce9b9459b788e0b6}{}\index{ip\+\_\+tunnels\+\_\+core.\+c@{ip\+\_\+tunnels\+\_\+core.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!ip\+\_\+tunnels\+\_\+core.\+c@{ip\+\_\+tunnels\+\_\+core.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf ovs\+\_\+skb\+\_\+is\+\_\+encapsulated}}]{}
+\end{DoxyParamCaption}
+)}\label{ip__tunnels__core_8c_afd7d1733464e4aa8ce9b9459b788e0b6}
+\hypertarget{ip__tunnels__core_8c_af85bf32723d235730cebb18e2dd718ab}{}\index{ip\+\_\+tunnels\+\_\+core.\+c@{ip\+\_\+tunnels\+\_\+core.\+c}!ovs\+\_\+skb\+\_\+is\+\_\+encapsulated@{ovs\+\_\+skb\+\_\+is\+\_\+encapsulated}}
+\index{ovs\+\_\+skb\+\_\+is\+\_\+encapsulated@{ovs\+\_\+skb\+\_\+is\+\_\+encapsulated}!ip\+\_\+tunnels\+\_\+core.\+c@{ip\+\_\+tunnels\+\_\+core.\+c}}
+\subsubsection[{ovs\+\_\+skb\+\_\+is\+\_\+encapsulated}]{\setlength{\rightskip}{0pt plus 5cm}{\bf bool} ovs\+\_\+skb\+\_\+is\+\_\+encapsulated (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)}\label{ip__tunnels__core_8c_af85bf32723d235730cebb18e2dd718ab}
+
+\begin{DoxyCode}
+176 \{
+177     \textcolor{comment}{/* checking for inner protocol should be sufficient on newer kernel, but}
+178 \textcolor{comment}{     * old kernel just set encapsulation bit.}
+179 \textcolor{comment}{     */}
+180     \textcolor{keywordflow}{return} \hyperlink{gso_8h_a10a6979f8790e1c22258b1c00a28e02c}{ovs\_skb\_get\_inner\_protocol}(skb) || 
+      \hyperlink{compat_8h_ab25b015544a779ccc1c15baf48b7a45d}{skb\_encapsulation}(skb);
+181 \}
+\end{DoxyCode}

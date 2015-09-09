@@ -1,0 +1,75 @@
+\hypertarget{vlan_8h}{}\section{/home/vladn/git/ovs/datapath/vlan.h File Reference}
+\label{vlan_8h}\index{/home/vladn/git/ovs/datapath/vlan.\+h@{/home/vladn/git/ovs/datapath/vlan.\+h}}
+{\ttfamily \#include $<$linux/if\+\_\+vlan.\+h$>$}\\*
+{\ttfamily \#include $<$linux/skbuff.\+h$>$}\\*
+{\ttfamily \#include $<$linux/version.\+h$>$}\\*
+Include dependency graph for vlan.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vlan_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vlan_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static u16 \hyperlink{vlan_8h_a7d6820c8064af28c10f40f519605c2db}{vlan\+\_\+get\+\_\+tci} (struct sk\+\_\+buff $\ast$skb)
+\item 
+static void \hyperlink{vlan_8h_ad5de1acaa10b947f662a8200417dd6c4}{vlan\+\_\+set\+\_\+tci} (struct sk\+\_\+buff $\ast$skb, u16 vlan\+\_\+tci)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{vlan_8h_a7d6820c8064af28c10f40f519605c2db}{}\index{vlan.\+h@{vlan.\+h}!vlan\+\_\+get\+\_\+tci@{vlan\+\_\+get\+\_\+tci}}
+\index{vlan\+\_\+get\+\_\+tci@{vlan\+\_\+get\+\_\+tci}!vlan.\+h@{vlan.\+h}}
+\subsubsection[{vlan\+\_\+get\+\_\+tci}]{\setlength{\rightskip}{0pt plus 5cm}static u16 vlan\+\_\+get\+\_\+tci (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{vlan_8h_a7d6820c8064af28c10f40f519605c2db}
+D\+O\+C\+: V\+L\+A\+N tag manipulation.
+
+\&struct sk\+\_\+buff handling of V\+L\+A\+N tags has evolved over time\+:
+
+In 2.\+6.\+26 and earlier, V\+L\+A\+N tags did not have any generic representation in an skb, other than as a raw 802.\+1\+Q header inside the packet data.
+
+In 2.\+6.\+27 \&struct sk\+\_\+buff added a  member. Between 2.\+6.\+27 and 2.\+6.\+32, its value was the raw contents of the 802.\+1\+Q T\+C\+I field, or zero if no 802.\+1\+Q header was present. This worked O\+K except for the corner case of an 802.\+1\+Q header with an all-\/0-\/bits T\+C\+I, which could not be represented.
+
+In 2.\+6.\+33,  semantics changed. Now, if an 802.\+1\+Q header is present, then the V\+L\+A\+N\+\_\+\+T\+A\+G\+\_\+\+P\+R\+E\+S\+E\+N\+T bit is always set. This fixes the all-\/0-\/bits T\+C\+I corner case.
+
+For compatibility we emulate the 2.\+6.\+33+ behavior on earlier kernel versions. The client must not access  directly. Instead, use \hyperlink{vlan_8h_a7d6820c8064af28c10f40f519605c2db}{vlan\+\_\+get\+\_\+tci()} to read it or \hyperlink{vlan_8h_ad5de1acaa10b947f662a8200417dd6c4}{vlan\+\_\+set\+\_\+tci()} to write it, with semantics equivalent to those on 2.\+6.\+33+. 
+\begin{DoxyCode}
+50 \{
+51 \textcolor{preprocessor}{#if LINUX\_VERSION\_CODE < KERNEL\_VERSION(2,6,33)}
+52     \textcolor{keywordflow}{if} (skb->vlan\_tci)
+53         \textcolor{keywordflow}{return} skb->vlan\_tci | \hyperlink{if__vlan_8h_ac8bf15be3fd1a3a63a2452fa05a83217}{VLAN\_TAG\_PRESENT};
+54 \textcolor{preprocessor}{#endif}
+55     \textcolor{keywordflow}{return} skb->vlan\_tci;
+56 \}
+\end{DoxyCode}
+\hypertarget{vlan_8h_ad5de1acaa10b947f662a8200417dd6c4}{}\index{vlan.\+h@{vlan.\+h}!vlan\+\_\+set\+\_\+tci@{vlan\+\_\+set\+\_\+tci}}
+\index{vlan\+\_\+set\+\_\+tci@{vlan\+\_\+set\+\_\+tci}!vlan.\+h@{vlan.\+h}}
+\subsubsection[{vlan\+\_\+set\+\_\+tci}]{\setlength{\rightskip}{0pt plus 5cm}static void vlan\+\_\+set\+\_\+tci (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{u16}]{vlan\+\_\+tci}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{vlan_8h_ad5de1acaa10b947f662a8200417dd6c4}
+
+\begin{DoxyCode}
+59 \{
+60 \textcolor{preprocessor}{#if LINUX\_VERSION\_CODE < KERNEL\_VERSION(2,6,33)}
+61     vlan\_tci &= ~\hyperlink{if__vlan_8h_ac8bf15be3fd1a3a63a2452fa05a83217}{VLAN\_TAG\_PRESENT};
+62 \textcolor{preprocessor}{#endif}
+63     skb->vlan\_tci = vlan\_tci;
+64 \}
+\end{DoxyCode}

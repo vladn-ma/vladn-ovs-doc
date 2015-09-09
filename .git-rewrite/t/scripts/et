@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# create tag file for the emacs
+
+#find $ANTLR_HOME -iname '*.hpp' -o -iname '*.h' | etags -
+#find ~/views/vtest -iname '*.hpp' -o -iname '*.cpp' | etags -
+#find . -iname '*.hpp' -o -iname '*.cpp' | etags -a - 
+#find . -iname '*.hpp' -o -iname '*.h' | etags -a - 
+find . -iname '*.hpp' -o -iname '*.h'  -o -iname '*.cpp'  -o -iname '*.c' | etags -a - 
+

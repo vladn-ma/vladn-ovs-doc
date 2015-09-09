@@ -1,0 +1,257 @@
+\hypertarget{genetlink_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/net/genetlink.h File Reference}
+\label{genetlink_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/net/genetlink.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/net/genetlink.\+h}}
+{\ttfamily \#include $<$linux/version.\+h$>$}\\*
+{\ttfamily \#include $<$linux/netlink.\+h$>$}\\*
+{\ttfamily \#include $<$net/net\+\_\+namespace.\+h$>$}\\*
+Include dependency graph for genetlink.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genetlink_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{genetlink_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structrpl__genl__family}{rpl\+\_\+genl\+\_\+family}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family}~\hyperlink{structrpl__genl__family}{rpl\+\_\+genl\+\_\+family}
+\item 
+\#define \hyperlink{genetlink_8h_a3e365d35277825cfe05ad9d319085842}{genl\+\_\+notify}~\hyperlink{genetlink-openvswitch_8c_abcd68fa42d07fafbbb4e263dd8baca6c}{rpl\+\_\+genl\+\_\+notify}
+\item 
+\#define \hyperlink{genetlink_8h_a306fd8e0093b286af42dfce236aeb096}{genlmsg\+\_\+put}~\hyperlink{genetlink_8h_a9dcea0f91022a7caed1fecc763078ca7}{rpl\+\_\+genlmsg\+\_\+put}
+\item 
+\#define \hyperlink{genetlink_8h_a838538f5265ecd4c9726bdf30cfa02c2}{genl\+\_\+unregister\+\_\+family}~\hyperlink{genetlink_8h_a7c90b63eef33d6e5c631151ce2f1290b}{rpl\+\_\+genl\+\_\+unregister\+\_\+family}
+\item 
+\#define \hyperlink{genetlink_8h_a4261ddbadfb4439b57bd106a5ab0a043}{genl\+\_\+set\+\_\+err}~rpl\+\_\+genl\+\_\+set\+\_\+err
+\item 
+\#define \hyperlink{genetlink_8h_ab7ffe7df793569b5be1c2c7d5c35cac6}{genlmsg\+\_\+multicast\+\_\+netns}~rpl\+\_\+genlmsg\+\_\+multicast\+\_\+netns
+\item 
+\#define \hyperlink{genetlink_8h_a3960e86f97fb5b1926819dffb00e2434}{\+\_\+\+\_\+genl\+\_\+register\+\_\+family}~\hyperlink{genetlink-openvswitch_8c_a2803a86a5f44e4c055773b4907a4950a}{rpl\+\_\+\+\_\+\+\_\+genl\+\_\+register\+\_\+family}
+\item 
+\#define \hyperlink{genetlink_8h_ae1e50e3e047b37c08412138d4f224179}{genl\+\_\+register\+\_\+family}~\hyperlink{genetlink_8h_a3a78ef42fd158a4184de9c1c8b031225}{rpl\+\_\+genl\+\_\+register\+\_\+family}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{genetlink_8h_a42dbebefb24f7107f74fb87ecba3e2d9}{rpl\+\_\+genl\+\_\+notify} (struct \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family} $\ast$family, struct sk\+\_\+buff $\ast$skb, struct net $\ast$net, u32 portid, u32 group, struct nlmsghdr $\ast$nlh, gfp\+\_\+t \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags})
+\item 
+static void $\ast$ \hyperlink{genetlink_8h_a9dcea0f91022a7caed1fecc763078ca7}{rpl\+\_\+genlmsg\+\_\+put} (struct sk\+\_\+buff $\ast$skb, u32 portid, u32 seq, struct \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family} $\ast$family, int \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags}, u8 cmd)
+\item 
+static int \hyperlink{genetlink_8h_a7c90b63eef33d6e5c631151ce2f1290b}{rpl\+\_\+genl\+\_\+unregister\+\_\+family} (struct \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family} $\ast$family)
+\item 
+static int \hyperlink{genetlink_8h_ade212907b767383b8930d0c63dbd56ce}{genl\+\_\+set\+\_\+err} (struct \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family} $\ast$family, struct net $\ast$net, u32 portid, u32 group, int code)
+\item 
+static int \hyperlink{genetlink_8h_ac390795b966936a31e21a0f9a5c36fe7}{genlmsg\+\_\+multicast\+\_\+netns} (struct \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family} $\ast$family, struct net $\ast$net, struct sk\+\_\+buff $\ast$skb, u32 portid, unsigned int group, gfp\+\_\+t \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags})
+\item 
+int \hyperlink{genetlink_8h_a09ca3cad4901c9f7161d99592b362e91}{rpl\+\_\+\+\_\+\+\_\+genl\+\_\+register\+\_\+family} (struct \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family} $\ast$family)
+\item 
+static int \hyperlink{genetlink_8h_a3a78ef42fd158a4184de9c1c8b031225}{rpl\+\_\+genl\+\_\+register\+\_\+family} (struct \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family} $\ast$family)
+\item 
+static struct sk\+\_\+buff $\ast$ \hyperlink{genetlink_8h_a004898a56e34b42638510826a4757ab5}{genlmsg\+\_\+new\+\_\+unicast} (size\+\_\+t payload, struct genl\+\_\+info $\ast$info, gfp\+\_\+t \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags})
+\item 
+static int \hyperlink{genetlink_8h_aa54145e7af183e7c5fb8fb3fd3c74465}{genl\+\_\+has\+\_\+listeners} (struct \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family} $\ast$family, struct net $\ast$net, unsigned int group)
+\item 
+static int \hyperlink{genetlink_8h_a1abecce1ec06195cd98ee3d569328bec}{genlmsg\+\_\+parse} (const struct nlmsghdr $\ast$nlh, const struct \hyperlink{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{genl\+\_\+family} $\ast$family, struct nlattr $\ast$tb\mbox{[}$\,$\mbox{]}, int maxtype, const struct nla\+\_\+policy $\ast$policy)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{genetlink_8h_a3960e86f97fb5b1926819dffb00e2434}{}\index{genetlink.\+h@{genetlink.\+h}!\+\_\+\+\_\+genl\+\_\+register\+\_\+family@{\+\_\+\+\_\+genl\+\_\+register\+\_\+family}}
+\index{\+\_\+\+\_\+genl\+\_\+register\+\_\+family@{\+\_\+\+\_\+genl\+\_\+register\+\_\+family}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{\+\_\+\+\_\+genl\+\_\+register\+\_\+family}]{\setlength{\rightskip}{0pt plus 5cm}\#define \+\_\+\+\_\+genl\+\_\+register\+\_\+family~{\bf rpl\+\_\+\+\_\+\+\_\+genl\+\_\+register\+\_\+family}}\label{genetlink_8h_a3960e86f97fb5b1926819dffb00e2434}
+\hypertarget{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}{}\index{genetlink.\+h@{genetlink.\+h}!genl\+\_\+family@{genl\+\_\+family}}
+\index{genl\+\_\+family@{genl\+\_\+family}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genl\+\_\+family}]{\setlength{\rightskip}{0pt plus 5cm}\#define genl\+\_\+family~{\bf rpl\+\_\+genl\+\_\+family}}\label{genetlink_8h_aba961c2c372b7122ad0c8ae5e7af2f3b}
+\hypertarget{genetlink_8h_a3e365d35277825cfe05ad9d319085842}{}\index{genetlink.\+h@{genetlink.\+h}!genl\+\_\+notify@{genl\+\_\+notify}}
+\index{genl\+\_\+notify@{genl\+\_\+notify}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genl\+\_\+notify}]{\setlength{\rightskip}{0pt plus 5cm}\#define genl\+\_\+notify~{\bf rpl\+\_\+genl\+\_\+notify}}\label{genetlink_8h_a3e365d35277825cfe05ad9d319085842}
+\hypertarget{genetlink_8h_ae1e50e3e047b37c08412138d4f224179}{}\index{genetlink.\+h@{genetlink.\+h}!genl\+\_\+register\+\_\+family@{genl\+\_\+register\+\_\+family}}
+\index{genl\+\_\+register\+\_\+family@{genl\+\_\+register\+\_\+family}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genl\+\_\+register\+\_\+family}]{\setlength{\rightskip}{0pt plus 5cm}\#define genl\+\_\+register\+\_\+family~{\bf rpl\+\_\+genl\+\_\+register\+\_\+family}}\label{genetlink_8h_ae1e50e3e047b37c08412138d4f224179}
+\hypertarget{genetlink_8h_a4261ddbadfb4439b57bd106a5ab0a043}{}\index{genetlink.\+h@{genetlink.\+h}!genl\+\_\+set\+\_\+err@{genl\+\_\+set\+\_\+err}}
+\index{genl\+\_\+set\+\_\+err@{genl\+\_\+set\+\_\+err}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genl\+\_\+set\+\_\+err}]{\setlength{\rightskip}{0pt plus 5cm}\#define genl\+\_\+set\+\_\+err~rpl\+\_\+genl\+\_\+set\+\_\+err}\label{genetlink_8h_a4261ddbadfb4439b57bd106a5ab0a043}
+\hypertarget{genetlink_8h_a838538f5265ecd4c9726bdf30cfa02c2}{}\index{genetlink.\+h@{genetlink.\+h}!genl\+\_\+unregister\+\_\+family@{genl\+\_\+unregister\+\_\+family}}
+\index{genl\+\_\+unregister\+\_\+family@{genl\+\_\+unregister\+\_\+family}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genl\+\_\+unregister\+\_\+family}]{\setlength{\rightskip}{0pt plus 5cm}\#define genl\+\_\+unregister\+\_\+family~{\bf rpl\+\_\+genl\+\_\+unregister\+\_\+family}}\label{genetlink_8h_a838538f5265ecd4c9726bdf30cfa02c2}
+\hypertarget{genetlink_8h_ab7ffe7df793569b5be1c2c7d5c35cac6}{}\index{genetlink.\+h@{genetlink.\+h}!genlmsg\+\_\+multicast\+\_\+netns@{genlmsg\+\_\+multicast\+\_\+netns}}
+\index{genlmsg\+\_\+multicast\+\_\+netns@{genlmsg\+\_\+multicast\+\_\+netns}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genlmsg\+\_\+multicast\+\_\+netns}]{\setlength{\rightskip}{0pt plus 5cm}\#define genlmsg\+\_\+multicast\+\_\+netns~rpl\+\_\+genlmsg\+\_\+multicast\+\_\+netns}\label{genetlink_8h_ab7ffe7df793569b5be1c2c7d5c35cac6}
+\hypertarget{genetlink_8h_a306fd8e0093b286af42dfce236aeb096}{}\index{genetlink.\+h@{genetlink.\+h}!genlmsg\+\_\+put@{genlmsg\+\_\+put}}
+\index{genlmsg\+\_\+put@{genlmsg\+\_\+put}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genlmsg\+\_\+put}]{\setlength{\rightskip}{0pt plus 5cm}\#define genlmsg\+\_\+put~{\bf rpl\+\_\+genlmsg\+\_\+put}}\label{genetlink_8h_a306fd8e0093b286af42dfce236aeb096}
+
+
+\subsection{Function Documentation}
+\hypertarget{genetlink_8h_aa54145e7af183e7c5fb8fb3fd3c74465}{}\index{genetlink.\+h@{genetlink.\+h}!genl\+\_\+has\+\_\+listeners@{genl\+\_\+has\+\_\+listeners}}
+\index{genl\+\_\+has\+\_\+listeners@{genl\+\_\+has\+\_\+listeners}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genl\+\_\+has\+\_\+listeners}]{\setlength{\rightskip}{0pt plus 5cm}static int genl\+\_\+has\+\_\+listeners (
+\begin{DoxyParamCaption}
+\item[{struct {\bf genl\+\_\+family} $\ast$}]{family, }
+\item[{struct net $\ast$}]{net, }
+\item[{unsigned int}]{group}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{genetlink_8h_aa54145e7af183e7c5fb8fb3fd3c74465}
+
+\begin{DoxyCode}
+111 \{
+112 \textcolor{preprocessor}{#ifdef HAVE\_MCGRP\_OFFSET}
+113     \textcolor{keywordflow}{if} (WARN\_ON\_ONCE(group >= family->n\_mcgrps))
+114         \textcolor{keywordflow}{return} -EINVAL;
+115     group = family->mcgrp\_offset + group;
+116 \textcolor{preprocessor}{#endif}
+117     \textcolor{keywordflow}{return} netlink\_has\_listeners(net->genl\_sock, group);
+118 \}
+\end{DoxyCode}
+\hypertarget{genetlink_8h_ade212907b767383b8930d0c63dbd56ce}{}\index{genetlink.\+h@{genetlink.\+h}!genl\+\_\+set\+\_\+err@{genl\+\_\+set\+\_\+err}}
+\index{genl\+\_\+set\+\_\+err@{genl\+\_\+set\+\_\+err}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genl\+\_\+set\+\_\+err}]{\setlength{\rightskip}{0pt plus 5cm}static int genl\+\_\+set\+\_\+err (
+\begin{DoxyParamCaption}
+\item[{struct {\bf genl\+\_\+family} $\ast$}]{family, }
+\item[{struct net $\ast$}]{net, }
+\item[{u32}]{portid, }
+\item[{u32}]{group, }
+\item[{int}]{code}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{genetlink_8h_ade212907b767383b8930d0c63dbd56ce}
+
+\begin{DoxyCode}
+69 \{
+70 \textcolor{preprocessor}{#if LINUX\_VERSION\_CODE < KERNEL\_VERSION(2,6,33)}
+71     netlink\_set\_err(net->genl\_sock, portid, group, code);
+72     \textcolor{keywordflow}{return} 0;
+73 \textcolor{preprocessor}{#else}
+74     \textcolor{keywordflow}{return} netlink\_set\_err(net->genl\_sock, portid, group, code);
+75 \textcolor{preprocessor}{#endif}
+76 \}
+\end{DoxyCode}
+\hypertarget{genetlink_8h_ac390795b966936a31e21a0f9a5c36fe7}{}\index{genetlink.\+h@{genetlink.\+h}!genlmsg\+\_\+multicast\+\_\+netns@{genlmsg\+\_\+multicast\+\_\+netns}}
+\index{genlmsg\+\_\+multicast\+\_\+netns@{genlmsg\+\_\+multicast\+\_\+netns}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genlmsg\+\_\+multicast\+\_\+netns}]{\setlength{\rightskip}{0pt plus 5cm}static int genlmsg\+\_\+multicast\+\_\+netns (
+\begin{DoxyParamCaption}
+\item[{struct {\bf genl\+\_\+family} $\ast$}]{family, }
+\item[{struct net $\ast$}]{net, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{u32}]{portid, }
+\item[{unsigned int}]{group, }
+\item[{gfp\+\_\+t}]{flags}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{genetlink_8h_ac390795b966936a31e21a0f9a5c36fe7}
+
+\begin{DoxyCode}
+82 \{
+83     \textcolor{keywordflow}{return} nlmsg\_multicast(net->genl\_sock, skb, portid, group, \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags});
+84 \}
+\end{DoxyCode}
+\hypertarget{genetlink_8h_a004898a56e34b42638510826a4757ab5}{}\index{genetlink.\+h@{genetlink.\+h}!genlmsg\+\_\+new\+\_\+unicast@{genlmsg\+\_\+new\+\_\+unicast}}
+\index{genlmsg\+\_\+new\+\_\+unicast@{genlmsg\+\_\+new\+\_\+unicast}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genlmsg\+\_\+new\+\_\+unicast}]{\setlength{\rightskip}{0pt plus 5cm}static struct sk\+\_\+buff$\ast$ genlmsg\+\_\+new\+\_\+unicast (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{payload, }
+\item[{struct genl\+\_\+info $\ast$}]{info, }
+\item[{gfp\+\_\+t}]{flags}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{genetlink_8h_a004898a56e34b42638510826a4757ab5}
+
+\begin{DoxyCode}
+103 \{
+104     \textcolor{keywordflow}{return} genlmsg\_new(payload, \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags});
+105 \}
+\end{DoxyCode}
+\hypertarget{genetlink_8h_a1abecce1ec06195cd98ee3d569328bec}{}\index{genetlink.\+h@{genetlink.\+h}!genlmsg\+\_\+parse@{genlmsg\+\_\+parse}}
+\index{genlmsg\+\_\+parse@{genlmsg\+\_\+parse}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{genlmsg\+\_\+parse}]{\setlength{\rightskip}{0pt plus 5cm}static int genlmsg\+\_\+parse (
+\begin{DoxyParamCaption}
+\item[{const struct nlmsghdr $\ast$}]{nlh, }
+\item[{const struct {\bf genl\+\_\+family} $\ast$}]{family, }
+\item[{struct nlattr $\ast$}]{tb\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{maxtype, }
+\item[{const struct nla\+\_\+policy $\ast$}]{policy}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{genetlink_8h_a1abecce1ec06195cd98ee3d569328bec}
+
+\begin{DoxyCode}
+142 \{
+143     \textcolor{keywordflow}{return} nlmsg\_parse(nlh, family->hdrsize + GENL\_HDRLEN, tb, maxtype,
+144                policy);
+145 \}
+\end{DoxyCode}
+\hypertarget{genetlink_8h_a09ca3cad4901c9f7161d99592b362e91}{}\index{genetlink.\+h@{genetlink.\+h}!rpl\+\_\+\+\_\+\+\_\+genl\+\_\+register\+\_\+family@{rpl\+\_\+\+\_\+\+\_\+genl\+\_\+register\+\_\+family}}
+\index{rpl\+\_\+\+\_\+\+\_\+genl\+\_\+register\+\_\+family@{rpl\+\_\+\+\_\+\+\_\+genl\+\_\+register\+\_\+family}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{rpl\+\_\+\+\_\+\+\_\+genl\+\_\+register\+\_\+family}]{\setlength{\rightskip}{0pt plus 5cm}int rpl\+\_\+\+\_\+\+\_\+genl\+\_\+register\+\_\+family (
+\begin{DoxyParamCaption}
+\item[{struct {\bf genl\+\_\+family} $\ast$}]{family}
+\end{DoxyParamCaption}
+)}\label{genetlink_8h_a09ca3cad4901c9f7161d99592b362e91}
+\hypertarget{genetlink_8h_a42dbebefb24f7107f74fb87ecba3e2d9}{}\index{genetlink.\+h@{genetlink.\+h}!rpl\+\_\+genl\+\_\+notify@{rpl\+\_\+genl\+\_\+notify}}
+\index{rpl\+\_\+genl\+\_\+notify@{rpl\+\_\+genl\+\_\+notify}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{rpl\+\_\+genl\+\_\+notify}]{\setlength{\rightskip}{0pt plus 5cm}void rpl\+\_\+genl\+\_\+notify (
+\begin{DoxyParamCaption}
+\item[{struct {\bf genl\+\_\+family} $\ast$}]{family, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct net $\ast$}]{net, }
+\item[{u32}]{portid, }
+\item[{u32}]{group, }
+\item[{struct nlmsghdr $\ast$}]{nlh, }
+\item[{gfp\+\_\+t}]{flags}
+\end{DoxyParamCaption}
+)}\label{genetlink_8h_a42dbebefb24f7107f74fb87ecba3e2d9}
+\hypertarget{genetlink_8h_a3a78ef42fd158a4184de9c1c8b031225}{}\index{genetlink.\+h@{genetlink.\+h}!rpl\+\_\+genl\+\_\+register\+\_\+family@{rpl\+\_\+genl\+\_\+register\+\_\+family}}
+\index{rpl\+\_\+genl\+\_\+register\+\_\+family@{rpl\+\_\+genl\+\_\+register\+\_\+family}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{rpl\+\_\+genl\+\_\+register\+\_\+family}]{\setlength{\rightskip}{0pt plus 5cm}static int rpl\+\_\+genl\+\_\+register\+\_\+family (
+\begin{DoxyParamCaption}
+\item[{struct {\bf genl\+\_\+family} $\ast$}]{family}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{genetlink_8h_a3a78ef42fd158a4184de9c1c8b031225}
+
+\begin{DoxyCode}
+92 \{
+93     family->module = THIS\_MODULE;
+94     \textcolor{keywordflow}{return} \hyperlink{genetlink_8h_a09ca3cad4901c9f7161d99592b362e91}{rpl\_\_\_genl\_register\_family}(family);
+95 \}
+\end{DoxyCode}
+\hypertarget{genetlink_8h_a7c90b63eef33d6e5c631151ce2f1290b}{}\index{genetlink.\+h@{genetlink.\+h}!rpl\+\_\+genl\+\_\+unregister\+\_\+family@{rpl\+\_\+genl\+\_\+unregister\+\_\+family}}
+\index{rpl\+\_\+genl\+\_\+unregister\+\_\+family@{rpl\+\_\+genl\+\_\+unregister\+\_\+family}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{rpl\+\_\+genl\+\_\+unregister\+\_\+family}]{\setlength{\rightskip}{0pt plus 5cm}static int rpl\+\_\+genl\+\_\+unregister\+\_\+family (
+\begin{DoxyParamCaption}
+\item[{struct {\bf genl\+\_\+family} $\ast$}]{family}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{genetlink_8h_a7c90b63eef33d6e5c631151ce2f1290b}
+
+\begin{DoxyCode}
+61 \{
+62     \textcolor{keywordflow}{return} \hyperlink{genetlink_8h_a838538f5265ecd4c9726bdf30cfa02c2}{genl\_unregister\_family}(&family->compat\_family);
+63 \}
+\end{DoxyCode}
+\hypertarget{genetlink_8h_a9dcea0f91022a7caed1fecc763078ca7}{}\index{genetlink.\+h@{genetlink.\+h}!rpl\+\_\+genlmsg\+\_\+put@{rpl\+\_\+genlmsg\+\_\+put}}
+\index{rpl\+\_\+genlmsg\+\_\+put@{rpl\+\_\+genlmsg\+\_\+put}!genetlink.\+h@{genetlink.\+h}}
+\subsubsection[{rpl\+\_\+genlmsg\+\_\+put}]{\setlength{\rightskip}{0pt plus 5cm}static void$\ast$ rpl\+\_\+genlmsg\+\_\+put (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{u32}]{portid, }
+\item[{u32}]{seq, }
+\item[{struct {\bf genl\+\_\+family} $\ast$}]{family, }
+\item[{int}]{flags, }
+\item[{u8}]{cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{genetlink_8h_a9dcea0f91022a7caed1fecc763078ca7}
+
+\begin{DoxyCode}
+54 \{
+55     \textcolor{keywordflow}{return} \hyperlink{genetlink_8h_a306fd8e0093b286af42dfce236aeb096}{genlmsg\_put}(skb, portid, seq, &family->compat\_family, 
+      \hyperlink{flow_8h_af4f7a53f6b2df72c34ca881f2714ac91}{flags}, cmd);
+56 \}
+\end{DoxyCode}

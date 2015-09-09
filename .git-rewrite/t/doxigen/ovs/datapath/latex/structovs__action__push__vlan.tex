@@ -1,0 +1,32 @@
+\hypertarget{structovs__action__push__vlan}{}\section{ovs\+\_\+action\+\_\+push\+\_\+vlan Struct Reference}
+\label{structovs__action__push__vlan}\index{ovs\+\_\+action\+\_\+push\+\_\+vlan@{ovs\+\_\+action\+\_\+push\+\_\+vlan}}
+
+
+{\ttfamily \#include $<$openvswitch.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+\_\+be16 \hyperlink{structovs__action__push__vlan_af2e36cd70149cf03ebf29586fc765722}{vlan\+\_\+tpid}
+\item 
+\+\_\+\+\_\+be16 \hyperlink{structovs__action__push__vlan_ab17c8db02bffc32a072bd23687dd712c}{vlan\+\_\+tci}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+struct \hyperlink{structovs__action__push__vlan}{ovs\+\_\+action\+\_\+push\+\_\+vlan} -\/ O\+V\+S\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+A\+T\+T\+R\+\_\+\+P\+U\+S\+H\+\_\+\+V\+L\+A\+N action argument. \+: Tag protocol identifier (T\+P\+I\+D) to push. \+: Tag control identifier (T\+C\+I) to push. The C\+F\+I bit must be set (but it will not be set in the 802.\+1\+Q header that is pushed).
+
+The  value is typically E\+T\+H\+\_\+\+P\+\_\+8021\+Q. The only acceptable T\+P\+I\+D values are those that the kernel module also parses as 802.\+1\+Q headers, to prevent O\+V\+S\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+A\+T\+T\+R\+\_\+\+P\+U\+S\+H\+\_\+\+V\+L\+A\+N followed by O\+V\+S\+\_\+\+A\+C\+T\+I\+O\+N\+\_\+\+A\+T\+T\+R\+\_\+\+P\+O\+P\+\_\+\+V\+L\+A\+N from having surprising results. 
+
+\subsection{Field Documentation}
+\hypertarget{structovs__action__push__vlan_ab17c8db02bffc32a072bd23687dd712c}{}\index{ovs\+\_\+action\+\_\+push\+\_\+vlan@{ovs\+\_\+action\+\_\+push\+\_\+vlan}!vlan\+\_\+tci@{vlan\+\_\+tci}}
+\index{vlan\+\_\+tci@{vlan\+\_\+tci}!ovs\+\_\+action\+\_\+push\+\_\+vlan@{ovs\+\_\+action\+\_\+push\+\_\+vlan}}
+\subsubsection[{vlan\+\_\+tci}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+be16 ovs\+\_\+action\+\_\+push\+\_\+vlan\+::vlan\+\_\+tci}\label{structovs__action__push__vlan_ab17c8db02bffc32a072bd23687dd712c}
+\hypertarget{structovs__action__push__vlan_af2e36cd70149cf03ebf29586fc765722}{}\index{ovs\+\_\+action\+\_\+push\+\_\+vlan@{ovs\+\_\+action\+\_\+push\+\_\+vlan}!vlan\+\_\+tpid@{vlan\+\_\+tpid}}
+\index{vlan\+\_\+tpid@{vlan\+\_\+tpid}!ovs\+\_\+action\+\_\+push\+\_\+vlan@{ovs\+\_\+action\+\_\+push\+\_\+vlan}}
+\subsubsection[{vlan\+\_\+tpid}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+be16 ovs\+\_\+action\+\_\+push\+\_\+vlan\+::vlan\+\_\+tpid}\label{structovs__action__push__vlan_af2e36cd70149cf03ebf29586fc765722}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/vladn/git/ovs/datapath/linux/compat/include/linux/\hyperlink{openvswitch_8h}{openvswitch.\+h}\end{DoxyCompactItemize}

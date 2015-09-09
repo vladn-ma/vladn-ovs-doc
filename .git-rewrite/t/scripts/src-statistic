@@ -1,0 +1,71 @@
+#!/bin/bash
+
+############################
+#this scripts find source files in the directory subtree
+#counts number of these source files
+#counts number of lines in them
+#counts number of classes in them
+#counts number of structuries in them
+#counts number of enums in them
+#counts number of stypedefs in them
+#counts number of functions in them
+############################
+
+#number of source files in the current directory tree
+#find . -iname "*.[ch]" -o -iname "*.[ch]pp" | wc -l
+
+#number of lines in these files
+#find . -iname '*.hpp' -o -iname '*.cpp' -o -iname '*.c' -o -iname '*.h' -exec wc -l
+
+
+function count_ext
+{
+n_file=0
+n_line=0
+n_returns=0
+n_ovs_=0
+n_class=0
+n_struct=0
+n_enum=0
+n_typedef=0
+n_extern=0
+n_static=0
+n__ext=0
+
+for file in $(find . -iname "*.[$1]")
+do
+let "n_file    += 1"
+let "n_line    += $(wc -l < $file | head -n1)"
+let "n_returns += $(grep returns $file | wc -l)"
+let "n_ovs_    += $(grep ovs_ $file | wc -l)"
+let "n_class   += $(grep class $file | wc -l)"
+let "n_struct  += $(grep struct $file | wc -l)"
+let "n_enum    += $(grep enum $file | wc -l)"
+let "n_typedef += $(grep typedef $file | wc -l)"
+let "n_extern  += $(grep extern $file | wc -l)"
+let "n_static  += $(grep static $file | wc -l)"
+let "n__ext    += $(grep _ext $file | wc -l)"
+done
+
+echo "source files $1 :"
+echo " number of entries is:"
+echo "file:     $n_file"
+echo "line:     $n_line"
+echo "returns:  $n_returns"
+echo "ovs_:     $n_ovs_"
+echo "class:    $n_class"
+echo "struct:   $n_struct"
+echo "enum:     $n_enum"
+echo "typedef:  $n_typedef"
+echo "extern:   $n_extern"
+echo "static:   $n_static"
+echo "_ext:     $n__ext"
+
+}
+
+count_ext h
+count_ext c
+
+
+
+

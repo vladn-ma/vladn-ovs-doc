@@ -1,0 +1,129 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/linux/netdevice.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/linux/netdevice.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/if_bridge\&.h>\fP
+.br
+\fC#include <linux/version\&.h>\fP
+.br
+\fC#include <linux/u64_stats_sync\&.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBpcpu_sw_netstats\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBIFF_TX_SKB_SHARING\fP   0"
+.br
+.ti -1c
+.RI "#define \fBIFF_OVS_DATAPATH\fP   0"
+.br
+.ti -1c
+.RI "#define \fBIFF_LIVE_ADDR_CHANGE\fP   0"
+.br
+.ti -1c
+.RI "#define \fBto_net_dev\fP(class)   container_of(class, struct net_device, NETDEV_DEV_MEMBER)"
+.br
+.ti -1c
+.RI "#define \fBNET_NAME_UNKNOWN\fP   0"
+.br
+.ti -1c
+.RI "#define \fBalloc_netdev\fP(sizeof_priv,  name,  name_assign_type,  setup)   alloc_netdev_mq(sizeof_priv, name, setup, 1)"
+.br
+.ti -1c
+.RI "#define \fBNETIF_F_FSO\fP   0"
+.br
+.ti -1c
+.RI "#define \fBnetdev_alloc_pcpu_stats\fP(\fBtype\fP)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef u32 \fBnetdev_features_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBdev_disable_lro\fP (struct net_device *dev)"
+.br
+.ti -1c
+.RI "static struct net_device * \fBdev_get_by_index_rcu\fP (struct net *net, int ifindex)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define alloc_netdev(sizeof_priv, name, name_assign_type, setup)   alloc_netdev_mq(sizeof_priv, name, setup, 1)"
+
+.SS "#define IFF_LIVE_ADDR_CHANGE   0"
+
+.SS "#define IFF_OVS_DATAPATH   0"
+
+.SS "#define IFF_TX_SKB_SHARING   0"
+
+.SS "#define NET_NAME_UNKNOWN   0"
+
+.SS "#define netdev_alloc_pcpu_stats(\fBtype\fP)"
+\fBValue:\fP
+.PP
+.nf
+({                              \
+    typeof(type) __percpu *pcpu_stats = alloc_percpu(type); \
+    if (pcpu_stats) {                   \
+        int ____i;                  \\
+		for_each_possible_cpu(____i) {            \
+            typeof(type) *stat;         \
+            stat = per_cpu_ptr(pcpu_stats, ____i);  \\
+			u64_stats_init(&stat->syncp);        \
+        }                       \
+    }                           \
+    pcpu_stats;                     \
+})
+.fi
+.SS "#define NETIF_F_FSO   0"
+
+.SS "#define to_net_dev(class)   container_of(class, struct net_device, NETDEV_DEV_MEMBER)"
+
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef u32 \fBnetdev_features_t\fP"
+
+.SH "Function Documentation"
+.PP 
+.SS "void dev_disable_lro (struct net_device * dev)"
+
+.PP
+.nf
+31 { }
+.fi
+.SS "static struct net_device* dev_get_by_index_rcu (struct net * net, int ifindex)\fC [static]\fP"
+
+.PP
+.nf
+72 {
+73     struct net_device *dev;
+74 
+75     read_lock(&dev_base_lock);
+76     dev = __dev_get_by_index(net, ifindex);
+77     read_unlock(&dev_base_lock);
+78 
+79     return dev;
+80 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

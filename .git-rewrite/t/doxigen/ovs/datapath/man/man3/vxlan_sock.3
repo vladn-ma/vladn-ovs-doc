@@ -1,0 +1,55 @@
+.TH "vxlan_sock" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+vxlan_sock \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <vxlan\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct hlist_node \fBhlist\fP"
+.br
+.ti -1c
+.RI "\fBvxlan_rcv_t\fP * \fBrcv\fP"
+.br
+.ti -1c
+.RI "void * \fBdata\fP"
+.br
+.ti -1c
+.RI "struct work_struct \fBdel_work\fP"
+.br
+.ti -1c
+.RI "struct socket * \fBsock\fP"
+.br
+.ti -1c
+.RI "struct rcu_head \fBrcu\fP"
+.br
+.ti -1c
+.RI "u32 \fBflags\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "void* vxlan_sock::data"
+
+.SS "struct work_struct vxlan_sock::del_work"
+
+.SS "u32 vxlan_sock::flags"
+
+.SS "struct hlist_node vxlan_sock::hlist"
+
+.SS "struct rcu_head vxlan_sock::rcu"
+
+.SS "\fBvxlan_rcv_t\fP* vxlan_sock::rcv"
+
+.SS "struct socket* vxlan_sock::sock"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

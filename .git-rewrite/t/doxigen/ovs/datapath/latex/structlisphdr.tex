@@ -1,0 +1,117 @@
+\hypertarget{structlisphdr}{}\section{lisphdr Struct Reference}
+\label{structlisphdr}\index{lisphdr@{lisphdr}}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+\_\+u8 \hyperlink{structlisphdr_afc8757faa2d76be2f1d292828d29e109}{nonce\+\_\+present}\+:1
+\item 
+\+\_\+\+\_\+u8 \hyperlink{structlisphdr_a3499bf30411f687e5f2e052288718196}{locator\+\_\+status\+\_\+bits\+\_\+present}\+:1
+\item 
+\+\_\+\+\_\+u8 \hyperlink{structlisphdr_a6e67108cec8cf45f0662e9388eac60fd}{solicit\+\_\+echo\+\_\+nonce}\+:1
+\item 
+\+\_\+\+\_\+u8 \hyperlink{structlisphdr_a922cbf86c791d66583e991b87e65e601}{map\+\_\+version\+\_\+present}\+:1
+\item 
+\+\_\+\+\_\+u8 \hyperlink{structlisphdr_a35d40a5064b3f329708f3a57b1ea9856}{instance\+\_\+id\+\_\+present}\+:1
+\item 
+\+\_\+\+\_\+u8 \hyperlink{structlisphdr_a1a624b2a0b92d71d031c2e3c63f4eb99}{reserved\+\_\+flags}\+:3
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\_\_u8 \hyperlink{structlisphdr_a02abd6cb7120a0217123dd14841b2d68}{nonce} \mbox{[}3\mbox{]}\\
+\>\_\_u8 \hyperlink{structlisphdr_a1852af6ae00c14ed3e4509ebef75f312}{map\_version} \mbox{[}3\mbox{]}\\
+\} \hyperlink{structlisphdr_a7ffea0f2cb943b1c56a92a4823c67fc3}{u1}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\_\_be32 \hyperlink{structlisphdr_a00ce4f1450100ac73fd8713835629db0}{locator\_status\_bits}\\
+\>struct \{\\
+\>\>\_\_u8 \hyperlink{structlisphdr_a486cbcb938afeadef534fa292fc90dd3}{instance\_id} \mbox{[}3\mbox{]}\\
+\>\>\_\_u8 \hyperlink{structlisphdr_af9e8db4b8f0229a4edb6fc632fc896cd}{locator\_status\_bits}\\
+\>\} \hyperlink{structlisphdr_a5a4d067fadb40535e26b1a0305f46db0}{word2}\\
+\} \hyperlink{structlisphdr_a72f060d900466d19213fd5c473a8d6fd}{u2}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\_\_u8 \hyperlink{structlisphdr_a02abd6cb7120a0217123dd14841b2d68}{nonce} \mbox{[}3\mbox{]}\\
+\>\_\_u8 \hyperlink{structlisphdr_a1852af6ae00c14ed3e4509ebef75f312}{map\_version} \mbox{[}3\mbox{]}\\
+\} \hyperlink{structlisphdr_adccf146f1ec7a268b42afe7a266305de}{u1}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\_\_be32 \hyperlink{structlisphdr_a00ce4f1450100ac73fd8713835629db0}{locator\_status\_bits}\\
+\>struct \{\\
+\>\>\_\_u8 \hyperlink{structlisphdr_a486cbcb938afeadef534fa292fc90dd3}{instance\_id} \mbox{[}3\mbox{]}\\
+\>\>\_\_u8 \hyperlink{structlisphdr_af9e8db4b8f0229a4edb6fc632fc896cd}{locator\_status\_bits}\\
+\>\} \hyperlink{structlisphdr_a5d95c036f590f2cb6dae970e5b2eba15}{word2}\\
+\} \hyperlink{structlisphdr_a3a4210c87d655670bb0c7794223a4616}{u2}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+struct lisphdr -\/ L\+I\+S\+P header \+: Flag indicating the presence of a 24 bit nonce value. \+: Flag indicating the presence of Locator Status Bits (L\+S\+B). \+: Flag indicating the use of the echo noncing mechanism. \+: Flag indicating the use of mapping versioning. \+: Flag indicating the presence of a 24 bit Instance I\+D. \+: 3 bits reserved for future flags. \+: 24 bit nonce value. \+: 24 bit mapping version. \+: Locator Status Bits\+: 32 bits when instance\+\_\+id\+\_\+present is not set, 8 bits when it is. \+: 24 bit Instance I\+D 
+
+\subsection{Field Documentation}
+\hypertarget{structlisphdr_a486cbcb938afeadef534fa292fc90dd3}{}\index{lisphdr@{lisphdr}!instance\+\_\+id@{instance\+\_\+id}}
+\index{instance\+\_\+id@{instance\+\_\+id}!lisphdr@{lisphdr}}
+\subsubsection[{instance\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+u8 lisphdr\+::instance\+\_\+id\mbox{[}3\mbox{]}}\label{structlisphdr_a486cbcb938afeadef534fa292fc90dd3}
+\hypertarget{structlisphdr_a35d40a5064b3f329708f3a57b1ea9856}{}\index{lisphdr@{lisphdr}!instance\+\_\+id\+\_\+present@{instance\+\_\+id\+\_\+present}}
+\index{instance\+\_\+id\+\_\+present@{instance\+\_\+id\+\_\+present}!lisphdr@{lisphdr}}
+\subsubsection[{instance\+\_\+id\+\_\+present}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+u8 lisphdr\+::instance\+\_\+id\+\_\+present}\label{structlisphdr_a35d40a5064b3f329708f3a57b1ea9856}
+\hypertarget{structlisphdr_a00ce4f1450100ac73fd8713835629db0}{}\index{lisphdr@{lisphdr}!locator\+\_\+status\+\_\+bits@{locator\+\_\+status\+\_\+bits}}
+\index{locator\+\_\+status\+\_\+bits@{locator\+\_\+status\+\_\+bits}!lisphdr@{lisphdr}}
+\subsubsection[{locator\+\_\+status\+\_\+bits}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+be32 lisphdr\+::locator\+\_\+status\+\_\+bits}\label{structlisphdr_a00ce4f1450100ac73fd8713835629db0}
+\hypertarget{structlisphdr_af9e8db4b8f0229a4edb6fc632fc896cd}{}\index{lisphdr@{lisphdr}!locator\+\_\+status\+\_\+bits@{locator\+\_\+status\+\_\+bits}}
+\index{locator\+\_\+status\+\_\+bits@{locator\+\_\+status\+\_\+bits}!lisphdr@{lisphdr}}
+\subsubsection[{locator\+\_\+status\+\_\+bits}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+u8 lisphdr\+::locator\+\_\+status\+\_\+bits}\label{structlisphdr_af9e8db4b8f0229a4edb6fc632fc896cd}
+\hypertarget{structlisphdr_a3499bf30411f687e5f2e052288718196}{}\index{lisphdr@{lisphdr}!locator\+\_\+status\+\_\+bits\+\_\+present@{locator\+\_\+status\+\_\+bits\+\_\+present}}
+\index{locator\+\_\+status\+\_\+bits\+\_\+present@{locator\+\_\+status\+\_\+bits\+\_\+present}!lisphdr@{lisphdr}}
+\subsubsection[{locator\+\_\+status\+\_\+bits\+\_\+present}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+u8 lisphdr\+::locator\+\_\+status\+\_\+bits\+\_\+present}\label{structlisphdr_a3499bf30411f687e5f2e052288718196}
+\hypertarget{structlisphdr_a1852af6ae00c14ed3e4509ebef75f312}{}\index{lisphdr@{lisphdr}!map\+\_\+version@{map\+\_\+version}}
+\index{map\+\_\+version@{map\+\_\+version}!lisphdr@{lisphdr}}
+\subsubsection[{map\+\_\+version}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+u8 lisphdr\+::map\+\_\+version\mbox{[}3\mbox{]}}\label{structlisphdr_a1852af6ae00c14ed3e4509ebef75f312}
+\hypertarget{structlisphdr_a922cbf86c791d66583e991b87e65e601}{}\index{lisphdr@{lisphdr}!map\+\_\+version\+\_\+present@{map\+\_\+version\+\_\+present}}
+\index{map\+\_\+version\+\_\+present@{map\+\_\+version\+\_\+present}!lisphdr@{lisphdr}}
+\subsubsection[{map\+\_\+version\+\_\+present}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+u8 lisphdr\+::map\+\_\+version\+\_\+present}\label{structlisphdr_a922cbf86c791d66583e991b87e65e601}
+\hypertarget{structlisphdr_a02abd6cb7120a0217123dd14841b2d68}{}\index{lisphdr@{lisphdr}!nonce@{nonce}}
+\index{nonce@{nonce}!lisphdr@{lisphdr}}
+\subsubsection[{nonce}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+u8 lisphdr\+::nonce\mbox{[}3\mbox{]}}\label{structlisphdr_a02abd6cb7120a0217123dd14841b2d68}
+\hypertarget{structlisphdr_afc8757faa2d76be2f1d292828d29e109}{}\index{lisphdr@{lisphdr}!nonce\+\_\+present@{nonce\+\_\+present}}
+\index{nonce\+\_\+present@{nonce\+\_\+present}!lisphdr@{lisphdr}}
+\subsubsection[{nonce\+\_\+present}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+u8 lisphdr\+::nonce\+\_\+present}\label{structlisphdr_afc8757faa2d76be2f1d292828d29e109}
+\hypertarget{structlisphdr_a1a624b2a0b92d71d031c2e3c63f4eb99}{}\index{lisphdr@{lisphdr}!reserved\+\_\+flags@{reserved\+\_\+flags}}
+\index{reserved\+\_\+flags@{reserved\+\_\+flags}!lisphdr@{lisphdr}}
+\subsubsection[{reserved\+\_\+flags}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+u8 lisphdr\+::reserved\+\_\+flags}\label{structlisphdr_a1a624b2a0b92d71d031c2e3c63f4eb99}
+\hypertarget{structlisphdr_a6e67108cec8cf45f0662e9388eac60fd}{}\index{lisphdr@{lisphdr}!solicit\+\_\+echo\+\_\+nonce@{solicit\+\_\+echo\+\_\+nonce}}
+\index{solicit\+\_\+echo\+\_\+nonce@{solicit\+\_\+echo\+\_\+nonce}!lisphdr@{lisphdr}}
+\subsubsection[{solicit\+\_\+echo\+\_\+nonce}]{\setlength{\rightskip}{0pt plus 5cm}\+\_\+\+\_\+u8 lisphdr\+::solicit\+\_\+echo\+\_\+nonce}\label{structlisphdr_a6e67108cec8cf45f0662e9388eac60fd}
+\hypertarget{structlisphdr_adccf146f1ec7a268b42afe7a266305de}{}\index{lisphdr@{lisphdr}!u1@{u1}}
+\index{u1@{u1}!lisphdr@{lisphdr}}
+\subsubsection[{u1}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   lisphdr\+::u1}\label{structlisphdr_adccf146f1ec7a268b42afe7a266305de}
+\hypertarget{structlisphdr_a7ffea0f2cb943b1c56a92a4823c67fc3}{}\index{lisphdr@{lisphdr}!u1@{u1}}
+\index{u1@{u1}!lisphdr@{lisphdr}}
+\subsubsection[{u1}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   lisphdr\+::u1}\label{structlisphdr_a7ffea0f2cb943b1c56a92a4823c67fc3}
+\hypertarget{structlisphdr_a3a4210c87d655670bb0c7794223a4616}{}\index{lisphdr@{lisphdr}!u2@{u2}}
+\index{u2@{u2}!lisphdr@{lisphdr}}
+\subsubsection[{u2}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   lisphdr\+::u2}\label{structlisphdr_a3a4210c87d655670bb0c7794223a4616}
+\hypertarget{structlisphdr_a72f060d900466d19213fd5c473a8d6fd}{}\index{lisphdr@{lisphdr}!u2@{u2}}
+\index{u2@{u2}!lisphdr@{lisphdr}}
+\subsubsection[{u2}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   lisphdr\+::u2}\label{structlisphdr_a72f060d900466d19213fd5c473a8d6fd}
+\hypertarget{structlisphdr_a5a4d067fadb40535e26b1a0305f46db0}{}\index{lisphdr@{lisphdr}!word2@{word2}}
+\index{word2@{word2}!lisphdr@{lisphdr}}
+\subsubsection[{word2}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   lisphdr\+::word2}\label{structlisphdr_a5a4d067fadb40535e26b1a0305f46db0}
+\hypertarget{structlisphdr_a5d95c036f590f2cb6dae970e5b2eba15}{}\index{lisphdr@{lisphdr}!word2@{word2}}
+\index{word2@{word2}!lisphdr@{lisphdr}}
+\subsubsection[{word2}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   lisphdr\+::word2}\label{structlisphdr_a5d95c036f590f2cb6dae970e5b2eba15}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/vladn/git/ovs/datapath/linux/\hyperlink{linux_2vport-lisp_8c}{vport-\/lisp.\+c}\end{DoxyCompactItemize}

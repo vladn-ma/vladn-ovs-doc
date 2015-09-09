@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="exthdrs__core_8c">
+    <title>exthdrs_core.c File Reference</title>
+    <programlisting>#include &lt;linux/ipv6.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ipv6.h&gt;</programlisting>
+<para>Include dependency diagram for exthdrs_core.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="exthdrs__core_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for exthdrs_core.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="exthdrs__core_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="exthdrs__core_8c_1a9dac58bb4c09331136a03725c3fd8d71">rpl_ipv6_find_hdr</link> (
+const struct sk_buff * skb, unsigned int * offset, int target, unsigned short * fragoff, int * flags)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="exthdrs__core_8c_1a82be3f9e87720a53d09213c91ccd13b2">EXPORT_SYMBOL_GPL</link> (
+<link linkend="exthdrs__core_8c_1a9dac58bb4c09331136a03725c3fd8d71">rpl_ipv6_find_hdr</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/exthdrs_core.c</para>
+    </simplesect>
+</section>

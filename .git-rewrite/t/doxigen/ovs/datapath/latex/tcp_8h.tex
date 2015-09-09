@@ -1,0 +1,46 @@
+\hypertarget{tcp_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/linux/tcp.h File Reference}
+\label{tcp_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/linux/tcp.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/linux/tcp.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tcp_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static struct tcphdr $\ast$ \hyperlink{tcp_8h_a9ac4e94949ea9142c45cf46683be5ef7}{tcp\+\_\+hdr} (const struct sk\+\_\+buff $\ast$skb)
+\item 
+static unsigned int \hyperlink{tcp_8h_ab799f4173faf8a6cdcdbb11d72f526d0}{tcp\+\_\+hdrlen} (const struct sk\+\_\+buff $\ast$skb)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{tcp_8h_a9ac4e94949ea9142c45cf46683be5ef7}{}\index{tcp.\+h@{tcp.\+h}!tcp\+\_\+hdr@{tcp\+\_\+hdr}}
+\index{tcp\+\_\+hdr@{tcp\+\_\+hdr}!tcp.\+h@{tcp.\+h}}
+\subsubsection[{tcp\+\_\+hdr}]{\setlength{\rightskip}{0pt plus 5cm}static struct tcphdr$\ast$ tcp\+\_\+hdr (
+\begin{DoxyParamCaption}
+\item[{const struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{tcp_8h_a9ac4e94949ea9142c45cf46683be5ef7}
+
+\begin{DoxyCode}
+8 \{
+9     \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} tcphdr *)\hyperlink{skbuff_8h_ad4a95a26793695e82fca60888688450f}{skb\_transport\_header}(skb);
+10 \}
+\end{DoxyCode}
+\hypertarget{tcp_8h_ab799f4173faf8a6cdcdbb11d72f526d0}{}\index{tcp.\+h@{tcp.\+h}!tcp\+\_\+hdrlen@{tcp\+\_\+hdrlen}}
+\index{tcp\+\_\+hdrlen@{tcp\+\_\+hdrlen}!tcp.\+h@{tcp.\+h}}
+\subsubsection[{tcp\+\_\+hdrlen}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned int tcp\+\_\+hdrlen (
+\begin{DoxyParamCaption}
+\item[{const struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{tcp_8h_ab799f4173faf8a6cdcdbb11d72f526d0}
+
+\begin{DoxyCode}
+13 \{
+14     \textcolor{keywordflow}{return} \hyperlink{tcp_8h_a9ac4e94949ea9142c45cf46683be5ef7}{tcp\_hdr}(skb)->doff * 4;
+15 \}
+\end{DoxyCode}

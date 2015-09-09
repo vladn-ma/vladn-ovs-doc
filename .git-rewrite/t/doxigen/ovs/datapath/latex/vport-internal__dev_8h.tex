@@ -1,0 +1,100 @@
+\hypertarget{vport-internal__dev_8h}{}\section{/home/vladn/git/ovs/datapath/vport-\/internal\+\_\+dev.h File Reference}
+\label{vport-internal__dev_8h}\index{/home/vladn/git/ovs/datapath/vport-\/internal\+\_\+dev.\+h@{/home/vladn/git/ovs/datapath/vport-\/internal\+\_\+dev.\+h}}
+{\ttfamily \#include \char`\"{}datapath.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}vport.\+h\char`\"{}}\\*
+Include dependency graph for vport-\/internal\+\_\+dev.h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vport-internal__dev_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vport-internal__dev_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{vport-internal__dev_8h_a1e2d48f523e7c77e182e08fb05d7ef30}{ovs\+\_\+is\+\_\+internal\+\_\+dev} (const struct net\+\_\+device $\ast$)
+\item 
+struct \hyperlink{structvport}{vport} $\ast$ \hyperlink{vport-internal__dev_8h_a0babd16c94fbb92aecdf8a9ec8a1a380}{ovs\+\_\+internal\+\_\+dev\+\_\+get\+\_\+vport} (struct net\+\_\+device $\ast$)
+\item 
+int \hyperlink{vport-internal__dev_8h_ac6d8a2dd3cdef9e9ba9efdd4e0656f7c}{ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+register} (void)
+\item 
+void \hyperlink{vport-internal__dev_8h_a4e61a8459847af3c4f5773e09552cf98}{ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+unregister} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{vport-internal__dev_8h_a0babd16c94fbb92aecdf8a9ec8a1a380}{}\index{vport-\/internal\+\_\+dev.\+h@{vport-\/internal\+\_\+dev.\+h}!ovs\+\_\+internal\+\_\+dev\+\_\+get\+\_\+vport@{ovs\+\_\+internal\+\_\+dev\+\_\+get\+\_\+vport}}
+\index{ovs\+\_\+internal\+\_\+dev\+\_\+get\+\_\+vport@{ovs\+\_\+internal\+\_\+dev\+\_\+get\+\_\+vport}!vport-\/internal\+\_\+dev.\+h@{vport-\/internal\+\_\+dev.\+h}}
+\subsubsection[{ovs\+\_\+internal\+\_\+dev\+\_\+get\+\_\+vport}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf vport}$\ast$ ovs\+\_\+internal\+\_\+dev\+\_\+get\+\_\+vport (
+\begin{DoxyParamCaption}
+\item[{struct net\+\_\+device $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{vport-internal__dev_8h_a0babd16c94fbb92aecdf8a9ec8a1a380}
+
+\begin{DoxyCode}
+304 \{
+305     \textcolor{keywordflow}{if} (!\hyperlink{linux_2vport-internal__dev_8c_a2056d15823f88a4caeb90001bce724bb}{ovs\_is\_internal\_dev}(netdev))
+306         \textcolor{keywordflow}{return} NULL;
+307 
+308     \textcolor{keywordflow}{return} \hyperlink{linux_2vport-internal__dev_8c_a49d8093032133bbc7c7cd81fa7e541d6}{internal\_dev\_priv}(netdev)->\hyperlink{structinternal__dev_ad571bd9420f8b95ac7d1febc36c6ef45}{vport};
+309 \}
+\end{DoxyCode}
+\hypertarget{vport-internal__dev_8h_ac6d8a2dd3cdef9e9ba9efdd4e0656f7c}{}\index{vport-\/internal\+\_\+dev.\+h@{vport-\/internal\+\_\+dev.\+h}!ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+register@{ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+register}}
+\index{ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+register@{ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+register}!vport-\/internal\+\_\+dev.\+h@{vport-\/internal\+\_\+dev.\+h}}
+\subsubsection[{ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+register}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+register (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{vport-internal__dev_8h_ac6d8a2dd3cdef9e9ba9efdd4e0656f7c}
+
+\begin{DoxyCode}
+312 \{
+313     \textcolor{keywordtype}{int} err;
+314 
+315     err = rtnl\_link\_register(&internal\_dev\_link\_ops);
+316     \textcolor{keywordflow}{if} (err < 0)
+317         \textcolor{keywordflow}{return} err;
+318 
+319     err = \hyperlink{linux_2vport_8c_a6b6d24642324a66b7bacab2909bea2dc}{ovs\_vport\_ops\_register}(&\hyperlink{linux_2vport-internal__dev_8c_a20321257f6991e7ffb535947c382401e}{ovs\_internal\_vport\_ops});
+320     \textcolor{keywordflow}{if} (err < 0)
+321         rtnl\_link\_unregister(&internal\_dev\_link\_ops);
+322 
+323     \textcolor{keywordflow}{return} err;
+324 \}
+\end{DoxyCode}
+\hypertarget{vport-internal__dev_8h_a4e61a8459847af3c4f5773e09552cf98}{}\index{vport-\/internal\+\_\+dev.\+h@{vport-\/internal\+\_\+dev.\+h}!ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+unregister@{ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+unregister}}
+\index{ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+unregister@{ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+unregister}!vport-\/internal\+\_\+dev.\+h@{vport-\/internal\+\_\+dev.\+h}}
+\subsubsection[{ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+unregister}]{\setlength{\rightskip}{0pt plus 5cm}void ovs\+\_\+internal\+\_\+dev\+\_\+rtnl\+\_\+link\+\_\+unregister (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{vport-internal__dev_8h_a4e61a8459847af3c4f5773e09552cf98}
+
+\begin{DoxyCode}
+327 \{
+328     \hyperlink{linux_2vport_8c_a8659a5c436f2b09d0b6be2c208ee790e}{ovs\_vport\_ops\_unregister}(&\hyperlink{linux_2vport-internal__dev_8c_a20321257f6991e7ffb535947c382401e}{ovs\_internal\_vport\_ops});
+329     rtnl\_link\_unregister(&internal\_dev\_link\_ops);
+330 \}
+\end{DoxyCode}
+\hypertarget{vport-internal__dev_8h_a1e2d48f523e7c77e182e08fb05d7ef30}{}\index{vport-\/internal\+\_\+dev.\+h@{vport-\/internal\+\_\+dev.\+h}!ovs\+\_\+is\+\_\+internal\+\_\+dev@{ovs\+\_\+is\+\_\+internal\+\_\+dev}}
+\index{ovs\+\_\+is\+\_\+internal\+\_\+dev@{ovs\+\_\+is\+\_\+internal\+\_\+dev}!vport-\/internal\+\_\+dev.\+h@{vport-\/internal\+\_\+dev.\+h}}
+\subsubsection[{ovs\+\_\+is\+\_\+internal\+\_\+dev}]{\setlength{\rightskip}{0pt plus 5cm}int ovs\+\_\+is\+\_\+internal\+\_\+dev (
+\begin{DoxyParamCaption}
+\item[{const struct net\+\_\+device $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{vport-internal__dev_8h_a1e2d48f523e7c77e182e08fb05d7ef30}
+
+\begin{DoxyCode}
+299 \{
+300     \textcolor{keywordflow}{return} netdev->netdev\_ops == &\hyperlink{linux_2vport-internal__dev_8c_af6e4b8260f029c8e987281b6e9890b8e}{internal\_dev\_netdev\_ops};
+301 \}
+\end{DoxyCode}

@@ -1,0 +1,8 @@
+#To use awk to convert a Windows file to Unix, enter:
+awk '{ sub("\r$", ""); print }' winfile.txt > unixfile.txt
+
+#To convert a Unix file to Windows, enter:
+#awk 'sub("$", "\r")' unixfile.txt > winfile.txt
+
+#Older versions of awk do not include the sub function.
+# In such cases, use the same command, but replace awk with gawk or nawk.

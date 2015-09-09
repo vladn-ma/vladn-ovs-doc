@@ -1,0 +1,43 @@
+.TH "vport_portids" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+vport_portids \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <vport\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct \fBreciprocal_value\fP \fBrn_ids\fP"
+.br
+.ti -1c
+.RI "struct rcu_head \fBrcu\fP"
+.br
+.ti -1c
+.RI "u32 \fBn_ids\fP"
+.br
+.ti -1c
+.RI "u32 \fBids\fP []"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+struct \fBvport_portids\fP - array of netlink portids of a vport\&. must be protected by rcu\&. : The reciprocal value of \&. : RCU callback head for deferred destruction\&. : Size of  array\&. : Array storing the Netlink socket pids to be used for packets received on this port that miss the flow table\&. 
+.SH "Field Documentation"
+.PP 
+.SS "u32 vport_portids::ids[]"
+
+.SS "u32 vport_portids::n_ids"
+
+.SS "struct rcu_head vport_portids::rcu"
+
+.SS "struct \fBreciprocal_value\fP vport_portids::rn_ids"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

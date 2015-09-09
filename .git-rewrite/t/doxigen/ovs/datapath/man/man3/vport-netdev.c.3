@@ -1,0 +1,368 @@
+.TH "/home/vladn/git/ovs/datapath/vport-netdev.c" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/vport-netdev.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/if_arp\&.h>\fP
+.br
+\fC#include <linux/if_bridge\&.h>\fP
+.br
+\fC#include <linux/if_vlan\&.h>\fP
+.br
+\fC#include <linux/kernel\&.h>\fP
+.br
+\fC#include <linux/llc\&.h>\fP
+.br
+\fC#include <linux/rtnetlink\&.h>\fP
+.br
+\fC#include <linux/skbuff\&.h>\fP
+.br
+\fC#include <linux/openvswitch\&.h>\fP
+.br
+\fC#include <linux/netdevice\&.h>\fP
+.br
+\fC#include <net/llc\&.h>\fP
+.br
+\fC#include 'datapath\&.h'\fP
+.br
+\fC#include 'vlan\&.h'\fP
+.br
+\fC#include 'vport-internal_dev\&.h'\fP
+.br
+\fC#include 'vport-netdev\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBpr_fmt\fP(fmt)   KBUILD_MODNAME ': ' fmt"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBnetdev_port_receive\fP (struct \fBvport\fP *\fBvport\fP, struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static rx_handler_result_t \fBnetdev_frame_hook\fP (struct sk_buff **pskb)"
+.br
+.ti -1c
+.RI "static struct net_device * \fBget_dpdev\fP (const struct \fBdatapath\fP *dp)"
+.br
+.ti -1c
+.RI "static struct \fBvport\fP * \fBnetdev_create\fP (const struct \fBvport_parms\fP *parms)"
+.br
+.ti -1c
+.RI "static void \fBfree_port_rcu\fP (struct rcu_head *rcu)"
+.br
+.ti -1c
+.RI "void \fBovs_netdev_detach_dev\fP (struct \fBvport\fP *\fBvport\fP)"
+.br
+.ti -1c
+.RI "static void \fBnetdev_destroy\fP (struct \fBvport\fP *\fBvport\fP)"
+.br
+.ti -1c
+.RI "const char * \fBovs_netdev_get_name\fP (const struct \fBvport\fP *\fBvport\fP)"
+.br
+.ti -1c
+.RI "static unsigned int \fBpacket_length\fP (const struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static int \fBnetdev_send\fP (struct \fBvport\fP *\fBvport\fP, struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "struct \fBvport\fP * \fBovs_netdev_get_vport\fP (struct net_device *dev)"
+.br
+.ti -1c
+.RI "int __init \fBovs_netdev_init\fP (void)"
+.br
+.ti -1c
+.RI "void \fBovs_netdev_exit\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static struct \fBvport_ops\fP \fBovs_netdev_vport_ops\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define pr_fmt(fmt)   KBUILD_MODNAME ': ' fmt"
+
+.SH "Function Documentation"
+.PP 
+.SS "static void free_port_rcu (struct rcu_head * rcu)\fC [static]\fP"
+
+.PP
+.nf
+156 {
+157     struct netdev_vport *netdev_vport = container_of(rcu,
+158                     struct netdev_vport, rcu);
+159 
+160     dev_put(netdev_vport->dev);
+161     ovs_vport_free(vport_from_priv(netdev_vport));
+162 }
+.fi
+.SS "static struct net_device* get_dpdev (const struct \fBdatapath\fP * dp)\fC [static]\fP"
+
+.PP
+.nf
+90 {
+91     struct vport *local;
+92 
+93     local = ovs_vport_ovsl(dp, OVSP_LOCAL);
+94     BUG_ON(!local);
+95     return netdev_vport_priv(local)->dev;
+96 }
+.fi
+.SS "static struct \fBvport\fP* netdev_create (const struct \fBvport_parms\fP * parms)\fC [static]\fP"
+
+.PP
+.nf
+99 {
+100     struct vport *vport;
+101     struct netdev_vport *netdev_vport;
+102     int err;
+103 
+104     vport = ovs_vport_alloc(sizeof(struct netdev_vport),
+105                 &ovs_netdev_vport_ops, parms);
+106     if (IS_ERR(vport)) {
+107         err = PTR_ERR(vport);
+108         goto error;
+109     }
+110 
+111     netdev_vport = netdev_vport_priv(vport);
+112 
+113     netdev_vport->dev = dev_get_by_name(ovs_dp_get_net(vport->dp), parms->name);
+114     if (!netdev_vport->dev) {
+115         err = -ENODEV;
+116         goto error_free_vport;
+117     }
+118 
+119     if (netdev_vport->dev->flags & IFF_LOOPBACK ||
+120         netdev_vport->dev->type != ARPHRD_ETHER ||
+121         ovs_is_internal_dev(netdev_vport->dev)) {
+122         err = -EINVAL;
+123         goto error_put;
+124     }
+125 
+126     rtnl_lock();
+127     err = netdev_master_upper_dev_link(netdev_vport->dev,
+128                        get_dpdev(vport->dp));
+129     if (err)
+130         goto error_unlock;
+131 
+132     err = netdev_rx_handler_register(netdev_vport->dev, netdev_frame_hook,
+133                      vport);
+134     if (err)
+135         goto error_master_upper_dev_unlink;
+136 
+137     dev_set_promiscuity(netdev_vport->dev, 1);
+138     netdev_vport->dev->priv_flags |= IFF_OVS_DATAPATH;
+139     rtnl_unlock();
+140 
+141     return vport;
+142 
+143 error_master_upper_dev_unlink:
+144     netdev_upper_dev_unlink(netdev_vport->dev, get_dpdev(vport->dp));
+145 error_unlock:
+146     rtnl_unlock();
+147 error_put:
+148     dev_put(netdev_vport->dev);
+149 error_free_vport:
+150     ovs_vport_free(vport);
+151 error:
+152     return ERR_PTR(err);
+153 }
+.fi
+.SS "static void netdev_destroy (struct \fBvport\fP * vport)\fC [static]\fP"
+
+.PP
+.nf
+177 {
+178     struct netdev_vport *netdev_vport = netdev_vport_priv(vport);
+179 
+180     rtnl_lock();
+181     if (ovs_netdev_get_vport(netdev_vport->dev))
+182         ovs_netdev_detach_dev(vport);
+183     rtnl_unlock();
+184 
+185     call_rcu(&netdev_vport->rcu, free_port_rcu);
+186 }
+.fi
+.SS "static rx_handler_result_t netdev_frame_hook (struct sk_buff ** pskb)\fC [static]\fP"
+
+.PP
+.nf
+44 {
+45     struct sk_buff *skb = *pskb;
+46     struct vport *vport;
+47 
+48     if (unlikely(skb->pkt_type == PACKET_LOOPBACK))
+49         return RX_HANDLER_PASS;
+50 
+51     vport = ovs_netdev_get_vport(skb->dev);
+52 
+53     netdev_port_receive(vport, skb);
+54 
+55     return RX_HANDLER_CONSUMED;
+56 }
+.fi
+.SS "static void netdev_port_receive (struct \fBvport\fP * vport, struct sk_buff * skb)\fC [static]\fP"
+
+.PP
+.nf
+196 {
+197     if (unlikely(!vport))
+198         goto error;
+199 
+200     if (unlikely(skb_warn_if_lro(skb)))
+201         goto error;
+202 
+203     /* Make our own copy of the packet\&.  Otherwise we will mangle the
+204      * packet for anyone who came before us (e\&.g\&. tcpdump via AF_PACKET)\&.
+205      * (No one comes after us, since we tell handle_bridge() that we took
+206      * the packet\&.)
+207      */
+208     skb = skb_share_check(skb, GFP_ATOMIC);
+209     if (unlikely(!skb))
+210         return;
+211 
+212     skb_push(skb, ETH_HLEN);
+213     ovs_skb_postpush_rcsum(skb, skb->data, ETH_HLEN);
+214 
+215     ovs_vport_receive(vport, skb, NULL);
+216     return;
+217 
+218 error:
+219     kfree_skb(skb);
+220 }
+.fi
+.SS "static int netdev_send (struct \fBvport\fP * vport, struct sk_buff * skb)\fC [static]\fP"
+
+.PP
+.nf
+233 {
+234     struct netdev_vport *netdev_vport = netdev_vport_priv(vport);
+235     int mtu = netdev_vport->dev->mtu;
+236     int len;
+237 
+238     if (unlikely(packet_length(skb) > mtu && !skb_is_gso(skb))) {
+239         net_warn_ratelimited("%s: dropped over-mtu packet: %d > %d\n",
+240                      netdev_vport->dev->name,
+241                      packet_length(skb), mtu);
+242         goto drop;
+243     }
+244 
+245     skb->dev = netdev_vport->dev;
+246     len = skb->len;
+247     dev_queue_xmit(skb);
+248 
+249     return len;
+250 
+251 drop:
+252     kfree_skb(skb);
+253     return 0;
+254 }
+.fi
+.SS "void ovs_netdev_detach_dev (struct \fBvport\fP * vport)"
+
+.PP
+.nf
+165 {
+166     struct netdev_vport *netdev_vport = netdev_vport_priv(vport);
+167 
+168     ASSERT_RTNL();
+169     netdev_vport->dev->priv_flags &= ~IFF_OVS_DATAPATH;
+170     netdev_rx_handler_unregister(netdev_vport->dev);
+171     netdev_upper_dev_unlink(netdev_vport->dev,
+172                 netdev_master_upper_dev_get(netdev_vport->dev));
+173     dev_set_promiscuity(netdev_vport->dev, -1);
+174 }
+.fi
+.SS "void ovs_netdev_exit (void)"
+
+.PP
+.nf
+292 {
+293     ovs_vport_ops_unregister(&ovs_netdev_vport_ops);
+294 }
+.fi
+.SS "const char* ovs_netdev_get_name (const struct \fBvport\fP * vport)"
+
+.PP
+.nf
+189 {
+190     const struct netdev_vport *netdev_vport = netdev_vport_priv(vport);
+191     return netdev_vport->dev->name;
+192 }
+.fi
+.SS "struct \fBvport\fP* ovs_netdev_get_vport (struct net_device * dev)"
+
+.PP
+.nf
+258 {
+259 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,36) || \
+260     defined HAVE_RHEL_OVS_HOOK
+261 #ifdef HAVE_OVS_DATAPATH
+262     if (likely(dev->priv_flags & IFF_OVS_DATAPATH))
+263 #else
+264     if (likely(rcu_access_pointer(dev->rx_handler) == netdev_frame_hook))
+265 #endif
+266 #ifdef HAVE_RHEL_OVS_HOOK
+267         return (struct vport *)rcu_dereference_rtnl(dev->ax25_ptr);
+268 #else
+269         return (struct vport *)rcu_dereference_rtnl(dev->rx_handler_data);
+270 #endif
+271     else
+272         return NULL;
+273 #else
+274     return (struct vport *)rcu_dereference_rtnl(dev->br_port);
+275 #endif
+276 }
+.fi
+.SS "int __init ovs_netdev_init (void)"
+
+.PP
+.nf
+287 {
+288     return ovs_vport_ops_register(&ovs_netdev_vport_ops);
+289 }
+.fi
+.SS "static unsigned int packet_length (const struct sk_buff * skb)\fC [static]\fP"
+
+.PP
+.nf
+223 {
+224     unsigned int length = skb->len - ETH_HLEN;
+225 
+226     if (skb->protocol == htons(ETH_P_8021Q))
+227         length -= VLAN_HLEN;
+228 
+229     return length;
+230 }
+.fi
+.SH "Variable Documentation"
+.PP 
+.SS "static struct \fBvport_ops\fP ovs_netdev_vport_ops\fC [static]\fP"
+\fBInitial value:\fP
+.PP
+.nf
+= {
+    \&.type        = OVS_VPORT_TYPE_NETDEV,
+    \&.create      = netdev_create,
+    \&.destroy = netdev_destroy,
+    \&.get_name    = ovs_netdev_get_name,
+    \&.send        = netdev_send,
+}
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

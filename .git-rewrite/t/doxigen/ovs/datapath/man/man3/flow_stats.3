@@ -1,0 +1,45 @@
+.TH "flow_stats" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+flow_stats \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <flow\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "u64 \fBpacket_count\fP"
+.br
+.ti -1c
+.RI "u64 \fBbyte_count\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBused\fP"
+.br
+.ti -1c
+.RI "spinlock_t \fBlock\fP"
+.br
+.ti -1c
+.RI "__be16 \fBtcp_flags\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "u64 flow_stats::byte_count"
+
+.SS "spinlock_t flow_stats::lock"
+
+.SS "u64 flow_stats::packet_count"
+
+.SS "__be16 flow_stats::tcp_flags"
+
+.SS "unsigned long flow_stats::used"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

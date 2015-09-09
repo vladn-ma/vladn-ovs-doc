@@ -1,0 +1,9 @@
+#!/bin/bash
+
+############################
+#this script find source files in the directory subtree and prints lines with substring $1 given as argument
+############################
+#find . -iname '*.hpp' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.c' | xargs grep -C 1 $1 /dev/null > tmp.txt
+#find . -iname '*.hpp' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.c' | xargs grep $1 /dev/null > tmp.txtfind . -iname '*.hpp' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.c' | xargs grep $1 /dev/null
+#find . -name '*.h' -o -iname '*.hpp' | xargs grep $1 /dev/null 
+#find . -iname '*Makefile*' | xargs grep $1 /dev/null

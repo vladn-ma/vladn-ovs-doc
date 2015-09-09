@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="linux_2vport-geneve_8c">
+    <title>vport-geneve.c File Reference</title>
+    <programlisting>#include &lt;linux/in.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/net.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rculist.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/udp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_vlan.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;net/geneve.h&gt;</programlisting>
+    <programlisting>#include &lt;net/icmp.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;net/route.h&gt;</programlisting>
+    <programlisting>#include &lt;net/udp.h&gt;</programlisting>
+    <programlisting>#include &lt;net/xfrm.h&gt;</programlisting>
+    <programlisting>#include &quot;datapath.h&quot;</programlisting>
+    <programlisting>#include &quot;vport.h&quot;</programlisting>
+<para>Include dependency diagram for vport-geneve.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2vport-geneve_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for vport-geneve.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2vport-geneve_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title> Data Structures </title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structgeneve__port">geneve_port</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>: vport name.</title>
+      <description>
+<para>struct <link linkend="structgeneve__port">geneve_port</link> - Keeps track of open UDP ports : The socket created for this port number. </para>
+</description>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structvport__ops">vport_ops</link> <link linkend="linux_2vport-geneve_8c_1ad9b8555c118ad2e5874c3ab931390752">ovs_geneve_vport_ops</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="linux_2vport-geneve_8c_1aa66e082c97d7820eb9eb166e6cf4b996">LIST_HEAD</link> (
+geneve_ports )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structgeneve__port">geneve_port</link> * <link linkend="linux_2vport-geneve_8c_1aa51b640340c7d2eaf45af423bc1e0931">geneve_vport</link> (
+const struct <link linkend="structvport">vport</link> * vport)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct genevehdr * <link linkend="linux_2vport-geneve_8c_1ae7668c9c0c48969a65fdcc4ba3a31b6c">geneve_hdr</link> (
+const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2vport-geneve_8c_1a50b7591d7d9bf380d0f2899042668880">tunnel_id_to_vni</link> (
+__be64 tun_id, __u8 * vni)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static __be64 <link linkend="linux_2vport-geneve_8c_1a1a4714395c3a408973e64b315af6ac35">vni_to_tunnel_id</link> (
+const __u8 * vni)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2vport-geneve_8c_1a0266c855cef0a46188e7bf48485171c4">geneve_rcv</link> (
+struct geneve_sock * gs, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2vport-geneve_8c_1a08a891b83a07b3300134c1340f329e84">geneve_get_options</link> (
+const struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2vport-geneve_8c_1ab0a5d6fd5319e6c71acd2af4bde2c833">geneve_tnl_destroy</link> (
+struct <link linkend="structvport">vport</link> * vport)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structvport">vport</link> * <link linkend="linux_2vport-geneve_8c_1a6b9a4a56d5a598c17c0bbfffce774798">geneve_tnl_create</link> (
+const struct <link linkend="structvport__parms">vport_parms</link> * parms)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2vport-geneve_8c_1af7cfa0fa94438ef4fddf79129f8346d4">geneve_tnl_send</link> (
+struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static const char * <link linkend="linux_2vport-geneve_8c_1a8f9770cc8d8fc8fad0f6f05a783513df">geneve_get_name</link> (
+const struct <link linkend="structvport">vport</link> * vport)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2vport-geneve_8c_1aed60d6de8f65dc856030e1ff6196b198">geneve_get_egress_tun_info</link> (
+struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb, struct <link linkend="structovs__tunnel__info">ovs_tunnel_info</link> * egress_tun_info)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int __init <link linkend="linux_2vport-geneve_8c_1a250fcfc7da979abfb351d5290b7ae319">ovs_geneve_tnl_init</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void __exit <link linkend="linux_2vport-geneve_8c_1a8fcdbd3154bb84fb2ab88296a0bd03c7">ovs_geneve_tnl_exit</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport-geneve_8c_1a67da53b39bd67cb2fe98ebf15b882489">module_init</link> (
+<link linkend="vport-geneve_8c_1a250fcfc7da979abfb351d5290b7ae319">ovs_geneve_tnl_init</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport-geneve_8c_1a77ee305130afe983aa92a926c6e91f88">module_exit</link> (
+<link linkend="vport-geneve_8c_1a8fcdbd3154bb84fb2ab88296a0bd03c7">ovs_geneve_tnl_exit</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport-geneve_8c_1afa1a2e7e8154bcd5ff96b22a9153cd52">MODULE_DESCRIPTION</link> (
+&quot;OVS: Geneve swiching port&quot; )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport-geneve_8c_1ad94b36675e7eb067ea3ce6ff9e244a44">MODULE_LICENSE</link> (
+&quot;GPL&quot; )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport-geneve_8c_1a6f89164187509105f25d6071184282d7">MODULE_ALIAS</link> (
+&quot;vport-<link linkend="flow_8h_1ab22aaab04f806700def00f32823fcb9e">type</link>-5&quot; )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2vport-geneve_8c_1a1f8c165bf4196327bc3abff648276d92">pr_fmt</link> KBUILD_MODNAME &quot;: &quot; fmt</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/vport-geneve.c</para>
+    </simplesect>
+</section>

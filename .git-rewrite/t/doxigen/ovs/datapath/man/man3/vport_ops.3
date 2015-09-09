@@ -1,0 +1,75 @@
+.TH "vport_ops" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+vport_ops \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <vport\&.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "enum \fBovs_vport_type\fP \fBtype\fP"
+.br
+.ti -1c
+.RI "struct \fBvport\fP *(* \fBcreate\fP )(const struct \fBvport_parms\fP *)"
+.br
+.ti -1c
+.RI "void(* \fBdestroy\fP )(struct \fBvport\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBset_options\fP )(struct \fBvport\fP *, struct nlattr *)"
+.br
+.ti -1c
+.RI "int(* \fBget_options\fP )(const struct \fBvport\fP *, struct sk_buff *)"
+.br
+.ti -1c
+.RI "const char *(* \fBget_name\fP )(const struct \fBvport\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBsend\fP )(struct \fBvport\fP *, struct sk_buff *)"
+.br
+.ti -1c
+.RI "int(* \fBget_egress_tun_info\fP )(struct \fBvport\fP *, struct sk_buff *, struct \fBovs_tunnel_info\fP *)"
+.br
+.ti -1c
+.RI "struct module * \fBowner\fP"
+.br
+.ti -1c
+.RI "struct list_head \fBlist\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+struct \fBvport_ops\fP - definition of a type of virtual port
+.PP
+: OVS_VPORT_TYPE_* value for this type of virtual port\&. : Create a new vport configured as specified\&. On success returns a new vport allocated with \fBovs_vport_alloc()\fP, otherwise an ERR_PTR() value\&. : Destroys a vport\&. Must call vport_free() on the vport but not before an RCU grace period has elapsed\&. : Modify the configuration of an existing vport\&. May be NULL if modification is not supported\&. : Appends vport-specific attributes for the configuration of an existing vport to a &struct sk_buff\&. May be NULL for a vport that does not have any configuration\&. : Get the device's name\&. : Send a packet on the device\&. Returns the length of the packet sent, zero for dropped packets or negative for error\&. : Get the egress tunnel 5-tuple and other info for a packet\&. 
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBvport\fP*(* vport_ops::create) (const struct \fBvport_parms\fP *)"
+
+.SS "void(* vport_ops::destroy) (struct \fBvport\fP *)"
+
+.SS "int(* vport_ops::get_egress_tun_info) (struct \fBvport\fP *, struct sk_buff *, struct \fBovs_tunnel_info\fP *)"
+
+.SS "const char*(* vport_ops::get_name) (const struct \fBvport\fP *)"
+
+.SS "int(* vport_ops::get_options) (const struct \fBvport\fP *, struct sk_buff *)"
+
+.SS "struct list_head vport_ops::list"
+
+.SS "struct module* vport_ops::owner"
+
+.SS "int(* vport_ops::send) (struct \fBvport\fP *, struct sk_buff *)"
+
+.SS "int(* vport_ops::set_options) (struct \fBvport\fP *, struct nlattr *)"
+
+.SS "enum \fBovs_vport_type\fP vport_ops::type"
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="linux_2vport-internal__dev_8c">
+    <title>vport-internal_dev.c File Reference</title>
+    <programlisting>#include &lt;linux/hardirq.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_vlan.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/netdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/etherdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ethtool.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/netdev_features.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/skbuff.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+    <programlisting>#include &lt;net/dst.h&gt;</programlisting>
+    <programlisting>#include &lt;net/xfrm.h&gt;</programlisting>
+    <programlisting>#include &quot;datapath.h&quot;</programlisting>
+    <programlisting>#include &quot;vlan.h&quot;</programlisting>
+    <programlisting>#include &quot;vport-internal_dev.h&quot;</programlisting>
+    <programlisting>#include &quot;vport-netdev.h&quot;</programlisting>
+<para>Include dependency diagram for vport-internal_dev.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2vport-internal__dev_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for vport-internal_dev.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2vport-internal__dev_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title> Data Structures </title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structinternal__dev">internal_dev</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Variables</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structvport__ops">vport_ops</link> <link linkend="linux_2vport-internal__dev_8c_1a20321257f6991e7ffb535947c382401e">ovs_internal_vport_ops</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static const struct ethtool_ops <link linkend="linux_2vport-internal__dev_8c_1aa2c816d0e5a964778079cefc6d9f2c13">internal_dev_ethtool_ops</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static const struct net_device_ops <link linkend="linux_2vport-internal__dev_8c_1af6e4b8260f029c8e987281b6e9890b8e">internal_dev_netdev_ops</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct rtnl_link_ops internal_dev_link_ops <link linkend="linux_2vport-internal__dev_8c_1a8e42f895d19142ac43bdcfedf9271120">__read_mostly</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structinternal__dev">internal_dev</link> * <link linkend="linux_2vport-internal__dev_8c_1a49d8093032133bbc7c7cd81fa7e541d6">internal_dev_priv</link> (
+struct net_device * netdev)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct rtnl_link_stats64 * <link linkend="linux_2vport-internal__dev_8c_1a1b51a40ab3a7e2ac5d45d0862de0eecd">internal_dev_get_stats</link> (
+struct net_device * netdev, struct rtnl_link_stats64 * stats)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2vport-internal__dev_8c_1aafdf20e45216e64dfb927dbee0da1ec6">internal_dev_xmit</link> (
+struct sk_buff * skb, struct net_device * netdev)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2vport-internal__dev_8c_1ad76be69f068e92dd73ee48d599a37ee3">internal_dev_open</link> (
+struct net_device * netdev)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2vport-internal__dev_8c_1ac0b3dbdb4d6a02faeb1b94c46fe1ceb7">internal_dev_stop</link> (
+struct net_device * netdev)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2vport-internal__dev_8c_1a2b613f99606cc15239007e60575ee5f5">internal_dev_getinfo</link> (
+struct net_device * netdev, struct ethtool_drvinfo * info)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2vport-internal__dev_8c_1a4a8e78d5216e9cff945747582c010613">internal_dev_change_mtu</link> (
+struct net_device * netdev, int new_mtu)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2vport-internal__dev_8c_1ab212be77fdf9605a4f70daf8f3888390">internal_dev_destructor</link> (
+struct net_device * dev)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2vport-internal__dev_8c_1a63afed52200efd997d360e90a6a8bd11">do_setup</link> (
+struct net_device * netdev)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structvport">vport</link> * <link linkend="linux_2vport-internal__dev_8c_1a08ffc4510ebd49d7ffdd031a112a18bb">internal_dev_create</link> (
+const struct <link linkend="structvport__parms">vport_parms</link> * parms)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2vport-internal__dev_8c_1ab75c92e096800c974c1d1590e797cd2d">internal_dev_destroy</link> (
+struct <link linkend="structvport">vport</link> * vport)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2vport-internal__dev_8c_1a259b00fb99d12379c06cf2b9d2de6050">internal_dev_recv</link> (
+struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport-internal__dev_8c_1a2056d15823f88a4caeb90001bce724bb">ovs_is_internal_dev</link> (
+const struct net_device * netdev)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structvport">vport</link> * <link linkend="linux_2vport-internal__dev_8c_1abdb7a75d6c79176507a41a200c69e77b">ovs_internal_dev_get_vport</link> (
+struct net_device * netdev)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport-internal__dev_8c_1ac6d8a2dd3cdef9e9ba9efdd4e0656f7c">ovs_internal_dev_rtnl_link_register</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2vport-internal__dev_8c_1a4e61a8459847af3c4f5773e09552cf98">ovs_internal_dev_rtnl_link_unregister</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/vport-internal_dev.c</para>
+    </simplesect>
+</section>

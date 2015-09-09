@@ -1,0 +1,124 @@
+\hypertarget{compat_8h}{}\section{/home/vladn/git/ovs/datapath/compat.h File Reference}
+\label{compat_8h}\index{/home/vladn/git/ovs/datapath/compat.\+h@{/home/vladn/git/ovs/datapath/compat.\+h}}
+{\ttfamily \#include $<$linux/in.\+h$>$}\\*
+{\ttfamily \#include $<$linux/in\+\_\+route.\+h$>$}\\*
+{\ttfamily \#include $<$linux/netlink.\+h$>$}\\*
+{\ttfamily \#include $<$net/route.\+h$>$}\\*
+{\ttfamily \#include $<$net/xfrm.\+h$>$}\\*
+Include dependency graph for compat.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compat_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compat_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{compat_8h_ab49ad0e0c1bb8cda8015902526ae189c}{G\+R\+O\+U\+P\+\_\+\+I\+D}(grp)~0
+\item 
+\#define \hyperlink{compat_8h_afce1864ee37be971c99555fdf1f76d88}{rt\+\_\+dst}(rt)~(rt-\/$>$\hyperlink{flow_8h_a6747ad3b5d60480ea073cd12c9b78aaa}{dst})
+\item 
+\#define \hyperlink{compat_8h_a66c1f58d06b91a3e79cf388a80e5096b}{inet\+\_\+sport}(sk)~(inet\+\_\+sk(sk)-\/$>$inet\+\_\+sport)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static struct rtable $\ast$ \hyperlink{compat_8h_a9fd71ce2d13a3dcc4f7d51469ba86d79}{find\+\_\+route} (struct net $\ast$net, \+\_\+\+\_\+be32 $\ast$saddr, \+\_\+\+\_\+be32 daddr, u8 ipproto, u8 \hyperlink{flow_8h_a5612e9bbcc89219117d353438b2f9dad}{tos}, u32 \hyperlink{flow_8h_aaa98314a1108ff2209ae3bb6515e1dd5}{skb\+\_\+mark})
+\item 
+static \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{compat_8h_ab25b015544a779ccc1c15baf48b7a45d}{skb\+\_\+encapsulation} (struct sk\+\_\+buff $\ast$skb)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{compat_8h_ab49ad0e0c1bb8cda8015902526ae189c}{}\index{compat.\+h@{compat.\+h}!G\+R\+O\+U\+P\+\_\+\+I\+D@{G\+R\+O\+U\+P\+\_\+\+I\+D}}
+\index{G\+R\+O\+U\+P\+\_\+\+I\+D@{G\+R\+O\+U\+P\+\_\+\+I\+D}!compat.\+h@{compat.\+h}}
+\subsubsection[{G\+R\+O\+U\+P\+\_\+\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+R\+O\+U\+P\+\_\+\+I\+D(
+\begin{DoxyParamCaption}
+\item[{}]{grp}
+\end{DoxyParamCaption}
+)~0}\label{compat_8h_ab49ad0e0c1bb8cda8015902526ae189c}
+\hypertarget{compat_8h_a66c1f58d06b91a3e79cf388a80e5096b}{}\index{compat.\+h@{compat.\+h}!inet\+\_\+sport@{inet\+\_\+sport}}
+\index{inet\+\_\+sport@{inet\+\_\+sport}!compat.\+h@{compat.\+h}}
+\subsubsection[{inet\+\_\+sport}]{\setlength{\rightskip}{0pt plus 5cm}\#define inet\+\_\+sport(
+\begin{DoxyParamCaption}
+\item[{}]{sk}
+\end{DoxyParamCaption}
+)~(inet\+\_\+sk(sk)-\/$>$inet\+\_\+sport)}\label{compat_8h_a66c1f58d06b91a3e79cf388a80e5096b}
+\hypertarget{compat_8h_afce1864ee37be971c99555fdf1f76d88}{}\index{compat.\+h@{compat.\+h}!rt\+\_\+dst@{rt\+\_\+dst}}
+\index{rt\+\_\+dst@{rt\+\_\+dst}!compat.\+h@{compat.\+h}}
+\subsubsection[{rt\+\_\+dst}]{\setlength{\rightskip}{0pt plus 5cm}\#define rt\+\_\+dst(
+\begin{DoxyParamCaption}
+\item[{}]{rt}
+\end{DoxyParamCaption}
+)~(rt-\/$>${\bf dst})}\label{compat_8h_afce1864ee37be971c99555fdf1f76d88}
+
+
+\subsection{Function Documentation}
+\hypertarget{compat_8h_a9fd71ce2d13a3dcc4f7d51469ba86d79}{}\index{compat.\+h@{compat.\+h}!find\+\_\+route@{find\+\_\+route}}
+\index{find\+\_\+route@{find\+\_\+route}!compat.\+h@{compat.\+h}}
+\subsubsection[{find\+\_\+route}]{\setlength{\rightskip}{0pt plus 5cm}static struct rtable$\ast$ find\+\_\+route (
+\begin{DoxyParamCaption}
+\item[{struct net $\ast$}]{net, }
+\item[{\+\_\+\+\_\+be32 $\ast$}]{saddr, }
+\item[{\+\_\+\+\_\+be32}]{daddr, }
+\item[{u8}]{ipproto, }
+\item[{u8}]{tos, }
+\item[{u32}]{skb\+\_\+mark}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{compat_8h_a9fd71ce2d13a3dcc4f7d51469ba86d79}
+
+\begin{DoxyCode}
+49 \{
+50     \textcolor{keyword}{struct }rtable *rt;
+51     \textcolor{comment}{/* Tunnel configuration keeps DSCP part of TOS bits, But Linux}
+52 \textcolor{comment}{     * router expect RT\_TOS bits only.}
+53 \textcolor{comment}{     */}
+54 
+55 \textcolor{preprocessor}{#if LINUX\_VERSION\_CODE < KERNEL\_VERSION(2,6,39)}
+56     \textcolor{keyword}{struct }flowi fl = \{ .nl\_u = \{ .ip4\_u = \{
+57                     .daddr = daddr,
+58                     .saddr = *saddr,
+59                     .tos   = RT\_TOS(\hyperlink{flow_8h_a5612e9bbcc89219117d353438b2f9dad}{tos}) \} \},
+60                     .mark = \hyperlink{flow_8h_aaa98314a1108ff2209ae3bb6515e1dd5}{skb\_mark},
+61                     .proto = ipproto \};
+62 
+63     \textcolor{keywordflow}{if} (unlikely(ip\_route\_output\_key(net, &rt, &fl)))
+64         \textcolor{keywordflow}{return} ERR\_PTR(-EADDRNOTAVAIL);
+65     *saddr = fl.nl\_u.ip4\_u.saddr;
+66     \textcolor{keywordflow}{return} rt;
+67 \textcolor{preprocessor}{#else}
+68     \textcolor{keyword}{struct }flowi4 fl = \{ .daddr = daddr,
+69                  .saddr = *saddr,
+70                  .flowi4\_tos = RT\_TOS(\hyperlink{flow_8h_a5612e9bbcc89219117d353438b2f9dad}{tos}),
+71                  .flowi4\_mark = \hyperlink{flow_8h_aaa98314a1108ff2209ae3bb6515e1dd5}{skb\_mark},
+72                  .flowi4\_proto = ipproto \};
+73 
+74     rt = ip\_route\_output\_key(net, &fl);
+75     *saddr = fl.saddr;
+76     \textcolor{keywordflow}{return} rt;
+77 \textcolor{preprocessor}{#endif}
+78 \}
+\end{DoxyCode}
+\hypertarget{compat_8h_ab25b015544a779ccc1c15baf48b7a45d}{}\index{compat.\+h@{compat.\+h}!skb\+\_\+encapsulation@{skb\+\_\+encapsulation}}
+\index{skb\+\_\+encapsulation@{skb\+\_\+encapsulation}!compat.\+h@{compat.\+h}}
+\subsubsection[{skb\+\_\+encapsulation}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} skb\+\_\+encapsulation (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{compat_8h_ab25b015544a779ccc1c15baf48b7a45d}
+
+\begin{DoxyCode}
+82 \{
+83     \textcolor{keywordflow}{return} skb->encapsulation;
+84 \}
+\end{DoxyCode}

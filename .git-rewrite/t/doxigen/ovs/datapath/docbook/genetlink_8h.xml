@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="genetlink_8h">
+    <title>genetlink.h File Reference</title>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/netlink.h&gt;</programlisting>
+    <programlisting>#include &lt;net/net_namespace.h&gt;</programlisting>
+<para>Include dependency diagram for genetlink.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="genetlink_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for genetlink.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="genetlink_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title> Data Structures </title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structrpl__genl__family">rpl_genl_family</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="genetlink_8h_1aba961c2c372b7122ad0c8ae5e7af2f3b">genl_family</link> <link linkend="structrpl__genl__family">rpl_genl_family</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="genetlink_8h_1a3e365d35277825cfe05ad9d319085842">genl_notify</link> <link linkend="genetlink-openvswitch_8c_1abcd68fa42d07fafbbb4e263dd8baca6c">rpl_genl_notify</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="genetlink_8h_1a306fd8e0093b286af42dfce236aeb096">genlmsg_put</link> <link linkend="genetlink_8h_1a9dcea0f91022a7caed1fecc763078ca7">rpl_genlmsg_put</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="genetlink_8h_1a838538f5265ecd4c9726bdf30cfa02c2">genl_unregister_family</link> <link linkend="genetlink_8h_1a7c90b63eef33d6e5c631151ce2f1290b">rpl_genl_unregister_family</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="genetlink_8h_1a4261ddbadfb4439b57bd106a5ab0a043">genl_set_err</link> rpl_genl_set_err</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="genetlink_8h_1ab7ffe7df793569b5be1c2c7d5c35cac6">genlmsg_multicast_netns</link> rpl_genlmsg_multicast_netns</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="genetlink_8h_1a3960e86f97fb5b1926819dffb00e2434">__genl_register_family</link> <link linkend="genetlink-openvswitch_8c_1a2803a86a5f44e4c055773b4907a4950a">rpl___genl_register_family</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="genetlink_8h_1ae1e50e3e047b37c08412138d4f224179">genl_register_family</link> <link linkend="genetlink_8h_1a3a78ef42fd158a4184de9c1c8b031225">rpl_genl_register_family</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="genetlink_8h_1a42dbebefb24f7107f74fb87ecba3e2d9">rpl_genl_notify</link> (
+struct <link linkend="genetlink_8h_1aba961c2c372b7122ad0c8ae5e7af2f3b">genl_family</link> * family, struct sk_buff * skb, struct net * net, u32 portid, u32 group, struct nlmsghdr * nlh, gfp_t flags)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void * <link linkend="genetlink_8h_1a9dcea0f91022a7caed1fecc763078ca7">rpl_genlmsg_put</link> (
+struct sk_buff * skb, u32 portid, u32 seq, struct <link linkend="genetlink_8h_1aba961c2c372b7122ad0c8ae5e7af2f3b">genl_family</link> * family, int flags, u8 cmd)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="genetlink_8h_1a7c90b63eef33d6e5c631151ce2f1290b">rpl_genl_unregister_family</link> (
+struct <link linkend="genetlink_8h_1aba961c2c372b7122ad0c8ae5e7af2f3b">genl_family</link> * family)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="genetlink_8h_1ade212907b767383b8930d0c63dbd56ce">genl_set_err</link> (
+struct <link linkend="genetlink_8h_1aba961c2c372b7122ad0c8ae5e7af2f3b">genl_family</link> * family, struct net * net, u32 portid, u32 group, int code)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="genetlink_8h_1ac390795b966936a31e21a0f9a5c36fe7">genlmsg_multicast_netns</link> (
+struct <link linkend="genetlink_8h_1aba961c2c372b7122ad0c8ae5e7af2f3b">genl_family</link> * family, struct net * net, struct sk_buff * skb, u32 portid, unsigned int group, gfp_t flags)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="genetlink_8h_1a09ca3cad4901c9f7161d99592b362e91">rpl___genl_register_family</link> (
+struct <link linkend="genetlink_8h_1aba961c2c372b7122ad0c8ae5e7af2f3b">genl_family</link> * family)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="genetlink_8h_1a3a78ef42fd158a4184de9c1c8b031225">rpl_genl_register_family</link> (
+struct <link linkend="genetlink_8h_1aba961c2c372b7122ad0c8ae5e7af2f3b">genl_family</link> * family)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct sk_buff * <link linkend="genetlink_8h_1a004898a56e34b42638510826a4757ab5">genlmsg_new_unicast</link> (
+size_t payload, struct genl_info * info, gfp_t flags)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="genetlink_8h_1aa54145e7af183e7c5fb8fb3fd3c74465">genl_has_listeners</link> (
+struct <link linkend="genetlink_8h_1aba961c2c372b7122ad0c8ae5e7af2f3b">genl_family</link> * family, struct net * net, unsigned int group)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="genetlink_8h_1a1abecce1ec06195cd98ee3d569328bec">genlmsg_parse</link> (
+const struct nlmsghdr * nlh, const struct <link linkend="genetlink_8h_1aba961c2c372b7122ad0c8ae5e7af2f3b">genl_family</link> * family, struct nlattr * tb, int maxtype, const struct nla_policy * policy)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/include/net/genetlink.h</para>
+    </simplesect>
+</section>

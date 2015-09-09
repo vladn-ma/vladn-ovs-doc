@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="netdev__features_8h">
+    <title>netdev_features.h File Reference</title>
+<para>Include dependency diagram for netdev_features.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="netdev__features_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for netdev_features.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="netdev__features_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="netdev__features_8h_1a5235ff7351469d6934795554d9a6ade8">NETIF_F_GSO_GRE</link> 0</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="netdev__features_8h_1a75c999fa6a36499185390e844852bbb3">NETIF_F_GSO_GRE_CSUM</link> 0</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="netdev__features_8h_1a50b47aed43a4e2e5548a27d163c85bd8">NETIF_F_GSO_IPIP</link> 0</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="netdev__features_8h_1a739a77e4f6dd09d5da5f6e504eb454fb">NETIF_F_GSO_SIT</link> 0</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="netdev__features_8h_1a9c1a0af4601f49c467ab2998589f64b5">NETIF_F_GSO_UDP_TUNNEL</link> 0</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="netdev__features_8h_1a915452c4c5828839061287ce4839429c">NETIF_F_GSO_UDP_TUNNEL_CSUM</link> 0</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="netdev__features_8h_1a9dc1385e41af67b940a46fab492b873f">NETIF_F_GSO_MPLS</link> 0</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="netdev__features_8h_1ac6ca7b9f17b148bbbc223204fce7c39d">NETIF_F_GSO_ENCAP_ALL</link> (<link linkend="netdev__features_8h_1a5235ff7351469d6934795554d9a6ade8">NETIF_F_GSO_GRE</link> |			\
+				 <link linkend="netdev__features_8h_1a75c999fa6a36499185390e844852bbb3">NETIF_F_GSO_GRE_CSUM</link> |			\
+				 <link linkend="netdev__features_8h_1a50b47aed43a4e2e5548a27d163c85bd8">NETIF_F_GSO_IPIP</link> |			\
+				 <link linkend="netdev__features_8h_1a739a77e4f6dd09d5da5f6e504eb454fb">NETIF_F_GSO_SIT</link> |			\
+				 <link linkend="netdev__features_8h_1a9c1a0af4601f49c467ab2998589f64b5">NETIF_F_GSO_UDP_TUNNEL</link> |		\
+				 <link linkend="netdev__features_8h_1a915452c4c5828839061287ce4839429c">NETIF_F_GSO_UDP_TUNNEL_CSUM</link> |		\
+				 <link linkend="netdev__features_8h_1a9dc1385e41af67b940a46fab492b873f">NETIF_F_GSO_MPLS</link>)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/include/linux/netdev_features.h</para>
+    </simplesect>
+</section>

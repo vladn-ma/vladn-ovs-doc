@@ -1,0 +1,62 @@
+\hypertarget{structdatapath}{}\section{datapath Struct Reference}
+\label{structdatapath}\index{datapath@{datapath}}
+
+
+{\ttfamily \#include $<$datapath.\+h$>$}
+
+
+
+Collaboration diagram for datapath\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structdatapath__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+struct rcu\+\_\+head \hyperlink{structdatapath_af487ac38fa868c398dd248f1956b7a35}{rcu}
+\item 
+struct list\+\_\+head \hyperlink{structdatapath_ac5f44be07025a2addb5c393fba822000}{list\+\_\+node}
+\item 
+struct \hyperlink{structflow__table}{flow\+\_\+table} \hyperlink{structdatapath_ac6d67fe586c19484391acbcfa267259d}{table}
+\item 
+struct hlist\+\_\+head $\ast$ \hyperlink{structdatapath_abb0de528545b312de283b571cb6c4ede}{ports}
+\item 
+struct \hyperlink{structdp__stats__percpu}{dp\+\_\+stats\+\_\+percpu} \hyperlink{compiler_8h_a497f20279760cdb59a5187689f9f5ab1}{\+\_\+\+\_\+percpu} $\ast$ \hyperlink{structdatapath_a26ff295c711206c8177cdc89150c6a4a}{stats\+\_\+percpu}
+\item 
+u32 \hyperlink{structdatapath_a92ce3b704c20f18b3a696f98b6f7d266}{user\+\_\+features}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+struct datapath -\/ datapath for flow-\/based packet switching \+: R\+C\+U callback head for deferred destruction. \+: Element in global \textquotesingle{}dps\textquotesingle{} list. \+: flow table. \+: Hash table for ports. O\+V\+S\+P\+\_\+\+L\+O\+C\+A\+L port always exists. Protected by ovs\+\_\+mutex and R\+C\+U. \+: Per-\/\+C\+P\+U datapath statistics. \+: Reference to net namespace.
+
+Context\+: See the comment on locking at the top of datapath.\+c for additional locking information. 
+
+\subsection{Field Documentation}
+\hypertarget{structdatapath_ac5f44be07025a2addb5c393fba822000}{}\index{datapath@{datapath}!list\+\_\+node@{list\+\_\+node}}
+\index{list\+\_\+node@{list\+\_\+node}!datapath@{datapath}}
+\subsubsection[{list\+\_\+node}]{\setlength{\rightskip}{0pt plus 5cm}struct list\+\_\+head datapath\+::list\+\_\+node}\label{structdatapath_ac5f44be07025a2addb5c393fba822000}
+\hypertarget{structdatapath_abb0de528545b312de283b571cb6c4ede}{}\index{datapath@{datapath}!ports@{ports}}
+\index{ports@{ports}!datapath@{datapath}}
+\subsubsection[{ports}]{\setlength{\rightskip}{0pt plus 5cm}struct hlist\+\_\+head$\ast$ datapath\+::ports}\label{structdatapath_abb0de528545b312de283b571cb6c4ede}
+\hypertarget{structdatapath_af487ac38fa868c398dd248f1956b7a35}{}\index{datapath@{datapath}!rcu@{rcu}}
+\index{rcu@{rcu}!datapath@{datapath}}
+\subsubsection[{rcu}]{\setlength{\rightskip}{0pt plus 5cm}struct rcu\+\_\+head datapath\+::rcu}\label{structdatapath_af487ac38fa868c398dd248f1956b7a35}
+\hypertarget{structdatapath_a26ff295c711206c8177cdc89150c6a4a}{}\index{datapath@{datapath}!stats\+\_\+percpu@{stats\+\_\+percpu}}
+\index{stats\+\_\+percpu@{stats\+\_\+percpu}!datapath@{datapath}}
+\subsubsection[{stats\+\_\+percpu}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf dp\+\_\+stats\+\_\+percpu} {\bf \+\_\+\+\_\+percpu}$\ast$ datapath\+::stats\+\_\+percpu}\label{structdatapath_a26ff295c711206c8177cdc89150c6a4a}
+\hypertarget{structdatapath_ac6d67fe586c19484391acbcfa267259d}{}\index{datapath@{datapath}!table@{table}}
+\index{table@{table}!datapath@{datapath}}
+\subsubsection[{table}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf flow\+\_\+table} datapath\+::table}\label{structdatapath_ac6d67fe586c19484391acbcfa267259d}
+\hypertarget{structdatapath_a92ce3b704c20f18b3a696f98b6f7d266}{}\index{datapath@{datapath}!user\+\_\+features@{user\+\_\+features}}
+\index{user\+\_\+features@{user\+\_\+features}!datapath@{datapath}}
+\subsubsection[{user\+\_\+features}]{\setlength{\rightskip}{0pt plus 5cm}u32 datapath\+::user\+\_\+features}\label{structdatapath_a92ce3b704c20f18b3a696f98b6f7d266}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/vladn/git/ovs/datapath/\hyperlink{datapath_8h}{datapath.\+h}\end{DoxyCompactItemize}

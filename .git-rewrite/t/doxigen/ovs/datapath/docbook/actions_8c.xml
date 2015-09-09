@@ -1,0 +1,447 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="actions_8c">
+    <title>actions.c File Reference</title>
+    <programlisting>#include &lt;linux/skbuff.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/in.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/openvswitch.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/sctp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/tcp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/udp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/in6.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_arp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_vlan.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ipv6.h&gt;</programlisting>
+    <programlisting>#include &lt;net/checksum.h&gt;</programlisting>
+    <programlisting>#include &lt;net/dsfield.h&gt;</programlisting>
+    <programlisting>#include &lt;net/mpls.h&gt;</programlisting>
+    <programlisting>#include &lt;net/sctp/checksum.h&gt;</programlisting>
+    <programlisting>#include &quot;datapath.h&quot;</programlisting>
+    <programlisting>#include &quot;gso.h&quot;</programlisting>
+    <programlisting>#include &quot;vlan.h&quot;</programlisting>
+    <programlisting>#include &quot;vport.h&quot;</programlisting>
+<para>Include dependency diagram for actions.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="actions_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for actions.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="actions_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title> Data Structures </title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structdeferred__action">deferred_action</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structaction__fifo">action_fifo</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="actions_8c_1a1f8c165bf4196327bc3abff648276d92">pr_fmt</link> KBUILD_MODNAME &quot;: &quot; fmt</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="actions_8c_1acb72e0b273dae399e2619f619fd061ed">DEFERRED_ACTION_FIFO_SIZE</link> 10</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="actions_8c_1aef2488868338b5c1ec4419f0efde93f1">EXEC_ACTIONS_LEVEL_LIMIT</link> 4   /* limit used to detect packet
+				      *	looping by the network stack
+				      */</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="actions_8c_1a7e29e4ea7eef8e6a17ec80459c178a14">MASKED</link> ((KEY) | ((OLD) &amp; ~(MASK)))</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="actions_8c_1a6a812b08a711cd6258c60e9bd0c931e3">SET_MASKED</link> ((OLD) = <link linkend="linux_2actions_8c_1a7e29e4ea7eef8e6a17ec80459c178a14">MASKED</link>(OLD, KEY, MASK))</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="actions_8c_1aa0c451dc85a82947bdf6d8ae3c2385b5">get_mask</link> ((const <link linkend="flow_8h_1ab22aaab04f806700def00f32823fcb9e">type</link>)nla_data(a) + 1)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Variables</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structaction__fifo">action_fifo</link> <link linkend="compiler_8h_1a497f20279760cdb59a5187689f9f5ab1">__percpu</link> * <link linkend="actions_8c_1a38c6295376dbb80340f4f1b8e488f223">action_fifos</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1ad41a07588c602d50a247bcf2bf9ae9d5">do_execute_actions</link> (
+struct <link linkend="structdatapath">datapath</link> * dp, struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const struct nlattr * attr, int len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="actions_8c_1aacdc7977b799c6e2275e312793f87dcd">DEFINE_PER_CPU</link> (
+int , exec_actions_level )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1a688872dd5196a430f6a0df6e1954d220">action_fifo_init</link> (
+struct <link linkend="structaction__fifo">action_fifo</link> * fifo)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="actions_8c_1ade23c3824a292e4698cb3c01fefa52a5">action_fifo_is_empty</link> (
+const struct <link linkend="structaction__fifo">action_fifo</link> * fifo)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structdeferred__action">deferred_action</link> * <link linkend="actions_8c_1a7512da42cda457a824bb2fc8ff850dd5">action_fifo_get</link> (
+struct <link linkend="structaction__fifo">action_fifo</link> * fifo)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structdeferred__action">deferred_action</link> * <link linkend="actions_8c_1a3c8c974792d662e29d50b97ae044a068">action_fifo_put</link> (
+struct <link linkend="structaction__fifo">action_fifo</link> * fifo)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structdeferred__action">deferred_action</link> * <link linkend="actions_8c_1a3875097b6e35686ddee414782d0e67b1">add_deferred_actions</link> (
+struct sk_buff * skb, const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const struct nlattr * attr)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1aac28ee49d1019a576306f207afd5f8d6">invalidate_flow_key</link> (
+struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="actions_8c_1a77e3320f8f43a04aaf952a2c82e6dac1">is_flow_key_valid</link> (
+const struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1affb38ca95e088fb61d6df91cf3fdd606">push_mpls</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const struct <link linkend="structovs__action__push__mpls">ovs_action_push_mpls</link> * mpls)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1ac372daa8a5c4eb7fb2536fa61653e41b">pop_mpls</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const __be16 ethertype)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1ad66261c51831d2a4a6ff0ea385fbad32">set_mpls</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * flow_key, const __be32 * mpls_lse, const __be32 * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1aa11b6c74e2206cc8353d00cff409df22">pop_vlan</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1a706c437e9fb3992afaa8f62605c59961">push_vlan</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const struct <link linkend="structovs__action__push__vlan">ovs_action_push_vlan</link> * vlan)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1a2d434306a1e37e8bd0572dab35cc68ca">ether_addr_copy_masked</link> (
+u8 * dst_, const u8 * src_, const u8 * mask_)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1a85d6da67a26cfee7c3c894131233f9ca">set_eth_addr</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * flow_key, const struct <link linkend="structovs__key__ethernet">ovs_key_ethernet</link> * key, const struct <link linkend="structovs__key__ethernet">ovs_key_ethernet</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1a35283087cadb66ada3c19e7a87cfdcba">set_ip_addr</link> (
+struct sk_buff * skb, struct iphdr * nh, __be32 * addr, __be32 new_addr)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1a006120c8695be3960f274e88e24b535a">update_ipv6_checksum</link> (
+struct sk_buff * skb, u8 l4_proto, __be32 addr, const __be32 new_addr)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1affe65b5dd55e3a7c39c5a6705731f01f">mask_ipv6_addr</link> (
+const __be32 old, const __be32 addr, const __be32 mask, __be32 masked)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1aa39edf0f0aa23ee17d2828e1c42b0590">set_ipv6_addr</link> (
+struct sk_buff * skb, u8 l4_proto, __be32 addr, const __be32 new_addr, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> recalculate_csum)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1a105b45d892887e581acec50af165e330">set_ipv6_fl</link> (
+struct ipv6hdr * nh, u32 fl, u32 mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1a00bc919dc7a6a81f506155c0372eba9b">set_ip_ttl</link> (
+struct sk_buff * skb, struct iphdr * nh, u8 new_ttl, u8 mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1a5b6148caa3654ee968f7173b83b3abf4">set_ipv4</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * flow_key, const struct <link linkend="structovs__key__ipv4">ovs_key_ipv4</link> * key, const struct <link linkend="structovs__key__ipv4">ovs_key_ipv4</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="actions_8c_1a889a29de7d27314b273304eaad6f202e">is_ipv6_mask_nonzero</link> (
+const __be32 addr)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1acf538956396fdb59cff22ad4577c10f3">set_ipv6</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * flow_key, const struct <link linkend="structovs__key__ipv6">ovs_key_ipv6</link> * key, const struct <link linkend="structovs__key__ipv6">ovs_key_ipv6</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1a485b30c5af82b861079002c3e8899f7d">set_tp_port</link> (
+struct sk_buff * skb, __be16 * port, __be16 new_port, <link linkend="types_8h_1a2fdf5566d289d6941c29db084139bf23">__sum16</link> * check)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1ae78d854d13e952f67ca0d0b7bc45be75">set_udp</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * flow_key, const struct <link linkend="structovs__key__udp">ovs_key_udp</link> * key, const struct <link linkend="structovs__key__udp">ovs_key_udp</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1a3f6591203112ded2452b368308b0f36b">set_tcp</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * flow_key, const struct <link linkend="structovs__key__tcp">ovs_key_tcp</link> * key, const struct <link linkend="structovs__key__tcp">ovs_key_tcp</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1a7f2d96d4cc495e0f9f48c61305beea5c">set_sctp</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * flow_key, const struct <link linkend="structovs__key__sctp">ovs_key_sctp</link> * key, const struct <link linkend="structovs__key__sctp">ovs_key_sctp</link> * mask)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1a141467d4c8b6d03b33ca4a36b471fb1e">do_output</link> (
+struct <link linkend="structdatapath">datapath</link> * dp, struct sk_buff * skb, int out_port)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1ad0ea13ac8532fe548cd35a2d1086d8f3">output_userspace</link> (
+struct <link linkend="structdatapath">datapath</link> * dp, struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const struct nlattr * attr, const struct nlattr * actions, int actions_len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1a23b7fbefa6429cd4af2c92eb20c03889">sample</link> (
+struct <link linkend="structdatapath">datapath</link> * dp, struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const struct nlattr * attr, const struct nlattr * actions, int actions_len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1a7f08d769ba6fb4cdd65ef7ced5964dea">execute_hash</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const struct nlattr * attr)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1a4a59d75b1d012debb4f8ab42d0672deb">execute_set_action</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * flow_key, const struct nlattr * a)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1ae5d851747d2630c868c296b43ad3c2e7">execute_masked_set_action</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * flow_key, const struct nlattr * a)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="actions_8c_1ab6b5b3b0684142f0e137bd64d883d52f">execute_recirc</link> (
+struct <link linkend="structdatapath">datapath</link> * dp, struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, const struct nlattr * a, int rem)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="actions_8c_1afa871a96ea915a7ce87b96a0b7b30538">process_deferred_actions</link> (
+struct <link linkend="structdatapath">datapath</link> * dp)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="actions_8c_1a5b34c1980d155574d657a21cac3bcc37">ovs_execute_actions</link> (
+struct <link linkend="structdatapath">datapath</link> * dp, struct sk_buff * skb, const struct <link linkend="structsw__flow__actions">sw_flow_actions</link> * acts, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="actions_8c_1a3006f0376c2aecb6525126ad0e9bae25">action_fifos_init</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="actions_8c_1a7dfd1f218e0966ef342251a185866f4d">action_fifos_exit</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/actions.c</para>
+    </simplesect>
+</section>

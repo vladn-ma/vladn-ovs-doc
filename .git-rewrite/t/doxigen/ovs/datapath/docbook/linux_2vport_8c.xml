@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="linux_2vport_8c">
+    <title>vport.c File Reference</title>
+    <programlisting>#include &lt;linux/etherdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_vlan.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/jhash.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kconfig.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/list.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/mutex.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/percpu.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rcupdate.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rtnetlink.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/compat.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+    <programlisting>#include &lt;net/net_namespace.h&gt;</programlisting>
+    <programlisting>#include &quot;datapath.h&quot;</programlisting>
+    <programlisting>#include &quot;gso.h&quot;</programlisting>
+    <programlisting>#include &quot;vport.h&quot;</programlisting>
+    <programlisting>#include &quot;vport-internal_dev.h&quot;</programlisting>
+<para>Include dependency diagram for vport.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2vport_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for vport.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2vport_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>: name of port to find</title>
+      <description>
+<para>ovs_vport_locate - find a port that has already been created</para>
+
+<para>Must be called with ovs or RCU read lock. </para>
+</description>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2vport_8c_1a76cfadb621b3e59bcf1a0268c1ea9715">ovs_vport_record_error</link> (
+struct <link linkend="structvport">vport</link> * , enum <link linkend="vport_8h_1a41291b69ebff49e5bd1af2b88dae3f4a">vport_err_type</link> err_type)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structvport">vport</link> * <link linkend="linux_2vport_8c_1a6982e9b904201400a516a90502cdb70d">ovs_vport_locate</link> (
+const struct net * net, const char * name)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structvport">vport</link> * <link linkend="linux_2vport_8c_1a9198ee06111592d2cf6c3b2bf94561c1">ovs_vport_alloc</link> (
+int priv_size, const struct <link linkend="structvport__ops">vport_ops</link> * ops, const struct <link linkend="structvport__parms">vport_parms</link> * parms)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport_8c_1af39c016e4ee8f8242a73827ea41dd891">EXPORT_SYMBOL_GPL</link> (
+<link linkend="vport_8h_1ab889a5c45b9237944dd59ee9fe3db487">ovs_vport_alloc</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct <link linkend="structvport__ops">vport_ops</link> * <link linkend="linux_2vport_8c_1aab54c81e64893c3944d80fa035056648">ovs_vport_lookup</link> (
+const struct <link linkend="structvport__parms">vport_parms</link> * parms)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2vport_8c_1a17e57e95b47bad0bcf00e2e2805e2170">ovs_vport_free</link> (
+struct <link linkend="structvport">vport</link> * vport)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport_8c_1ac326045a5fdb0fe12bb7290f12220f41">EXPORT_SYMBOL_GPL</link> (
+<link linkend="vport_8h_1a030189b9a85e6e96cc3f165f50bf49f8">ovs_vport_free</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structvport">vport</link> * <link linkend="linux_2vport_8c_1ae922e6de985b3cb78f3d8f470a2e6ff9">ovs_vport_add</link> (
+const struct <link linkend="structvport__parms">vport_parms</link> * parms)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport_8c_1acfdffde36364d009c64778f1ef6c863b">ovs_vport_set_options</link> (
+struct <link linkend="structvport">vport</link> * vport, struct nlattr * options)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2vport_8c_1ad7676013c642bc044ead47b79eb94075">ovs_vport_del</link> (
+struct <link linkend="structvport">vport</link> * vport)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2vport_8c_1a7753bcf5f4263f9f8d9d4ff42e64d86a">ovs_vport_get_stats</link> (
+struct <link linkend="structvport">vport</link> * vport, struct <link linkend="structovs__vport__stats">ovs_vport_stats</link> * stats)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport_8c_1a7224829872e717ebe354d80bf9860db2">ovs_vport_get_options</link> (
+const struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2vport_8c_1af0d1fe416a91b69f19cb2be6eaf89dde">vport_portids_destroy_rcu_cb</link> (
+struct rcu_head * rcu)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport_8c_1a8d6c13e6f31531135adf06eb8004a20a">ovs_vport_set_upcall_portids</link> (
+struct <link linkend="structvport">vport</link> * vport, const struct nlattr * ids)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport_8c_1a44407fddea47b25021a73cfc6f36c7ad">ovs_vport_get_upcall_portids</link> (
+const struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>u32 <link linkend="linux_2vport_8c_1aeee9e742f0a0fbb3bda943eea9e63e56">ovs_vport_find_upcall_portid</link> (
+const struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2vport_8c_1a45b6883b8ea28eb25965e1f2e1586d46">ovs_vport_receive</link> (
+struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb, const struct <link linkend="structovs__tunnel__info">ovs_tunnel_info</link> * tun_info)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport_8c_1aaf070def13e1711d4481935db4da66b5">EXPORT_SYMBOL_GPL</link> (
+<link linkend="vport_8h_1ad1224e30040beab25f074b3929433f6c">ovs_vport_receive</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport_8c_1abd74f3970bd7dc951b8399d00efe42d8">ovs_vport_send</link> (
+struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="linux_2vport_8c_1a4ea8e8dfba95df3fed74709b0930f7e0">free_vport_rcu</link> (
+struct rcu_head * rcu)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2vport_8c_1a91949289f78c0f0c2433ef5f20495e66">ovs_vport_deferred_free</link> (
+struct <link linkend="structvport">vport</link> * vport)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport_8c_1aa80dde8675d4bb84230795d9fc8ea127">EXPORT_SYMBOL_GPL</link> (
+<link linkend="vport_8h_1a91949289f78c0f0c2433ef5f20495e66">ovs_vport_deferred_free</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport_8c_1ac5b64ee0badeb969348aae464fdc4c8d">ovs_tunnel_get_egress_info</link> (
+struct <link linkend="structovs__tunnel__info">ovs_tunnel_info</link> * egress_tun_info, struct net * net, const struct <link linkend="structovs__tunnel__info">ovs_tunnel_info</link> * tun_info, u8 ipproto, u32 skb_mark, __be16 tp_src, __be16 tp_dst)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport_8c_1ab21d62a4a60f4c17db89f73d561d44b7">EXPORT_SYMBOL_GPL</link> (
+<link linkend="vport_8h_1ac5b64ee0badeb969348aae464fdc4c8d">ovs_tunnel_get_egress_info</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport_8c_1a92b973cf9ddb07398a3d1c0492b0c422">ovs_vport_get_egress_tun_info</link> (
+struct <link linkend="structvport">vport</link> * vport, struct sk_buff * skb, struct <link linkend="structovs__tunnel__info">ovs_tunnel_info</link> * info)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2vport_8c_1a46b55d1d4d6cc07a83259f332ff555ad">VPORT_HASH_BUCKETS</link> 1024</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Variables</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct hlist_head * <link linkend="linux_2vport_8c_1a8d8eed219fbfb344d996f7695a356e5d">dev_table</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="linux_2vport_8c_1ac0267e32e1fa59b1557702c6a381546f">LIST_HEAD</link> (
+vport_ops_list )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport_8c_1aacc501a60108d387b8fd7535c2e6168f">ovs_vport_init</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2vport_8c_1a32e04c9d5d25cb3b7e23a297dc65fc6a">ovs_vport_exit</link> (
+void )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static struct hlist_head * <link linkend="linux_2vport_8c_1af8f78ca35e84187b7b26a12676e363bc">hash_bucket</link> (
+const struct net * net, const char * name)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2vport_8c_1a6b6d24642324a66b7bacab2909bea2dc">ovs_vport_ops_register</link> (
+struct <link linkend="structvport__ops">vport_ops</link> * ops)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport_8c_1a66ca2041bc212095f4de3a9fae2f56d8">EXPORT_SYMBOL_GPL</link> (
+<link linkend="vport_8h_1a6b6d24642324a66b7bacab2909bea2dc">ovs_vport_ops_register</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2vport_8c_1a8659a5c436f2b09d0b6be2c208ee790e">ovs_vport_ops_unregister</link> (
+struct <link linkend="structvport__ops">vport_ops</link> * ops)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="linux_2vport_8c_1a6f097cd3cf2923c177b42ab91ac06d87">EXPORT_SYMBOL_GPL</link> (
+<link linkend="vport_8h_1a8659a5c436f2b09d0b6be2c208ee790e">ovs_vport_ops_unregister</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/vport.c</para>
+    </simplesect>
+</section>

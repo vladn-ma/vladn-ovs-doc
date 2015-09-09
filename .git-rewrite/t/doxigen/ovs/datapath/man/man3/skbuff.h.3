@@ -1,0 +1,598 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/linux/skbuff.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/linux/skbuff.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/version\&.h>\fP
+.br
+\fC#include <linux/types\&.h>\fP
+.br
+\fC#include <linux/jhash\&.h>\fP
+.br
+\fC#include <linux/mm\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBSKB_GSO_GRE_CSUM\fP   0"
+.br
+.ti -1c
+.RI "#define \fBSKB_GSO_UDP_TUNNEL_CSUM\fP   0"
+.br
+.ti -1c
+.RI "#define \fBignore_df\fP   local_df"
+.br
+.ti -1c
+.RI "#define \fBNET_SKB_PAD\fP   16"
+.br
+.ti -1c
+.RI "#define \fBCHECKSUM_PARTIAL\fP   CHECKSUM_HW"
+.br
+.ti -1c
+.RI "#define \fBCHECKSUM_COMPLETE\fP   CHECKSUM_HW"
+.br
+.ti -1c
+.RI "#define \fBconsume_skb\fP   kfree_skb"
+.br
+.ti -1c
+.RI "#define \fBskb_get_hash\fP   skb_get_rxhash"
+.br
+.ti -1c
+.RI "#define \fBskb_zerocopy\fP   \fBrpl_skb_zerocopy\fP"
+.br
+.ti -1c
+.RI "#define \fBskb_has_frag_list\fP   skb_has_frags"
+.br
+.ti -1c
+.RI "#define \fBskb_ensure_writable\fP   \fBrpl_skb_ensure_writable\fP"
+.br
+.ti -1c
+.RI "#define \fBskb_vlan_pop\fP   \fBrpl_skb_vlan_pop\fP"
+.br
+.ti -1c
+.RI "#define \fBskb_vlan_push\fP   \fBrpl_skb_vlan_push\fP"
+.br
+.ti -1c
+.RI "#define \fBkfree_skb_list\fP   \fBrpl_kfree_skb_list\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBskb_copy_from_linear_data_offset\fP (const struct sk_buff *skb, const int offset, void *to, const unsigned int len)"
+.br
+.ti -1c
+.RI "static void \fBskb_copy_to_linear_data_offset\fP (struct sk_buff *skb, const int offset, const void *from, const unsigned int len)"
+.br
+.ti -1c
+.RI "static void \fBskb_reset_tail_pointer\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static int \fB__skb_cow\fP (struct sk_buff *skb, unsigned int headroom, int cloned)"
+.br
+.ti -1c
+.RI "static int \fBskb_cow_head\fP (struct sk_buff *skb, unsigned int headroom)"
+.br
+.ti -1c
+.RI "static struct dst_entry * \fBskb_dst\fP (const struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBskb_dst_set\fP (struct sk_buff *skb, struct dst_entry *\fBdst\fP)"
+.br
+.ti -1c
+.RI "static struct rtable * \fBskb_rtable\fP (const struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static unsigned char * \fBskb_transport_header\fP (const struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBskb_reset_transport_header\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBskb_set_transport_header\fP (struct sk_buff *skb, const int offset)"
+.br
+.ti -1c
+.RI "static unsigned char * \fBskb_network_header\fP (const struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBskb_reset_network_header\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBskb_set_network_header\fP (struct sk_buff *skb, const int offset)"
+.br
+.ti -1c
+.RI "static unsigned char * \fBskb_mac_header\fP (const struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBskb_reset_mac_header\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBskb_set_mac_header\fP (struct sk_buff *skb, const int offset)"
+.br
+.ti -1c
+.RI "static int \fBskb_transport_offset\fP (const struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static int \fBskb_network_offset\fP (const struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBskb_copy_to_linear_data\fP (struct sk_buff *skb, const void *from, const unsigned int len)"
+.br
+.ti -1c
+.RI "static \fBbool\fP \fBskb_warn_if_lro\fP (const struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static struct page * \fBskb_frag_page\fP (const skb_frag_t *\fBfrag\fP)"
+.br
+.ti -1c
+.RI "static void \fB__skb_frag_set_page\fP (skb_frag_t *\fBfrag\fP, struct page *page)"
+.br
+.ti -1c
+.RI "static void \fBskb_frag_size_set\fP (skb_frag_t *\fBfrag\fP, unsigned int size)"
+.br
+.ti -1c
+.RI "static void \fB__skb_frag_ref\fP (skb_frag_t *\fBfrag\fP)"
+.br
+.ti -1c
+.RI "static void \fB__skb_frag_unref\fP (skb_frag_t *\fBfrag\fP)"
+.br
+.ti -1c
+.RI "static void \fBskb_frag_ref\fP (struct sk_buff *skb, int f)"
+.br
+.ti -1c
+.RI "static void \fBskb_frag_unref\fP (struct sk_buff *skb, int f)"
+.br
+.ti -1c
+.RI "static void \fBskb_reset_mac_len\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static int \fBskb_unclone\fP (struct sk_buff *skb, gfp_t pri)"
+.br
+.ti -1c
+.RI "static int \fBskb_orphan_frags\fP (struct sk_buff *skb, gfp_t gfp_mask)"
+.br
+.ti -1c
+.RI "int \fBrpl_skb_zerocopy\fP (struct sk_buff *to, struct sk_buff *from, int len, int hlen)"
+.br
+.ti -1c
+.RI "static void \fBskb_clear_hash\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fB__skb_fill_page_desc\fP (struct sk_buff *skb, int i, struct page *page, int off, int size)"
+.br
+.ti -1c
+.RI "int \fBrpl_skb_ensure_writable\fP (struct sk_buff *skb, int write_len)"
+.br
+.ti -1c
+.RI "int \fBrpl_skb_vlan_pop\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "int \fBrpl_skb_vlan_push\fP (struct sk_buff *skb, __be16 vlan_proto, u16 vlan_tci)"
+.br
+.ti -1c
+.RI "void \fBrpl_kfree_skb_list\fP (struct sk_buff *segs)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define CHECKSUM_COMPLETE   CHECKSUM_HW"
+
+.SS "#define CHECKSUM_PARTIAL   CHECKSUM_HW"
+
+.SS "#define consume_skb   kfree_skb"
+
+.SS "#define ignore_df   local_df"
+
+.SS "#define kfree_skb_list   \fBrpl_kfree_skb_list\fP"
+
+.SS "#define NET_SKB_PAD   16"
+
+.SS "#define skb_ensure_writable   \fBrpl_skb_ensure_writable\fP"
+
+.SS "#define skb_get_hash   skb_get_rxhash"
+
+.SS "#define SKB_GSO_GRE_CSUM   0"
+
+.SS "#define SKB_GSO_UDP_TUNNEL_CSUM   0"
+
+.SS "#define skb_has_frag_list   skb_has_frags"
+
+.SS "#define skb_vlan_pop   \fBrpl_skb_vlan_pop\fP"
+
+.SS "#define skb_vlan_push   \fBrpl_skb_vlan_push\fP"
+
+.SS "#define skb_zerocopy   \fBrpl_skb_zerocopy\fP"
+
+.SH "Function Documentation"
+.PP 
+.SS "static int __skb_cow (struct sk_buff * skb, unsigned int headroom, int cloned)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+87 {
+88     int delta = 0;
+89 
+90     if (headroom < NET_SKB_PAD)
+91         headroom = NET_SKB_PAD;
+92     if (headroom > skb_headroom(skb))
+93         delta = headroom - skb_headroom(skb);
+94 
+95     if (delta || cloned)
+96         return pskb_expand_head(skb, ALIGN(delta, NET_SKB_PAD), 0,
+97                     GFP_ATOMIC);
+98     return 0;
+99 }
+.fi
+.SS "static void __skb_fill_page_desc (struct sk_buff * skb, int i, struct page * page, int off, int size)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+347 {
+348     skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
+349 
+350     __skb_frag_set_page(frag, page);
+351     frag->page_offset   = off;
+352     skb_frag_size_set(frag, size);
+353 }
+.fi
+.SS "static void __skb_frag_ref (skb_frag_t * frag)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+240 {
+241     get_page(skb_frag_page(frag));
+242 }
+.fi
+.SS "static void __skb_frag_set_page (skb_frag_t * frag, struct page * page)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+232 {
+233     frag->page = page;
+234 }
+.fi
+.SS "static void __skb_frag_unref (skb_frag_t * frag)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+244 {
+245     put_page(skb_frag_page(frag));
+246 }
+.fi
+.SS "void rpl_kfree_skb_list (struct sk_buff * segs)"
+
+.PP
+.nf
+273 {
+274     while (segs) {
+275         struct sk_buff *next = segs->next;
+276 
+277         kfree_skb(segs);
+278         segs = next;
+279     }
+280 }
+.fi
+.SS "int rpl_skb_ensure_writable (struct sk_buff * skb, int write_len)"
+
+.PP
+.nf
+135 {
+136     if (!pskb_may_pull(skb, write_len))
+137         return -ENOMEM;
+138 
+139     if (!skb_cloned(skb) || skb_clone_writable(skb, write_len))
+140         return 0;
+141 
+142     return pskb_expand_head(skb, 0, 0, GFP_ATOMIC);
+143 }
+.fi
+.SS "int rpl_skb_vlan_pop (struct sk_buff * skb)"
+
+.PP
+.nf
+182 {
+183     u16 vlan_tci;
+184     __be16 vlan_proto;
+185     int err;
+186 
+187     if (likely(skb_vlan_tag_present(skb))) {
+188         skb->vlan_tci = 0;
+189     } else {
+190         if (unlikely((skb->protocol != htons(ETH_P_8021Q) &&
+191                   skb->protocol != htons(ETH_P_8021AD)) ||
+192                  skb->len < VLAN_ETH_HLEN))
+193             return 0;
+194 
+195         err = __skb_vlan_pop(skb, &vlan_tci);
+196         if (err)
+197             return err;
+198     }
+199     /* move next vlan tag to hw accel tag */
+200     if (likely((skb->protocol != htons(ETH_P_8021Q) &&
+201             skb->protocol != htons(ETH_P_8021AD)) ||
+202            skb->len < VLAN_ETH_HLEN))
+203         return 0;
+204 
+205     vlan_proto = htons(ETH_P_8021Q);
+206     err = __skb_vlan_pop(skb, &vlan_tci);
+207     if (unlikely(err))
+208         return err;
+209 
+210     __vlan_hwaccel_put_tag(skb, vlan_proto, vlan_tci);
+211     return 0;
+212 }
+.fi
+.SS "int rpl_skb_vlan_push (struct sk_buff * skb, __be16 vlan_proto, u16 vlan_tci)"
+
+.PP
+.nf
+218 {
+219     if (skb_vlan_tag_present(skb)) {
+220         unsigned int offset = skb->data - skb_mac_header(skb);
+221         int err;
+222 
+223         /* __vlan_insert_tag expect skb->data pointing to mac header\&.
+224          * So change skb->data before calling it and change back to
+225          * original position later
+226          */
+227         __skb_push(skb, offset);
+228         err = __vlan_insert_tag(skb, skb->vlan_proto,
+229                     skb_vlan_tag_get(skb));
+230         if (err)
+231             return err;
+232         skb->mac_len += VLAN_HLEN;
+233         __skb_pull(skb, offset);
+234 
+235         if (skb->ip_summed == CHECKSUM_COMPLETE)
+236             skb->csum = csum_add(skb->csum, csum_partial(skb->data
+237                     + (2 * ETH_ALEN), VLAN_HLEN, 0));
+238     }
+239     __vlan_hwaccel_put_tag(skb, vlan_proto, vlan_tci);
+240     return 0;
+241 }
+.fi
+.SS "int rpl_skb_zerocopy (struct sk_buff * to, struct sk_buff * from, int len, int hlen)"
+
+.SS "static void skb_clear_hash (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+330 {
+331 #ifdef HAVE_RXHASH
+332     skb->rxhash = 0;
+333 #endif
+334 #if defined(HAVE_L4_RXHASH) && !defined(HAVE_RHEL_OVS_HOOK)
+335     skb->l4_rxhash = 0;
+336 #endif
+337 }
+.fi
+.SS "static void skb_copy_from_linear_data_offset (const struct sk_buff * skb, const int offset, void * to, const unsigned int len)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+45 {
+46     memcpy(to, skb->data + offset, len);
+47 }
+.fi
+.SS "static void skb_copy_to_linear_data (struct sk_buff * skb, const void * from, const unsigned int len)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+191 {
+192     memcpy(skb->data, from, len);
+193 }
+.fi
+.SS "static void skb_copy_to_linear_data_offset (struct sk_buff * skb, const int offset, const void * from, const unsigned int len)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+53 {
+54     memcpy(skb->data + offset, from, len);
+55 }
+.fi
+.SS "static int skb_cow_head (struct sk_buff * skb, unsigned int headroom)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+102 {
+103     return __skb_cow(skb, headroom, skb_header_cloned(skb));
+104 }
+.fi
+.SS "static struct dst_entry* skb_dst (const struct sk_buff * skb)\fC [static]\fP"
+
+.PP
+.nf
+109 {
+110     return (struct dst_entry *)skb->dst;
+111 }
+.fi
+.SS "static void skb_dst_set (struct sk_buff * skb, struct dst_entry * dst)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+114 {
+115     skb->dst = dst;
+116 }
+.fi
+.SS "static struct page* skb_frag_page (const skb_frag_t * frag)\fC [static]\fP"
+
+.PP
+.nf
+227 {
+228     return frag->page;
+229 }
+.fi
+.SS "static void skb_frag_ref (struct sk_buff * skb, int f)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+249 {
+250     __skb_frag_ref(&skb_shinfo(skb)->frags[f]);
+251 }
+.fi
+.SS "static void skb_frag_size_set (skb_frag_t * frag, unsigned int size)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+236 {
+237     frag->size = size;
+238 }
+.fi
+.SS "static void skb_frag_unref (struct sk_buff * skb, int f)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+254 {
+255     __skb_frag_unref(&skb_shinfo(skb)->frags[f]);
+256 }
+.fi
+.SS "static unsigned char* skb_mac_header (const struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+164 {
+165     return skb->mac\&.raw;
+166 }
+.fi
+.SS "static unsigned char* skb_network_header (const struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+149 {
+150     return skb->nh\&.raw;
+151 }
+.fi
+.SS "static int skb_network_offset (const struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+184 {
+185     return skb_network_header(skb) - skb->data;
+186 }
+.fi
+.SS "static int skb_orphan_frags (struct sk_buff * skb, gfp_t gfp_mask)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+281 {
+282     return 0;
+283 }
+.fi
+.SS "static void skb_reset_mac_header (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+169 {
+170     skb->mac_header = skb->data;
+171 }
+.fi
+.SS "static void skb_reset_mac_len (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+262 {
+263     skb->mac_len = skb->network_header - skb->mac_header;
+264 }
+.fi
+.SS "static void skb_reset_network_header (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+154 {
+155     skb->nh\&.raw = skb->data;
+156 }
+.fi
+.SS "static void skb_reset_tail_pointer (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+61 {
+62     skb->tail = skb->data;
+63 }
+.fi
+.SS "static void skb_reset_transport_header (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+138 {
+139     skb->h\&.raw = skb->data;
+140 }
+.fi
+.SS "static struct rtable* skb_rtable (const struct sk_buff * skb)\fC [static]\fP"
+
+.PP
+.nf
+119 {
+120     return (struct rtable *)skb->dst;
+121 }
+.fi
+.SS "static void skb_set_mac_header (struct sk_buff * skb, const int offset)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+174 {
+175     skb->mac\&.raw = skb->data + offset;
+176 }
+.fi
+.SS "static void skb_set_network_header (struct sk_buff * skb, const int offset)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+159 {
+160     skb->nh\&.raw = skb->data + offset;
+161 }
+.fi
+.SS "static void skb_set_transport_header (struct sk_buff * skb, const int offset)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+144 {
+145     skb->h\&.raw = skb->data + offset;
+146 }
+.fi
+.SS "static unsigned char* skb_transport_header (const struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+133 {
+134     return skb->h\&.raw;
+135 }
+.fi
+.SS "static int skb_transport_offset (const struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+179 {
+180     return skb_transport_header(skb) - skb->data;
+181 }
+.fi
+.SS "static int skb_unclone (struct sk_buff * skb, gfp_t pri)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+269 {
+270     might_sleep_if(pri & __GFP_WAIT);
+271 
+272     if (skb_cloned(skb))
+273         return pskb_expand_head(skb, 0, 0, pri);
+274 
+275     return 0;
+276 }
+.fi
+.SS "static \fBbool\fP skb_warn_if_lro (const struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+199 {
+200     return false;
+201 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

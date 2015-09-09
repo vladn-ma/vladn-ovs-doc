@@ -1,0 +1,78 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/gso.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/gso.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/version\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBskb_clear_ovs_gso_cb\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static int \fBovs_skb_inner_transport_offset\fP (const struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBovs_skb_init_inner_protocol\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBovs_skb_set_inner_protocol\fP (struct sk_buff *skb, __be16 ethertype)"
+.br
+.ti -1c
+.RI "static __be16 \fBovs_skb_get_inner_protocol\fP (struct sk_buff *skb)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "static __be16 ovs_skb_get_inner_protocol (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+132 {
+133     return skb->inner_protocol;
+134 }
+.fi
+.SS "static void ovs_skb_init_inner_protocol (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+110                                                                     {
+111     /* Nothing to do\&. The inner_protocol is either zero or
+112      * has been set to a value by another user\&.
+113      * Either way it may be considered initialised\&.
+114      */
+115 }
+.fi
+.SS "static int ovs_skb_inner_transport_offset (const struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+87 {
+88     return skb_inner_transport_header(skb) - skb->data;
+89 }
+.fi
+.SS "static void ovs_skb_set_inner_protocol (struct sk_buff * skb, __be16 ethertype)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+126 {
+127     skb_set_inner_protocol(skb, ethertype);
+128 }
+.fi
+.SS "static void skb_clear_ovs_gso_cb (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+35 {
+36 
+37 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

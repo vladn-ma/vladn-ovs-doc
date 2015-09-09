@@ -1,0 +1,537 @@
+.TH "/home/vladn/git/ovs/datapath/flow_table.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/flow_table.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/kernel\&.h>\fP
+.br
+\fC#include <linux/netlink\&.h>\fP
+.br
+\fC#include <linux/openvswitch\&.h>\fP
+.br
+\fC#include <linux/spinlock\&.h>\fP
+.br
+\fC#include <linux/types\&.h>\fP
+.br
+\fC#include <linux/rcupdate\&.h>\fP
+.br
+\fC#include <linux/if_ether\&.h>\fP
+.br
+\fC#include <linux/in6\&.h>\fP
+.br
+\fC#include <linux/jiffies\&.h>\fP
+.br
+\fC#include <linux/time\&.h>\fP
+.br
+\fC#include <linux/flex_array\&.h>\fP
+.br
+\fC#include <net/inet_ecn\&.h>\fP
+.br
+\fC#include <net/ip_tunnels\&.h>\fP
+.br
+\fC#include 'flow\&.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBmask_cache_entry\fP"
+.br
+.ti -1c
+.RI "struct \fBmask_array\fP"
+.br
+.ti -1c
+.RI "struct \fBtable_instance\fP"
+.br
+.ti -1c
+.RI "struct \fBflow_table\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBovs_flow_init\fP (void)"
+.br
+.ti -1c
+.RI "void \fBovs_flow_exit\fP (void)"
+.br
+.ti -1c
+.RI "struct \fBsw_flow\fP * \fBovs_flow_alloc\fP (void)"
+.br
+.ti -1c
+.RI "void \fBovs_flow_free\fP (struct \fBsw_flow\fP *, \fBbool\fP deferred)"
+.br
+.ti -1c
+.RI "int \fBovs_flow_tbl_init\fP (struct \fBflow_table\fP *)"
+.br
+.ti -1c
+.RI "int \fBovs_flow_tbl_count\fP (const struct \fBflow_table\fP *table)"
+.br
+.ti -1c
+.RI "void \fBovs_flow_tbl_destroy\fP (struct \fBflow_table\fP *table)"
+.br
+.ti -1c
+.RI "int \fBovs_flow_tbl_flush\fP (struct \fBflow_table\fP *\fBflow_table\fP)"
+.br
+.ti -1c
+.RI "int \fBovs_flow_tbl_insert\fP (struct \fBflow_table\fP *table, struct \fBsw_flow\fP *flow, const struct \fBsw_flow_mask\fP *mask)"
+.br
+.ti -1c
+.RI "void \fBovs_flow_tbl_remove\fP (struct \fBflow_table\fP *table, struct \fBsw_flow\fP *flow)"
+.br
+.ti -1c
+.RI "int \fBovs_flow_tbl_num_masks\fP (const struct \fBflow_table\fP *table)"
+.br
+.ti -1c
+.RI "struct \fBsw_flow\fP * \fBovs_flow_tbl_dump_next\fP (struct \fBtable_instance\fP *table, u32 *bucket, u32 *idx)"
+.br
+.ti -1c
+.RI "struct \fBsw_flow\fP * \fBovs_flow_tbl_lookup_stats\fP (struct \fBflow_table\fP *, const struct \fBsw_flow_key\fP *, u32 skb_hash, u32 *n_mask_hit)"
+.br
+.ti -1c
+.RI "struct \fBsw_flow\fP * \fBovs_flow_tbl_lookup\fP (struct \fBflow_table\fP *, const struct \fBsw_flow_key\fP *)"
+.br
+.ti -1c
+.RI "struct \fBsw_flow\fP * \fBovs_flow_tbl_lookup_exact\fP (struct \fBflow_table\fP *tbl, const struct \fBsw_flow_match\fP *match)"
+.br
+.ti -1c
+.RI "struct \fBsw_flow\fP * \fBovs_flow_tbl_lookup_ufid\fP (struct \fBflow_table\fP *, const struct \fBsw_flow_id\fP *)"
+.br
+.ti -1c
+.RI "\fBbool\fP \fBovs_flow_cmp\fP (const struct \fBsw_flow\fP *, const struct \fBsw_flow_match\fP *)"
+.br
+.ti -1c
+.RI "void \fBovs_flow_mask_key\fP (struct \fBsw_flow_key\fP *\fBdst\fP, const struct \fBsw_flow_key\fP *\fBsrc\fP, const struct \fBsw_flow_mask\fP *mask)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "struct kmem_cache * \fBflow_stats_cache\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "struct \fBsw_flow\fP* ovs_flow_alloc (void)"
+
+.PP
+.nf
+84 {
+85     struct sw_flow *flow;
+86     struct flow_stats *stats;
+87     int node;
+88 
+89     flow = kmem_cache_alloc(flow_cache, GFP_KERNEL);
+90     if (!flow)
+91         return ERR_PTR(-ENOMEM);
+92 
+93     flow->sf_acts = NULL;
+94     flow->mask = NULL;
+95     flow->id\&.ufid_len = 0;
+96     flow->id\&.unmasked_key = NULL;
+97     flow->stats_last_writer = NUMA_NO_NODE;
+98 
+99     /* Initialize the default stat node\&. */
+100     stats = kmem_cache_alloc_node(flow_stats_cache,
+101                       GFP_KERNEL | __GFP_ZERO, 0);
+102     if (!stats)
+103         goto err;
+104 
+105     spin_lock_init(&stats->lock);
+106 
+107     RCU_INIT_POINTER(flow->stats[0], stats);
+108 
+109     for_each_node(node)
+110         if (node != 0)
+111             RCU_INIT_POINTER(flow->stats[node], NULL);
+112 
+113     return flow;
+114 err:
+115     kmem_cache_free(flow_cache, flow);
+116     return ERR_PTR(-ENOMEM);
+117 }
+.fi
+.SS "\fBbool\fP ovs_flow_cmp (const struct \fBsw_flow\fP *, const struct \fBsw_flow_match\fP *)"
+
+.PP
+.nf
+725 {
+726     if (ovs_identifier_is_ufid(&flow->id))
+727         return flow_cmp_masked_key(flow, match->key, &match->range);
+728 
+729     return ovs_flow_cmp_unmasked_key(flow, match);
+730 }
+.fi
+.SS "void ovs_flow_exit (void)"
+
+.PP
+.nf
+1011 {
+1012     kmem_cache_destroy(flow_stats_cache);
+1013     kmem_cache_destroy(flow_cache);
+1014 }
+.fi
+.SS "void ovs_flow_free (struct \fBsw_flow\fP *, \fBbool\fP deferred)"
+
+.PP
+.nf
+176 {
+177     if (!flow)
+178         return;
+179 
+180     if (deferred)
+181         call_rcu(&flow->rcu, rcu_free_flow_callback);
+182     else
+183         flow_free(flow);
+184 }
+.fi
+.SS "int ovs_flow_init (void)"
+
+.PP
+.nf
+986 {
+987     BUILD_BUG_ON(__alignof__(struct sw_flow_key) % __alignof__(long));
+988     BUILD_BUG_ON(sizeof(struct sw_flow_key) % sizeof(long));
+989 
+990     flow_cache = kmem_cache_create("sw_flow", sizeof(struct sw_flow)
+991                        + (nr_node_ids
+992                       * sizeof(struct flow_stats *)),
+993                        0, 0, NULL);
+994     if (flow_cache == NULL)
+995         return -ENOMEM;
+996 
+997     flow_stats_cache
+998         = kmem_cache_create("sw_flow_stats", sizeof(struct flow_stats),
+999                     0, SLAB_HWCACHE_ALIGN, NULL);
+1000     if (flow_stats_cache == NULL) {
+1001         kmem_cache_destroy(flow_cache);
+1002         flow_cache = NULL;
+1003         return -ENOMEM;
+1004     }
+1005 
+1006     return 0;
+1007 }
+.fi
+.SS "void ovs_flow_mask_key (struct \fBsw_flow_key\fP * dst, const struct \fBsw_flow_key\fP * src, const struct \fBsw_flow_mask\fP * mask)"
+
+.PP
+.nf
+67 {
+68     const long *m = (const long *)((const u8 *)&mask->key +
+69                 mask->range\&.start);
+70     const long *s = (const long *)((const u8 *)src +
+71                 mask->range\&.start);
+72     long *d = (long *)((u8 *)dst + mask->range\&.start);
+73     int i;
+74 
+75     /* The memory outside of the 'mask->range' are not set since
+76      * further operations on 'dst' only uses contents within
+77      * 'mask->range'\&.
+78      */
+79     for (i = 0; i < range_n_bytes(&mask->range); i += sizeof(long))
+80         *d++ = *s++ & *m++;
+81 }
+.fi
+.SS "int ovs_flow_tbl_count (const struct \fBflow_table\fP * table)"
+
+.PP
+.nf
+120 {
+121     return table->count;
+122 }
+.fi
+.SS "void ovs_flow_tbl_destroy (struct \fBflow_table\fP * table)"
+
+.PP
+.nf
+358 {
+359     struct table_instance *ti = rcu_dereference_raw(table->ti);
+360     struct table_instance *ufid_ti = rcu_dereference_raw(table->ufid_ti);
+361 
+362     free_percpu(table->mask_cache);
+363     kfree(rcu_dereference_raw(table->mask_array));
+364     table_instance_destroy(ti, ufid_ti, false);
+365 }
+.fi
+.SS "struct \fBsw_flow\fP* ovs_flow_tbl_dump_next (struct \fBtable_instance\fP * table, u32 * bucket, u32 * idx)"
+
+.PP
+.nf
+369 {
+370     struct sw_flow *flow;
+371     struct hlist_head *head;
+372     int ver;
+373     int i;
+374 
+375     ver = ti->node_ver;
+376     while (*bucket < ti->n_buckets) {
+377         i = 0;
+378         head = flex_array_get(ti->buckets, *bucket);
+379         hlist_for_each_entry_rcu(flow, head, flow_table\&.node[ver]) {
+380             if (i < *last) {
+381                 i++;
+382                 continue;
+383             }
+384             *last = i + 1;
+385             return flow;
+386         }
+387         (*bucket)++;
+388         *last = 0;
+389     }
+390 
+391     return NULL;
+392 }
+.fi
+.SS "int ovs_flow_tbl_flush (struct \fBflow_table\fP * flow_table)"
+
+.PP
+.nf
+463 {
+464     struct table_instance *old_ti, *new_ti;
+465     struct table_instance *old_ufid_ti, *new_ufid_ti;
+466 
+467     new_ti = table_instance_alloc(TBL_MIN_BUCKETS);
+468     if (!new_ti)
+469         return -ENOMEM;
+470     new_ufid_ti = table_instance_alloc(TBL_MIN_BUCKETS);
+471     if (!new_ufid_ti)
+472         goto err_free_ti;
+473 
+474     old_ti = ovsl_dereference(flow_table->ti);
+475     old_ufid_ti = ovsl_dereference(flow_table->ufid_ti);
+476 
+477     rcu_assign_pointer(flow_table->ti, new_ti);
+478     rcu_assign_pointer(flow_table->ufid_ti, new_ufid_ti);
+479     flow_table->last_rehash = jiffies;
+480     flow_table->count = 0;
+481     flow_table->ufid_count = 0;
+482 
+483     table_instance_destroy(old_ti, old_ufid_ti, true);
+484     return 0;
+485 
+486 err_free_ti:
+487     __table_instance_destroy(new_ti);
+488     return -ENOMEM;
+489 }
+.fi
+.SS "int ovs_flow_tbl_init (struct \fBflow_table\fP *)"
+
+.PP
+.nf
+271 {
+272     struct table_instance *ti, *ufid_ti;
+273     struct mask_array *ma;
+274 
+275     table->mask_cache = __alloc_percpu(sizeof(struct mask_cache_entry) *
+276                       MC_HASH_ENTRIES, __alignof__(struct mask_cache_entry));
+277     if (!table->mask_cache)
+278         return -ENOMEM;
+279 
+280     ma = tbl_mask_array_alloc(MASK_ARRAY_SIZE_MIN);
+281     if (!ma)
+282         goto free_mask_cache;
+283 
+284     ti = table_instance_alloc(TBL_MIN_BUCKETS);
+285     if (!ti)
+286         goto free_mask_array;
+287 
+288     ufid_ti = table_instance_alloc(TBL_MIN_BUCKETS);
+289     if (!ufid_ti)
+290         goto free_ti;
+291 
+292     rcu_assign_pointer(table->ti, ti);
+293     rcu_assign_pointer(table->ufid_ti, ufid_ti);
+294     rcu_assign_pointer(table->mask_array, ma);
+295     table->last_rehash = jiffies;
+296     table->count = 0;
+297     table->ufid_count = 0;
+298     return 0;
+299 
+300 free_ti:
+301     __table_instance_destroy(ti);
+302 free_mask_array:
+303     kfree(ma);
+304 free_mask_cache:
+305     free_percpu(table->mask_cache);
+306     return -ENOMEM;
+307 }
+.fi
+.SS "int ovs_flow_tbl_insert (struct \fBflow_table\fP * table, struct \fBsw_flow\fP * flow, const struct \fBsw_flow_mask\fP * mask)"
+
+.PP
+.nf
+969 {
+970     int err;
+971 
+972     err = flow_mask_insert(table, flow, mask);
+973     if (err)
+974         return err;
+975     flow_key_insert(table, flow);
+976     if (ovs_identifier_is_ufid(&flow->id))
+977         flow_ufid_insert(table, flow);
+978 
+979     return 0;
+980 }
+.fi
+.SS "struct \fBsw_flow\fP* ovs_flow_tbl_lookup (struct \fBflow_table\fP *, const struct \fBsw_flow_key\fP *)"
+
+.PP
+.nf
+677 {
+678     struct table_instance *ti = rcu_dereference_ovsl(tbl->ti);
+679     struct mask_array *ma = rcu_dereference_ovsl(tbl->mask_array);
+680     u32 __always_unused n_mask_hit;
+681     u32 index = 0;
+682 
+683     return flow_lookup(tbl, ti, ma, key, &n_mask_hit, &index);
+684 }
+.fi
+.SS "struct \fBsw_flow\fP* ovs_flow_tbl_lookup_exact (struct \fBflow_table\fP * tbl, const struct \fBsw_flow_match\fP * match)"
+
+.PP
+.nf
+688 {
+689     struct mask_array *ma = ovsl_dereference(tbl->mask_array);
+690     int i;
+691 
+692     /* Always called under ovs-mutex\&. */
+693     for (i = 0; i < ma->max; i++) {
+694         struct table_instance *ti = ovsl_dereference(tbl->ti);
+695         u32 __always_unused n_mask_hit;
+696         struct sw_flow_mask *mask;
+697         struct sw_flow *flow;
+698 
+699         mask = ovsl_dereference(ma->masks[i]);
+700         if (!mask)
+701             continue;
+702         flow = masked_flow_lookup(ti, match->key, mask, &n_mask_hit);
+703         if (flow && ovs_identifier_is_key(&flow->id) &&
+704             ovs_flow_cmp_unmasked_key(flow, match))
+705             return flow;
+706     }
+707     return NULL;
+708 }
+.fi
+.SS "struct \fBsw_flow\fP* ovs_flow_tbl_lookup_stats (struct \fBflow_table\fP *, const struct \fBsw_flow_key\fP *, u32 skb_hash, u32 * n_mask_hit)"
+
+.PP
+.nf
+622 {
+623     struct mask_array *ma = rcu_dereference(tbl->mask_array);
+624     struct table_instance *ti = rcu_dereference(tbl->ti);
+625     struct mask_cache_entry *entries, *ce;
+626     struct sw_flow *flow;
+627     u32 hash;
+628     int seg;
+629 
+630     *n_mask_hit = 0;
+631     if (unlikely(!skb_hash)) {
+632         u32 mask_index = 0;
+633 
+634         return flow_lookup(tbl, ti, ma, key, n_mask_hit, &mask_index);
+635     }
+636 
+637     /* Pre and post recirulation flows usually have the same skb_hash
+638      * value\&. To avoid hash collisions, rehash the 'skb_hash' with
+639      * 'recirc_id'\&.  */
+640     if (key->recirc_id)
+641         skb_hash = jhash_1word(skb_hash, key->recirc_id);
+642 
+643     ce = NULL;
+644     hash = skb_hash;
+645     entries = this_cpu_ptr(tbl->mask_cache);
+646 
+647     /* Find the cache entry 'ce' to operate on\&. */
+648     for (seg = 0; seg < MC_HASH_SEGS; seg++) {
+649         int index = hash & (MC_HASH_ENTRIES - 1);
+650         struct mask_cache_entry *e;
+651 
+652         e = &entries[index];
+653         if (e->skb_hash == skb_hash) {
+654             flow = flow_lookup(tbl, ti, ma, key, n_mask_hit,
+655                        &e->mask_index);
+656             if (!flow)
+657                 e->skb_hash = 0;
+658             return flow;
+659         }
+660 
+661         if (!ce || e->skb_hash < ce->skb_hash)
+662             ce = e;  /* A better replacement cache candidate\&. */
+663 
+664         hash >>= MC_HASH_SHIFT;
+665     }
+666 
+667     /* Cache miss, do full lookup\&. */
+668     flow = flow_lookup(tbl, ti, ma, key, n_mask_hit, &ce->mask_index);
+669     if (flow)
+670         ce->skb_hash = skb_hash;
+671 
+672     return flow;
+673 }
+.fi
+.SS "struct \fBsw_flow\fP* ovs_flow_tbl_lookup_ufid (struct \fBflow_table\fP *, const struct \fBsw_flow_id\fP *)"
+
+.PP
+.nf
+734 {
+735     struct table_instance *ti = rcu_dereference_ovsl(tbl->ufid_ti);
+736     struct sw_flow *flow;
+737     struct hlist_head *head;
+738     u32 hash;
+739 
+740     hash = ufid_hash(ufid);
+741     head = find_bucket(ti, hash);
+742     hlist_for_each_entry_rcu(flow, head, ufid_table\&.node[ti->node_ver]) {
+743         if (flow->ufid_table\&.hash == hash &&
+744             ovs_flow_cmp_ufid(flow, ufid))
+745             return flow;
+746     }
+747     return NULL;
+748 }
+.fi
+.SS "int ovs_flow_tbl_num_masks (const struct \fBflow_table\fP * table)"
+
+.PP
+.nf
+751 {
+752     struct mask_array *ma;
+753 
+754     ma = rcu_dereference_ovsl(table->mask_array);
+755     return ma->count;
+756 }
+.fi
+.SS "void ovs_flow_tbl_remove (struct \fBflow_table\fP * table, struct \fBsw_flow\fP * flow)"
+
+.PP
+.nf
+809 {
+810     struct table_instance *ti = ovsl_dereference(table->ti);
+811     struct table_instance *ufid_ti = ovsl_dereference(table->ufid_ti);
+812 
+813     BUG_ON(table->count == 0);
+814     hlist_del_rcu(&flow->flow_table\&.node[ti->node_ver]);
+815     table->count--;
+816     if (ovs_identifier_is_ufid(&flow->id)) {
+817         hlist_del_rcu(&flow->ufid_table\&.node[ufid_ti->node_ver]);
+818         table->ufid_count--;
+819     }
+820 
+821     /* RCU delete the mask\&. 'flow->mask' is not NULLed, as it should be
+822      * accessible as long as the RCU read lock is held\&.
+823      */
+824     flow_mask_remove(table, flow->mask);
+825 }
+.fi
+.SH "Variable Documentation"
+.PP 
+.SS "struct kmem_cache* flow_stats_cache"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

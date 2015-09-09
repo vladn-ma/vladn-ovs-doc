@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="compat_2skbuff-openvswitch_8c">
+    <title>skbuff-openvswitch.c File Reference</title>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/netdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/skbuff.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_vlan.h&gt;</programlisting>
+    <programlisting>#include &quot;gso.h&quot;</programlisting>
+<para>Include dependency diagram for skbuff-openvswitch.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="compat_2skbuff-openvswitch_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for skbuff-openvswitch.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="compat_2skbuff-openvswitch_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="compat_2skbuff-openvswitch_8c_1a15c9dad54898a1483b0c61101836ae4b">rpl_skb_ensure_writable</link> (
+struct sk_buff * skb, int write_len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="compat_2skbuff-openvswitch_8c_1a7ff7437b21b29dfb4e9dc4c4a2c1a5ea">EXPORT_SYMBOL_GPL</link> (
+<link linkend="skbuff-openvswitch_8c_1a15c9dad54898a1483b0c61101836ae4b">rpl_skb_ensure_writable</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="compat_2skbuff-openvswitch_8c_1a0f57a812e220d03f4a3a57604edfd079">__skb_vlan_pop</link> (
+struct sk_buff * skb, u16 * vlan_tci)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="compat_2skbuff-openvswitch_8c_1a797322c61b7d5999237ffdd59972751e">rpl_skb_vlan_pop</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="compat_2skbuff-openvswitch_8c_1aa16324b61c50ddbb2615a482ccd2cfc8">EXPORT_SYMBOL_GPL</link> (
+<link linkend="skbuff-openvswitch_8c_1a797322c61b7d5999237ffdd59972751e">rpl_skb_vlan_pop</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="compat_2skbuff-openvswitch_8c_1ad4f8c18bdd22cdd3623de896458c404e">rpl_skb_vlan_push</link> (
+struct sk_buff * skb, __be16 vlan_proto, u16 vlan_tci)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="compat_2skbuff-openvswitch_8c_1a0139a89a512cfd5b8aa405c2d49f0e85">EXPORT_SYMBOL_GPL</link> (
+<link linkend="skbuff-openvswitch_8c_1ad4f8c18bdd22cdd3623de896458c404e">rpl_skb_vlan_push</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="compat_2skbuff-openvswitch_8c_1a23942601601684adfd86854f195244f3">rpl_kfree_skb_list</link> (
+struct sk_buff * segs)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para> <link linkend="compat_2skbuff-openvswitch_8c_1ac2d4948230ea7306d2789e0e783241e7">EXPORT_SYMBOL</link> (
+<link linkend="skbuff-openvswitch_8c_1a23942601601684adfd86854f195244f3">rpl_kfree_skb_list</link> )</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/skbuff-openvswitch.c</para>
+    </simplesect>
+</section>

@@ -1,0 +1,76 @@
+.TH "/home/vladn/git/ovs/datapath/linux/ip_tunnels_core.c" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/ip_tunnels_core.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/in\&.h>\fP
+.br
+\fC#include <linux/in_route\&.h>\fP
+.br
+\fC#include <linux/inetdevice\&.h>\fP
+.br
+\fC#include <linux/jhash\&.h>\fP
+.br
+\fC#include <linux/list\&.h>\fP
+.br
+\fC#include <linux/kernel\&.h>\fP
+.br
+\fC#include <linux/version\&.h>\fP
+.br
+\fC#include <linux/workqueue\&.h>\fP
+.br
+\fC#include <linux/rculist\&.h>\fP
+.br
+\fC#include <net/ip_tunnels\&.h>\fP
+.br
+\fC#include <net/route\&.h>\fP
+.br
+\fC#include <net/xfrm\&.h>\fP
+.br
+\fC#include 'compat\&.h'\fP
+.br
+\fC#include 'gso\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBpr_fmt\fP(fmt)   KBUILD_MODNAME ': ' fmt"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBbool\fP \fBovs_skb_is_encapsulated\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBovs_skb_is_encapsulated\fP)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define pr_fmt(fmt)   KBUILD_MODNAME ': ' fmt"
+
+.SH "Function Documentation"
+.PP 
+.SS "EXPORT_SYMBOL_GPL (\fBovs_skb_is_encapsulated\fP)"
+
+.SS "\fBbool\fP ovs_skb_is_encapsulated (struct sk_buff * skb)"
+
+.PP
+.nf
+176 {
+177     /* checking for inner protocol should be sufficient on newer kernel, but
+178      * old kernel just set encapsulation bit\&.
+179      */
+180     return ovs_skb_get_inner_protocol(skb) || skb_encapsulation(skb);
+181 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

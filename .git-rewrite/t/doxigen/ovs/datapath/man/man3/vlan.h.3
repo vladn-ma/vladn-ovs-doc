@@ -1,0 +1,63 @@
+.TH "/home/vladn/git/ovs/datapath/vlan.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/vlan.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/if_vlan\&.h>\fP
+.br
+\fC#include <linux/skbuff\&.h>\fP
+.br
+\fC#include <linux/version\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static u16 \fBvlan_get_tci\fP (struct sk_buff *skb)"
+.br
+.ti -1c
+.RI "static void \fBvlan_set_tci\fP (struct sk_buff *skb, u16 vlan_tci)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "static u16 vlan_get_tci (struct sk_buff * skb)\fC [inline]\fP, \fC [static]\fP"
+DOC: VLAN tag manipulation\&.
+.PP
+&struct sk_buff handling of VLAN tags has evolved over time:
+.PP
+In 2\&.6\&.26 and earlier, VLAN tags did not have any generic representation in an skb, other than as a raw 802\&.1Q header inside the packet data\&.
+.PP
+In 2\&.6\&.27 &struct sk_buff added a  member\&. Between 2\&.6\&.27 and 2\&.6\&.32, its value was the raw contents of the 802\&.1Q TCI field, or zero if no 802\&.1Q header was present\&. This worked OK except for the corner case of an 802\&.1Q header with an all-0-bits TCI, which could not be represented\&.
+.PP
+In 2\&.6\&.33,  semantics changed\&. Now, if an 802\&.1Q header is present, then the VLAN_TAG_PRESENT bit is always set\&. This fixes the all-0-bits TCI corner case\&.
+.PP
+For compatibility we emulate the 2\&.6\&.33+ behavior on earlier kernel versions\&. The client must not access  directly\&. Instead, use \fBvlan_get_tci()\fP to read it or \fBvlan_set_tci()\fP to write it, with semantics equivalent to those on 2\&.6\&.33+\&. 
+.PP
+.nf
+50 {
+51 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,33)
+52     if (skb->vlan_tci)
+53         return skb->vlan_tci | VLAN_TAG_PRESENT;
+54 #endif
+55     return skb->vlan_tci;
+56 }
+.fi
+.SS "static void vlan_set_tci (struct sk_buff * skb, u16 vlan_tci)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+59 {
+60 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,33)
+61     vlan_tci &= ~VLAN_TAG_PRESENT;
+62 #endif
+63     skb->vlan_tci = vlan_tci;
+64 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

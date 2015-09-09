@@ -1,0 +1,42 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/net/ip.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/net/ip.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/version\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBinet_get_local_port_range\fP   \fBrpl_inet_get_local_port_range\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBrpl_inet_get_local_port_range\fP (struct net *net, int *low, int *high)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define inet_get_local_port_range   \fBrpl_inet_get_local_port_range\fP"
+
+.SH "Function Documentation"
+.PP 
+.SS "static void rpl_inet_get_local_port_range (struct net * net, int * low, int * high)\fC [inline]\fP, \fC [static]\fP"
+
+.PP
+.nf
+18 {
+19     inet_get_local_port_range(low, high);
+20 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

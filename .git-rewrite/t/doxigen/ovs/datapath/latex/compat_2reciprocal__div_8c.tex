@@ -1,0 +1,56 @@
+\hypertarget{compat_2reciprocal__div_8c}{}\section{/home/vladn/git/ovs/datapath/linux/compat/reciprocal\+\_\+div.c File Reference}
+\label{compat_2reciprocal__div_8c}\index{/home/vladn/git/ovs/datapath/linux/compat/reciprocal\+\_\+div.\+c@{/home/vladn/git/ovs/datapath/linux/compat/reciprocal\+\_\+div.\+c}}
+{\ttfamily \#include $<$linux/kernel.\+h$>$}\\*
+{\ttfamily \#include $<$asm/div64.\+h$>$}\\*
+{\ttfamily \#include $<$linux/module.\+h$>$}\\*
+{\ttfamily \#include $<$linux/reciprocal\+\_\+div.\+h$>$}\\*
+Include dependency graph for reciprocal\+\_\+div.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{compat_2reciprocal__div_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structreciprocal__value}{reciprocal\+\_\+value} \hyperlink{compat_2reciprocal__div_8c_a9521bfcfc19dc38ffcc0ce9221e5a91d}{rpl\+\_\+reciprocal\+\_\+value} (u32 d)
+\item 
+\hyperlink{compat_2reciprocal__div_8c_adf75876fb45434147be2d127b4dd29b1}{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L} (\hyperlink{reciprocal__div_8c_a9521bfcfc19dc38ffcc0ce9221e5a91d}{rpl\+\_\+reciprocal\+\_\+value})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{compat_2reciprocal__div_8c_adf75876fb45434147be2d127b4dd29b1}{}\index{compat/reciprocal\+\_\+div.\+c@{compat/reciprocal\+\_\+div.\+c}!E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}}
+\index{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L@{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}!compat/reciprocal\+\_\+div.\+c@{compat/reciprocal\+\_\+div.\+c}}
+\subsubsection[{E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L}]{\setlength{\rightskip}{0pt plus 5cm}E\+X\+P\+O\+R\+T\+\_\+\+S\+Y\+M\+B\+O\+L\+\_\+\+G\+P\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf rpl\+\_\+reciprocal\+\_\+value}}]{}
+\end{DoxyParamCaption}
+)}\label{compat_2reciprocal__div_8c_adf75876fb45434147be2d127b4dd29b1}
+\hypertarget{compat_2reciprocal__div_8c_a9521bfcfc19dc38ffcc0ce9221e5a91d}{}\index{compat/reciprocal\+\_\+div.\+c@{compat/reciprocal\+\_\+div.\+c}!rpl\+\_\+reciprocal\+\_\+value@{rpl\+\_\+reciprocal\+\_\+value}}
+\index{rpl\+\_\+reciprocal\+\_\+value@{rpl\+\_\+reciprocal\+\_\+value}!compat/reciprocal\+\_\+div.\+c@{compat/reciprocal\+\_\+div.\+c}}
+\subsubsection[{rpl\+\_\+reciprocal\+\_\+value}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf reciprocal\+\_\+value} rpl\+\_\+reciprocal\+\_\+value (
+\begin{DoxyParamCaption}
+\item[{u32}]{d}
+\end{DoxyParamCaption}
+)}\label{compat_2reciprocal__div_8c_a9521bfcfc19dc38ffcc0ce9221e5a91d}
+
+\begin{DoxyCode}
+12 \{
+13     \textcolor{keyword}{struct }\hyperlink{structreciprocal__value}{reciprocal\_value} R;
+14     u64 \hyperlink{structreciprocal__value_aa32a30f86412446e8febcc66236f7472}{m};
+15     \textcolor{keywordtype}{int} l;
+16 
+17     l = fls(d - 1);
+18     m = ((1ULL << 32) * ((1ULL << l) - d));
+19     do\_div(m, d);
+20     ++\hyperlink{structreciprocal__value_aa32a30f86412446e8febcc66236f7472}{m};
+21     R.m = (u32)m;
+22     R.sh1 = min(l, 1);
+23     R.sh2 = max(l - 1, 0);
+24 
+25     \textcolor{keywordflow}{return} R;
+26 \}
+\end{DoxyCode}

@@ -1,0 +1,18 @@
+<map id="vport_ops" name="vport_ops">
+<area shape="rect" id="node2" href="$structvport.html" title="vport" alt="" coords="194,568,245,595"/>
+<area shape="rect" id="node3" href="$structvport__err__stats.html" title="vport_err_stats" alt="" coords="109,479,218,505"/>
+<area shape="rect" id="node4" href="$structvport__portids.html" title="vport_portids" alt="" coords="243,479,340,505"/>
+<area shape="rect" id="node5" href="$structreciprocal__value.html" title="reciprocal_value" alt="" coords="187,377,303,404"/>
+<area shape="rect" id="node6" href="$structdatapath.html" title="datapath" alt="" coords="365,479,437,505"/>
+<area shape="rect" id="node7" href="$structflow__table.html" title="flow_table" alt="" coords="327,377,408,404"/>
+<area shape="rect" id="node8" href="$structmask__cache__entry.html" title="mask_cache_entry" alt="" coords="129,273,261,300"/>
+<area shape="rect" id="node9" href="$structtable__instance.html" title="table_instance" alt="" coords="286,273,393,300"/>
+<area shape="rect" id="node10" href="$structmask__array.html" title="mask_array" alt="" coords="417,273,507,300"/>
+<area shape="rect" id="node11" href="$structsw__flow__mask.html" title="sw_flow_mask" alt="" coords="407,184,517,211"/>
+<area shape="rect" id="node12" href="$structsw__flow__key__range.html" title="sw_flow_key_range" alt="" coords="360,95,497,121"/>
+<area shape="rect" id="node13" href="$structsw__flow__key.html" title="sw_flow_key" alt="" coords="522,95,621,121"/>
+<area shape="rect" id="node14" href="$structovs__key__ipv4__tunnel.html" title="ovs_key_ipv4_tunnel" alt="" coords="499,5,643,32"/>
+<area shape="rect" id="node15" href="$structdp__stats__percpu.html" title="dp_stats_percpu" alt="" coords="432,377,551,404"/>
+<area shape="rect" id="node16" href="$structu64__stats__sync.html" title="u64_stats_sync" alt="" coords="531,273,646,300"/>
+<area shape="rect" id="node17" href="$structpcpu__sw__netstats.html" title="pcpu_sw_netstats" alt="" coords="523,428,651,455"/>
+</map>

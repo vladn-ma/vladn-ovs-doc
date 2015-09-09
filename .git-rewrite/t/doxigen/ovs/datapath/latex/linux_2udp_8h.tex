@@ -1,0 +1,31 @@
+\hypertarget{linux_2udp_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/linux/udp.h File Reference}
+\label{linux_2udp_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/linux/udp.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/linux/udp.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{linux_2udp_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static struct udphdr $\ast$ \hyperlink{linux_2udp_8h_a7b8908e197538768cf4ff9ec577bd86b}{udp\+\_\+hdr} (const struct sk\+\_\+buff $\ast$skb)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{linux_2udp_8h_a7b8908e197538768cf4ff9ec577bd86b}{}\index{linux/udp.\+h@{linux/udp.\+h}!udp\+\_\+hdr@{udp\+\_\+hdr}}
+\index{udp\+\_\+hdr@{udp\+\_\+hdr}!linux/udp.\+h@{linux/udp.\+h}}
+\subsubsection[{udp\+\_\+hdr}]{\setlength{\rightskip}{0pt plus 5cm}static struct udphdr$\ast$ udp\+\_\+hdr (
+\begin{DoxyParamCaption}
+\item[{const struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{linux_2udp_8h_a7b8908e197538768cf4ff9ec577bd86b}
+
+\begin{DoxyCode}
+8 \{
+9     \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} udphdr *)\hyperlink{skbuff_8h_ad4a95a26793695e82fca60888688450f}{skb\_transport\_header}(skb);
+10 \}
+\end{DoxyCode}

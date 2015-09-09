@@ -1,0 +1,52 @@
+\hypertarget{percpu_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/linux/percpu.h File Reference}
+\label{percpu_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/linux/percpu.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/linux/percpu.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{percpu_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{percpu_8h_a1cd55f287dff5c4a79fc11dd38d47c12}{this\+\_\+cpu\+\_\+ptr}(ptr)~per\+\_\+cpu\+\_\+ptr(ptr, smp\+\_\+processor\+\_\+id())
+\item 
+\#define \hyperlink{percpu_8h_a15341bef54ee4dd9fcc2d811bb11d39d}{this\+\_\+cpu\+\_\+read}(ptr)~percpu\+\_\+read(ptr)
+\item 
+\#define \hyperlink{percpu_8h_a8999ff6f1c86c39d81e8b2388d8056ac}{this\+\_\+cpu\+\_\+inc}(ptr)~percpu\+\_\+add(ptr, 1)
+\item 
+\#define \hyperlink{percpu_8h_a3949346d789a1c87ab4bc81744bc3fad}{this\+\_\+cpu\+\_\+dec}(ptr)~percpu\+\_\+sub(ptr, 1)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{percpu_8h_a3949346d789a1c87ab4bc81744bc3fad}{}\index{percpu.\+h@{percpu.\+h}!this\+\_\+cpu\+\_\+dec@{this\+\_\+cpu\+\_\+dec}}
+\index{this\+\_\+cpu\+\_\+dec@{this\+\_\+cpu\+\_\+dec}!percpu.\+h@{percpu.\+h}}
+\subsubsection[{this\+\_\+cpu\+\_\+dec}]{\setlength{\rightskip}{0pt plus 5cm}\#define this\+\_\+cpu\+\_\+dec(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~percpu\+\_\+sub(ptr, 1)}\label{percpu_8h_a3949346d789a1c87ab4bc81744bc3fad}
+\hypertarget{percpu_8h_a8999ff6f1c86c39d81e8b2388d8056ac}{}\index{percpu.\+h@{percpu.\+h}!this\+\_\+cpu\+\_\+inc@{this\+\_\+cpu\+\_\+inc}}
+\index{this\+\_\+cpu\+\_\+inc@{this\+\_\+cpu\+\_\+inc}!percpu.\+h@{percpu.\+h}}
+\subsubsection[{this\+\_\+cpu\+\_\+inc}]{\setlength{\rightskip}{0pt plus 5cm}\#define this\+\_\+cpu\+\_\+inc(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~percpu\+\_\+add(ptr, 1)}\label{percpu_8h_a8999ff6f1c86c39d81e8b2388d8056ac}
+\hypertarget{percpu_8h_a1cd55f287dff5c4a79fc11dd38d47c12}{}\index{percpu.\+h@{percpu.\+h}!this\+\_\+cpu\+\_\+ptr@{this\+\_\+cpu\+\_\+ptr}}
+\index{this\+\_\+cpu\+\_\+ptr@{this\+\_\+cpu\+\_\+ptr}!percpu.\+h@{percpu.\+h}}
+\subsubsection[{this\+\_\+cpu\+\_\+ptr}]{\setlength{\rightskip}{0pt plus 5cm}\#define this\+\_\+cpu\+\_\+ptr(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~per\+\_\+cpu\+\_\+ptr(ptr, smp\+\_\+processor\+\_\+id())}\label{percpu_8h_a1cd55f287dff5c4a79fc11dd38d47c12}
+\hypertarget{percpu_8h_a15341bef54ee4dd9fcc2d811bb11d39d}{}\index{percpu.\+h@{percpu.\+h}!this\+\_\+cpu\+\_\+read@{this\+\_\+cpu\+\_\+read}}
+\index{this\+\_\+cpu\+\_\+read@{this\+\_\+cpu\+\_\+read}!percpu.\+h@{percpu.\+h}}
+\subsubsection[{this\+\_\+cpu\+\_\+read}]{\setlength{\rightskip}{0pt plus 5cm}\#define this\+\_\+cpu\+\_\+read(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~percpu\+\_\+read(ptr)}\label{percpu_8h_a15341bef54ee4dd9fcc2d811bb11d39d}

@@ -1,0 +1,140 @@
+\hypertarget{net_2netlink_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/net/netlink.h File Reference}
+\label{net_2netlink_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/net/netlink.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/net/netlink.\+h}}
+{\ttfamily \#include $<$linux/version.\+h$>$}\\*
+Include dependency graph for netlink.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{net_2netlink_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{net_2netlink_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{net_2netlink_8h_ac2634af90bda4393105b6323da2044fa}{nla\+\_\+for\+\_\+each\+\_\+nested}(pos,  nla,  rem)~nla\+\_\+for\+\_\+each\+\_\+attr(pos, nla\+\_\+data(nla), nla\+\_\+len(nla), rem)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \+\_\+\+\_\+be16 \hyperlink{net_2netlink_8h_a5a9bc877c8fdbf9b3f2f85536aabcae0}{nla\+\_\+get\+\_\+be16} (const struct nlattr $\ast$nla)
+\item 
+static int \hyperlink{net_2netlink_8h_aafa7ef6ea62a477fe1cf21d435e2a718}{nla\+\_\+put\+\_\+be16} (struct sk\+\_\+buff $\ast$skb, int attrtype, \+\_\+\+\_\+be16 value)
+\item 
+static int \hyperlink{net_2netlink_8h_a2e2a0bd10c5f5139dc80413fd8dcbbe7}{nla\+\_\+put\+\_\+be32} (struct sk\+\_\+buff $\ast$skb, int attrtype, \+\_\+\+\_\+be32 value)
+\item 
+static int \hyperlink{net_2netlink_8h_a610b2c7f3f7996a3b2406ce1bc708b5e}{nla\+\_\+put\+\_\+be64} (struct sk\+\_\+buff $\ast$skb, int attrtype, \+\_\+\+\_\+be64 value)
+\item 
+static struct nlattr $\ast$ \hyperlink{net_2netlink_8h_a5b73cd8f4a1d3d335642ee1492b7b2c2}{nla\+\_\+find\+\_\+nested} (struct nlattr $\ast$nla, int attrtype)
+\item 
+static \hyperlink{types_8h_afaa87723b8417d40fcf45b7330261ef9}{bool} \hyperlink{net_2netlink_8h_ad408a3a1db3cc544eb7a552246f3fb57}{nla\+\_\+is\+\_\+last} (const struct nlattr $\ast$nla, int rem)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{net_2netlink_8h_ac2634af90bda4393105b6323da2044fa}{}\index{net/netlink.\+h@{net/netlink.\+h}!nla\+\_\+for\+\_\+each\+\_\+nested@{nla\+\_\+for\+\_\+each\+\_\+nested}}
+\index{nla\+\_\+for\+\_\+each\+\_\+nested@{nla\+\_\+for\+\_\+each\+\_\+nested}!net/netlink.\+h@{net/netlink.\+h}}
+\subsubsection[{nla\+\_\+for\+\_\+each\+\_\+nested}]{\setlength{\rightskip}{0pt plus 5cm}\#define nla\+\_\+for\+\_\+each\+\_\+nested(
+\begin{DoxyParamCaption}
+\item[{}]{pos, }
+\item[{}]{nla, }
+\item[{}]{rem}
+\end{DoxyParamCaption}
+)~nla\+\_\+for\+\_\+each\+\_\+attr(pos, nla\+\_\+data(nla), nla\+\_\+len(nla), rem)}\label{net_2netlink_8h_ac2634af90bda4393105b6323da2044fa}
+
+
+\subsection{Function Documentation}
+\hypertarget{net_2netlink_8h_a5b73cd8f4a1d3d335642ee1492b7b2c2}{}\index{net/netlink.\+h@{net/netlink.\+h}!nla\+\_\+find\+\_\+nested@{nla\+\_\+find\+\_\+nested}}
+\index{nla\+\_\+find\+\_\+nested@{nla\+\_\+find\+\_\+nested}!net/netlink.\+h@{net/netlink.\+h}}
+\subsubsection[{nla\+\_\+find\+\_\+nested}]{\setlength{\rightskip}{0pt plus 5cm}static struct nlattr$\ast$ nla\+\_\+find\+\_\+nested (
+\begin{DoxyParamCaption}
+\item[{struct nlattr $\ast$}]{nla, }
+\item[{int}]{attrtype}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{net_2netlink_8h_a5b73cd8f4a1d3d335642ee1492b7b2c2}
+
+\begin{DoxyCode}
+61 \{
+62     \textcolor{keywordflow}{return} nla\_find(nla\_data(nla), nla\_len(nla), attrtype);
+63 \}
+\end{DoxyCode}
+\hypertarget{net_2netlink_8h_a5a9bc877c8fdbf9b3f2f85536aabcae0}{}\index{net/netlink.\+h@{net/netlink.\+h}!nla\+\_\+get\+\_\+be16@{nla\+\_\+get\+\_\+be16}}
+\index{nla\+\_\+get\+\_\+be16@{nla\+\_\+get\+\_\+be16}!net/netlink.\+h@{net/netlink.\+h}}
+\subsubsection[{nla\+\_\+get\+\_\+be16}]{\setlength{\rightskip}{0pt plus 5cm}static \+\_\+\+\_\+be16 nla\+\_\+get\+\_\+be16 (
+\begin{DoxyParamCaption}
+\item[{const struct nlattr $\ast$}]{nla}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{net_2netlink_8h_a5a9bc877c8fdbf9b3f2f85536aabcae0}
+nla\+\_\+get\+\_\+be16 -\/ return payload of \+\_\+\+\_\+be16 attribute \+: \+\_\+\+\_\+be16 netlink attribute 
+\begin{DoxyCode}
+13 \{
+14     \textcolor{keywordflow}{return} *(\_\_be16 *) nla\_data(nla);
+15 \}
+\end{DoxyCode}
+\hypertarget{net_2netlink_8h_ad408a3a1db3cc544eb7a552246f3fb57}{}\index{net/netlink.\+h@{net/netlink.\+h}!nla\+\_\+is\+\_\+last@{nla\+\_\+is\+\_\+last}}
+\index{nla\+\_\+is\+\_\+last@{nla\+\_\+is\+\_\+last}!net/netlink.\+h@{net/netlink.\+h}}
+\subsubsection[{nla\+\_\+is\+\_\+last}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf bool} nla\+\_\+is\+\_\+last (
+\begin{DoxyParamCaption}
+\item[{const struct nlattr $\ast$}]{nla, }
+\item[{int}]{rem}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{net_2netlink_8h_ad408a3a1db3cc544eb7a552246f3fb57}
+
+\begin{DoxyCode}
+68 \{
+69     \textcolor{keywordflow}{return} nla->nla\_len == rem;
+70 \}
+\end{DoxyCode}
+\hypertarget{net_2netlink_8h_aafa7ef6ea62a477fe1cf21d435e2a718}{}\index{net/netlink.\+h@{net/netlink.\+h}!nla\+\_\+put\+\_\+be16@{nla\+\_\+put\+\_\+be16}}
+\index{nla\+\_\+put\+\_\+be16@{nla\+\_\+put\+\_\+be16}!net/netlink.\+h@{net/netlink.\+h}}
+\subsubsection[{nla\+\_\+put\+\_\+be16}]{\setlength{\rightskip}{0pt plus 5cm}static int nla\+\_\+put\+\_\+be16 (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{int}]{attrtype, }
+\item[{\+\_\+\+\_\+be16}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{net_2netlink_8h_aafa7ef6ea62a477fe1cf21d435e2a718}
+
+\begin{DoxyCode}
+35 \{
+36     \textcolor{keywordflow}{return} nla\_put(skb, attrtype, \textcolor{keyword}{sizeof}(\_\_be16), &value);
+37 \}
+\end{DoxyCode}
+\hypertarget{net_2netlink_8h_a2e2a0bd10c5f5139dc80413fd8dcbbe7}{}\index{net/netlink.\+h@{net/netlink.\+h}!nla\+\_\+put\+\_\+be32@{nla\+\_\+put\+\_\+be32}}
+\index{nla\+\_\+put\+\_\+be32@{nla\+\_\+put\+\_\+be32}!net/netlink.\+h@{net/netlink.\+h}}
+\subsubsection[{nla\+\_\+put\+\_\+be32}]{\setlength{\rightskip}{0pt plus 5cm}static int nla\+\_\+put\+\_\+be32 (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{int}]{attrtype, }
+\item[{\+\_\+\+\_\+be32}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{net_2netlink_8h_a2e2a0bd10c5f5139dc80413fd8dcbbe7}
+
+\begin{DoxyCode}
+42 \{
+43     \textcolor{keywordflow}{return} nla\_put(skb, attrtype, \textcolor{keyword}{sizeof}(\_\_be32), &value);
+44 \}
+\end{DoxyCode}
+\hypertarget{net_2netlink_8h_a610b2c7f3f7996a3b2406ce1bc708b5e}{}\index{net/netlink.\+h@{net/netlink.\+h}!nla\+\_\+put\+\_\+be64@{nla\+\_\+put\+\_\+be64}}
+\index{nla\+\_\+put\+\_\+be64@{nla\+\_\+put\+\_\+be64}!net/netlink.\+h@{net/netlink.\+h}}
+\subsubsection[{nla\+\_\+put\+\_\+be64}]{\setlength{\rightskip}{0pt plus 5cm}static int nla\+\_\+put\+\_\+be64 (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{int}]{attrtype, }
+\item[{\+\_\+\+\_\+be64}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{net_2netlink_8h_a610b2c7f3f7996a3b2406ce1bc708b5e}
+
+\begin{DoxyCode}
+49 \{
+50     \textcolor{keywordflow}{return} nla\_put(skb, attrtype, \textcolor{keyword}{sizeof}(\_\_be64), &value);
+51 \}
+\end{DoxyCode}

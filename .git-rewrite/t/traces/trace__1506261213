@@ -1,0 +1,349 @@
+  0)               |  ovs_dp_cmd_get [openvswitch]() {
+  0)               |    lookup_datapath [openvswitch]() {
+  0)               |      get_dp_rcu [openvswitch]() {
+  0)   0.083 us    |        ovs_internal_dev_get_vport [openvswitch]();
+  0)   1.666 us    |      }
+  0)   2.284 us    |    }
+  0)               |    ovs_dp_cmd_fill_info [openvswitch]() {
+  0)   0.470 us    |      ovs_lookup_vport [openvswitch]();
+  0)               |      ovs_dp_name [openvswitch]() {
+  0)   0.070 us    |        ovs_lookup_vport [openvswitch]();
+  0)   0.067 us    |        ovs_netdev_get_name [openvswitch]();
+  0)   1.248 us    |      }
+  0)   0.063 us    |      ovs_flow_tbl_count [openvswitch]();
+  0)   0.065 us    |      ovs_flow_tbl_num_masks [openvswitch]();
+  0)   6.791 us    |    }
+  0) + 12.683 us   |  }
+  0)               |  ovs_flow_cmd_dump [openvswitch]() {
+  0)   0.065 us    |    ovs_nla_get_ufid_flags [openvswitch]();
+  0)               |    get_dp_rcu [openvswitch]() {
+  0)   0.068 us    |      ovs_internal_dev_get_vport [openvswitch]();
+  0)   0.585 us    |    }
+  0) + 11.932 us   |    ovs_flow_tbl_dump_next [openvswitch]();
+  0) + 14.671 us   |  }
+  1)               |  ovs_dp_cmd_get [openvswitch]() {
+  1)               |    lookup_datapath [openvswitch]() {
+  1)               |      get_dp_rcu [openvswitch]() {
+  1)   0.188 us    |        ovs_internal_dev_get_vport [openvswitch]();
+  1)   1.752 us    |      }
+  1)   2.387 us    |    }
+  1)               |    ovs_dp_cmd_fill_info [openvswitch]() {
+  1)   0.455 us    |      ovs_lookup_vport [openvswitch]();
+  1)               |      ovs_dp_name [openvswitch]() {
+  1)   0.077 us    |        ovs_lookup_vport [openvswitch]();
+  1)   0.075 us    |        ovs_netdev_get_name [openvswitch]();
+  1)   1.271 us    |      }
+  1)   0.075 us    |      ovs_flow_tbl_count [openvswitch]();
+  1)   0.078 us    |      ovs_flow_tbl_num_masks [openvswitch]();
+  1)   6.637 us    |    }
+  1) + 12.619 us   |  }
+  1)               |  ovs_flow_cmd_dump [openvswitch]() {
+  1)   0.051 us    |    ovs_nla_get_ufid_flags [openvswitch]();
+  1)               |    get_dp_rcu [openvswitch]() {
+  1)   0.043 us    |      ovs_internal_dev_get_vport [openvswitch]();
+  1)   0.450 us    |    }
+  1)   8.106 us    |    ovs_flow_tbl_dump_next [openvswitch]();
+  1) + 10.432 us   |  }
+  1)               |  ovs_dp_cmd_get [openvswitch]() {
+  1)               |    lookup_datapath [openvswitch]() {
+  1)               |      get_dp_rcu [openvswitch]() {
+  1)   0.110 us    |        ovs_internal_dev_get_vport [openvswitch]();
+  1)   1.326 us    |      }
+  1)   1.977 us    |    }
+  1)               |    ovs_dp_cmd_fill_info [openvswitch]() {
+  1)   0.391 us    |      ovs_lookup_vport [openvswitch]();
+  1)               |      ovs_dp_name [openvswitch]() {
+  1)   0.065 us    |        ovs_lookup_vport [openvswitch]();
+  1)   0.067 us    |        ovs_netdev_get_name [openvswitch]();
+  1)   1.183 us    |      }
+  1)   0.068 us    |      ovs_flow_tbl_count [openvswitch]();
+  1)   0.065 us    |      ovs_flow_tbl_num_masks [openvswitch]();
+  1)   6.247 us    |    }
+  1) + 11.274 us   |  }
+  1)               |  ovs_flow_cmd_dump [openvswitch]() {
+  1)   0.065 us    |    ovs_nla_get_ufid_flags [openvswitch]();
+  1)               |    get_dp_rcu [openvswitch]() {
+  1)   0.065 us    |      ovs_internal_dev_get_vport [openvswitch]();
+  1)   0.583 us    |    }
+  1) + 11.814 us   |    ovs_flow_tbl_dump_next [openvswitch]();
+  1) + 14.664 us   |  }
+  1)               |  ovs_dp_cmd_get [openvswitch]() {
+  1)               |    lookup_datapath [openvswitch]() {
+  1)               |      get_dp_rcu [openvswitch]() {
+  1)   0.175 us    |        ovs_internal_dev_get_vport [openvswitch]();
+ ------------------------------------------
+  0)  revalid-7890  =>  ovs-vsw-7793 
+ ------------------------------------------
+
+  0)               |  ovs_vport_cmd_get [openvswitch]() {
+  0)               |    lookup_vport [openvswitch]() {
+  0)               |      ovs_vport_locate [openvswitch]() {
+  0)   0.298 us    |        hash_bucket [openvswitch]();
+  0)   0.073 us    |        ovs_netdev_get_name [openvswitch]();
+CPU:0 [LOST 303 EVENTS]
+  0)   2.872 us    |    } /* ovs_vport_cmd_fill_info [openvswitch] */
+  0)   5.591 us    |  }
+  0)               |  ovs_vport_cmd_get [openvswitch]() {
+  0)               |    lookup_vport [openvswitch]() {
+  0)               |      ovs_vport_locate [openvswitch]() {
+  0)   0.095 us    |        hash_bucket [openvswitch]();
+  0)   0.045 us    |        ovs_netdev_get_name [openvswitch]();
+  0)   0.961 us    |      }
+  0)   1.461 us    |    }
+  0)               |    ovs_vport_cmd_fill_info [openvswitch]() {
+  0)   0.047 us    |      ovs_lookup_vport [openvswitch]();
+  0)   0.046 us    |      ovs_netdev_get_name [openvswitch]();
+  0)   1.197 us    |      ovs_vport_get_stats [openvswitch]();
+  0)   0.182 us    |      ovs_vport_get_upcall_portids [openvswitch]();
+  0)   0.047 us    |      ovs_vport_get_options [openvswitch]();
+  0)   3.374 us    |    }
+  0)   5.939 us    |  }
+  0)               |  ovs_vport_cmd_get [openvswitch]() {
+  0)               |    lookup_vport [openvswitch]() {
+  0)               |      ovs_vport_locate [openvswitch]() {
+  0)   0.346 us    |        hash_bucket [openvswitch]();
+  0)   0.070 us    |        ovs_netdev_get_name [openvswitch]();
+  0)   2.362 us    |      }
+  0)   3.028 us    |    }
+  0)               |    ovs_vport_cmd_fill_info [openvswitch]() {
+  0)   0.265 us    |      ovs_lookup_vport [openvswitch]();
+  0)   0.070 us    |      ovs_netdev_get_name [openvswitch]();
+  0)   2.640 us    |      ovs_vport_get_stats [openvswitch]();
+  0)   0.240 us    |      ovs_vport_get_upcall_portids [openvswitch]();
+  0)   0.078 us    |      ovs_vport_get_options [openvswitch]();
+  0)   9.343 us    |    }
+  0) + 15.519 us   |  }
+  0)               |  ovs_vport_cmd_get [openvswitch]() {
+  0)               |    lookup_vport [openvswitch]() {
+  0)               |      ovs_vport_locate [openvswitch]() {
+  0)   0.097 us    |        hash_bucket [openvswitch]();
+  0)   0.045 us    |        ovs_netdev_get_name [openvswitch]();
+  0)   1.164 us    |      }
+  0)   1.653 us    |    }
+  0)               |    ovs_vport_cmd_fill_info [openvswitch]() {
+  0)   0.045 us    |      ovs_lookup_vport [openvswitch]();
+  0)   0.045 us    |      ovs_netdev_get_name [openvswitch]();
+  0)   0.585 us    |      ovs_vport_get_stats [openvswitch]();
+  0)   0.183 us    |      ovs_vport_get_upcall_portids [openvswitch]();
+  0)   0.047 us    |      ovs_vport_get_options [openvswitch]();
+  0)   2.812 us    |    }
+  0)   5.655 us    |  }
+  0)               |  ovs_vport_cmd_get [openvswitch]() {
+  0)               |    lookup_vport [openvswitch]() {
+  0)               |      ovs_vport_locate [openvswitch]() {
+  0)   0.082 us    |        hash_bucket [openvswitch]();
+  0)   0.043 us    |        ovs_netdev_get_name [openvswitch]();
+  0)   0.954 us    |      }
+  0)   1.406 us    |    }
+  0)               |    ovs_vport_cmd_fill_info [openvswitch]() {
+  0)   0.046 us    |      ovs_lookup_vport [openvswitch]();
+  0)   0.046 us    |      ovs_netdev_get_name [openvswitch]();
+  0)   0.585 us    |      ovs_vport_get_stats [openvswitch]();
+  0)   0.180 us    |      ovs_vport_get_upcall_portids [openvswitch]();
+  0)   0.048 us    |      ovs_vport_get_options [openvswitch]();
+  0)   2.751 us    |    }
+  0)   5.268 us    |  }
+  0)               |  ovs_vport_cmd_get [openvswitch]() {
+  0)               |    lookup_vport [openvswitch]() {
+  0)               |      ovs_vport_locate [openvswitch]() {
+  0)   0.092 us    |        hash_bucket [openvswitch]();
+  0)   0.045 us    |        ovs_netdev_get_name [openvswitch]();
+  0)   0.968 us    |      }
+  0)   1.431 us    |    }
+  0)               |    ovs_vport_cmd_fill_info [openvswitch]() {
+  0)   0.047 us    |      ovs_lookup_vport [openvswitch]();
+  0)   0.047 us    |      ovs_netdev_get_name [openvswitch]();
+  0)   1.246 us    |      ovs_vport_get_stats [openvswitch]();
+  0)   0.269 us    |      ovs_vport_get_upcall_portids [openvswitch]();
+  0)   0.049 us    |      ovs_vport_get_options [openvswitch]();
+  0)   3.995 us    |    } /* ovs_vport_cmd_fill_info [openvswitch] */
+  0)   6.470 us    |  }
+  0)               |  ovs_vport_cmd_get [openvswitch]() {
+  0)               |    lookup_vport [openvswitch]() {
+  0)               |      ovs_vport_locate [openvswitch]() {
+  0)   0.080 us    |        hash_bucket [openvswitch]();
+  0)   0.046 us    |        ovs_netdev_get_name [openvswitch]();
+  0)   0.921 us    |      }
+  0)   1.448 us    |    }
+  0)               |    ovs_vport_cmd_fill_info [openvswitch]() {
+  0)   0.045 us    |      ovs_lookup_vport [openvswitch]();
+  0)   0.047 us    |      ovs_netdev_get_name [openvswitch]();
+  0)   0.604 us    |      ovs_vport_get_stats [openvswitch]();
+  0)   0.178 us    |      ovs_vport_get_upcall_portids [openvswitch]();
+  0)   0.046 us    |      ovs_vport_get_options [openvswitch]();
+  0)   2.781 us    |    }
+  0)   5.278 us    |  }
+  0)               |  ovs_vport_cmd_get [openvswitch]() {
+  0)               |    lookup_vport [openvswitch]() {
+  0)               |      ovs_vport_locate [openvswitch]() {
+  0)   0.096 us    |        hash_bucket [openvswitch]();
+  0)   0.045 us    |        ovs_netdev_get_name [openvswitch]();
+  0)   0.951 us    |      }
+  0)   1.407 us    |    }
+  0)               |    ovs_vport_cmd_fill_info [openvswitch]() {
+  0)   0.046 us    |      ovs_lookup_vport [openvswitch]();
+  0)   0.047 us    |      ovs_netdev_get_name [openvswitch]();
+  0)   0.699 us    |      ovs_vport_get_stats [openvswitch]();
+  0)   0.184 us    |      ovs_vport_get_upcall_portids [openvswitch]();
+  0)   0.047 us    |      ovs_vport_get_options [openvswitch]();
+  0)   2.880 us    |    }
+  0)   5.364 us    |  }
+  0)               |  ovs_vport_cmd_get [openvswitch]() {
+  0)               |    lookup_vport [openvswitch]() {
+  0)               |      ovs_vport_locate [openvswitch]() {
+  0)   0.090 us    |        hash_bucket [openvswitch]();
+  0)   0.045 us    |        ovs_netdev_get_name [openvswitch]();
+  0)   0.992 us    |      }
+  0)   1.432 us    |    }
+  0)               |    ovs_vport_cmd_fill_info [openvswitch]() {
+  0)   0.045 us    |      ovs_lookup_vport [openvswitch]();
+  0)   0.047 us    |      ovs_netdev_get_name [openvswitch]();
+  0)   1.252 us    |      ovs_vport_get_stats [openvswitch]();
+  0)   0.189 us    |      ovs_vport_get_upcall_portids [openvswitch]();
+  0)   0.048 us    |      ovs_vport_get_options [openvswitch]();
+  0)   3.500 us    |    }
+  0)   6.031 us    |  }
+CPU:1 [LOST 1418 EVENTS]
+  1)   0.073 us    |        ovs_netdev_get_name [openvswitch]();
+  1)   1.990 us    |      } /* ovs_dp_name [openvswitch] */
+  1)   0.068 us    |      ovs_flow_tbl_count [openvswitch]();
+  1)   0.067 us    |      ovs_flow_tbl_num_masks [openvswitch]();
+  1)   6.851 us    |    } /* ovs_dp_cmd_fill_info [openvswitch] */
+  1) + 11.890 us   |  }
+  1)               |  ovs_flow_cmd_dump [openvswitch]() {
+  1)   0.065 us    |    ovs_nla_get_ufid_flags [openvswitch]();
+  1)               |    get_dp_rcu [openvswitch]() {
+  1)   0.041 us    |      ovs_internal_dev_get_vport [openvswitch]();
+  1)   0.487 us    |    }
+  1)   7.017 us    |    ovs_flow_tbl_dump_next [openvswitch]();
+  1)               |    ovs_flow_cmd_fill_info [openvswitch]() {
+  1)   0.234 us    |      ovs_nla_put_identifier [openvswitch]();
+  1)   0.310 us    |      ovs_flow_stats_get [openvswitch]();
+  1)   1.478 us    |    }
+  1)   1.149 us    |    ovs_flow_tbl_dump_next [openvswitch]();
+  1) + 12.518 us   |  }
+  1)               |  ovs_flow_cmd_dump [openvswitch]() {
+  1)   0.050 us    |    ovs_nla_get_ufid_flags [openvswitch]();
+  1)               |    get_dp_rcu [openvswitch]() {
+  1)   0.042 us    |      ovs_internal_dev_get_vport [openvswitch]();
+  1)   0.392 us    |    }
+  1)   1.096 us    |    ovs_flow_tbl_dump_next [openvswitch]();
+  1)   2.516 us    |  }
+  1)               |  ovs_flow_cmd_del [openvswitch]() {
+  1)   0.055 us    |    ovs_nla_get_ufid_flags [openvswitch]();
+  1)   0.080 us    |    ovs_nla_get_ufid [openvswitch]();
+  1)               |    get_dp_rcu [openvswitch]() {
+  1)   0.043 us    |      ovs_internal_dev_get_vport [openvswitch]();
+  1)   0.357 us    |    }
+  1)               |    ovs_flow_tbl_lookup_ufid [openvswitch]() {
+  1)   0.107 us    |      find_bucket.isra.2 [openvswitch]();
+  1)   1.319 us    |    }
+  1)   2.998 us    |    ovs_flow_tbl_remove [openvswitch]();
+  1)   0.362 us    |    ovs_flow_cmd_alloc_info [openvswitch]();
+  1)               |    ovs_flow_cmd_fill_info [openvswitch]() {
+  1)   0.125 us    |      ovs_nla_put_identifier [openvswitch]();
+  1)   0.143 us    |      ovs_flow_stats_get [openvswitch]();
+  1)   0.980 us    |    }
+  1)   0.889 us    |    ovs_notify.isra.21 [openvswitch]();
+  1)   0.144 us    |    ovs_flow_free [openvswitch]();
+  1) + 10.275 us   |  }
+ ------------------------------------------
+  0)  ovs-vsw-7793  =>   rcuos/1-18  
+ ------------------------------------------
+
+  0)   0.695 us    |  rcu_free_sw_flow_mask_cb [openvswitch]();
+  0)               |  rcu_free_flow_callback [openvswitch]() {
+  0)   1.129 us    |    flow_free [openvswitch]();
+  0)   1.743 us    |  }
+  1)               |  ovs_dp_cmd_get [openvswitch]() {
+  1)               |    lookup_datapath [openvswitch]() {
+  1)               |      get_dp_rcu [openvswitch]() {
+  1)   0.128 us    |        ovs_internal_dev_get_vport [openvswitch]();
+  1)   1.368 us    |      }
+  1)   1.974 us    |    }
+  1)               |    ovs_dp_cmd_fill_info [openvswitch]() {
+  1) + 13.831 us   |      ovs_lookup_vport [openvswitch]();
+  1)               |      ovs_dp_name [openvswitch]() {
+  1)   0.075 us    |        ovs_lookup_vport [openvswitch]();
+  1)   0.067 us    |        ovs_netdev_get_name [openvswitch]();
+  1)   1.218 us    |      }
+  1)   0.065 us    |      ovs_flow_tbl_count [openvswitch]();
+  1)   0.065 us    |      ovs_flow_tbl_num_masks [openvswitch]();
+  1) + 19.955 us   |    }
+  1) + 25.274 us   |  }
+  1)               |  ovs_flow_cmd_dump [openvswitch]() {
+  1)   0.043 us    |    ovs_nla_get_ufid_flags [openvswitch]();
+  1)               |    get_dp_rcu [openvswitch]() {
+  1)   0.043 us    |      ovs_internal_dev_get_vport [openvswitch]();
+  1)   0.427 us    |    }
+  1)   8.140 us    |    ovs_flow_tbl_dump_next [openvswitch]();
+  1) + 10.121 us   |  }
+  1)               |  ovs_dp_cmd_get [openvswitch]() {
+  1)               |    lookup_datapath [openvswitch]() {
+  1)               |      get_dp_rcu [openvswitch]() {
+  1)   0.252 us    |        ovs_internal_dev_get_vport [openvswitch]();
+  1)   2.385 us    |      }
+  1)   3.020 us    |    }
+  1)               |    ovs_dp_cmd_fill_info [openvswitch]() {
+  1)   0.473 us    |      ovs_lookup_vport [openvswitch]();
+  1)               |      ovs_dp_name [openvswitch]() {
+  1)   0.077 us    |        ovs_lookup_vport [openvswitch]();
+  1)   0.078 us    |        ovs_netdev_get_name [openvswitch]();
+  1)   1.271 us    |      }
+  1)   0.075 us    |      ovs_flow_tbl_count [openvswitch]();
+  1)   0.070 us    |      ovs_flow_tbl_num_masks [openvswitch]();
+  1)   6.373 us    |    }
+  1) + 12.748 us   |  }
+  1)               |  ovs_flow_cmd_dump [openvswitch]() {
+  1)   0.075 us    |    ovs_nla_get_ufid_flags [openvswitch]();
+  1)               |    get_dp_rcu [openvswitch]() {
+  1)   0.043 us    |      ovs_internal_dev_get_vport [openvswitch]();
+  1)   0.439 us    |    }
+  1)   8.003 us    |    ovs_flow_tbl_dump_next [openvswitch]();
+  1) + 13.358 us   |  }
+  1)               |  ovs_dp_cmd_get [openvswitch]() {
+  1)               |    lookup_datapath [openvswitch]() {
+  1)               |      get_dp_rcu [openvswitch]() {
+  1)   0.125 us    |        ovs_internal_dev_get_vport [openvswitch]();
+  1)   1.431 us    |      }
+  1)   2.047 us    |    }
+  1)               |    ovs_dp_cmd_fill_info [openvswitch]() {
+  1)   0.390 us    |      ovs_lookup_vport [openvswitch]();
+  1)               |      ovs_dp_name [openvswitch]() {
+  1)   0.075 us    |        ovs_lookup_vport [openvswitch]();
+  1)   0.072 us    |        ovs_netdev_get_name [openvswitch]();
+  1)   1.214 us    |      }
+  1)   0.065 us    |      ovs_flow_tbl_count [openvswitch]();
+  1)   0.067 us    |      ovs_flow_tbl_num_masks [openvswitch]();
+  1)   6.042 us    |    }
+  1) + 11.349 us   |  }
+  1)               |  ovs_flow_cmd_dump [openvswitch]() {
+  1)   0.065 us    |    ovs_nla_get_ufid_flags [openvswitch]();
+  1)               |    get_dp_rcu [openvswitch]() {
+  1)   0.065 us    |      ovs_internal_dev_get_vport [openvswitch]();
+  1)   0.591 us    |    }
+  1) + 11.078 us   |    ovs_flow_tbl_dump_next [openvswitch]();
+  1) + 13.827 us   |  }
+  1)               |  ovs_dp_cmd_get [openvswitch]() {
+  1)               |    lookup_datapath [openvswitch]() {
+  1)               |      get_dp_rcu [openvswitch]() {
+  1)   0.125 us    |        ovs_internal_dev_get_vport [openvswitch]();
+  1)   1.208 us    |      }
+  1)   1.783 us    |    }
+  1)               |    ovs_dp_cmd_fill_info [openvswitch]() {
+  1)   0.323 us    |      ovs_lookup_vport [openvswitch]();
+  1)               |      ovs_dp_name [openvswitch]() {
+  1)   0.075 us    |        ovs_lookup_vport [openvswitch]();
+  1)   0.068 us    |        ovs_netdev_get_name [openvswitch]();
+  1)   1.151 us    |      }
+  1)   0.065 us    |      ovs_flow_tbl_count [openvswitch]();
+  1)   0.065 us    |      ovs_flow_tbl_num_masks [openvswitch]();
+  1)   5.835 us    |    }
+  1) + 10.525 us   |  }
+  1)               |  ovs_flow_cmd_dump [openvswitch]() {
+  1)   0.065 us    |    ovs_nla_get_ufid_flags [openvswitch]();
+  1)               |    get_dp_rcu [openvswitch]() {
+  1)   0.065 us    |      ovs_internal_dev_get_vport [openvswitch]();
+  1)   0.588 us    |    }
+  1) + 12.794 us   |    ovs_flow_tbl_dump_next [openvswitch]();
+  1) + 15.349 us   |  }

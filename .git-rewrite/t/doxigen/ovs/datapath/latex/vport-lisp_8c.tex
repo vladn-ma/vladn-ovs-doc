@@ -1,0 +1,702 @@
+\hypertarget{vport-lisp_8c}{}\section{/home/vladn/git/ovs/datapath/vport-\/lisp.c File Reference}
+\label{vport-lisp_8c}\index{/home/vladn/git/ovs/datapath/vport-\/lisp.\+c@{/home/vladn/git/ovs/datapath/vport-\/lisp.\+c}}
+{\ttfamily \#include $<$linux/version.\+h$>$}\\*
+{\ttfamily \#include $<$linux/in.\+h$>$}\\*
+{\ttfamily \#include $<$linux/ip.\+h$>$}\\*
+{\ttfamily \#include $<$linux/net.\+h$>$}\\*
+{\ttfamily \#include $<$linux/module.\+h$>$}\\*
+{\ttfamily \#include $<$linux/rculist.\+h$>$}\\*
+{\ttfamily \#include $<$linux/udp.\+h$>$}\\*
+{\ttfamily \#include $<$net/icmp.\+h$>$}\\*
+{\ttfamily \#include $<$net/ip.\+h$>$}\\*
+{\ttfamily \#include $<$net/route.\+h$>$}\\*
+{\ttfamily \#include $<$net/udp.\+h$>$}\\*
+{\ttfamily \#include $<$net/udp\+\_\+tunnel.\+h$>$}\\*
+{\ttfamily \#include $<$net/xfrm.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}datapath.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gso.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}vport.\+h\char`\"{}}\\*
+Include dependency graph for vport-\/lisp.c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{vport-lisp_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structlisphdr}{lisphdr}
+\item 
+struct \hyperlink{structlisp__port}{lisp\+\_\+port}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{vport-lisp_8c_a1f8c165bf4196327bc3abff648276d92}{pr\+\_\+fmt}(fmt)~K\+B\+U\+I\+L\+D\+\_\+\+M\+O\+D\+N\+A\+M\+E \char`\"{}\+: \char`\"{} fmt
+\item 
+\#define \hyperlink{vport-lisp_8c_a432175729adc4f68dad362484b077981}{L\+I\+S\+P\+\_\+\+H\+L\+E\+N}~(sizeof(struct udphdr) + sizeof(struct \hyperlink{structlisphdr}{lisphdr}))
+\end{DoxyCompactItemize}
+\subsection*{\+: vport name.}
+\label{_amgrp11b33af0c85e2c8a3c03b696f666e431}%
+struct \hyperlink{structlisp__port}{lisp\+\_\+port} -\/ Keeps track of open U\+D\+P ports \+: lisp U\+D\+P port no. \+: list element in . \+: The socket created for this port number. \begin{DoxyCompactItemize}
+\item 
+static struct \hyperlink{structvport__ops}{vport\+\_\+ops} \hyperlink{vport-lisp_8c_a758306cfbd9fe092cc094dbf165e5cf7}{ovs\+\_\+lisp\+\_\+vport\+\_\+ops}
+\item 
+static \hyperlink{vport-lisp_8c_a73d3f5ee301d4ee3135ff6fdecaebbe5}{L\+I\+S\+T\+\_\+\+H\+E\+A\+D} (lisp\+\_\+ports)
+\item 
+static struct \hyperlink{structlisp__port}{lisp\+\_\+port} $\ast$ \hyperlink{vport-lisp_8c_af8f69fb0b9db12e9a324a9932011b302}{lisp\+\_\+vport} (const struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport})
+\item 
+static struct \hyperlink{structlisp__port}{lisp\+\_\+port} $\ast$ \hyperlink{vport-lisp_8c_ac170aebcefa72b3bccd6431da43de59d}{lisp\+\_\+find\+\_\+port} (struct net $\ast$net, \+\_\+\+\_\+be16 port)
+\item 
+static struct \hyperlink{structlisphdr}{lisphdr} $\ast$ \hyperlink{vport-lisp_8c_ac717e897cb8473e6d34982cbfc5aeaaa}{lisp\+\_\+hdr} (const struct sk\+\_\+buff $\ast$skb)
+\item 
+static void \hyperlink{vport-lisp_8c_aa7e66c2b840ffa52ae39f24fc21c0eb5}{tunnel\+\_\+id\+\_\+to\+\_\+instance\+\_\+id} (\+\_\+\+\_\+be64 \hyperlink{flow_8h_aba5027d7a3d96f0f58dd8e607365934b}{tun\+\_\+id}, \+\_\+\+\_\+u8 $\ast$iid)
+\item 
+static \+\_\+\+\_\+be64 \hyperlink{vport-lisp_8c_af20b35bc9be7a0b1273028a96b99d06b}{instance\+\_\+id\+\_\+to\+\_\+tunnel\+\_\+id} (\+\_\+\+\_\+u8 $\ast$iid)
+\item 
+static u16 \hyperlink{vport-lisp_8c_a106a25589649bc37c3905cb00fb59f62}{get\+\_\+src\+\_\+port} (struct net $\ast$net, struct sk\+\_\+buff $\ast$skb)
+\item 
+static void \hyperlink{vport-lisp_8c_afacb726760b72b4d01c27f470d4b7a3a}{lisp\+\_\+build\+\_\+header} (struct sk\+\_\+buff $\ast$skb)
+\item 
+static int \hyperlink{vport-lisp_8c_afad2c3b20aa9688a25d14456469ed17d}{lisp\+\_\+rcv} (struct sock $\ast$sk, struct sk\+\_\+buff $\ast$skb)
+\item 
+static int \hyperlink{vport-lisp_8c_a91b2b04c344bf1a50d02d4084fabf482}{lisp\+\_\+socket\+\_\+init} (struct \hyperlink{structlisp__port}{lisp\+\_\+port} $\ast$\hyperlink{structlisp__port}{lisp\+\_\+port}, struct net $\ast$net)
+\item 
+static int \hyperlink{vport-lisp_8c_a54dce33d8291b4f7f816d882b13c3cc3}{lisp\+\_\+get\+\_\+options} (const struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct sk\+\_\+buff $\ast$skb)
+\item 
+static void \hyperlink{vport-lisp_8c_a29757c9680cfc5547ff8b58fc9d39f57}{lisp\+\_\+tnl\+\_\+destroy} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport})
+\item 
+static struct \hyperlink{structvport}{vport} $\ast$ \hyperlink{vport-lisp_8c_aeaf8548971b28354b0c5b67853008ebb}{lisp\+\_\+tnl\+\_\+create} (const struct \hyperlink{structvport__parms}{vport\+\_\+parms} $\ast$parms)
+\item 
+static int \hyperlink{vport-lisp_8c_a3a50252974d93009f1c1204799ef7ba0}{lisp\+\_\+send} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct sk\+\_\+buff $\ast$skb)
+\item 
+static const char $\ast$ \hyperlink{vport-lisp_8c_a9b17408cfe8b9c4999729e709eda60c8}{lisp\+\_\+get\+\_\+name} (const struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport})
+\item 
+static int \hyperlink{vport-lisp_8c_a38f0b18b384c833b501a23e942fa2a07}{lisp\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info} (struct \hyperlink{structvport}{vport} $\ast$\hyperlink{structvport}{vport}, struct sk\+\_\+buff $\ast$skb, struct \hyperlink{structovs__tunnel__info}{ovs\+\_\+tunnel\+\_\+info} $\ast$egress\+\_\+tun\+\_\+info)
+\item 
+static int \+\_\+\+\_\+init \hyperlink{vport-lisp_8c_a2796063074f5d672bb389e375b744a7f}{ovs\+\_\+lisp\+\_\+tnl\+\_\+init} (void)
+\item 
+static void \+\_\+\+\_\+exit \hyperlink{vport-lisp_8c_ad76ba8664a548e29a850c62273297c6d}{ovs\+\_\+lisp\+\_\+tnl\+\_\+exit} (void)
+\item 
+\hyperlink{vport-lisp_8c_a94a5f96f1e47f7598c585bbf70bfe00f}{module\+\_\+init} (\hyperlink{vport-lisp_8c_a2796063074f5d672bb389e375b744a7f}{ovs\+\_\+lisp\+\_\+tnl\+\_\+init})
+\item 
+\hyperlink{vport-lisp_8c_a4ead3dc5abdbbff6d567af19f9eec979}{module\+\_\+exit} (\hyperlink{vport-lisp_8c_ad76ba8664a548e29a850c62273297c6d}{ovs\+\_\+lisp\+\_\+tnl\+\_\+exit})
+\item 
+\hyperlink{vport-lisp_8c_aa7521a419702060baceb5ba5fc1ec8c7}{M\+O\+D\+U\+L\+E\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N} (\char`\"{}O\+V\+S\+: L\+I\+S\+P switching port\char`\"{})
+\item 
+\hyperlink{vport-lisp_8c_ad94b36675e7eb067ea3ce6ff9e244a44}{M\+O\+D\+U\+L\+E\+\_\+\+L\+I\+C\+E\+N\+S\+E} (\char`\"{}G\+P\+L\char`\"{})
+\item 
+\hyperlink{vport-lisp_8c_a8b3ea9759357bb282812b0925b450fa1}{M\+O\+D\+U\+L\+E\+\_\+\+A\+L\+I\+A\+S} (\char`\"{}vport-\/\hyperlink{flow_8h_ab22aaab04f806700def00f32823fcb9e}{type}-\/105\char`\"{})
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{vport-lisp_8c_a432175729adc4f68dad362484b077981}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!L\+I\+S\+P\+\_\+\+H\+L\+E\+N@{L\+I\+S\+P\+\_\+\+H\+L\+E\+N}}
+\index{L\+I\+S\+P\+\_\+\+H\+L\+E\+N@{L\+I\+S\+P\+\_\+\+H\+L\+E\+N}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{L\+I\+S\+P\+\_\+\+H\+L\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+I\+S\+P\+\_\+\+H\+L\+E\+N~(sizeof(struct udphdr) + sizeof(struct {\bf lisphdr}))}\label{vport-lisp_8c_a432175729adc4f68dad362484b077981}
+\hypertarget{vport-lisp_8c_a1f8c165bf4196327bc3abff648276d92}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!pr\+\_\+fmt@{pr\+\_\+fmt}}
+\index{pr\+\_\+fmt@{pr\+\_\+fmt}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{pr\+\_\+fmt}]{\setlength{\rightskip}{0pt plus 5cm}\#define pr\+\_\+fmt(
+\begin{DoxyParamCaption}
+\item[{}]{fmt}
+\end{DoxyParamCaption}
+)~K\+B\+U\+I\+L\+D\+\_\+\+M\+O\+D\+N\+A\+M\+E \char`\"{}\+: \char`\"{} fmt}\label{vport-lisp_8c_a1f8c165bf4196327bc3abff648276d92}
+
+
+\subsection{Function Documentation}
+\hypertarget{vport-lisp_8c_a106a25589649bc37c3905cb00fb59f62}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!get\+\_\+src\+\_\+port@{get\+\_\+src\+\_\+port}}
+\index{get\+\_\+src\+\_\+port@{get\+\_\+src\+\_\+port}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{get\+\_\+src\+\_\+port}]{\setlength{\rightskip}{0pt plus 5cm}static u16 get\+\_\+src\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct net $\ast$}]{net, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_a106a25589649bc37c3905cb00fb59f62}
+
+\begin{DoxyCode}
+170 \{
+171     u32 hash = \hyperlink{skbuff_8h_acb236314b209f764af9aae7fbbb04311}{skb\_get\_hash}(skb);
+172     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} range;
+173     \textcolor{keywordtype}{int} high;
+174     \textcolor{keywordtype}{int} low;
+175 
+176     \textcolor{keywordflow}{if} (!hash) \{
+177         \textcolor{keywordflow}{if} (skb->protocol == htons(ETH\_P\_IP)) \{
+178             \textcolor{keyword}{struct }iphdr *iph;
+179             \textcolor{keywordtype}{int} size = (\textcolor{keyword}{sizeof}(iph->saddr) * 2) / \textcolor{keyword}{sizeof}(u32);
+180 
+181             iph = (\textcolor{keyword}{struct }iphdr *) \hyperlink{skbuff_8h_aa9e0f2aeb3abecde73023d35145bc4a0}{skb\_network\_header}(skb);
+182             hash = jhash2((\textcolor{keyword}{const} u32 *)&iph->saddr, size, 0);
+183         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (skb->protocol == htons(ETH\_P\_IPV6)) \{
+184             \textcolor{keyword}{struct }ipv6hdr *ipv6hdr;
+185 
+186             ipv6hdr = (\textcolor{keyword}{struct }ipv6hdr *) \hyperlink{skbuff_8h_aa9e0f2aeb3abecde73023d35145bc4a0}{skb\_network\_header}(skb);
+187             hash = jhash2((\textcolor{keyword}{const} u32 *)&ipv6hdr->saddr,
+188                       (\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} in6\_addr) * 2) / \textcolor{keyword}{sizeof}(u32), 0);
+189         \} \textcolor{keywordflow}{else} \{
+190             pr\_warn\_once(\textcolor{stringliteral}{"LISP inner protocol is not IP when "}
+191                      \textcolor{stringliteral}{"calculating hash.\(\backslash\)n"});
+192         \}
+193     \}
+194 
+195     \hyperlink{net_2ip_8h_a2fa8d50303354dc298e21be296cd999f}{inet\_get\_local\_port\_range}(net, &low, &high);
+196     range = (high - low) + 1;
+197     \textcolor{keywordflow}{return} (((u64) hash * range) >> 32) + low;
+198 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_af20b35bc9be7a0b1273028a96b99d06b}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!instance\+\_\+id\+\_\+to\+\_\+tunnel\+\_\+id@{instance\+\_\+id\+\_\+to\+\_\+tunnel\+\_\+id}}
+\index{instance\+\_\+id\+\_\+to\+\_\+tunnel\+\_\+id@{instance\+\_\+id\+\_\+to\+\_\+tunnel\+\_\+id}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{instance\+\_\+id\+\_\+to\+\_\+tunnel\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}static \+\_\+\+\_\+be64 instance\+\_\+id\+\_\+to\+\_\+tunnel\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{\+\_\+\+\_\+u8 $\ast$}]{iid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_af20b35bc9be7a0b1273028a96b99d06b}
+
+\begin{DoxyCode}
+156 \{
+157 \textcolor{preprocessor}{#ifdef \_\_BIG\_ENDIAN}
+158     \textcolor{keywordflow}{return} (iid[0] << 16) | (iid[1] << 8) | iid[2];
+159 \textcolor{preprocessor}{#else}
+160     \textcolor{keywordflow}{return} (\_\_force \_\_be64)(((\_\_force u64)iid[0] << 40) |
+161                 ((\_\_force u64)iid[1] << 48) |
+162                 ((\_\_force u64)iid[2] << 56));
+163 \textcolor{preprocessor}{#endif}
+164 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_afacb726760b72b4d01c27f470d4b7a3a}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+build\+\_\+header@{lisp\+\_\+build\+\_\+header}}
+\index{lisp\+\_\+build\+\_\+header@{lisp\+\_\+build\+\_\+header}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+build\+\_\+header}]{\setlength{\rightskip}{0pt plus 5cm}static void lisp\+\_\+build\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_afacb726760b72b4d01c27f470d4b7a3a}
+
+\begin{DoxyCode}
+201 \{
+202     \textcolor{keyword}{struct }\hyperlink{structlisphdr}{lisphdr} *lisph;
+203     \textcolor{keyword}{const} \textcolor{keyword}{struct }\hyperlink{structovs__key__ipv4__tunnel}{ovs\_key\_ipv4\_tunnel} *\hyperlink{flow_8h_a904e9497acde49a1992636f77597c5c7}{tun\_key};
+204 
+205     tun\_key = &\hyperlink{datapath_8h_ac337c4d4ddca29916ce8e900038ddd78}{OVS\_CB}(skb)->egress\_tun\_info->tunnel;
+206 
+207     lisph = (\textcolor{keyword}{struct }\hyperlink{structlisphdr}{lisphdr} *)\_\_skb\_push(skb, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structlisphdr}{lisphdr}));
+208     lisph->\hyperlink{structlisphdr_afc8757faa2d76be2f1d292828d29e109}{nonce\_present} = 0;  \textcolor{comment}{/* We don't support echo nonce algorithm */}
+209     lisph->\hyperlink{structlisphdr_a3499bf30411f687e5f2e052288718196}{locator\_status\_bits\_present} = 1;  \textcolor{comment}{/* Set LSB */}
+210     lisph->\hyperlink{structlisphdr_a6e67108cec8cf45f0662e9388eac60fd}{solicit\_echo\_nonce} = 0;    \textcolor{comment}{/* No echo noncing */}
+211     lisph->\hyperlink{structlisphdr_a922cbf86c791d66583e991b87e65e601}{map\_version\_present} = 0;  \textcolor{comment}{/* No mapping versioning, nonce instead */}
+212     lisph->\hyperlink{structlisphdr_a35d40a5064b3f329708f3a57b1ea9856}{instance\_id\_present} = 1;  \textcolor{comment}{/* Store the tun\_id as Instance ID  */}
+213     lisph->\hyperlink{structlisphdr_a1a624b2a0b92d71d031c2e3c63f4eb99}{reserved\_flags} = 0;    \textcolor{comment}{/* Reserved flags, set to 0  */}
+214 
+215     lisph->\hyperlink{structlisphdr_a7ffea0f2cb943b1c56a92a4823c67fc3}{u1}.\hyperlink{structlisphdr_a02abd6cb7120a0217123dd14841b2d68}{nonce}[0] = 0;
+216     lisph->\hyperlink{structlisphdr_a7ffea0f2cb943b1c56a92a4823c67fc3}{u1}.\hyperlink{structlisphdr_a02abd6cb7120a0217123dd14841b2d68}{nonce}[1] = 0;
+217     lisph->\hyperlink{structlisphdr_a7ffea0f2cb943b1c56a92a4823c67fc3}{u1}.\hyperlink{structlisphdr_a02abd6cb7120a0217123dd14841b2d68}{nonce}[2] = 0;
+218 
+219     \hyperlink{vport-lisp_8c_aa7e66c2b840ffa52ae39f24fc21c0eb5}{tunnel\_id\_to\_instance\_id}(tun\_key->\hyperlink{structovs__key__ipv4__tunnel_ae36132bc05ca6257b572edddffcb867a}{tun\_id}, &lisph->
+      \hyperlink{structlisphdr_a72f060d900466d19213fd5c473a8d6fd}{u2}.\hyperlink{structlisphdr_a5a4d067fadb40535e26b1a0305f46db0}{word2}.instance\_id[0]);
+220     lisph->\hyperlink{structlisphdr_a72f060d900466d19213fd5c473a8d6fd}{u2}.\hyperlink{structlisphdr_a5a4d067fadb40535e26b1a0305f46db0}{word2}.locator\_status\_bits = 1;
+221 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_ac170aebcefa72b3bccd6431da43de59d}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+find\+\_\+port@{lisp\+\_\+find\+\_\+port}}
+\index{lisp\+\_\+find\+\_\+port@{lisp\+\_\+find\+\_\+port}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+find\+\_\+port}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf lisp\+\_\+port}$\ast$ lisp\+\_\+find\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{struct net $\ast$}]{net, }
+\item[{\+\_\+\+\_\+be16}]{port}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_ac170aebcefa72b3bccd6431da43de59d}
+
+\begin{DoxyCode}
+122 \{
+123     \textcolor{keyword}{struct }\hyperlink{structlisp__port}{lisp\_port} *\hyperlink{structlisp__port}{lisp\_port};
+124 
+125     list\_for\_each\_entry\_rcu(lisp\_port, &lisp\_ports, \hyperlink{structlisp__port_adaf751d0e165cfbf047be71e680c3f19}{list}) \{
+126         \textcolor{keywordflow}{if} (lisp\_port->\hyperlink{structlisp__port_a3f0943c0da5e5c60f9e8e4068d49215e}{dst\_port} == port &&
+127             net\_eq(sock\_net(lisp\_port->\hyperlink{structlisp__port_ac5fbe9815941c2930c73339250706300}{lisp\_rcv\_socket}->sk), net))
+128             \textcolor{keywordflow}{return} lisp\_port;
+129     \}
+130 
+131     \textcolor{keywordflow}{return} NULL;
+132 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_a38f0b18b384c833b501a23e942fa2a07}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info@{lisp\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info}}
+\index{lisp\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info@{lisp\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info}]{\setlength{\rightskip}{0pt plus 5cm}static int lisp\+\_\+get\+\_\+egress\+\_\+tun\+\_\+info (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb, }
+\item[{struct {\bf ovs\+\_\+tunnel\+\_\+info} $\ast$}]{egress\+\_\+tun\+\_\+info}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_a38f0b18b384c833b501a23e942fa2a07}
+
+\begin{DoxyCode}
+479 \{
+480     \textcolor{keyword}{struct }net *net = \hyperlink{datapath_8h_aef2302004ca1f45133eaef00bb3740eb}{ovs\_dp\_get\_net}(vport->\hyperlink{structvport_a49fb6f6bf0ac4337853e9242e88ddc42}{dp});
+481     \textcolor{keyword}{struct }\hyperlink{structlisp__port}{lisp\_port} *\hyperlink{structlisp__port}{lisp\_port} = \hyperlink{vport-lisp_8c_af8f69fb0b9db12e9a324a9932011b302}{lisp\_vport}(vport);
+482 
+483     \textcolor{keywordflow}{if} (skb->protocol != htons(ETH\_P\_IP) &&
+484         skb->protocol != htons(ETH\_P\_IPV6)) \{
+485         \textcolor{keywordflow}{return} -EINVAL;
+486     \}
+487 
+488     \textcolor{comment}{/*}
+489 \textcolor{comment}{     * Get tp\_src and tp\_dst, refert to lisp\_build\_header().}
+490 \textcolor{comment}{     */}
+491     \textcolor{keywordflow}{return} \hyperlink{linux_2vport_8c_ac5b64ee0badeb969348aae464fdc4c8d}{ovs\_tunnel\_get\_egress\_info}(egress\_tun\_info, net,
+492                       \hyperlink{datapath_8h_ac337c4d4ddca29916ce8e900038ddd78}{OVS\_CB}(skb)->egress\_tun\_info,
+493                       IPPROTO\_UDP, skb->mark,
+494                       htons(\hyperlink{vport-lisp_8c_a106a25589649bc37c3905cb00fb59f62}{get\_src\_port}(net, skb)),
+495                       lisp\_port->\hyperlink{structlisp__port_a3f0943c0da5e5c60f9e8e4068d49215e}{dst\_port});
+496 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_a9b17408cfe8b9c4999729e709eda60c8}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+get\+\_\+name@{lisp\+\_\+get\+\_\+name}}
+\index{lisp\+\_\+get\+\_\+name@{lisp\+\_\+get\+\_\+name}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+get\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}static const char$\ast$ lisp\+\_\+get\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport} $\ast$}]{vport}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_a9b17408cfe8b9c4999729e709eda60c8}
+
+\begin{DoxyCode}
+472 \{
+473     \textcolor{keyword}{struct }\hyperlink{structlisp__port}{lisp\_port} *\hyperlink{structlisp__port}{lisp\_port} = \hyperlink{vport-lisp_8c_af8f69fb0b9db12e9a324a9932011b302}{lisp\_vport}(vport);
+474     \textcolor{keywordflow}{return} lisp\_port->\hyperlink{structlisp__port_ae0a7f15d977897e051bb338429f1d7fe}{name};
+475 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_a54dce33d8291b4f7f816d882b13c3cc3}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+get\+\_\+options@{lisp\+\_\+get\+\_\+options}}
+\index{lisp\+\_\+get\+\_\+options@{lisp\+\_\+get\+\_\+options}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+get\+\_\+options}]{\setlength{\rightskip}{0pt plus 5cm}static int lisp\+\_\+get\+\_\+options (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport} $\ast$}]{vport, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_a54dce33d8291b4f7f816d882b13c3cc3}
+
+\begin{DoxyCode}
+315 \{
+316     \textcolor{keyword}{struct }\hyperlink{structlisp__port}{lisp\_port} *\hyperlink{structlisp__port}{lisp\_port} = \hyperlink{vport-lisp_8c_af8f69fb0b9db12e9a324a9932011b302}{lisp\_vport}(vport);
+317 
+318     \textcolor{keywordflow}{if} (nla\_put\_u16(skb, \hyperlink{openvswitch_8h_a96a58e29e8dbf2b5bdeb775cba46556eae2bec9320cf2cc32228c9783e1bba39a}{OVS\_TUNNEL\_ATTR\_DST\_PORT}, ntohs(lisp\_port->
+      \hyperlink{structlisp__port_a3f0943c0da5e5c60f9e8e4068d49215e}{dst\_port})))
+319         \textcolor{keywordflow}{return} -EMSGSIZE;
+320     \textcolor{keywordflow}{return} 0;
+321 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_ac717e897cb8473e6d34982cbfc5aeaaa}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+hdr@{lisp\+\_\+hdr}}
+\index{lisp\+\_\+hdr@{lisp\+\_\+hdr}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+hdr}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf lisphdr}$\ast$ lisp\+\_\+hdr (
+\begin{DoxyParamCaption}
+\item[{const struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_ac717e897cb8473e6d34982cbfc5aeaaa}
+
+\begin{DoxyCode}
+135 \{
+136     \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} \hyperlink{structlisphdr}{lisphdr} *)(\hyperlink{linux_2udp_8h_a7b8908e197538768cf4ff9ec577bd86b}{udp\_hdr}(skb) + 1);
+137 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_afad2c3b20aa9688a25d14456469ed17d}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+rcv@{lisp\+\_\+rcv}}
+\index{lisp\+\_\+rcv@{lisp\+\_\+rcv}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+rcv}]{\setlength{\rightskip}{0pt plus 5cm}static int lisp\+\_\+rcv (
+\begin{DoxyParamCaption}
+\item[{struct sock $\ast$}]{sk, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_afad2c3b20aa9688a25d14456469ed17d}
+
+\begin{DoxyCode}
+225 \{
+226     \textcolor{keyword}{struct }\hyperlink{structlisp__port}{lisp\_port} *\hyperlink{structlisp__port}{lisp\_port};
+227     \textcolor{keyword}{struct }\hyperlink{structlisphdr}{lisphdr} *lisph;
+228     \textcolor{keyword}{struct }iphdr *iph, *inner\_iph;
+229     \textcolor{keyword}{struct }\hyperlink{structovs__tunnel__info}{ovs\_tunnel\_info} tun\_info;
+230     \_\_be64 key;
+231     \textcolor{keyword}{struct }ethhdr *ethh;
+232     \_\_be16 protocol;
+233 
+234     lisp\_port = \hyperlink{sock_8h_a2a8307d46586194d832739a9982dfdcf}{rcu\_dereference\_sk\_user\_data}(sk);
+235     \textcolor{keywordflow}{if} (unlikely(!lisp\_port))
+236         \textcolor{keywordflow}{goto} error;
+237 
+238     \textcolor{keywordflow}{if} (iptunnel\_pull\_header(skb, \hyperlink{vport-lisp_8c_a432175729adc4f68dad362484b077981}{LISP\_HLEN}, 0))
+239         \textcolor{keywordflow}{goto} error;
+240 
+241     lisph = \hyperlink{vport-lisp_8c_ac717e897cb8473e6d34982cbfc5aeaaa}{lisp\_hdr}(skb);
+242 
+243     \textcolor{keywordflow}{if} (lisph->\hyperlink{structlisphdr_a35d40a5064b3f329708f3a57b1ea9856}{instance\_id\_present} != 1)
+244         key = 0;
+245     \textcolor{keywordflow}{else}
+246         key = \hyperlink{vport-lisp_8c_af20b35bc9be7a0b1273028a96b99d06b}{instance\_id\_to\_tunnel\_id}(&lisph->\hyperlink{structlisphdr_a72f060d900466d19213fd5c473a8d6fd}{u2}.
+      \hyperlink{structlisphdr_a5a4d067fadb40535e26b1a0305f46db0}{word2}.instance\_id[0]);
+247 
+248     \textcolor{comment}{/* Save outer tunnel values */}
+249     iph = \hyperlink{linux_2ip_8h_a06ad68dbeebbe718758ba2d5ebb6335c}{ip\_hdr}(skb);
+250     \hyperlink{flow_8h_a852c3ebd7a575ba7133623943f79e5df}{ovs\_flow\_tun\_info\_init}(&tun\_info, iph,
+251                    \hyperlink{linux_2udp_8h_a7b8908e197538768cf4ff9ec577bd86b}{udp\_hdr}(skb)->source, \hyperlink{linux_2udp_8h_a7b8908e197538768cf4ff9ec577bd86b}{udp\_hdr}(skb)->dest,
+252                    key, \hyperlink{ip__tunnels_8h_a5438f4a0ea8e58438776fffbed3f08a8}{TUNNEL\_KEY}, NULL, 0);
+253 
+254     \textcolor{comment}{/* Drop non-IP inner packets */}
+255     inner\_iph = (\textcolor{keyword}{struct }iphdr *)(lisph + 1);
+256     \textcolor{keywordflow}{switch} (inner\_iph->version) \{
+257     \textcolor{keywordflow}{case} 4:
+258         protocol = htons(ETH\_P\_IP);
+259         \textcolor{keywordflow}{break};
+260     \textcolor{keywordflow}{case} 6:
+261         protocol = htons(ETH\_P\_IPV6);
+262         \textcolor{keywordflow}{break};
+263     \textcolor{keywordflow}{default}:
+264         \textcolor{keywordflow}{goto} error;
+265     \}
+266     skb->protocol = protocol;
+267 
+268     \textcolor{comment}{/* Add Ethernet header */}
+269     ethh = (\textcolor{keyword}{struct }ethhdr *)skb\_push(skb, ETH\_HLEN);
+270     memset(ethh, 0, ETH\_HLEN);
+271     ethh->h\_dest[0] = 0x02;
+272     ethh->h\_source[0] = 0x02;
+273     ethh->h\_proto = protocol;
+274 
+275     \hyperlink{vport_8h_ac7bba7ae75dd07feea88dde580c3569b}{ovs\_skb\_postpush\_rcsum}(skb, skb->data, ETH\_HLEN);
+276 
+277     \hyperlink{linux_2vport_8c_a45b6883b8ea28eb25965e1f2e1586d46}{ovs\_vport\_receive}(\hyperlink{vport_8h_a4064e2f79bf9d0523fd312d33b9d39e9}{vport\_from\_priv}(lisp\_port), skb, &tun\_info);
+278     \textcolor{keywordflow}{goto} out;
+279 
+280 error:
+281     kfree\_skb(skb);
+282 out:
+283     \textcolor{keywordflow}{return} 0;
+284 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_a3a50252974d93009f1c1204799ef7ba0}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+send@{lisp\+\_\+send}}
+\index{lisp\+\_\+send@{lisp\+\_\+send}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+send}]{\setlength{\rightskip}{0pt plus 5cm}static int lisp\+\_\+send (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport, }
+\item[{struct sk\+\_\+buff $\ast$}]{skb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_a3a50252974d93009f1c1204799ef7ba0}
+
+\begin{DoxyCode}
+385 \{
+386     \textcolor{keyword}{struct }\hyperlink{structovs__key__ipv4__tunnel}{ovs\_key\_ipv4\_tunnel} *\hyperlink{flow_8h_a904e9497acde49a1992636f77597c5c7}{tun\_key};
+387     \textcolor{keyword}{struct }\hyperlink{structlisp__port}{lisp\_port} *\hyperlink{structlisp__port}{lisp\_port} = \hyperlink{vport-lisp_8c_af8f69fb0b9db12e9a324a9932011b302}{lisp\_vport}(vport);
+388     \textcolor{keyword}{struct }net *net = \hyperlink{datapath_8h_aef2302004ca1f45133eaef00bb3740eb}{ovs\_dp\_get\_net}(vport->\hyperlink{structvport_a49fb6f6bf0ac4337853e9242e88ddc42}{dp});
+389     \textcolor{keywordtype}{int} network\_offset = \hyperlink{skbuff_8h_aabe75b44039b11c1b7c6e2f246e7146e}{skb\_network\_offset}(skb);
+390     \textcolor{keyword}{struct }rtable *rt;
+391     \textcolor{keywordtype}{int} min\_headroom;
+392     \_\_be32 saddr;
+393     \_\_be16 src\_port, dst\_port;
+394     \_\_be16 df;
+395     \textcolor{keywordtype}{int} sent\_len;
+396     \textcolor{keywordtype}{int} err;
+397 
+398     \textcolor{keywordflow}{if} (unlikely(!\hyperlink{datapath_8h_ac337c4d4ddca29916ce8e900038ddd78}{OVS\_CB}(skb)->egress\_tun\_info)) \{
+399         err = -EINVAL;
+400         \textcolor{keywordflow}{goto} error;
+401     \}
+402 
+403     tun\_key = &\hyperlink{datapath_8h_ac337c4d4ddca29916ce8e900038ddd78}{OVS\_CB}(skb)->egress\_tun\_info->tunnel;
+404 
+405     \textcolor{keywordflow}{if} (skb->protocol != htons(ETH\_P\_IP) &&
+406         skb->protocol != htons(ETH\_P\_IPV6)) \{
+407         err = 0;
+408         \textcolor{keywordflow}{goto} error;
+409     \}
+410 
+411     \textcolor{comment}{/* Route lookup */}
+412     saddr = tun\_key->\hyperlink{structovs__key__ipv4__tunnel_a1e5a978f104d61e9694e914a109734a7}{ipv4\_src};
+413     rt = \hyperlink{compat_8h_a9fd71ce2d13a3dcc4f7d51469ba86d79}{find\_route}(\hyperlink{datapath_8h_aef2302004ca1f45133eaef00bb3740eb}{ovs\_dp\_get\_net}(vport->\hyperlink{structvport_a49fb6f6bf0ac4337853e9242e88ddc42}{dp}),
+414             &saddr, tun\_key->\hyperlink{structovs__key__ipv4__tunnel_ae443d381a97f53bbc4139fe36c0aae30}{ipv4\_dst},
+415             IPPROTO\_UDP, tun\_key->\hyperlink{structovs__key__ipv4__tunnel_a69594eaf9d7dfc2824b264484e02498e}{ipv4\_tos},
+416             skb->mark);
+417     \textcolor{keywordflow}{if} (IS\_ERR(rt)) \{
+418         err = PTR\_ERR(rt);
+419         \textcolor{keywordflow}{goto} error;
+420     \}
+421 
+422     min\_headroom = LL\_RESERVED\_SPACE(\hyperlink{compat_8h_afce1864ee37be971c99555fdf1f76d88}{rt\_dst}(rt).dev) + \hyperlink{compat_8h_afce1864ee37be971c99555fdf1f76d88}{rt\_dst}(rt).header\_len
+423             + \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }iphdr) + \hyperlink{vport-lisp_8c_a432175729adc4f68dad362484b077981}{LISP\_HLEN};
+424 
+425     \textcolor{keywordflow}{if} (skb\_headroom(skb) < min\_headroom || skb\_header\_cloned(skb)) \{
+426         \textcolor{keywordtype}{int} head\_delta = SKB\_DATA\_ALIGN(min\_headroom -
+427                         skb\_headroom(skb) +
+428                         16);
+429 
+430         err = pskb\_expand\_head(skb, max\_t(\textcolor{keywordtype}{int}, head\_delta, 0),
+431                     0, GFP\_ATOMIC);
+432         \textcolor{keywordflow}{if} (unlikely(err))
+433             \textcolor{keywordflow}{goto} err\_free\_rt;
+434     \}
+435 
+436     \textcolor{comment}{/* Reset l2 headers. */}
+437     skb\_pull(skb, network\_offset);
+438     \hyperlink{skbuff_8h_aaf81c26756757ac1e1d7e6933f61bdaf}{skb\_reset\_mac\_header}(skb);
+439     \hyperlink{vlan_8h_ad5de1acaa10b947f662a8200417dd6c4}{vlan\_set\_tci}(skb, 0);
+440 
+441     skb = \hyperlink{udp__tunnel_8h_a2c093a62e766646df5cf62f8ea3aba91}{udp\_tunnel\_handle\_offloads}(skb, \textcolor{keyword}{false}, \textcolor{keyword}{false});
+442     \textcolor{keywordflow}{if} (IS\_ERR(skb)) \{
+443         err = PTR\_ERR(skb);
+444         skb = NULL;
+445         \textcolor{keywordflow}{goto} err\_free\_rt;
+446     \}
+447 
+448     src\_port = htons(\hyperlink{vport-lisp_8c_a106a25589649bc37c3905cb00fb59f62}{get\_src\_port}(net, skb));
+449     dst\_port = lisp\_port->\hyperlink{structlisp__port_a3f0943c0da5e5c60f9e8e4068d49215e}{dst\_port};
+450 
+451     \hyperlink{vport-lisp_8c_afacb726760b72b4d01c27f470d4b7a3a}{lisp\_build\_header}(skb);
+452 
+453     skb->ignore\_df = 1;
+454 
+455     \hyperlink{gso_8h_afa56bd287d4a10d09bf25d8219f574b5}{ovs\_skb\_set\_inner\_protocol}(skb, skb->protocol);
+456 
+457     df = tun\_key->\hyperlink{structovs__key__ipv4__tunnel_a7459e66ecf90329eb2fa6cf3fc4781db}{tun\_flags} & \hyperlink{ip__tunnels_8h_a3b33c8fadb48f2281d5852e2a0d8eeff}{TUNNEL\_DONT\_FRAGMENT} ? htons(IP\_DF) : 0;
+458     sent\_len = udp\_tunnel\_xmit\_skb(rt, skb, saddr, tun\_key->\hyperlink{structovs__key__ipv4__tunnel_ae443d381a97f53bbc4139fe36c0aae30}{ipv4\_dst},
+459                        tun\_key->\hyperlink{structovs__key__ipv4__tunnel_a69594eaf9d7dfc2824b264484e02498e}{ipv4\_tos}, tun\_key->\hyperlink{structovs__key__ipv4__tunnel_a24de7472a8c22903fce96b73dab68a40}{ipv4\_ttl},
+460                        df, src\_port, dst\_port, \textcolor{keyword}{false}, \textcolor{keyword}{true});
+461 
+462     \textcolor{keywordflow}{return} sent\_len > 0 ? sent\_len + network\_offset : sent\_len;
+463 
+464 err\_free\_rt:
+465     ip\_rt\_put(rt);
+466 error:
+467     kfree\_skb(skb);
+468     \textcolor{keywordflow}{return} err;
+469 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_a91b2b04c344bf1a50d02d4084fabf482}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+socket\+\_\+init@{lisp\+\_\+socket\+\_\+init}}
+\index{lisp\+\_\+socket\+\_\+init@{lisp\+\_\+socket\+\_\+init}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+socket\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}static int lisp\+\_\+socket\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{struct {\bf lisp\+\_\+port} $\ast$}]{lisp\+\_\+port, }
+\item[{struct net $\ast$}]{net}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_a91b2b04c344bf1a50d02d4084fabf482}
+
+\begin{DoxyCode}
+287 \{
+288     \textcolor{keyword}{struct }udp\_port\_cfg udp\_conf;
+289     \textcolor{keyword}{struct }udp\_tunnel\_sock\_cfg tunnel\_cfg;
+290     \textcolor{keywordtype}{int} err;
+291 
+292     memset(&udp\_conf, 0, \textcolor{keyword}{sizeof}(udp\_conf));
+293 
+294     udp\_conf.family = AF\_INET;
+295     udp\_conf.local\_ip.s\_addr = htonl(INADDR\_ANY);
+296     udp\_conf.local\_udp\_port = lisp\_port->\hyperlink{structlisp__port_a3f0943c0da5e5c60f9e8e4068d49215e}{dst\_port};
+297 
+298         err = udp\_sock\_create(net, &udp\_conf, &lisp\_port->\hyperlink{structlisp__port_ac5fbe9815941c2930c73339250706300}{lisp\_rcv\_socket});
+299         \textcolor{keywordflow}{if} (err < 0) \{
+300         pr\_warn(\textcolor{stringliteral}{"cannot register lisp protocol handler: %d\(\backslash\)n"}, err);
+301                 \textcolor{keywordflow}{return} err;
+302     \}
+303 
+304     tunnel\_cfg.sk\_user\_data = lisp\_port;
+305     tunnel\_cfg.encap\_type = 1;
+306     tunnel\_cfg.encap\_rcv = \hyperlink{vport-lisp_8c_afad2c3b20aa9688a25d14456469ed17d}{lisp\_rcv};
+307     tunnel\_cfg.encap\_destroy = NULL;
+308 
+309     setup\_udp\_tunnel\_sock(net, lisp\_port->\hyperlink{structlisp__port_ac5fbe9815941c2930c73339250706300}{lisp\_rcv\_socket}, &tunnel\_cfg);
+310 
+311     \textcolor{keywordflow}{return} 0;
+312 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_aeaf8548971b28354b0c5b67853008ebb}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+tnl\+\_\+create@{lisp\+\_\+tnl\+\_\+create}}
+\index{lisp\+\_\+tnl\+\_\+create@{lisp\+\_\+tnl\+\_\+create}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+tnl\+\_\+create}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf vport}$\ast$ lisp\+\_\+tnl\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport\+\_\+parms} $\ast$}]{parms}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_aeaf8548971b28354b0c5b67853008ebb}
+
+\begin{DoxyCode}
+333 \{
+334     \textcolor{keyword}{struct }net *net = \hyperlink{datapath_8h_aef2302004ca1f45133eaef00bb3740eb}{ovs\_dp\_get\_net}(parms->\hyperlink{structvport__parms_a15faa866e3d35a721de77b347017499e}{dp});
+335     \textcolor{keyword}{struct }nlattr *options = parms->\hyperlink{structvport__parms_a5c6027e758731e1a16968e77d4e2ca7c}{options};
+336     \textcolor{keyword}{struct }\hyperlink{structlisp__port}{lisp\_port} *\hyperlink{structlisp__port}{lisp\_port};
+337     \textcolor{keyword}{struct }\hyperlink{structvport}{vport} *\hyperlink{structvport}{vport};
+338     \textcolor{keyword}{struct }nlattr *a;
+339     \textcolor{keywordtype}{int} err;
+340     u16 dst\_port;
+341 
+342     \textcolor{keywordflow}{if} (!options) \{
+343         err = -EINVAL;
+344         \textcolor{keywordflow}{goto} error;
+345     \}
+346 
+347     a = \hyperlink{net_2netlink_8h_a5b73cd8f4a1d3d335642ee1492b7b2c2}{nla\_find\_nested}(options, \hyperlink{openvswitch_8h_a96a58e29e8dbf2b5bdeb775cba46556eae2bec9320cf2cc32228c9783e1bba39a}{OVS\_TUNNEL\_ATTR\_DST\_PORT});
+348     \textcolor{keywordflow}{if} (a && nla\_len(a) == \textcolor{keyword}{sizeof}(u16)) \{
+349         dst\_port = nla\_get\_u16(a);
+350     \} \textcolor{keywordflow}{else} \{
+351         \textcolor{comment}{/* Require destination port from userspace. */}
+352         err = -EINVAL;
+353         \textcolor{keywordflow}{goto} error;
+354     \}
+355 
+356     \textcolor{comment}{/* Verify if we already have a socket created for this port */}
+357     \textcolor{keywordflow}{if} (\hyperlink{vport-lisp_8c_ac170aebcefa72b3bccd6431da43de59d}{lisp\_find\_port}(net, htons(dst\_port))) \{
+358         err = -EEXIST;
+359         \textcolor{keywordflow}{goto} error;
+360     \}
+361 
+362     vport = \hyperlink{linux_2vport_8c_a9198ee06111592d2cf6c3b2bf94561c1}{ovs\_vport\_alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} lisp\_port),
+363                 &\hyperlink{vport-lisp_8c_a758306cfbd9fe092cc094dbf165e5cf7}{ovs\_lisp\_vport\_ops}, parms);
+364     \textcolor{keywordflow}{if} (IS\_ERR(vport))
+365         \textcolor{keywordflow}{return} vport;
+366 
+367     lisp\_port = \hyperlink{vport-lisp_8c_af8f69fb0b9db12e9a324a9932011b302}{lisp\_vport}(vport);
+368     lisp\_port->\hyperlink{structlisp__port_a3f0943c0da5e5c60f9e8e4068d49215e}{dst\_port} = htons(dst\_port);
+369     strncpy(lisp\_port->\hyperlink{structlisp__port_ae0a7f15d977897e051bb338429f1d7fe}{name}, parms->\hyperlink{structvport__parms_a4f27e2a7b7dc0493c095cdaabe225b38}{name}, IFNAMSIZ);
+370 
+371     err = \hyperlink{vport-lisp_8c_a91b2b04c344bf1a50d02d4084fabf482}{lisp\_socket\_init}(lisp\_port, net);
+372     \textcolor{keywordflow}{if} (err)
+373         \textcolor{keywordflow}{goto} error\_free;
+374 
+375     list\_add\_tail\_rcu(&lisp\_port->\hyperlink{structlisp__port_adaf751d0e165cfbf047be71e680c3f19}{list}, &lisp\_ports);
+376     \textcolor{keywordflow}{return} vport;
+377 
+378 error\_free:
+379     \hyperlink{linux_2vport_8c_a17e57e95b47bad0bcf00e2e2805e2170}{ovs\_vport\_free}(vport);
+380 error:
+381     \textcolor{keywordflow}{return} ERR\_PTR(err);
+382 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_a29757c9680cfc5547ff8b58fc9d39f57}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+tnl\+\_\+destroy@{lisp\+\_\+tnl\+\_\+destroy}}
+\index{lisp\+\_\+tnl\+\_\+destroy@{lisp\+\_\+tnl\+\_\+destroy}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+tnl\+\_\+destroy}]{\setlength{\rightskip}{0pt plus 5cm}static void lisp\+\_\+tnl\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{struct {\bf vport} $\ast$}]{vport}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_a29757c9680cfc5547ff8b58fc9d39f57}
+
+\begin{DoxyCode}
+324 \{
+325     \textcolor{keyword}{struct }\hyperlink{structlisp__port}{lisp\_port} *\hyperlink{structlisp__port}{lisp\_port} = \hyperlink{vport-lisp_8c_af8f69fb0b9db12e9a324a9932011b302}{lisp\_vport}(vport);
+326 
+327     list\_del\_rcu(&lisp\_port->\hyperlink{structlisp__port_adaf751d0e165cfbf047be71e680c3f19}{list});
+328     udp\_tunnel\_sock\_release(lisp\_port->\hyperlink{structlisp__port_ac5fbe9815941c2930c73339250706300}{lisp\_rcv\_socket});
+329     \hyperlink{linux_2vport_8c_a91949289f78c0f0c2433ef5f20495e66}{ovs\_vport\_deferred\_free}(vport);
+330 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_af8f69fb0b9db12e9a324a9932011b302}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!lisp\+\_\+vport@{lisp\+\_\+vport}}
+\index{lisp\+\_\+vport@{lisp\+\_\+vport}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{lisp\+\_\+vport}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf lisp\+\_\+port}$\ast$ lisp\+\_\+vport (
+\begin{DoxyParamCaption}
+\item[{const struct {\bf vport} $\ast$}]{vport}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_af8f69fb0b9db12e9a324a9932011b302}
+
+\begin{DoxyCode}
+117 \{
+118     \textcolor{keywordflow}{return} \hyperlink{vport_8h_ad18aa811f80cfd4c3895d96f7f3f4acd}{vport\_priv}(vport);
+119 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_a73d3f5ee301d4ee3135ff6fdecaebbe5}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!L\+I\+S\+T\+\_\+\+H\+E\+A\+D@{L\+I\+S\+T\+\_\+\+H\+E\+A\+D}}
+\index{L\+I\+S\+T\+\_\+\+H\+E\+A\+D@{L\+I\+S\+T\+\_\+\+H\+E\+A\+D}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{L\+I\+S\+T\+\_\+\+H\+E\+A\+D}]{\setlength{\rightskip}{0pt plus 5cm}static L\+I\+S\+T\+\_\+\+H\+E\+A\+D (
+\begin{DoxyParamCaption}
+\item[{lisp\+\_\+ports}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_a73d3f5ee301d4ee3135ff6fdecaebbe5}
+\hypertarget{vport-lisp_8c_a8b3ea9759357bb282812b0925b450fa1}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!M\+O\+D\+U\+L\+E\+\_\+\+A\+L\+I\+A\+S@{M\+O\+D\+U\+L\+E\+\_\+\+A\+L\+I\+A\+S}}
+\index{M\+O\+D\+U\+L\+E\+\_\+\+A\+L\+I\+A\+S@{M\+O\+D\+U\+L\+E\+\_\+\+A\+L\+I\+A\+S}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{M\+O\+D\+U\+L\+E\+\_\+\+A\+L\+I\+A\+S}]{\setlength{\rightskip}{0pt plus 5cm}M\+O\+D\+U\+L\+E\+\_\+\+A\+L\+I\+A\+S (
+\begin{DoxyParamCaption}
+\item[{\char`\"{}vport-\/{\bf type}-\/105\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{vport-lisp_8c_a8b3ea9759357bb282812b0925b450fa1}
+\hypertarget{vport-lisp_8c_aa7521a419702060baceb5ba5fc1ec8c7}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!M\+O\+D\+U\+L\+E\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N@{M\+O\+D\+U\+L\+E\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N}}
+\index{M\+O\+D\+U\+L\+E\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N@{M\+O\+D\+U\+L\+E\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{M\+O\+D\+U\+L\+E\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}M\+O\+D\+U\+L\+E\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N (
+\begin{DoxyParamCaption}
+\item[{\char`\"{}O\+V\+S\+: L\+I\+S\+P switching port\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{vport-lisp_8c_aa7521a419702060baceb5ba5fc1ec8c7}
+\hypertarget{vport-lisp_8c_a4ead3dc5abdbbff6d567af19f9eec979}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!module\+\_\+exit@{module\+\_\+exit}}
+\index{module\+\_\+exit@{module\+\_\+exit}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{module\+\_\+exit}]{\setlength{\rightskip}{0pt plus 5cm}module\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{{\bf ovs\+\_\+lisp\+\_\+tnl\+\_\+exit}}]{}
+\end{DoxyParamCaption}
+)}\label{vport-lisp_8c_a4ead3dc5abdbbff6d567af19f9eec979}
+\hypertarget{vport-lisp_8c_a94a5f96f1e47f7598c585bbf70bfe00f}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!module\+\_\+init@{module\+\_\+init}}
+\index{module\+\_\+init@{module\+\_\+init}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{module\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}module\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf ovs\+\_\+lisp\+\_\+tnl\+\_\+init}}]{}
+\end{DoxyParamCaption}
+)}\label{vport-lisp_8c_a94a5f96f1e47f7598c585bbf70bfe00f}
+\hypertarget{vport-lisp_8c_ad94b36675e7eb067ea3ce6ff9e244a44}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!M\+O\+D\+U\+L\+E\+\_\+\+L\+I\+C\+E\+N\+S\+E@{M\+O\+D\+U\+L\+E\+\_\+\+L\+I\+C\+E\+N\+S\+E}}
+\index{M\+O\+D\+U\+L\+E\+\_\+\+L\+I\+C\+E\+N\+S\+E@{M\+O\+D\+U\+L\+E\+\_\+\+L\+I\+C\+E\+N\+S\+E}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{M\+O\+D\+U\+L\+E\+\_\+\+L\+I\+C\+E\+N\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}M\+O\+D\+U\+L\+E\+\_\+\+L\+I\+C\+E\+N\+S\+E (
+\begin{DoxyParamCaption}
+\item[{\char`\"{}G\+P\+L\char`\"{}}]{}
+\end{DoxyParamCaption}
+)}\label{vport-lisp_8c_ad94b36675e7eb067ea3ce6ff9e244a44}
+\hypertarget{vport-lisp_8c_ad76ba8664a548e29a850c62273297c6d}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!ovs\+\_\+lisp\+\_\+tnl\+\_\+exit@{ovs\+\_\+lisp\+\_\+tnl\+\_\+exit}}
+\index{ovs\+\_\+lisp\+\_\+tnl\+\_\+exit@{ovs\+\_\+lisp\+\_\+tnl\+\_\+exit}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{ovs\+\_\+lisp\+\_\+tnl\+\_\+exit}]{\setlength{\rightskip}{0pt plus 5cm}static void \+\_\+\+\_\+exit ovs\+\_\+lisp\+\_\+tnl\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_ad76ba8664a548e29a850c62273297c6d}
+
+\begin{DoxyCode}
+515 \{
+516     \hyperlink{linux_2vport_8c_a8659a5c436f2b09d0b6be2c208ee790e}{ovs\_vport\_ops\_unregister}(&\hyperlink{vport-lisp_8c_a758306cfbd9fe092cc094dbf165e5cf7}{ovs\_lisp\_vport\_ops});
+517 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_a2796063074f5d672bb389e375b744a7f}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!ovs\+\_\+lisp\+\_\+tnl\+\_\+init@{ovs\+\_\+lisp\+\_\+tnl\+\_\+init}}
+\index{ovs\+\_\+lisp\+\_\+tnl\+\_\+init@{ovs\+\_\+lisp\+\_\+tnl\+\_\+init}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{ovs\+\_\+lisp\+\_\+tnl\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}static int \+\_\+\+\_\+init ovs\+\_\+lisp\+\_\+tnl\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_a2796063074f5d672bb389e375b744a7f}
+
+\begin{DoxyCode}
+510 \{
+511     \textcolor{keywordflow}{return} \hyperlink{linux_2vport_8c_a6b6d24642324a66b7bacab2909bea2dc}{ovs\_vport\_ops\_register}(&\hyperlink{vport-lisp_8c_a758306cfbd9fe092cc094dbf165e5cf7}{ovs\_lisp\_vport\_ops});
+512 \}
+\end{DoxyCode}
+\hypertarget{vport-lisp_8c_aa7e66c2b840ffa52ae39f24fc21c0eb5}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!tunnel\+\_\+id\+\_\+to\+\_\+instance\+\_\+id@{tunnel\+\_\+id\+\_\+to\+\_\+instance\+\_\+id}}
+\index{tunnel\+\_\+id\+\_\+to\+\_\+instance\+\_\+id@{tunnel\+\_\+id\+\_\+to\+\_\+instance\+\_\+id}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{tunnel\+\_\+id\+\_\+to\+\_\+instance\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}static void tunnel\+\_\+id\+\_\+to\+\_\+instance\+\_\+id (
+\begin{DoxyParamCaption}
+\item[{\+\_\+\+\_\+be64}]{tun\+\_\+id, }
+\item[{\+\_\+\+\_\+u8 $\ast$}]{iid}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_aa7e66c2b840ffa52ae39f24fc21c0eb5}
+
+\begin{DoxyCode}
+141 \{
+142 
+143 \textcolor{preprocessor}{#ifdef \_\_BIG\_ENDIAN}
+144     iid[0] = (\_\_force \_\_u8)(\hyperlink{flow_8h_aba5027d7a3d96f0f58dd8e607365934b}{tun\_id} >> 16);
+145     iid[1] = (\_\_force \_\_u8)(\hyperlink{flow_8h_aba5027d7a3d96f0f58dd8e607365934b}{tun\_id} >> 8);
+146     iid[2] = (\_\_force \_\_u8)\hyperlink{flow_8h_aba5027d7a3d96f0f58dd8e607365934b}{tun\_id};
+147 \textcolor{preprocessor}{#else}
+148     iid[0] = (\_\_force \_\_u8)((\_\_force u64)\hyperlink{flow_8h_aba5027d7a3d96f0f58dd8e607365934b}{tun\_id} >> 40);
+149     iid[1] = (\_\_force \_\_u8)((\_\_force u64)\hyperlink{flow_8h_aba5027d7a3d96f0f58dd8e607365934b}{tun\_id} >> 48);
+150     iid[2] = (\_\_force \_\_u8)((\_\_force u64)\hyperlink{flow_8h_aba5027d7a3d96f0f58dd8e607365934b}{tun\_id} >> 56);
+151 \textcolor{preprocessor}{#endif}
+152 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{vport-lisp_8c_a758306cfbd9fe092cc094dbf165e5cf7}{}\index{vport-\/lisp.\+c@{vport-\/lisp.\+c}!ovs\+\_\+lisp\+\_\+vport\+\_\+ops@{ovs\+\_\+lisp\+\_\+vport\+\_\+ops}}
+\index{ovs\+\_\+lisp\+\_\+vport\+\_\+ops@{ovs\+\_\+lisp\+\_\+vport\+\_\+ops}!vport-\/lisp.\+c@{vport-\/lisp.\+c}}
+\subsubsection[{ovs\+\_\+lisp\+\_\+vport\+\_\+ops}]{\setlength{\rightskip}{0pt plus 5cm}static struct {\bf vport\+\_\+ops} ovs\+\_\+lisp\+\_\+vport\+\_\+ops\hspace{0.3cm}{\ttfamily [static]}}\label{vport-lisp_8c_a758306cfbd9fe092cc094dbf165e5cf7}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    .type           = \hyperlink{openvswitch_8h_a9a1b861aa99bd83177a2b10b34745b0aa99a33a2b25d9e9de2bdba0544804122e}{OVS\_VPORT\_TYPE\_LISP},
+    .create         = \hyperlink{vport-lisp_8c_aeaf8548971b28354b0c5b67853008ebb}{lisp\_tnl\_create},
+    .destroy        = \hyperlink{vport-lisp_8c_a29757c9680cfc5547ff8b58fc9d39f57}{lisp\_tnl\_destroy},
+    .get\_name       = \hyperlink{vport-lisp_8c_a9b17408cfe8b9c4999729e709eda60c8}{lisp\_get\_name},
+    .get\_options        = \hyperlink{vport-lisp_8c_a54dce33d8291b4f7f816d882b13c3cc3}{lisp\_get\_options},
+    .send           = \hyperlink{vport-lisp_8c_a3a50252974d93009f1c1204799ef7ba0}{lisp\_send},
+    .get\_egress\_tun\_info    = \hyperlink{vport-lisp_8c_a38f0b18b384c833b501a23e942fa2a07}{lisp\_get\_egress\_tun\_info},
+    .owner          = THIS\_MODULE,
+\}
+\end{DoxyCode}

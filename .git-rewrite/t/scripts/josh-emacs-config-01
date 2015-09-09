@@ -1,0 +1,257 @@
+;; ------------------------------
+;; .emacs configuration file
+;; For Linux-Based Emacs editor
+;; 24.May.2002 - Josh Weissman
+;; ------------------------------
+
+;; ------------------------------
+;; Define My Special Key Mappings
+;; Note style, and how you can 
+;; remap function keys to commands
+;; ------------------------------
+;;(global-set-key [f4] 'next-error)
+;;(global-set-key [f3] 'previous-error)
+;;(global-set-key [f9] 'enlarge-window-horizontally)
+;;(global-set-key [f8] 'shrink-window-horizontally)
+;;(global-set-key [f2] 'refresh-file)
+;;(global-set-key [f1] 'kbdmac-insert-comment)
+;;(global-set-key [f5] 'set-mark-command)
+
+;; bring up compile
+(global-set-key [f12] 'compile)
+
+;; Only use 8 lines for compile window
+(setq compilation-window-height 8)
+
+;; set ctrl-g to alias goto-line
+(global-set-key "\C-g" 'goto-line)
+
+;; for text mode, alias ctrl-right-arrow and ctrl-left-arrow
+;(global-set-key "\e^[[1;5D" 'forward-word)
+;(global-set-key "\e^[[1;5C" 'backward-word)
+
+;; Preserve Traditional Emacs mappings for "home" and "end" keys
+;; New versions of emacs map them to begin/end of line and 
+;; ctrl-home, ctrl-end are for buffer
+(global-set-key [home] 'beginning-of-buffer)
+(global-set-key [end] 'end-of-buffer)
+
+;; ------------------------------
+;; Customize face attributes - Colors
+;; These are Used for HighLighting
+;; different structures per the
+;; syntax of the language
+;; ------------------------------
+(setq font-lock-face-attributes
+      ;; Symbol-for-Face Foreground Background Bold Italic Underline
+      '((font-lock-comment-face       "Dark Green")
+	(font-lock-string-face        "Dark Red")
+	(font-lock-keyword-face       "Royal Blue")
+	(font-lock-function-name-face "Blue")
+	(font-lock-variable-name-face "Black")
+	(font-lock-type-face          "Black")
+	(font-lock-reference-face     "Dark Blue")
+	))
+
+;; -----------------------------
+;; Load the font-lock package.
+;; ------------------------------
+(require 'font-lock)
+
+;; Disable visible bell
+(setq visible-bell nil)
+(setq bell-volume 0)
+
+;; Disable toolbar
+(tool-bar-mode -1)
+
+;; If running emacs in terminal (non X) map the backspace key correctly
+(if (eq window-system nil) (normal-erase-is-backspace-mode 0))
+
+;; -----------------------------
+;; CVS Checkout/CheckIn Functions
+;; ------------------------------
+(defvar confirm-refresh nil)
+
+(defun refresh-file()
+  (interactive)
+  (revert-buffer t (not confirm-refresh)))
+
+(defun check-out-file()
+  (interactive)
+  (shell-command (concat "cvs edit " (buffer-name)))
+  (refresh-file)
+  (message "Performed cvs edit on %s" (buffer-name)))
+
+(defun check-in-file()
+  (interactive)
+  (shell-command (concat "cvs commit -m \"\" " (buffer-name)))
+  (refresh-file)
+  (message "Performed cvs commit on %s" (buffer-name)))
+
+;; ----------------------------------------------------------
+;; Convert text files from dos/mac to unix
+;; ----------------------------------------------------------
+(defun dos2unix()
+  (interactive)
+  (shell-command (concat "dos2unix " (buffer-name) " " (buffer-name)))
+  (revert-buffer)
+  (message "Performed dos2unix on %s" (buffer-name)))
+
+;; ----------------------------------------------------------
+;; Maximum colors Support... If it is there, enable it! 
+;; ----------------------------------------------------------
+(setq font-lock-maximum-decoration t)
+
+;; ----------------------------------------------------------
+;; Turn on font-lock in all modes that support it
+;; ----------------------------------------------------------
+(global-font-lock-mode t)
+
+;; Buffer completion based on pattern
+(iswitchb-mode 1)
+
+;; ----------------------------------------------------------
+;; setup printing
+;; ----------------------------------------------------------
+(setq lpr-command "kprinter")
+(setq lpr-switches '("--stdin"))
+
+;; ----------------------------------------------------------
+;; Display Column Number
+;; ----------------------------------------------------------
+(setq column-number-mode t)
+
+;; Turn on support for mouse wheel (emacs 21.xxx)
+(mouse-wheel-mode t)
+
+;; ----------------------------------------------------------
+;; backspace key on keyboard to be sane. Otherwise, emacs
+;; gets a Ctrl-H (help) when the backspace is hit when emacs
+;; is run from a non-X context. (emacs -nw)
+;; ----------------------------------------------------------
+(keyboard-translate ?\C-h ?\C-?)
+
+;; ----------------------------------------------------------
+;; Define the window color properties
+;;(set-background-color "white")
+;;(set-foreground-color "black")
+;; ----------------------------------------------------------
+(set-background-color "light grey")
+(set-cursor-color "orange")
+
+;; ----------------------------------------------------------
+;; Define the default-text face Attributes So they agree with
+;; Settings with the windows. Otherwise default text ends up
+;; with standard white on black, while the window background
+;; has changed to other colors
+;; ----------------------------------------------------------
+(set-face-foreground `default "black")
+(set-face-background `default "light grey")
+;(set-face-background `default "antiquewhite")
+
+;; WTF, Gnu numb-nuts keep breaking this feature.
+;; they should just leave it alone dammit.
+;; emacs > 21.3.xx does horizontal scrolling automatically
+;; if this is non-nil. It still doesn't f*cking work so
+;; i'll toggle it on below with a hook
+;; (setq automatic-hscrolling t)
+;; (setq truncate-lines t)
+
+;; Turn On Horizontal Scrolling in verilog,c,c++,directory modes
+;; For emacs <= 20.xxx
+(add-hook 'verilog-mode-hook 'turn-on-hscroll)
+(add-hook 'c-mode-hook 'turn-on-hscroll)
+(add-hook 'cc-mode-hook 'turn-on-hscroll)
+(add-hook 'dired-mode-hook 'turn-on-hscroll)
+
+(add-hook 'verilog-mode-hook 'toggle-truncate-lines)
+(add-hook 'c-mode-hook 'toggle-truncate-lines)
+(add-hook 'cc-mode-hook 'toggle-truncate-lines)
+(add-hook 'dired-mode-hook 'toggle-truncate-lines)
+(add-hook 'text-mode-hook 'toggle-truncate-lines)
+
+;;-----------------------------------------------------------
+;; % is matching parenthesis a-la VI
+;;-----------------------------------------------------------
+(global-set-key "%" 'match-paren)
+
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert %."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+	(t (self-insert-command (or arg 1)))))
+
+;;-----------------------------------------------------------
+;; Local Load path for .el emacs config files
+;; This makes emacs check here for additional .el files
+;; which will configure it for different modes
+;; Set this equal to whatever directory you have the
+;; verilog-mode.el file in.
+;;-----------------------------------------------------------
+(setq load-path (cons "~/.emacs-modes/" load-path))
+
+;;-----------------------------------------------------------
+;; Load support for XML parsing and CSCOPE
+;;-----------------------------------------------------------
+(load-file "/home/abarba/lisp/xml-parse.el")
+(load-file "/home/abarba/lisp/xcscope.el")
+
+(defun refresh-file()
+  "This function will reload the file in the current buffer.  It is useful for
+when the file is changed on disc and you want the new version loaded.  When 
+the value of 'confirm-refresh' is nil, you are not prompted with a confirmation
+ message."
+  (interactive)
+  (revert-buffer t (not confirm-refresh)))
+
+;; ----------------------------------------------------------
+;; This tells emacs to use verilog-mode for what type of files
+;; ----------------------------------------------------------
+(autoload 'verilog-mode "verilog-mode" "Verilog mode" t )
+(setq auto-mode-alist (cons  '("\\.v\\'" . verilog-mode) auto-mode-alist))
+(setq auto-mode-alist (cons  '("\\.dv\\'" . verilog-mode) auto-mode-alist))
+(setq auto-mode-alist (cons  '("\\.vh\\'" . verilog-mode) auto-mode-alist))
+
+;; Use Assembler mode for .lrp ucode files
+(setq auto-mode-alist (cons  '("\\.lrp\\'" . asm-mode) auto-mode-alist))
+
+;; Use C++ mode for .cx .cxx .hx .hxx files
+(setq auto-mode-alist (cons  '("\\.cx\\'" . c++-mode) auto-mode-alist))
+(setq auto-mode-alist (cons  '("\\.cxx\\'" . c++-mode) auto-mode-alist))
+(setq auto-mode-alist (cons  '("\\.hx\\'" . c++-mode) auto-mode-alist))
+(setq auto-mode-alist (cons  '("\\.hxx\\'" . c++-mode) auto-mode-alist))
+
+;; ----------------------------------------------------------
+;; This tells emacs to use bluespec-mode for what type of files
+;; ----------------------------------------------------------
+(autoload 'bluespec-mode "bluespec-mode" "Bluespec mode" t )
+(setq auto-mode-alist (cons  '("\\.hs\\'" . bluespec-mode) auto-mode-alist))
+(setq auto-mode-alist (cons  '("\\.bs\\'" . bluespec-mode) auto-mode-alist))
+(setq auto-mode-alist (cons  '("\\.bi\\'" . bluespec-mode) auto-mode-alist))
+
+;; Bull-honky sandburst-c mode
+(autoload 'sandburst-c-mode "sandburst-c-mode" "sandburst-c mode" t )
+
+;; Long Lines writing mode
+;; (autoload 'longlines-mode "longlines-mode" "longlines mode" t)
+
+;; ----------------------------------------------------------
+;; Turn on Hooks for BlueSpec mode for colors & indentation
+;; ----------------------------------------------------------
+(add-hook 'bluespec-mode-hook 'turn-on-bluespec-font-lock)
+(add-hook 'bluespec-mode-hook 'turn-on-bluespec-decl-scan)
+(add-hook 'bluespec-mode-hook 'turn-on-bluespec-doc-mode)
+(add-hook 'bluespec-mode-hook 'turn-on-bluespec-indent)
+(add-hook 'bluespec-mode-hook 'turn-on-bluespec-simple-indent)
+
+;; For emacs >= 21.xxx
+(custom-set-variables
+ '(load-home-init-file t t))
+
+;; Enable the upcase/downcase region feature
+(put 'downcase-region 'disabled nil)
+
+(put 'upcase-region 'disabled nil)
+(custom-set-faces)

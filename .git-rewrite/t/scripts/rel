@@ -1,0 +1,83 @@
+#!/bin/bash
+
+if [ ] 
+then
+############################################################
+# 070628-1016: building of the local regression attached to local tools
+############################################################
+mkdir rtest # subdirectory rtest for Regression Test
+cd rtest
+
+###########################
+#building lc model
+mkdir lcmdl
+cd rtest/lcmdl
+cvs co system_sim
+cd rtest/lcmdl/system_sim
+release.pl co lcmodel_dist@latest
+cd rtest/lcmdl/system_sim/lcmodel
+
+#if you want to change the lrp tools version just edit Makefile in this directory 
+#look for the line export CA_LRPTOOLS_CMOD = fe2k-tools/<version of lrptools>
+
+make lcmodel_dist
+
+###########################
+#building regression
+
+cd rtest
+cvs co system_sim
+cd cd rtest/system_sim
+./release.pl co guadalupe2k_dist@latest #checks out - takes a few mins ... 
+
+#attaching local model
+cd rtest/system_sim/sw3/model
+mv lcmodel lcmodel.old
+ln -s rtest//lcmdl/system_sim/lcmodel/dist lcmodel
+
+#Build regression test software
+cd rtest/system_sim/sw3/guadalupe2k/libdev
+make LibDevG2Lc FAST=1 BSUB_LC_OBJECTS=1 #builds - takes a few mins ...
+
+#Running test :
+cd rtest/system_sim/sw3/guadalupe2k/libdev
+
+#ingress and egress ucode 
+rm -f ie-test-log.txt
+./LibDevG2Lc tst=240.225 ibehonly=0 ebehonly=0 all.verbose=3 ica0.lr.verbose=449 ica0.rc0.verbose=452 seed=0 tmp_libdev_config=0 > ie-test-log.txt
+
+#ingress ucode, egress beh 
+rm -f i-test-log.txt
+./LibDevG2Lc tst=240.225 ibehonly=0 ebehonly=1 all.verbose=3 ica0.lr.verbose=449 ica0.rc0.verbose=452 seed=0 tmp_libdev_config=0 > i-test-log.txt
+
+#ingress beh, egress ucode
+rm -f e-test-log.txt
+./LibDevG2Lc tst=240.225 ibehonly=1 ebehonly=0 all.verbose=3 ica0.lr.verbose=449 ica0.rc0.verbose=452 seed=0 tmp_libdev_config=0 > e-test-log.txt
+
+#file in question:
+#  /home/vladn/views/vtest/rtest/system_sim/sw3/guadalupe2k/ilib/ucode/egrEthernetProcessing.lrp2
+
+fi
+
+
+###########################
+# script to run all necessaty rebuild after the change and rebuild of local sim library
+
+# locations
+RTEST_DIR=/home/vladn/views/vtest/rtest
+
+echo build new model
+#cd $RTEST_DIR/lcmdl/system_sim/lcmodel
+cd /home/vladn/views/vtest/rtest/lcmdl/system_sim/lcmodel
+make lcmodel_dist_clean
+make lcmodel_dist
+
+echo build new regression test
+#cd $RTEST_DIR/system_sim/sw3/guadalupe2k/libdev
+cd /home/vladn/views/vtest/rtest/system_sim/sw3/guadalupe2k/libdev
+make LibDevG2Lc FAST=1 BSUB_LC_OBJECTS=1 #builds - takes a few mins ...
+
+echo run regression test
+rm -f ie-test-log.txt
+./LibDevG2Lc tst=240.225 ibehonly=0 ebehonly=0 all.verbose=3 ica0.lr.verbose=449 ica0.rc0.verbose=452 seed=0 tmp_libdev_config=0 > ie-test-log.txt
+tail ie-test-log.txt

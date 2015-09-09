@@ -1,0 +1,65 @@
+.TH "/home/vladn/git/ovs/datapath/linux/udp.c" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/udp.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/version\&.h>\fP
+.br
+\fC#include <net/udp\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBrpl_udp_set_csum\fP (\fBbool\fP nocheck, struct sk_buff *skb, __be32 saddr, __be32 daddr, int len)"
+.br
+.ti -1c
+.RI "\fBEXPORT_SYMBOL_GPL\fP (\fBrpl_udp_set_csum\fP)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "EXPORT_SYMBOL_GPL (\fBrpl_udp_set_csum\fP)"
+
+.SS "void rpl_udp_set_csum (\fBbool\fP nocheck, struct sk_buff * skb, __be32 saddr, __be32 daddr, int len)"
+
+.PP
+.nf
+12 {
+13     struct udphdr *uh = udp_hdr(skb);
+14 
+15     if (nocheck)
+16         uh->check = 0;
+17     else if (skb_is_gso(skb))
+18         uh->check = ~udp_v4_check(len, saddr, daddr, 0);
+19     else if (skb_dst(skb) && skb_dst(skb)->dev &&
+20          (skb_dst(skb)->dev->features & NETIF_F_V4_CSUM)) {
+21 
+22         BUG_ON(skb->ip_summed == CHECKSUM_PARTIAL);
+23 
+24         skb->ip_summed = CHECKSUM_PARTIAL;
+25         skb->csum_start = skb_transport_header(skb) - skb->head;
+26         skb->csum_offset = offsetof(struct udphdr, check);
+27         uh->check = ~udp_v4_check(len, saddr, daddr, 0);
+28     } else {
+29         __wsum csum;
+30 
+31         BUG_ON(skb->ip_summed == CHECKSUM_PARTIAL);
+32 
+33         uh->check = 0;
+34         csum = skb_checksum(skb, 0, len, 0);
+35         uh->check = udp_v4_check(len, saddr, daddr, csum);
+36         if (uh->check == 0)
+37             uh->check = CSUM_MANGLED_0;
+38 
+39         skb->ip_summed = CHECKSUM_UNNECESSARY;
+40     }
+41 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

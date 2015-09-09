@@ -1,0 +1,357 @@
+.TH "/home/vladn/git/ovs/datapath/linux/kcompat.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/kcompat.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBHAVE_ERR_CAST\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_IS_ERR_OR_NULL\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_ETH_HW_ADDR_RANDOM\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_ETHER_ADDR_COPY\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_VLAN_SET_ENCAP_PROTO\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_IPV4_IS_MULTICAST\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_INET_GET_LOCAL_PORT_RANGE_USING_NET\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_DEV_DISABLE_LRO\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_DEV_GET_STATS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_DEV_GET_BY_INDEX_RCU\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE___SKB_GSO_SEGMENT\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_CAN_CHECKSUM_PROTOCOL\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_NETDEV_FEATURES_T\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_PCPU_SW_NETSTATS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_NF_HOOKFN_ARG_OPS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_PRANDOM_U32\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_RCU_READ_LOCK_HELD\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_LOCKDEP_RTNL_IS_HELD\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_KFREE_SKB_LIST\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_DST_ACCESSOR_FUNCS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_COPY_FROM_LINEAR_DATA_OFFSET\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_RESET_TAIL_POINTER\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_COW_HEAD\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKBUFF_HEADER_HELPERS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_ICMP6_HDR\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_WARN_LRO\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_CONSUME_SKB\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_FRAG_PAGE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_HAS_FRAG_LIST\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE___SKB_FILL_PAGE_DESC\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_RESET_MAC_LEN\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_UNCLONE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_ORPHAN_FRAGS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_GET_HASH\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_CLEAR_HASH\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_ZEROCOPY\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_ENSURE_WRITABLE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_VLAN_POP\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_VLAN_PUSH\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_BOOL_TYPE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_CSUM_TYPES\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_CSUM_REPLACE4\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_CSUM_UNFOLD\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_GENL_HAS_LISTENERS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_MCGRP_OFFSET\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_PARALLEL_OPS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_GENLMSG_NEW_UNICAST\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_GENL_HAS_LISTENERS_TAKES_NET\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_GENL_NOTIFY_TAKES_FAMILY\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_GRE_CISCO_REGISTER\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_IP6_FH_F_SKIP_RH\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_NLA_GET_BE16\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_NLA_PUT_BE16\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_NLA_PUT_BE32\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_NLA_PUT_BE64\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_NLA_FIND_NESTED\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_NLA_IS_LAST\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SCTP_COMPUTE_CKSUM\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_VLAN_INSERT_TAG_SET_PROTO\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE___VLAN_INSERT_TAG\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_U64_STATS_FETCH_BEGIN_IRQ\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_UDP_FLOW_SRC_PORT\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_UDP_V4_CHECK\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_UDP_SET_CSUM\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_IGNORE_DF_RENAME\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_GSO_GRE_CSUM\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SKB_GSO_UDP_TUNNEL_CSUM\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_NET_NAME_UNKNOWN\fP   1"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define HAVE___SKB_FILL_PAGE_DESC   1"
+
+.SS "#define HAVE___SKB_GSO_SEGMENT   1"
+
+.SS "#define HAVE___VLAN_INSERT_TAG   1"
+
+.SS "#define HAVE_BOOL_TYPE   1"
+
+.SS "#define HAVE_CAN_CHECKSUM_PROTOCOL   1"
+
+.SS "#define HAVE_CONSUME_SKB   1"
+
+.SS "#define HAVE_CSUM_REPLACE4   1"
+
+.SS "#define HAVE_CSUM_TYPES   1"
+
+.SS "#define HAVE_CSUM_UNFOLD   1"
+
+.SS "#define HAVE_DEV_DISABLE_LRO   1"
+
+.SS "#define HAVE_DEV_GET_BY_INDEX_RCU   1"
+
+.SS "#define HAVE_DEV_GET_STATS   1"
+
+.SS "#define HAVE_ERR_CAST   1"
+
+.SS "#define HAVE_ETH_HW_ADDR_RANDOM   1"
+
+.SS "#define HAVE_ETHER_ADDR_COPY   1"
+
+.SS "#define HAVE_GENL_HAS_LISTENERS   1"
+
+.SS "#define HAVE_GENL_HAS_LISTENERS_TAKES_NET   1"
+
+.SS "#define HAVE_GENL_NOTIFY_TAKES_FAMILY   1"
+
+.SS "#define HAVE_GENLMSG_NEW_UNICAST   1"
+
+.SS "#define HAVE_GRE_CISCO_REGISTER   1"
+
+.SS "#define HAVE_ICMP6_HDR   1"
+
+.SS "#define HAVE_IGNORE_DF_RENAME   1"
+
+.SS "#define HAVE_INET_GET_LOCAL_PORT_RANGE_USING_NET   1"
+
+.SS "#define HAVE_IP6_FH_F_SKIP_RH   1"
+
+.SS "#define HAVE_IPV4_IS_MULTICAST   1"
+
+.SS "#define HAVE_IS_ERR_OR_NULL   1"
+
+.SS "#define HAVE_KFREE_SKB_LIST   1"
+
+.SS "#define HAVE_LOCKDEP_RTNL_IS_HELD   1"
+
+.SS "#define HAVE_MCGRP_OFFSET   1"
+
+.SS "#define HAVE_NET_NAME_UNKNOWN   1"
+
+.SS "#define HAVE_NETDEV_FEATURES_T   1"
+
+.SS "#define HAVE_NF_HOOKFN_ARG_OPS   1"
+
+.SS "#define HAVE_NLA_FIND_NESTED   1"
+
+.SS "#define HAVE_NLA_GET_BE16   1"
+
+.SS "#define HAVE_NLA_IS_LAST   1"
+
+.SS "#define HAVE_NLA_PUT_BE16   1"
+
+.SS "#define HAVE_NLA_PUT_BE32   1"
+
+.SS "#define HAVE_NLA_PUT_BE64   1"
+
+.SS "#define HAVE_PARALLEL_OPS   1"
+
+.SS "#define HAVE_PCPU_SW_NETSTATS   1"
+
+.SS "#define HAVE_PRANDOM_U32   1"
+
+.SS "#define HAVE_RCU_READ_LOCK_HELD   1"
+
+.SS "#define HAVE_SCTP_COMPUTE_CKSUM   1"
+
+.SS "#define HAVE_SKB_CLEAR_HASH   1"
+
+.SS "#define HAVE_SKB_COPY_FROM_LINEAR_DATA_OFFSET   1"
+
+.SS "#define HAVE_SKB_COW_HEAD   1"
+
+.SS "#define HAVE_SKB_DST_ACCESSOR_FUNCS   1"
+
+.SS "#define HAVE_SKB_ENSURE_WRITABLE   1"
+
+.SS "#define HAVE_SKB_FRAG_PAGE   1"
+
+.SS "#define HAVE_SKB_GET_HASH   1"
+
+.SS "#define HAVE_SKB_GSO_GRE_CSUM   1"
+
+.SS "#define HAVE_SKB_GSO_UDP_TUNNEL_CSUM   1"
+
+.SS "#define HAVE_SKB_HAS_FRAG_LIST   1"
+
+.SS "#define HAVE_SKB_ORPHAN_FRAGS   1"
+
+.SS "#define HAVE_SKB_RESET_MAC_LEN   1"
+
+.SS "#define HAVE_SKB_RESET_TAIL_POINTER   1"
+
+.SS "#define HAVE_SKB_UNCLONE   1"
+
+.SS "#define HAVE_SKB_VLAN_POP   1"
+
+.SS "#define HAVE_SKB_VLAN_PUSH   1"
+
+.SS "#define HAVE_SKB_WARN_LRO   1"
+
+.SS "#define HAVE_SKB_ZEROCOPY   1"
+
+.SS "#define HAVE_SKBUFF_HEADER_HELPERS   1"
+
+.SS "#define HAVE_U64_STATS_FETCH_BEGIN_IRQ   1"
+
+.SS "#define HAVE_UDP_FLOW_SRC_PORT   1"
+
+.SS "#define HAVE_UDP_SET_CSUM   1"
+
+.SS "#define HAVE_UDP_V4_CHECK   1"
+
+.SS "#define HAVE_VLAN_INSERT_TAG_SET_PROTO   1"
+
+.SS "#define HAVE_VLAN_SET_ENCAP_PROTO   1"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

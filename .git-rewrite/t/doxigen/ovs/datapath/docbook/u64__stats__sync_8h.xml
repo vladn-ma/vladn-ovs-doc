@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="u64__stats__sync_8h">
+    <title>u64_stats_sync.h File Reference</title>
+    <programlisting>#include &lt;linux/version.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/seqlock.h&gt;</programlisting>
+<para>Include dependency diagram for u64_stats_sync.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="u64__stats__sync_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for u64_stats_sync.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="u64__stats__sync_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title> Data Structures </title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>struct <link linkend="structu64__stats__sync">u64_stats_sync</link></para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="u64__stats__sync_8h_1a47ec2bf2f6a291a846220dab517c195d">u64_stats_init</link> do { } while (0)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="u64__stats__sync_8h_1a79de6de9a2c8c4e1c98d78e5689b74f7">u64_stats_update_begin</link> (
+struct <link linkend="structu64__stats__sync">u64_stats_sync</link> * syncp)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static void <link linkend="u64__stats__sync_8h_1a4005b558b0a34d25298936e8d899e980">u64_stats_update_end</link> (
+struct <link linkend="structu64__stats__sync">u64_stats_sync</link> * syncp)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static unsigned int <link linkend="u64__stats__sync_8h_1a4aa4c31ed7cdf707b74c9f43f8f78fc2">u64_stats_fetch_begin</link> (
+const struct <link linkend="structu64__stats__sync">u64_stats_sync</link> * syncp)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="u64__stats__sync_8h_1adae3a339813208d59cc9cf73671ca566">u64_stats_fetch_retry</link> (
+const struct <link linkend="structu64__stats__sync">u64_stats_sync</link> * syncp, unsigned int start)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static unsigned int <link linkend="u64__stats__sync_8h_1addfaebb71638dbc159aaee907e45fe84">u64_stats_fetch_begin_irq</link> (
+const struct <link linkend="structu64__stats__sync">u64_stats_sync</link> * syncp)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="u64__stats__sync_8h_1a663ca602e197bee607ec46f743c839e1">u64_stats_fetch_retry_irq</link> (
+const struct <link linkend="structu64__stats__sync">u64_stats_sync</link> * syncp, unsigned int start)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/include/linux/u64_stats_sync.h</para>
+    </simplesect>
+</section>

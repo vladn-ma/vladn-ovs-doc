@@ -1,0 +1,73 @@
+#!/bin/bash
+
+MODE=$1      # default mode of this script
+SRC_DIR=$2   # name of the source directory
+
+# print to stdout values of global variables
+function debug_msg
+{
+	echo "debug_msg"
+	echo " MODE:     $MODE"
+	echo " SRC_DIR:  $SRC_DIR"
+}
+
+# print to stdout help message
+function help_msg
+{
+	echo " script for the fixing illigal or bad file names, version vn-0907081136"
+	echo " it recursively scan all files and subdirectories of SRC_DIR, find files"
+	echo " with bad file names, fix these names with inserting _ instead of bad symbols"
+	echo " usage: "
+	echo " $0 mode [SRC_DIR [SRC_PATH]]"
+	echo " SRC_PATH : path to the directory with source directory"
+	echo "            default value = .."
+	echo " SRC_DIR  : name of the directory to work in"
+	echo "            default value = test"
+	echo " modes"
+	echo "     \"\"  : print this help"
+	echo "     \"1\" : only replace ( and ) in bad names"
+}
+
+# print to stdout mode value
+function mode_msg
+{
+	if [ -z "$MODE" ]; then echo "mode: HELP"
+	else echo "mode: $MODE"
+	fi
+}
+
+# test find function
+function find_file
+{
+    fnum=0
+    pattern="*"
+
+
+    for file in $(find $SRC_DIR -iname "$pattern" )
+      do
+      let "fnum += 1"
+    done
+
+    echo "processed files : " $fnum
+}
+
+if [ -z "$SRC_DIR" ]; then SRC_DIR="."
+fi
+
+mode_msg
+
+# execute commands given by mode
+case "$MODE" in
+"") 	# print help message
+	help_msg
+	;;
+
+"9") # test find function
+	debug_msg
+	find_file
+	;;
+esac
+
+#####################################################################
+# end of the script
+#####################################################################

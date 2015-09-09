@@ -1,0 +1,165 @@
+.TH "/home/vladn/git/ovs/datapath/linux/compat/include/net/ipv6.h" 3 "Mon Aug 17 2015" "ovs datapath" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/vladn/git/ovs/datapath/linux/compat/include/net/ipv6.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <linux/version\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBNEXTHDR_SCTP\fP   132 /* Stream Control Transport Protocol */"
+.br
+.ti -1c
+.RI "#define \fBipv6_find_hdr\fP   \fBrpl_ipv6_find_hdr\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum { \fBIP6_FH_F_FRAG\fP = (1 << 0), \fBIP6_FH_F_AUTH\fP = (1 << 1), \fBIP6_FH_F_SKIP_RH\fP = (1 << 2) }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBrpl_ipv6_find_hdr\fP (const struct sk_buff *skb, unsigned int *offset, int \fBtarget\fP, unsigned short *fragoff, int *fragflg)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define ipv6_find_hdr   \fBrpl_ipv6_find_hdr\fP"
+
+.SS "#define NEXTHDR_SCTP   132 /* Stream Control Transport Protocol */"
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "anonymous enum"
+
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIIP6_FH_F_FRAG \fP\fP
+.TP
+\fB\fIIP6_FH_F_AUTH \fP\fP
+.TP
+\fB\fIIP6_FH_F_SKIP_RH \fP\fP
+.PP
+.nf
+20      {
+21     IP6_FH_F_FRAG           = (1 << 0),
+22     IP6_FH_F_AUTH           = (1 << 1),
+23     IP6_FH_F_SKIP_RH        = (1 << 2),
+24 };
+.fi
+.SH "Function Documentation"
+.PP 
+.SS "int rpl_ipv6_find_hdr (const struct sk_buff * skb, unsigned int * offset, int target, unsigned short * fragoff, int * fragflg)"
+
+.PP
+.nf
+80 {
+81     unsigned int start = skb_network_offset(skb) + sizeof(struct ipv6hdr);
+82     u8 nexthdr = ipv6_hdr(skb)->nexthdr;
+83     unsigned int len;
+84     bool found;
+85 
+86     if (fragoff)
+87         *fragoff = 0;
+88 
+89     if (*offset) {
+90         struct ipv6hdr _ip6, *ip6;
+91 
+92         ip6 = skb_header_pointer(skb, *offset, sizeof(_ip6), &_ip6);
+93         if (!ip6 || (ip6->version != 6)) {
+94             printk(KERN_ERR "IPv6 header not found\n");
+95             return -EBADMSG;
+96         }
+97         start = *offset + sizeof(struct ipv6hdr);
+98         nexthdr = ip6->nexthdr;
+99     }
+100     len = skb->len - start;
+101 
+102     do {
+103         struct ipv6_opt_hdr _hdr, *hp;
+104         unsigned int hdrlen;
+105         found = (nexthdr == target);
+106 
+107         if ((!ipv6_ext_hdr(nexthdr)) || nexthdr == NEXTHDR_NONE) {
+108             if (target < 0 || found)
+109                 break;
+110             return -ENOENT;
+111         }
+112 
+113         hp = skb_header_pointer(skb, start, sizeof(_hdr), &_hdr);
+114         if (hp == NULL)
+115             return -EBADMSG;
+116 
+117         if (nexthdr == NEXTHDR_ROUTING) {
+118             struct ipv6_rt_hdr _rh, *rh;
+119 
+120             rh = skb_header_pointer(skb, start, sizeof(_rh),
+121                         &_rh);
+122             if (rh == NULL)
+123                 return -EBADMSG;
+124 
+125             if (flags && (*flags & IP6_FH_F_SKIP_RH) &&
+126                 rh->segments_left == 0)
+127                 found = false;
+128         }
+129 
+130         if (nexthdr == NEXTHDR_FRAGMENT) {
+131             unsigned short _frag_off;
+132             __be16 *fp;
+133 
+134             if (flags)  /* Indicate that this is a fragment */
+135                 *flags |= IP6_FH_F_FRAG;
+136             fp = skb_header_pointer(skb,
+137                         start+offsetof(struct frag_hdr,
+138                                    frag_off),
+139                         sizeof(_frag_off),
+140                         &_frag_off);
+141             if (fp == NULL)
+142                 return -EBADMSG;
+143 
+144             _frag_off = ntohs(*fp) & ~0x7;
+145             if (_frag_off) {
+146                 if (target < 0 &&
+147                     ((!ipv6_ext_hdr(hp->nexthdr)) ||
+148                      hp->nexthdr == NEXTHDR_NONE)) {
+149                     if (fragoff)
+150                         *fragoff = _frag_off;
+151                     return hp->nexthdr;
+152                 }
+153                 return -ENOENT;
+154             }
+155             hdrlen = 8;
+156         } else if (nexthdr == NEXTHDR_AUTH) {
+157             if (flags && (*flags & IP6_FH_F_AUTH) && (target < 0))
+158                 break;
+159             hdrlen = (hp->hdrlen + 2) << 2;
+160         } else
+161             hdrlen = ipv6_optlen(hp);
+162 
+163         if (!found) {
+164             nexthdr = hp->nexthdr;
+165             len -= hdrlen;
+166             start += hdrlen;
+167         }
+168     } while (!found);
+169 
+170     *offset = start;
+171     return nexthdr;
+172 }
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for ovs datapath from the source code\&.

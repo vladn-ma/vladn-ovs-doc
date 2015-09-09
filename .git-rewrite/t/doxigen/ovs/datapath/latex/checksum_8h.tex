@@ -1,0 +1,78 @@
+\hypertarget{checksum_8h}{}\section{/home/vladn/git/ovs/datapath/linux/compat/include/net/checksum.h File Reference}
+\label{checksum_8h}\index{/home/vladn/git/ovs/datapath/linux/compat/include/net/checksum.\+h@{/home/vladn/git/ovs/datapath/linux/compat/include/net/checksum.\+h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{checksum_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{checksum_8h_a444eeba1f6868a156bcc975cd9963d63}{C\+S\+U\+M\+\_\+\+M\+A\+N\+G\+L\+E\+D\+\_\+0}~((\+\_\+\+\_\+force \hyperlink{types_8h_a2fdf5566d289d6941c29db084139bf23}{\+\_\+\+\_\+sum16})0xffff)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{types_8h_a8970faa9ec4200c98293ac50174b9206}{\+\_\+\+\_\+wsum} \hyperlink{checksum_8h_a7e0ce07267975cfe616d4a5f0d87fab3}{csum\+\_\+unfold} (\hyperlink{types_8h_a2fdf5566d289d6941c29db084139bf23}{\+\_\+\+\_\+sum16} n)
+\item 
+static void \hyperlink{checksum_8h_a8e4c2c7fc508ab5d920ccf1a98fdc994}{csum\+\_\+replace4} (\hyperlink{types_8h_a2fdf5566d289d6941c29db084139bf23}{\+\_\+\+\_\+sum16} $\ast$sum, \+\_\+\+\_\+be32 from, \+\_\+\+\_\+be32 to)
+\item 
+static void \hyperlink{checksum_8h_a6b7d0090986216d5d63445f71c93df7f}{csum\+\_\+replace2} (\hyperlink{types_8h_a2fdf5566d289d6941c29db084139bf23}{\+\_\+\+\_\+sum16} $\ast$sum, \+\_\+\+\_\+be16 from, \+\_\+\+\_\+be16 to)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{checksum_8h_a444eeba1f6868a156bcc975cd9963d63}{}\index{checksum.\+h@{checksum.\+h}!C\+S\+U\+M\+\_\+\+M\+A\+N\+G\+L\+E\+D\+\_\+0@{C\+S\+U\+M\+\_\+\+M\+A\+N\+G\+L\+E\+D\+\_\+0}}
+\index{C\+S\+U\+M\+\_\+\+M\+A\+N\+G\+L\+E\+D\+\_\+0@{C\+S\+U\+M\+\_\+\+M\+A\+N\+G\+L\+E\+D\+\_\+0}!checksum.\+h@{checksum.\+h}}
+\subsubsection[{C\+S\+U\+M\+\_\+\+M\+A\+N\+G\+L\+E\+D\+\_\+0}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+S\+U\+M\+\_\+\+M\+A\+N\+G\+L\+E\+D\+\_\+0~((\+\_\+\+\_\+force {\bf \+\_\+\+\_\+sum16})0xffff)}\label{checksum_8h_a444eeba1f6868a156bcc975cd9963d63}
+
+
+\subsection{Function Documentation}
+\hypertarget{checksum_8h_a6b7d0090986216d5d63445f71c93df7f}{}\index{checksum.\+h@{checksum.\+h}!csum\+\_\+replace2@{csum\+\_\+replace2}}
+\index{csum\+\_\+replace2@{csum\+\_\+replace2}!checksum.\+h@{checksum.\+h}}
+\subsubsection[{csum\+\_\+replace2}]{\setlength{\rightskip}{0pt plus 5cm}static void csum\+\_\+replace2 (
+\begin{DoxyParamCaption}
+\item[{{\bf \+\_\+\+\_\+sum16} $\ast$}]{sum, }
+\item[{\+\_\+\+\_\+be16}]{from, }
+\item[{\+\_\+\+\_\+be16}]{to}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{checksum_8h_a6b7d0090986216d5d63445f71c93df7f}
+
+\begin{DoxyCode}
+30 \{
+31     \hyperlink{checksum_8h_a8e4c2c7fc508ab5d920ccf1a98fdc994}{csum\_replace4}(sum, (\_\_force \_\_be32)from, (\_\_force \_\_be32)to);
+32 \}
+\end{DoxyCode}
+\hypertarget{checksum_8h_a8e4c2c7fc508ab5d920ccf1a98fdc994}{}\index{checksum.\+h@{checksum.\+h}!csum\+\_\+replace4@{csum\+\_\+replace4}}
+\index{csum\+\_\+replace4@{csum\+\_\+replace4}!checksum.\+h@{checksum.\+h}}
+\subsubsection[{csum\+\_\+replace4}]{\setlength{\rightskip}{0pt plus 5cm}static void csum\+\_\+replace4 (
+\begin{DoxyParamCaption}
+\item[{{\bf \+\_\+\+\_\+sum16} $\ast$}]{sum, }
+\item[{\+\_\+\+\_\+be32}]{from, }
+\item[{\+\_\+\+\_\+be32}]{to}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{checksum_8h_a8e4c2c7fc508ab5d920ccf1a98fdc994}
+
+\begin{DoxyCode}
+23 \{
+24     \_\_be32 diff[] = \{ ~from, to \};
+25 
+26     *sum = csum\_fold(csum\_partial((\textcolor{keywordtype}{char} *)diff, \textcolor{keyword}{sizeof}(diff), ~\hyperlink{checksum_8h_a7e0ce07267975cfe616d4a5f0d87fab3}{csum\_unfold}(*sum)));
+27 \}
+\end{DoxyCode}
+\hypertarget{checksum_8h_a7e0ce07267975cfe616d4a5f0d87fab3}{}\index{checksum.\+h@{checksum.\+h}!csum\+\_\+unfold@{csum\+\_\+unfold}}
+\index{csum\+\_\+unfold@{csum\+\_\+unfold}!checksum.\+h@{checksum.\+h}}
+\subsubsection[{csum\+\_\+unfold}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf \+\_\+\+\_\+wsum} csum\+\_\+unfold (
+\begin{DoxyParamCaption}
+\item[{{\bf \+\_\+\+\_\+sum16}}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\label{checksum_8h_a7e0ce07267975cfe616d4a5f0d87fab3}
+
+\begin{DoxyCode}
+8 \{
+9     \textcolor{keywordflow}{return} (\_\_force \hyperlink{types_8h_a8970faa9ec4200c98293ac50174b9206}{\_\_wsum})n;
+10 \}
+\end{DoxyCode}

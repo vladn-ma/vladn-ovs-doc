@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="structovs__action__push__mpls">
+<title>ovs_action_push_mpls struct Reference</title>
+<para>
+    <programlisting>#include <link linkend="openvswitch_8h">&lt;openvswitch.h&gt;</link></programlisting>
+</para>
+<para>Inheritance diagram for ovs_action_push_mpls</para>
+<para>
+    <figure>
+        <title>Inheritance graph</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="structovs__action__push__mpls__inherit__graph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Collaboration diagram for ovs_action_push_mpls</para>
+<para>
+    <figure>
+        <title>Collaboration graph</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="structovs__action__push__mpls__coll__graph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Data Fields</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>__be32 mpls_lse</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>__be16 mpls_ethertype</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <simplesect>
+            <title>Detailed Description</title>
+
+<para>struct <link linkend="structovs__action__push__mpls">ovs_action_push_mpls</link> - OVS_ACTION_ATTR_PUSH_MPLS action argument. : MPLS label stack entry to push. : Ethertype to set in the encapsulating ethernet frame.</para>
+
+<para>The only values  should ever be given are ETH_P_MPLS_UC and ETH_P_MPLS_MC, indicating MPLS unicast or multicast. Other are rejected. </para>
+                <para>Definition at line 581 of file openvswitch.h</para>
+                <para>The Documentation for this struct was generated from the following file: </para>
+                <para><itemizedlist><listitem><para>openvswitch.h</para></listitem></itemizedlist></para>
+        </simplesect>
+        <section>
+            <title>Field Documentation</title>
+        </section>
+</section>

@@ -1,0 +1,58 @@
+#!/bin/bash
+
+##############################################################
+SRC_LRP=g2p3.lrp2
+ASM_OPT='-cb -w 0x2e = 62015,62016'
+
+##############################################################
+#ASM_1=~/views/vtest/1.157/fe2k-tools/src/asm2/fe2k-asm2
+#DASM_1=~/views/vtest/1.157/fe2k-tools/src/disasm/fe2k-disasm
+
+ASM_1=/tools/sbx/fe2k-tools/1.157/linux.x86_64/2.2/bin/fe2k-asm2
+DASM_1=/tools/sbx/fe2k-tools/1.157/linux.x86_64/2.2/bin/fe2k-disasm
+
+PKG_1=pkg_1.pkg
+POST_ASM_1=post_1.lrp
+POST_DASM_1=dasm_1.lrp
+
+##############################################################
+#ASM_2=~/views/vtest/fe2k-tools/src/asm2/fe2k-asm2
+#DASM_2=~/views/vtest/fe2k-tools/src/disasm/fe2k-disasm
+
+ASM_2=/tools/sbx/fe2k-tools/1.162/linux.x86_64/2.2/bin/fe2k-asm2
+#DASM_2=/tools/sbx/fe2k-tools/1.162/linux.x86_64/2.2/bin/fe2k-disasm
+DASM_2=$DASM_1
+
+PKG_2=pkg_2.pkg
+POST_ASM_2=post_2.lrp
+POST_DASM_2=dasm_2.lrp
+
+
+#------------------------------------------------------------#
+rm -f $PKG_1 $POST_ASM_1 $POST_DASM_1
+
+echo run $ASM1 on source file $SRC_LRP
+$ASM_1 $ASM_OPT -a $SRC_LRP -2b $PKG_1 -o $POST_ASM_1
+
+echo
+echo run disasm on the bin file $PKG_1
+$DASM_1 -i $PKG_1 > $POST_DASM_1 
+
+#------------------------------------------------------------#
+rm -f $PKG_2 $POST_ASM_2 $POST_DASM_2
+
+echo run $ASM2 on source file $SRC_LRP
+$ASM_2 $ASM_OPT -a $SRC_LRP -2b $PKG_2 -o $POST_ASM_2
+
+echo
+echo run disasm on the bin file $PKG_2
+$DASM_2 -i $PKG_2 > $POST_DASM_2 
+
+#------------------------------------------------------------#
+tkdiff $POST_DASM_1 $POST_DASM_2
+
+ 
+
+
+
+

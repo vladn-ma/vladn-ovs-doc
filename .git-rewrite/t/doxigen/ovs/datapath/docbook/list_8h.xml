@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="list_8h">
+    <title>list.h File Reference</title>
+<para>Include dependency diagram for list.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="list_8h__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for list.h</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="list_8h__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="list_8h_1a9aba32f6dc43ee54db1eebd61df58fb0">hlist_entry_safe</link> ({ typeof(ptr) ____ptr = (ptr); \
+	 ____ptr ? hlist_entry(____ptr, <link linkend="flow_8h_1ab22aaab04f806700def00f32823fcb9e">type</link>, member) : NULL; \
+	 })</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="list_8h_1a3782c1eea66f5cacadce6e0175e4650a">hlist_for_each_entry</link> for (pos = <link linkend="list_8h_1a9aba32f6dc43ee54db1eebd61df58fb0">hlist_entry_safe</link>((head)-&gt;first, typeof(*(pos)), member);\
+	     pos;							\
+	     pos = <link linkend="list_8h_1a9aba32f6dc43ee54db1eebd61df58fb0">hlist_entry_safe</link>((pos)-&gt;member.next, typeof(*(pos)), member))</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="list_8h_1ae2f7dd7dbbe2f13fa51aca9fcb31a03f">hlist_for_each_entry_safe</link> for (pos = <link linkend="list_8h_1a9aba32f6dc43ee54db1eebd61df58fb0">hlist_entry_safe</link>((head)-&gt;first, typeof(*pos), member);\
+	     pos &amp;&amp; ({ n = pos-&gt;member.next; 1; });			\
+	     pos = <link linkend="list_8h_1a9aba32f6dc43ee54db1eebd61df58fb0">hlist_entry_safe</link>(n, typeof(*pos), member))</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/compat/include/linux/list.h</para>
+    </simplesect>
+</section>

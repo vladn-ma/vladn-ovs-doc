@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="linux_2flow_8c">
+    <title>flow.c File Reference</title>
+    <programlisting>#include &lt;linux/uaccess.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/netdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/etherdevice.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_ether.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_vlan.h&gt;</programlisting>
+    <programlisting>#include &lt;net/llc_pdu.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/kernel.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/jhash.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/jiffies.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/llc.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/module.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/in.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rcupdate.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/if_arp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/ipv6.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/mpls.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/sctp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/smp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/tcp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/udp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/icmp.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/icmpv6.h&gt;</programlisting>
+    <programlisting>#include &lt;linux/rculist.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ip.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ipv6.h&gt;</programlisting>
+    <programlisting>#include &lt;net/mpls.h&gt;</programlisting>
+    <programlisting>#include &lt;net/ndisc.h&gt;</programlisting>
+    <programlisting>#include &quot;datapath.h&quot;</programlisting>
+    <programlisting>#include &quot;flow.h&quot;</programlisting>
+    <programlisting>#include &quot;flow_netlink.h&quot;</programlisting>
+    <programlisting>#include &quot;vlan.h&quot;</programlisting>
+<para>Include dependency diagram for flow.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2flow_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+<para>Included by dependency diagram for flow.c</para>
+<para>
+    <figure>
+        <title>Dependency diagram</title>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="1" fileref="linux_2flow_8c__dep__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </figure>
+</para>
+        <section>
+            <title>Macros</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                            <para>#define <link linkend="linux_2flow_8c_1a1244774ec23560204eceaae557eff6d1">TCP_FLAGS_BE16</link> (*(__be16 *)&amp;tcp_flag_word(<link linkend="flow_8h_1ad44c86ae49f219522bcd4fb2744b81b2">tp</link>) &amp; htons(0x0FFF))</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        <section>
+            <title>Functions</title>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>u64 <link linkend="linux_2flow_8c_1adfdcc779325fc169a793acda2e32a46b">ovs_flow_used_time</link> (
+unsigned long flow_jiffies)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2flow_8c_1ad20885fb9e6da56eb9cb58d139281916">ovs_flow_stats_update</link> (
+struct <link linkend="structsw__flow">sw_flow</link> * flow, __be16 tcp_flags, const struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2flow_8c_1a03636247cfc74747632c000eec0919db">ovs_flow_stats_get</link> (
+const struct <link linkend="structsw__flow">sw_flow</link> * flow, struct <link linkend="structovs__flow__stats">ovs_flow_stats</link> * ovs_stats, unsigned long * used, __be16 * tcp_flags)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>void <link linkend="linux_2flow_8c_1a8dfa7ecd72ff9237664d0c402ff3f543">ovs_flow_stats_clear</link> (
+struct <link linkend="structsw__flow">sw_flow</link> * flow)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow_8c_1a51976bbff11a171b00faaffd004ba963">check_header</link> (
+struct sk_buff * skb, int len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow_8c_1ad6e91741b7e2a5ad174d0d9c899887b6">arphdr_ok</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow_8c_1ac23e11b5fa6e9068412b23f6388ae2df">check_iphdr</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow_8c_1a71815483a340e9bab0bbcbc52537cfb5">tcphdr_ok</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow_8c_1a354e4e351441e305c10a030f9d1dab7f">udphdr_ok</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow_8c_1a235207174d62d682354a73e4b43a4ee2">sctphdr_ok</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow_8c_1ac87d76f166f066dd4a2c9bc729702ab6">icmphdr_ok</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow_8c_1aae5a88c529fa6e31de896e40c546ec90">parse_ipv6hdr</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> <link linkend="linux_2flow_8c_1a4191de70201a777f1ac4e71fc5c24d17">icmp6hdr_ok</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow_8c_1aab1dd840cacc7b21ee01cb885171d60d">parse_vlan</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static __be16 <link linkend="linux_2flow_8c_1a8f4a5415b9d6b2be7aef9e3749e65908">parse_ethertype</link> (
+struct sk_buff * skb)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow_8c_1a0b01cb308f20bbfe4348b6ef1b27a65d">parse_icmpv6</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, int nh_len)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>static int <link linkend="linux_2flow_8c_1af69403050accb2489f73d37b528aa9c4">key_extract</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow_8c_1a7d27b3745046ced4859b9fa615e27543">ovs_flow_key_update</link> (
+struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow_8c_1a88b5c281d297950115033a17dbce5208">ovs_flow_key_extract</link> (
+const struct <link linkend="structovs__tunnel__info">ovs_tunnel_info</link> * tun_info, struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+            <para>
+                <itemizedlist>
+                    <listitem>
+                        <para>int <link linkend="linux_2flow_8c_1a5e042238993a5a8a8a8b3472cb274ead">ovs_flow_key_extract_userspace</link> (
+const struct nlattr * attr, struct sk_buff * skb, struct <link linkend="structsw__flow__key">sw_flow_key</link> * key, <link linkend="types_8h_1afaa87723b8417d40fcf45b7330261ef9">bool</link> log)</para>
+                    </listitem>
+                </itemizedlist>
+            </para>
+        </section>
+    <simplesect>
+        <title>Detailed Description</title>
+    <para>Definition in file /home/vladn/git/ovs/datapath/linux/flow.c</para>
+    </simplesect>
+</section>
